@@ -1,0 +1,2885 @@
+{
+  "summary": {
+    "total_draws": 359,
+    "exact_matches": 0,
+    "exact_match_rate": 0.0,
+    "average_digit_hits": 2.29,
+    "average_position_hits": 0.63,
+    "accuracy_score": 3766.67,
+    "run_time": "2026-03-14T04:12:18.433644"
+  },
+  "details": [
+    {
+      "predicted": "116026",
+      "actual": "656037",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 3,
+      "date": "2011-03-01"
+    },
+    {
+      "predicted": "092282",
+      "actual": "593331",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2011-03-16"
+    },
+    {
+      "predicted": "988484",
+      "actual": "814931",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2011-04-01"
+    },
+    {
+      "predicted": "820923",
+      "actual": "825988",
+      "exact_match": false,
+      "position_hits": 3,
+      "digit_hits": 3,
+      "date": "2011-04-16"
+    },
+    {
+      "predicted": "219908",
+      "actual": "054136",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2011-05-02"
+    },
+    {
+      "predicted": "428822",
+      "actual": "406417",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2011-05-16"
+    },
+    {
+      "predicted": "845523",
+      "actual": "562370",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2011-06-01"
+    },
+    {
+      "predicted": "663933",
+      "actual": "351276",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2011-06-16"
+    },
+    {
+      "predicted": "835752",
+      "actual": "622953",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2011-07-01"
+    },
+    {
+      "predicted": "696737",
+      "actual": "116556",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2011-07-16"
+    },
+    {
+      "predicted": "960608",
+      "actual": "218756",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2011-08-01"
+    },
+    {
+      "predicted": "083701",
+      "actual": "536960",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2011-08-16"
+    },
+    {
+      "predicted": "276582",
+      "actual": "724533",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2011-09-01"
+    },
+    {
+      "predicted": "752779",
+      "actual": "731198",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2011-09-16"
+    },
+    {
+      "predicted": "629679",
+      "actual": "511052",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2011-10-01"
+    },
+    {
+      "predicted": "708411",
+      "actual": "955756",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2011-10-16"
+    },
+    {
+      "predicted": "164172",
+      "actual": "805540",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2011-11-01"
+    },
+    {
+      "predicted": "900530",
+      "actual": "997777",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2011-11-16"
+    },
+    {
+      "predicted": "352128",
+      "actual": "408147",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2011-12-01"
+    },
+    {
+      "predicted": "068941",
+      "actual": "884178",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2011-12-16"
+    },
+    {
+      "predicted": "784398",
+      "actual": "526402",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2011-12-30"
+    },
+    {
+      "predicted": "331147",
+      "actual": "451445",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 2,
+      "date": "2012-01-16"
+    },
+    {
+      "predicted": "052317",
+      "actual": "320605",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 4,
+      "date": "2012-02-01"
+    },
+    {
+      "predicted": "959236",
+      "actual": "648684",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2012-02-16"
+    },
+    {
+      "predicted": "308871",
+      "actual": "222518",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2012-03-01"
+    },
+    {
+      "predicted": "924530",
+      "actual": "607064",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2012-03-16"
+    },
+    {
+      "predicted": "154802",
+      "actual": "257562",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 2,
+      "date": "2012-04-01"
+    },
+    {
+      "predicted": "815531",
+      "actual": "583470",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2012-04-16"
+    },
+    {
+      "predicted": "567907",
+      "actual": "889501",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2012-05-02"
+    },
+    {
+      "predicted": "851159",
+      "actual": "814418",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2012-05-16"
+    },
+    {
+      "predicted": "000608",
+      "actual": "882727",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2012-06-01"
+    },
+    {
+      "predicted": "546597",
+      "actual": "159373",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2012-06-16"
+    },
+    {
+      "predicted": "460170",
+      "actual": "915900",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2012-07-01"
+    },
+    {
+      "predicted": "326933",
+      "actual": "904050",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2012-07-16"
+    },
+    {
+      "predicted": "654811",
+      "actual": "895590",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2012-08-01"
+    },
+    {
+      "predicted": "996879",
+      "actual": "683877",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 3,
+      "date": "2012-08-16"
+    },
+    {
+      "predicted": "835677",
+      "actual": "329997",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2012-09-01"
+    },
+    {
+      "predicted": "436227",
+      "actual": "540143",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2012-09-16"
+    },
+    {
+      "predicted": "378532",
+      "actual": "124025",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2012-10-01"
+    },
+    {
+      "predicted": "553302",
+      "actual": "281343",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2012-10-16"
+    },
+    {
+      "predicted": "809801",
+      "actual": "524694",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2012-11-01"
+    },
+    {
+      "predicted": "879888",
+      "actual": "639500",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2012-11-16"
+    },
+    {
+      "predicted": "033718",
+      "actual": "110443",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2012-12-01"
+    },
+    {
+      "predicted": "580766",
+      "actual": "529524",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2012-12-16"
+    },
+    {
+      "predicted": "569753",
+      "actual": "302358",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2012-12-30"
+    },
+    {
+      "predicted": "312634",
+      "actual": "820981",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2013-01-16"
+    },
+    {
+      "predicted": "478214",
+      "actual": "565566",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 0,
+      "date": "2013-02-01"
+    },
+    {
+      "predicted": "414456",
+      "actual": "368257",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2013-02-16"
+    },
+    {
+      "predicted": "385616",
+      "actual": "976241",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2013-03-01"
+    },
+    {
+      "predicted": "152990",
+      "actual": "968433",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2013-03-16"
+    },
+    {
+      "predicted": "063311",
+      "actual": "571688",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2013-04-01"
+    },
+    {
+      "predicted": "891757",
+      "actual": "843846",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2013-04-16"
+    },
+    {
+      "predicted": "297640",
+      "actual": "603458",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2013-05-02"
+    },
+    {
+      "predicted": "910767",
+      "actual": "687125",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2013-05-16"
+    },
+    {
+      "predicted": "935851",
+      "actual": "935489",
+      "exact_match": false,
+      "position_hits": 3,
+      "digit_hits": 4,
+      "date": "2013-06-01"
+    },
+    {
+      "predicted": "067567",
+      "actual": "289673",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2013-06-16"
+    },
+    {
+      "predicted": "371315",
+      "actual": "646905",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2013-07-01"
+    },
+    {
+      "predicted": "081893",
+      "actual": "566996",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2013-07-16"
+    },
+    {
+      "predicted": "951910",
+      "actual": "356435",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2013-08-01"
+    },
+    {
+      "predicted": "170778",
+      "actual": "321327",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2013-08-16"
+    },
+    {
+      "predicted": "383606",
+      "actual": "548123",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2013-09-01"
+    },
+    {
+      "predicted": "022292",
+      "actual": "562684",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2013-09-16"
+    },
+    {
+      "predicted": "577500",
+      "actual": "647882",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2013-10-01"
+    },
+    {
+      "predicted": "680969",
+      "actual": "963289",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 4,
+      "date": "2013-10-16"
+    },
+    {
+      "predicted": "004137",
+      "actual": "739804",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 4,
+      "date": "2013-11-01"
+    },
+    {
+      "predicted": "468208",
+      "actual": "806925",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 4,
+      "date": "2013-11-16"
+    },
+    {
+      "predicted": "313984",
+      "actual": "168795",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2013-12-01"
+    },
+    {
+      "predicted": "243480",
+      "actual": "341767",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2013-12-16"
+    },
+    {
+      "predicted": "994577",
+      "actual": "561072",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2013-12-30"
+    },
+    {
+      "predicted": "027310",
+      "actual": "306902",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 4,
+      "date": "2014-01-16"
+    },
+    {
+      "predicted": "788587",
+      "actual": "180149",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2014-02-01"
+    },
+    {
+      "predicted": "549605",
+      "actual": "384245",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2014-02-16"
+    },
+    {
+      "predicted": "107554",
+      "actual": "906318",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2014-03-01"
+    },
+    {
+      "predicted": "961499",
+      "actual": "531404",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 2,
+      "date": "2014-03-16"
+    },
+    {
+      "predicted": "413118",
+      "actual": "028866",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2014-04-01"
+    },
+    {
+      "predicted": "642830",
+      "actual": "153406",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 4,
+      "date": "2014-04-16"
+    },
+    {
+      "predicted": "710467",
+      "actual": "103297",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2014-05-02"
+    },
+    {
+      "predicted": "000289",
+      "actual": "087523",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2014-05-16"
+    },
+    {
+      "predicted": "909237",
+      "actual": "781198",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2014-06-01"
+    },
+    {
+      "predicted": "471217",
+      "actual": "673920",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2014-06-16"
+    },
+    {
+      "predicted": "490490",
+      "actual": "378477",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2014-07-01"
+    },
+    {
+      "predicted": "662153",
+      "actual": "468728",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2014-07-16"
+    },
+    {
+      "predicted": "408015",
+      "actual": "766391",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2014-08-01"
+    },
+    {
+      "predicted": "779361",
+      "actual": "662842",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2014-08-16"
+    },
+    {
+      "predicted": "291645",
+      "actual": "856763",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2014-09-01"
+    },
+    {
+      "predicted": "195224",
+      "actual": "772269",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2014-09-16"
+    },
+    {
+      "predicted": "484805",
+      "actual": "375615",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2014-10-01"
+    },
+    {
+      "predicted": "404135",
+      "actual": "656409",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2014-10-16"
+    },
+    {
+      "predicted": "283175",
+      "actual": "206608",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2014-11-01"
+    },
+    {
+      "predicted": "985036",
+      "actual": "479804",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2014-11-16"
+    },
+    {
+      "predicted": "880671",
+      "actual": "480449",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 2,
+      "date": "2014-12-01"
+    },
+    {
+      "predicted": "093527",
+      "actual": "948354",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2014-12-16"
+    },
+    {
+      "predicted": "844950",
+      "actual": "461704",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2014-12-30"
+    },
+    {
+      "predicted": "395765",
+      "actual": "244351",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2015-01-16"
+    },
+    {
+      "predicted": "526481",
+      "actual": "155537",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2015-02-01"
+    },
+    {
+      "predicted": "098444",
+      "actual": "001864",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 3,
+      "date": "2015-02-16"
+    },
+    {
+      "predicted": "262699",
+      "actual": "240237",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2015-03-01"
+    },
+    {
+      "predicted": "583677",
+      "actual": "048151",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2015-03-16"
+    },
+    {
+      "predicted": "940346",
+      "actual": "570444",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 3,
+      "date": "2015-04-01"
+    },
+    {
+      "predicted": "341535",
+      "actual": "506260",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2015-04-16"
+    },
+    {
+      "predicted": "483723",
+      "actual": "543466",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2015-05-02"
+    },
+    {
+      "predicted": "630939",
+      "actual": "011421",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2015-05-16"
+    },
+    {
+      "predicted": "278013",
+      "actual": "388811",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 3,
+      "date": "2015-06-02"
+    },
+    {
+      "predicted": "683005",
+      "actual": "644742",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2015-06-16"
+    },
+    {
+      "predicted": "260642",
+      "actual": "759049",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2015-07-01"
+    },
+    {
+      "predicted": "947911",
+      "actual": "121507",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2015-07-16"
+    },
+    {
+      "predicted": "541887",
+      "actual": "518677",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 4,
+      "date": "2015-08-01"
+    },
+    {
+      "predicted": "448093",
+      "actual": "033363",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2015-08-16"
+    },
+    {
+      "predicted": "361343",
+      "actual": "021094",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2015-09-01"
+    },
+    {
+      "predicted": "275233",
+      "actual": "743148",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2015-09-16"
+    },
+    {
+      "predicted": "085098",
+      "actual": "594825",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2015-10-01"
+    },
+    {
+      "predicted": "886760",
+      "actual": "968630",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 4,
+      "date": "2015-10-16"
+    },
+    {
+      "predicted": "054830",
+      "actual": "361211",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2015-11-01"
+    },
+    {
+      "predicted": "834564",
+      "actual": "795283",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2015-11-16"
+    },
+    {
+      "predicted": "131248",
+      "actual": "915350",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2015-12-01"
+    },
+    {
+      "predicted": "273269",
+      "actual": "930255",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2015-12-17"
+    },
+    {
+      "predicted": "492110",
+      "actual": "008217",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2015-12-30"
+    },
+    {
+      "predicted": "103772",
+      "actual": "304371",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 4,
+      "date": "2016-01-17"
+    },
+    {
+      "predicted": "177306",
+      "actual": "927800",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 2,
+      "date": "2016-02-01"
+    },
+    {
+      "predicted": "941088",
+      "actual": "356364",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2016-02-16"
+    },
+    {
+      "predicted": "469955",
+      "actual": "439686",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 3,
+      "date": "2016-03-01"
+    },
+    {
+      "predicted": "112950",
+      "actual": "134918",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 3,
+      "date": "2016-03-16"
+    },
+    {
+      "predicted": "584372",
+      "actual": "066720",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2016-04-01"
+    },
+    {
+      "predicted": "792831",
+      "actual": "221609",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2016-04-16"
+    },
+    {
+      "predicted": "695253",
+      "actual": "399459",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 3,
+      "date": "2016-05-02"
+    },
+    {
+      "predicted": "507031",
+      "actual": "141737",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2016-05-16"
+    },
+    {
+      "predicted": "509440",
+      "actual": "511825",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2016-06-01"
+    },
+    {
+      "predicted": "419279",
+      "actual": "073816",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2016-06-16"
+    },
+    {
+      "predicted": "200235",
+      "actual": "082460",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2016-07-01"
+    },
+    {
+      "predicted": "227364",
+      "actual": "449764",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 3,
+      "date": "2016-07-16"
+    },
+    {
+      "predicted": "060217",
+      "actual": "272932",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2016-08-01"
+    },
+    {
+      "predicted": "056725",
+      "actual": "254004",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2016-08-16"
+    },
+    {
+      "predicted": "678275",
+      "actual": "638684",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 2,
+      "date": "2016-09-01"
+    },
+    {
+      "predicted": "682656",
+      "actual": "240650",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 3,
+      "date": "2016-09-16"
+    },
+    {
+      "predicted": "687400",
+      "actual": "887102",
+      "exact_match": false,
+      "position_hits": 3,
+      "digit_hits": 3,
+      "date": "2016-10-01"
+    },
+    {
+      "predicted": "077874",
+      "actual": "571947",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2016-10-16"
+    },
+    {
+      "predicted": "923154",
+      "actual": "785438",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2016-11-01"
+    },
+    {
+      "predicted": "734921",
+      "actual": "858383",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2016-11-16"
+    },
+    {
+      "predicted": "188001",
+      "actual": "086069",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 3,
+      "date": "2016-12-01"
+    },
+    {
+      "predicted": "771863",
+      "actual": "435286",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2016-12-16"
+    },
+    {
+      "predicted": "307865",
+      "actual": "377712",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 2,
+      "date": "2016-12-30"
+    },
+    {
+      "predicted": "721879",
+      "actual": "145157",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2017-01-17"
+    },
+    {
+      "predicted": "838654",
+      "actual": "054672",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2017-02-01"
+    },
+    {
+      "predicted": "598382",
+      "actual": "229116",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2017-02-16"
+    },
+    {
+      "predicted": "859817",
+      "actual": "978453",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 4,
+      "date": "2017-03-01"
+    },
+    {
+      "predicted": "074488",
+      "actual": "273863",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2017-03-16"
+    },
+    {
+      "predicted": "537965",
+      "actual": "392785",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 4,
+      "date": "2017-04-01"
+    },
+    {
+      "predicted": "210097",
+      "actual": "816729",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 4,
+      "date": "2017-04-16"
+    },
+    {
+      "predicted": "290379",
+      "actual": "008656",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2017-05-02"
+    },
+    {
+      "predicted": "387724",
+      "actual": "454891",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2017-05-16"
+    },
+    {
+      "predicted": "916383",
+      "actual": "053630",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2017-06-01"
+    },
+    {
+      "predicted": "285953",
+      "actual": "943142",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2017-06-16"
+    },
+    {
+      "predicted": "968227",
+      "actual": "112360",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2017-07-01"
+    },
+    {
+      "predicted": "396299",
+      "actual": "820327",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2017-07-16"
+    },
+    {
+      "predicted": "472053",
+      "actual": "756519",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2017-08-01"
+    },
+    {
+      "predicted": "014680",
+      "actual": "715431",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2017-08-16"
+    },
+    {
+      "predicted": "043063",
+      "actual": "143224",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 2,
+      "date": "2017-09-01"
+    },
+    {
+      "predicted": "909880",
+      "actual": "170143",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2017-09-16"
+    },
+    {
+      "predicted": "784323",
+      "actual": "880714",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2017-10-01"
+    },
+    {
+      "predicted": "089271",
+      "actual": "413494",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2017-10-16"
+    },
+    {
+      "predicted": "992970",
+      "actual": "533726",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2017-11-01"
+    },
+    {
+      "predicted": "372089",
+      "actual": "292391",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2017-11-16"
+    },
+    {
+      "predicted": "537232",
+      "actual": "451005",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2017-12-01"
+    },
+    {
+      "predicted": "927952",
+      "actual": "955596",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2017-12-16"
+    },
+    {
+      "predicted": "327050",
+      "actual": "911234",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2017-12-30"
+    },
+    {
+      "predicted": "355134",
+      "actual": "203823",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2018-01-17"
+    },
+    {
+      "predicted": "853600",
+      "actual": "026853",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 5,
+      "date": "2018-02-01"
+    },
+    {
+      "predicted": "412297",
+      "actual": "309915",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2018-02-16"
+    },
+    {
+      "predicted": "956631",
+      "actual": "759415",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2018-03-02"
+    },
+    {
+      "predicted": "550858",
+      "actual": "218559",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2018-03-16"
+    },
+    {
+      "predicted": "302528",
+      "actual": "412073",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2018-04-01"
+    },
+    {
+      "predicted": "370071",
+      "actual": "739229",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2018-04-16"
+    },
+    {
+      "predicted": "799617",
+      "actual": "248038",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 0,
+      "date": "2018-05-02"
+    },
+    {
+      "predicted": "666388",
+      "actual": "075629",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2018-05-16"
+    },
+    {
+      "predicted": "356620",
+      "actual": "988117",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 0,
+      "date": "2018-06-01"
+    },
+    {
+      "predicted": "070799",
+      "actual": "223131",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 0,
+      "date": "2018-06-16"
+    },
+    {
+      "predicted": "421977",
+      "actual": "963623",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2018-07-01"
+    },
+    {
+      "predicted": "223247",
+      "actual": "596324",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2018-07-16"
+    },
+    {
+      "predicted": "072268",
+      "actual": "386602",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 4,
+      "date": "2018-08-01"
+    },
+    {
+      "predicted": "398283",
+      "actual": "586117",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2018-08-16"
+    },
+    {
+      "predicted": "204810",
+      "actual": "734510",
+      "exact_match": false,
+      "position_hits": 3,
+      "digit_hits": 3,
+      "date": "2018-09-01"
+    },
+    {
+      "predicted": "096352",
+      "actual": "149760",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2018-09-16"
+    },
+    {
+      "predicted": "722201",
+      "actual": "452643",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2018-10-01"
+    },
+    {
+      "predicted": "063833",
+      "actual": "200515",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2018-10-16"
+    },
+    {
+      "predicted": "344147",
+      "actual": "149840",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 3,
+      "date": "2018-11-01"
+    },
+    {
+      "predicted": "951652",
+      "actual": "989903",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2018-11-16"
+    },
+    {
+      "predicted": "601100",
+      "actual": "021840",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 3,
+      "date": "2018-12-01"
+    },
+    {
+      "predicted": "742906",
+      "actual": "356564",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2018-12-16"
+    },
+    {
+      "predicted": "390290",
+      "actual": "735867",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2018-12-30"
+    },
+    {
+      "predicted": "663330",
+      "actual": "197079",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2019-01-17"
+    },
+    {
+      "predicted": "266031",
+      "actual": "967134",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 3,
+      "date": "2019-02-01"
+    },
+    {
+      "predicted": "224810",
+      "actual": "074824",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 4,
+      "date": "2019-02-16"
+    },
+    {
+      "predicted": "945896",
+      "actual": "345650",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 3,
+      "date": "2019-03-01"
+    },
+    {
+      "predicted": "870504",
+      "actual": "724628",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2019-03-16"
+    },
+    {
+      "predicted": "187660",
+      "actual": "109767",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 4,
+      "date": "2019-04-01"
+    },
+    {
+      "predicted": "579811",
+      "actual": "570331",
+      "exact_match": false,
+      "position_hits": 3,
+      "digit_hits": 3,
+      "date": "2019-04-16"
+    },
+    {
+      "predicted": "293578",
+      "actual": "061324",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2019-05-02"
+    },
+    {
+      "predicted": "371151",
+      "actual": "962526",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2019-05-16"
+    },
+    {
+      "predicted": "058980",
+      "actual": "516461",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2019-06-01"
+    },
+    {
+      "predicted": "664227",
+      "actual": "174055",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2019-06-16"
+    },
+    {
+      "predicted": "170153",
+      "actual": "943647",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2019-07-01"
+    },
+    {
+      "predicted": "532005",
+      "actual": "369765",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2019-07-15"
+    },
+    {
+      "predicted": "924714",
+      "actual": "387006",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2019-08-01"
+    },
+    {
+      "predicted": "190482",
+      "actual": "775476",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2019-08-16"
+    },
+    {
+      "predicted": "701133",
+      "actual": "798787",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2019-09-01"
+    },
+    {
+      "predicted": "636148",
+      "actual": "340388",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2019-09-16"
+    },
+    {
+      "predicted": "836739",
+      "actual": "691197",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2019-10-01"
+    },
+    {
+      "predicted": "361280",
+      "actual": "812564",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 4,
+      "date": "2019-10-16"
+    },
+    {
+      "predicted": "997182",
+      "actual": "967375",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 2,
+      "date": "2019-11-01"
+    },
+    {
+      "predicted": "359648",
+      "actual": "017223",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2019-11-16"
+    },
+    {
+      "predicted": "689714",
+      "actual": "453522",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2019-12-01"
+    },
+    {
+      "predicted": "736779",
+      "actual": "529924",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2019-12-16"
+    },
+    {
+      "predicted": "362572",
+      "actual": "510541",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2019-12-30"
+    },
+    {
+      "predicted": "846459",
+      "actual": "491774",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2020-01-17"
+    },
+    {
+      "predicted": "262485",
+      "actual": "589227",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 4,
+      "date": "2020-02-01"
+    },
+    {
+      "predicted": "195651",
+      "actual": "781403",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2020-02-16"
+    },
+    {
+      "predicted": "581532",
+      "actual": "875938",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2020-03-01"
+    },
+    {
+      "predicted": "925181",
+      "actual": "503446",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2020-03-16"
+    },
+    {
+      "predicted": "549056",
+      "actual": "051095",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 4,
+      "date": "2020-05-16"
+    },
+    {
+      "predicted": "163594",
+      "actual": "831567",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 4,
+      "date": "2020-06-01"
+    },
+    {
+      "predicted": "426471",
+      "actual": "516967",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2020-06-16"
+    },
+    {
+      "predicted": "175148",
+      "actual": "347258",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 4,
+      "date": "2020-07-01"
+    },
+    {
+      "predicted": "864525",
+      "actual": "873286",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2020-07-16"
+    },
+    {
+      "predicted": "209132",
+      "actual": "569391",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2020-08-01"
+    },
+    {
+      "predicted": "158415",
+      "actual": "945811",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 5,
+      "date": "2020-08-16"
+    },
+    {
+      "predicted": "733798",
+      "actual": "999997",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2020-09-01"
+    },
+    {
+      "predicted": "374690",
+      "actual": "244083",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2020-09-16"
+    },
+    {
+      "predicted": "220566",
+      "actual": "837893",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 0,
+      "date": "2020-10-01"
+    },
+    {
+      "predicted": "398364",
+      "actual": "286051",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2020-10-16"
+    },
+    {
+      "predicted": "552053",
+      "actual": "506404",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2020-11-01"
+    },
+    {
+      "predicted": "600694",
+      "actual": "972661",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2020-11-16"
+    },
+    {
+      "predicted": "971605",
+      "actual": "100994",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2020-12-01"
+    },
+    {
+      "predicted": "616921",
+      "actual": "201303",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2020-12-16"
+    },
+    {
+      "predicted": "080571",
+      "actual": "803628",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2020-12-30"
+    },
+    {
+      "predicted": "505285",
+      "actual": "384395",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2021-01-17"
+    },
+    {
+      "predicted": "066021",
+      "actual": "912307",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2021-02-01"
+    },
+    {
+      "predicted": "725012",
+      "actual": "424603",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2021-02-16"
+    },
+    {
+      "predicted": "385009",
+      "actual": "835538",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2021-03-01"
+    },
+    {
+      "predicted": "756635",
+      "actual": "890422",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 0,
+      "date": "2021-03-16"
+    },
+    {
+      "predicted": "927332",
+      "actual": "472270",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2021-04-01"
+    },
+    {
+      "predicted": "365765",
+      "actual": "100787",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2021-04-16"
+    },
+    {
+      "predicted": "790877",
+      "actual": "501272",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2021-05-02"
+    },
+    {
+      "predicted": "543558",
+      "actual": "684579",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2021-05-16"
+    },
+    {
+      "predicted": "788086",
+      "actual": "292972",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2021-06-01"
+    },
+    {
+      "predicted": "742097",
+      "actual": "691861",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2021-06-16"
+    },
+    {
+      "predicted": "571646",
+      "actual": "713517",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2021-07-01"
+    },
+    {
+      "predicted": "325665",
+      "actual": "556725",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 4,
+      "date": "2021-07-16"
+    },
+    {
+      "predicted": "605809",
+      "actual": "910261",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2021-08-01"
+    },
+    {
+      "predicted": "014938",
+      "actual": "046750",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2021-08-16"
+    },
+    {
+      "predicted": "644179",
+      "actual": "114475",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 4,
+      "date": "2021-09-01"
+    },
+    {
+      "predicted": "850176",
+      "actual": "070935",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2021-09-16"
+    },
+    {
+      "predicted": "378530",
+      "actual": "578171",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 3,
+      "date": "2021-10-01"
+    },
+    {
+      "predicted": "068995",
+      "actual": "386372",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2021-10-16"
+    },
+    {
+      "predicted": "252664",
+      "actual": "045037",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2021-11-01"
+    },
+    {
+      "predicted": "622994",
+      "actual": "032761",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2021-11-16"
+    },
+    {
+      "predicted": "724054",
+      "actual": "077258",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 4,
+      "date": "2021-12-01"
+    },
+    {
+      "predicted": "912023",
+      "actual": "639235",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2021-12-16"
+    },
+    {
+      "predicted": "561937",
+      "actual": "819068",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2021-12-30"
+    },
+    {
+      "predicted": "885162",
+      "actual": "880159",
+      "exact_match": false,
+      "position_hits": 3,
+      "digit_hits": 4,
+      "date": "2022-01-17"
+    },
+    {
+      "predicted": "925123",
+      "actual": "944308",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2022-02-01"
+    },
+    {
+      "predicted": "205913",
+      "actual": "098597",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2022-02-17"
+    },
+    {
+      "predicted": "536210",
+      "actual": "061905",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 4,
+      "date": "2022-03-01"
+    },
+    {
+      "predicted": "468045",
+      "actual": "737867",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2022-03-16"
+    },
+    {
+      "predicted": "682105",
+      "actual": "970618",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 4,
+      "date": "2022-04-01"
+    },
+    {
+      "predicted": "881931",
+      "actual": "395919",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2022-04-16"
+    },
+    {
+      "predicted": "360614",
+      "actual": "658642",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2022-05-02"
+    },
+    {
+      "predicted": "090558",
+      "actual": "155012",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2022-05-16"
+    },
+    {
+      "predicted": "794814",
+      "actual": "319196",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2022-06-01"
+    },
+    {
+      "predicted": "921696",
+      "actual": "361807",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2022-06-16"
+    },
+    {
+      "predicted": "408271",
+      "actual": "981417",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 4,
+      "date": "2022-07-01"
+    },
+    {
+      "predicted": "580554",
+      "actual": "620405",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2022-07-16"
+    },
+    {
+      "predicted": "717160",
+      "actual": "436594",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2022-08-01"
+    },
+    {
+      "predicted": "356308",
+      "actual": "331583",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 4,
+      "date": "2022-08-16"
+    },
+    {
+      "predicted": "062619",
+      "actual": "929332",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2022-09-01"
+    },
+    {
+      "predicted": "704637",
+      "actual": "943703",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 4,
+      "date": "2022-09-16"
+    },
+    {
+      "predicted": "877272",
+      "actual": "484669",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2022-10-01"
+    },
+    {
+      "predicted": "927656",
+      "actual": "613106",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2022-10-16"
+    },
+    {
+      "predicted": "759493",
+      "actual": "913106",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2022-11-01"
+    },
+    {
+      "predicted": "391545",
+      "actual": "121789",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2022-11-16"
+    },
+    {
+      "predicted": "241742",
+      "actual": "375805",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2022-12-01"
+    },
+    {
+      "predicted": "486449",
+      "actual": "845093",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2022-12-16"
+    },
+    {
+      "predicted": "099992",
+      "actual": "157196",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2022-12-30"
+    },
+    {
+      "predicted": "306247",
+      "actual": "812519",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2023-01-17"
+    },
+    {
+      "predicted": "173958",
+      "actual": "297411",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2023-02-01"
+    },
+    {
+      "predicted": "239183",
+      "actual": "590417",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2023-02-16"
+    },
+    {
+      "predicted": "323822",
+      "actual": "417652",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2023-03-01"
+    },
+    {
+      "predicted": "163560",
+      "actual": "025873",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2023-03-16"
+    },
+    {
+      "predicted": "974968",
+      "actual": "087907",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2023-04-01"
+    },
+    {
+      "predicted": "653747",
+      "actual": "984906",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2023-04-16"
+    },
+    {
+      "predicted": "514825",
+      "actual": "843019",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2023-05-02"
+    },
+    {
+      "predicted": "647992",
+      "actual": "132903",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2023-05-16"
+    },
+    {
+      "predicted": "356608",
+      "actual": "125272",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2023-06-01"
+    },
+    {
+      "predicted": "034035",
+      "actual": "264872",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2023-06-16"
+    },
+    {
+      "predicted": "020231",
+      "actual": "922605",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2023-07-01"
+    },
+    {
+      "predicted": "523518",
+      "actual": "169530",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2023-07-16"
+    },
+    {
+      "predicted": "224411",
+      "actual": "260453",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 2,
+      "date": "2023-07-31"
+    },
+    {
+      "predicted": "468745",
+      "actual": "471782",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 3,
+      "date": "2023-08-16"
+    },
+    {
+      "predicted": "939647",
+      "actual": "915478",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2023-09-01"
+    },
+    {
+      "predicted": "655624",
+      "actual": "320812",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2023-09-16"
+    },
+    {
+      "predicted": "959142",
+      "actual": "727202",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2023-10-01"
+    },
+    {
+      "predicted": "574665",
+      "actual": "931446",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2023-10-16"
+    },
+    {
+      "predicted": "453666",
+      "actual": "743951",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2023-11-01"
+    },
+    {
+      "predicted": "042449",
+      "actual": "557990",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2023-11-16"
+    },
+    {
+      "predicted": "398899",
+      "actual": "251097",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2023-12-01"
+    },
+    {
+      "predicted": "272293",
+      "actual": "356757",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2023-12-16"
+    },
+    {
+      "predicted": "809196",
+      "actual": "625544",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2023-12-30"
+    },
+    {
+      "predicted": "954226",
+      "actual": "105979",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2024-01-17"
+    },
+    {
+      "predicted": "591453",
+      "actual": "607063",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2024-02-01"
+    },
+    {
+      "predicted": "762897",
+      "actual": "941395",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2024-02-16"
+    },
+    {
+      "predicted": "342670",
+      "actual": "253603",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 4,
+      "date": "2024-03-01"
+    },
+    {
+      "predicted": "542864",
+      "actual": "997626",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2024-03-16"
+    },
+    {
+      "predicted": "257418",
+      "actual": "803481",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2024-04-01"
+    },
+    {
+      "predicted": "920673",
+      "actual": "943598",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2024-04-16"
+    },
+    {
+      "predicted": "116872",
+      "actual": "980116",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 4,
+      "date": "2024-05-02"
+    },
+    {
+      "predicted": "351088",
+      "actual": "205690",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2024-05-16"
+    },
+    {
+      "predicted": "995566",
+      "actual": "530593",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2024-06-01"
+    },
+    {
+      "predicted": "081037",
+      "actual": "518504",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2024-06-16"
+    },
+    {
+      "predicted": "209561",
+      "actual": "434503",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2024-07-01"
+    },
+    {
+      "predicted": "519653",
+      "actual": "367336",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2024-07-16"
+    },
+    {
+      "predicted": "603998",
+      "actual": "407041",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2024-08-01"
+    },
+    {
+      "predicted": "457505",
+      "actual": "095867",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2024-08-16"
+    },
+    {
+      "predicted": "054321",
+      "actual": "199606",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2024-09-01"
+    },
+    {
+      "predicted": "122333",
+      "actual": "608662",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2024-09-16"
+    },
+    {
+      "predicted": "141565",
+      "actual": "718665",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 3,
+      "date": "2024-10-01"
+    },
+    {
+      "predicted": "621109",
+      "actual": "482962",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2024-10-16"
+    },
+    {
+      "predicted": "747693",
+      "actual": "536044",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2024-11-01"
+    },
+    {
+      "predicted": "616012",
+      "actual": "187221",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2024-11-16"
+    },
+    {
+      "predicted": "411640",
+      "actual": "669843",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2024-12-01"
+    },
+    {
+      "predicted": "102962",
+      "actual": "097863",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2024-12-16"
+    },
+    {
+      "predicted": "776937",
+      "actual": "730209",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2025-01-02"
+    },
+    {
+      "predicted": "436981",
+      "actual": "807779",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2025-01-17"
+    },
+    {
+      "predicted": "238483",
+      "actual": "558700",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2025-02-01"
+    },
+    {
+      "predicted": "464677",
+      "actual": "847377",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 3,
+      "date": "2025-02-16"
+    },
+    {
+      "predicted": "528075",
+      "actual": "818894",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2025-03-01"
+    },
+    {
+      "predicted": "035756",
+      "actual": "757563",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 5,
+      "date": "2025-03-16"
+    },
+    {
+      "predicted": "101463",
+      "actual": "669687",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2025-04-01"
+    },
+    {
+      "predicted": "104746",
+      "actual": "266227",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2025-04-16"
+    },
+    {
+      "predicted": "421345",
+      "actual": "213388",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2025-05-02"
+    },
+    {
+      "predicted": "936678",
+      "actual": "251309",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2025-05-16"
+    },
+    {
+      "predicted": "882112",
+      "actual": "559352",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 1,
+      "date": "2025-06-01"
+    },
+    {
+      "predicted": "017686",
+      "actual": "507392",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2025-06-16"
+    },
+    {
+      "predicted": "610220",
+      "actual": "949246",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2025-07-01"
+    },
+    {
+      "predicted": "085031",
+      "actual": "245324",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2025-07-16"
+    },
+    {
+      "predicted": "364828",
+      "actual": "811852",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2025-08-01"
+    },
+    {
+      "predicted": "608780",
+      "actual": "994865",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2025-08-16"
+    },
+    {
+      "predicted": "072727",
+      "actual": "506356",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "date": "2025-09-01"
+    },
+    {
+      "predicted": "889929",
+      "actual": "074646",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 0,
+      "date": "2025-09-16"
+    },
+    {
+      "predicted": "862906",
+      "actual": "876978",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 3,
+      "date": "2025-10-01"
+    },
+    {
+      "predicted": "463063",
+      "actual": "059696",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2025-10-16"
+    },
+    {
+      "predicted": "218587",
+      "actual": "345898",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "date": "2025-11-01"
+    },
+    {
+      "predicted": "605451",
+      "actual": "458145",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 4,
+      "date": "2025-11-16"
+    },
+    {
+      "predicted": "938211",
+      "actual": "461252",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2025-12-01"
+    },
+    {
+      "predicted": "753629",
+      "actual": "763895",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 5,
+      "date": "2025-12-16"
+    },
+    {
+      "predicted": "821234",
+      "actual": "837706",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2026-01-02"
+    },
+    {
+      "predicted": "126483",
+      "actual": "878972",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "date": "2026-01-16"
+    },
+    {
+      "predicted": "234953",
+      "actual": "878972",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2026-01-17"
+    },
+    {
+      "predicted": "544070",
+      "actual": "174629",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 2,
+      "date": "2026-02-01"
+    },
+    {
+      "predicted": "136550",
+      "actual": "340563",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 4,
+      "date": "2026-02-16"
+    },
+    {
+      "predicted": "047263",
+      "actual": "820866",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "date": "2026-03-01"
+    }
+  ]
+}

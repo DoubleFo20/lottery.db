@@ -1,0 +1,17 @@
+[project]
+name = "lottery-foundation-api"
+version = "0.1.0"
+description = "Lottery foundation platform backend (Sprint 1)"
+requires-python = ">=3.12"
+
+[tool.ruff]
+line-length = 100
+extend-exclude = [".venv", "migrations/versions"]
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+extend-exclude = "\\.venv"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Performance Dashboard — Lottery Suite</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+/* ═══════════════════════════════════════════════
+   ROOT / TOKENS
+═══════════════════════════════════════════════ */
+:root {
+  --bg:        #060b14;
+  --surface:   #0d1626;
+  --card:      #111d33;
+  --card-h:    #162040;
+  --border:    rgba(16, 185, 129, 0.18);
+  --accent:    #10b981;
+  --accent2:   #34d399;
+  --blue:      #388bff;
+  --cyan:      #00e5ff;
+  --text:      #e2eaf8;
+  --text-dim:  #7a91b8;
+  --glow:      0 0 24px rgba(16, 185, 129, 0.15);
+  --radius:    14px;
+  font-family: 'Sora', sans-serif;
+  color: var(--text);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: var(--bg); }
+
+body {
+  display: flex; flex-direction: column; min-height: 100vh;
+  background:
+    radial-gradient(ellipse 70% 60% at 20% 10%, rgba(16, 185, 129, 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(56, 139, 255, 0.05) 0%, transparent 60%),
+    var(--bg);
+}
+
+/* ═══════════════ HEADER ═══════════════ */
+header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 32px; border-bottom: 1px solid var(--border);
+  background: rgba(13,22,38,.85); backdrop-filter: blur(12px);
+  position: sticky; top: 0; z-index: 100;
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  font-size: 18px; box-shadow: var(--glow); color: #fff;
+}
+.brand h1 { font-size: 1rem; font-weight: 700; letter-spacing: .04em; color: var(--text); }
+.brand p { font-size: .72rem; color: var(--text-dim); }
+
+.header-right { display: flex; align-items: center; gap: 16px; }
+
+.nav-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 16px; border-radius: 8px; font-size: .75rem;
+  background: rgba(56, 139, 255, 0.12); border: 1px solid rgba(56, 139, 255, 0.3);
+  color: var(--blue); text-decoration: none; transition: background .2s;
+}
+.nav-link:hover { background: rgba(56, 139, 255, 0.25); }
+
+/* ═══════════════ DASHBOARD ═══════════════ */
+#dashboard { flex: 1; padding: 24px 32px 40px; }
+
+.section-title {
+  font-size: .7rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent2); margin-bottom: 14px; margin-top: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-title::after {
+  content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--border), transparent);
+}
+
+.row-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.row-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 24px; }
+@media (max-width: 1000px) { .row-4, .row-2 { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 650px)  { .row-4, .row-2 { grid-template-columns: 1fr; } }
+
+/* ═══════════════ CARD ═══════════════ */
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px;
+  position: relative; overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+}
+.card:hover { transform: translateY(-3px); box-shadow: var(--glow); background: var(--card-h); }
+.card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0; transition: opacity .3s;
+}
+.card:hover::before { opacity: 1; }
+
+.card-label { font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px; }
+.card-value { font-size: 2.2rem; font-weight: 700; line-height: 1.1; letter-spacing: -.02em; color: var(--accent2); }
+.card-sub   { font-size: .73rem; color: var(--text-dim); margin-top: 5px; }
+
+/* ═══════════════ CHARTS ═══════════════ */
+.chart-container { position: relative; height: 250px; width: 100%; margin-top: 10px; }
+
+/* ═══════════════ LOADER ═══════════════ */
+#loader { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 300px; gap: 16px; color: var(--text-dim); font-size: .85rem; }
+.spinner { width: 40px; height: 40px; border: 3px solid rgba(16, 185, 129, 0.15); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-icon">📊</div>
+    <div>
+      <h1>AI Performance Dashboard</h1>
+      <p>Lottery Analysis Suite — Historical Accuracy</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <div style="font-size:0.75rem; color:var(--text-dim); margin-right: 10px;">
+      Cache Age: <span id="sys-cache-age">—</span>
+    </div>
+    <a href="strategy.html" class="nav-link">🎯 Strategy Dashboard</a>
+    <a href="manager.html" class="nav-link" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.3);color:var(--accent2)">🧠 Control Center</a>
+  </div>
+</header>
+
+<div id="loader">
+  <div class="spinner"></div>
+  <span>Fetching performance metrics...</span>
+</div>
+
+<div id="dashboard" style="display:none;">
+
+  <div class="section-title">Overview Metrics</div>
+  <div class="row-4">
+    <div class="card">
+      <div class="card-label">Total Predictions</div>
+      <div class="card-value" id="val-total" style="color:#e2eaf8">—</div>
+      <div class="card-sub">predictions evaluated</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Avg Digit Hits</div>
+      <div class="card-value" id="val-digit" style="color:var(--blue)">—</div>
+      <div class="card-sub">out of 6 target digits</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Avg Positional Hits</div>
+      <div class="card-value" id="val-pos" style="color:var(--cyan)">—</div>
+      <div class="card-sub">exact positions correct</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Exact Matches</div>
+      <div class="card-value" id="val-exact" style="color:var(--accent2)">—</div>
+      <div class="card-sub">6/6 perfect predictions</div>
+    </div>
+  </div>
+
+  <div class="section-title">Accuracy Trends</div>
+  <!-- perf.json banner is injected by JS below -->
+  <div id="perf-banner" style="margin-bottom:16px;display:none;
+    background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(56,139,255,.08));
+    border:1px solid rgba(16,185,129,.25);border-radius:12px;padding:14px 18px;
+    display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+    <div>
+      <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim)">Model Score (performance.json)</div>
+      <div style="font-size:1.8rem;font-weight:700;color:var(--accent2)" id="pf-score">—</div>
+    </div>
+    <div>
+      <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim)">Grade</div>
+      <div style="font-size:1.4rem;font-weight:700;color:var(--accent)" id="pf-grade">—</div>
+    </div>
+    <div>
+      <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim)">Avg Pos Hits</div>
+      <div style="font-size:1.4rem;font-weight:700;color:var(--cyan)" id="pf-pos">—</div>
+    </div>
+    <div>
+      <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim)">Avg Digit Hits</div>
+      <div style="font-size:1.4rem;font-weight:700;color:var(--blue)" id="pf-dig">—</div>
+    </div>
+    <div style="flex:1;min-width:140px">
+      <div style="background:rgba(56,139,255,.1);border-radius:99px;height:8px;overflow:hidden;margin-top:4px">
+        <div id="pf-bar" style="height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%;transition:width 1s"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row-2">
+    <!-- Chart -->
+    <div class="card">
+      <div class="card-label">Digit &amp; Positional Hits Over Time</div>
+      <div class="chart-container">
+        <canvas id="hitChart"></canvas>
+      </div>
+    </div>
+    <!-- Latest Evaluated -->
+    <div class="card">
+      <div class="card-label">Recent Evaluations</div>
+      <div id="recent-list" style="margin-top: 10px; display: flex; flex-direction: column; gap: 10px;">
+        <div class="card-sub">No recent evaluations available.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function formatAge(ms) {
+  if (ms == null || isNaN(ms)) return '—';
+  const diff = Math.floor(ms / 1000);
+  if (diff < 0) return '—';
+  const h = Math.floor(diff / 3600);
+  const m = Math.floor((diff % 3600) / 60).toString().padStart(2, '0');
+  const s = (diff % 60).toString().padStart(2, '0');
+  const str = h > 0 ? `${h}h ${m}m ${s}s` : `${m}m ${s}s`;
+  
+  if (h > 24) return `<span style="color:#ef4444">${str} ago ⚠</span>`;
+  if (h < 1) return `<span style="color:#10b981">${str} ago</span>`;
+  return `<span style="color:#f59e0b">${str} ago</span>`;
+}
+
+async function loadMetrics() {
+  fetch("../database/predictions/pipeline_output.json", {method: "HEAD"}).then(r => {
+    const lm = r.headers.get("Last-Modified");
+    if (!lm) return;
+    const cacheTime = new Date(lm).getTime();
+    
+    function updateAge() {
+      const ms = Date.now() - cacheTime;
+      const el = document.getElementById('sys-cache-age');
+      if (el) el.innerHTML = formatAge(ms);
+    }
+    updateAge();
+    if(window._perfAgeTimer) clearInterval(window._perfAgeTimer);
+    window._perfAgeTimer = setInterval(updateAge, 1000);
+  }).catch(() => {});
+
+  try {
+    const [res, perfRes] = await Promise.all([
+      fetch("../database/predictions/prediction_history.json"),
+      fetch("../performance.json").catch(() => null),
+    ]);
+    if (!res.ok) throw new Error("Could not load prediction history");
+
+    // Populate performance.json banner
+    if (perfRes && perfRes.ok) {
+      const perf = await perfRes.json();
+      const ms = perf?.model_score ?? {};
+      document.getElementById('pf-score').textContent = (ms.score ?? perf.avg_positional_hits ?? '—');
+      document.getElementById('pf-grade').textContent = ms.grade ?? '—';
+      document.getElementById('pf-pos').textContent   = (perf.avg_positional_hits ?? '—').toString();
+      document.getElementById('pf-dig').textContent   = (perf.avg_digit_hits ?? '—').toString();
+      const s = ms.score ?? 0;
+      document.getElementById('pf-bar').style.width = s + '%';
+      document.getElementById('perf-banner').style.display = 'flex';
+    }
+
+    const history = await res.json();
+    const evaluated = history.filter(e => e.accuracy && e.accuracy.best);
+
+    // Kpis
+    const total = evaluated.length;
+    let exact = 0, sumPos = 0, sumDig = 0;
+    
+    // Arrays for chart
+    const labels = [];
+    const digData = [];
+    const posData = [];
+    
+    // Sort slightly to be chronological if not already
+    evaluated.reverse(); // If newest is last in history, now newest is first, but for chart we want chronological (left to right)
+    const chronoEval = [...evaluated].reverse(); 
+
+    for (const e of chronoEval) {
+      const b = e.accuracy.best;
+      if (e.accuracy.any_exact_match) exact++;
+      sumPos += b.positional_hits || 0;
+      sumDig += b.digit_hits || 0;
+      
+      const lbl = e.target_date || e.actual_result || '?';
+      labels.push(lbl);
+      posData.push(b.positional_hits || 0);
+      digData.push(b.digit_hits || 0);
+    }
+
+    const avgPos = (total > 0) ? (sumPos / total).toFixed(2) : "0.00";
+    const avgDig = (total > 0) ? (sumDig / total).toFixed(2) : "0.00";
+
+    document.getElementById("val-total").innerText = total;
+    document.getElementById("val-exact").innerText = exact;
+    document.getElementById("val-digit").innerText = avgDig;
+    document.getElementById("val-pos").innerText   = avgPos;
+
+    // Recent list
+    const recentEl = document.getElementById("recent-list");
+    const recents = evaluated.slice(0, 5); // Newest first
+    if (recents.length > 0) {
+      recentEl.innerHTML = recents.map(e => {
+        const d = e.target_date || "Unknown Date";
+        const b = e.accuracy.best;
+        return `
+          <div style="border-bottom: 1px solid var(--border); padding-bottom: 8px; font-size: 0.8rem;">
+            <div style="display:flex; justify-content: space-between; margin-bottom: 4px;">
+              <span style="color:var(--text-dim)">${d}</span>
+              <span style="color:var(--text)">Actual: <b>${e.actual_result || "N/A"}</b></span>
+            </div>
+            <div style="display:flex; justify-content: space-between;">
+              <span style="color:var(--cyan)">Pos Hits: <b>${b.positional_hits || 0}</b></span>
+              <span style="color:var(--blue)">Digit Hits: <b>${b.digit_hits || 0}</b></span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Chart
+    const ctx = document.getElementById('hitChart').getContext('2d');
+    
+    Chart.defaults.color = '#7a91b8';
+    Chart.defaults.font.family = "'Sora', sans-serif";
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Digit Hits',
+            data: digData,
+            borderColor: '#388bff',
+            backgroundColor: 'rgba(56, 139, 255, 0.1)',
+            borderWidth: 2,
+            tension: 0.4,
+            fill: true
+          },
+          {
+            label: 'Positional Hits',
+            data: posData,
+            borderColor: '#00e5ff',
+            backgroundColor: 'rgba(0, 229, 255, 0.1)',
+            borderWidth: 2,
+            tension: 0.4,
+            fill: true
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'top', labels: { boxWidth: 12, usePointStyle: true } }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 6,
+            grid: { color: 'rgba(122, 145, 184, 0.1)' }
+          },
+          x: {
+            grid: { display: false },
+            ticks: { maxTicksLimit: 10 }
+          }
+        }
+      }
+    });
+
+    // Show app
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+
+  } catch(err) {
+    document.getElementById("loader").innerHTML = `<span style="color:#ef4444">⚠️ Error loading data. Please check connection.</span>`;
+    console.error(err);
+  }
+}
+
+loadMetrics();
+</script>
+<script>
+// --- GLOBAL TH/EN LANGUAGE TOGGLE ---
+(function() {
+  let isEN = false;
+  const langBtn = document.createElement('button');
+  langBtn.innerText = "🌐 TH / EN";
+  langBtn.style.cssText = "position:fixed;bottom:20px;right:20px;z-index:9999;background:linear-gradient(135deg,#3b82f6,#8b5cf6);color:#fff;border:none;padding:12px 20px;border-radius:50px;cursor:pointer;font-weight:700;box-shadow:0 4px 15px rgba(0,0,0,0.3);transition:transform 0.2s;font-family:inherit;";
+  langBtn.onmouseover = () => langBtn.style.transform = "scale(1.05) translateY(-2px)";
+  langBtn.onmouseout = () => langBtn.style.transform = "scale(1)";
+  
+  const dict = {
+    "Lottery Strategy Dashboard": "แดชบอร์ดกลยุทธ์หวย",
+    "Real-time Trend Scanner": "สแกนแนวโน้ม",
+    "Top AI Predictions": "ผลคาดการณ์ที่ดีที่สุด",
+    "Using cached prediction from": "ดึงข้อมูลจากแคชเวลา",
+    "Analysis on": "วิเคราะห์จาก",
+    "draws": "งวด",
+    "Latest:": "ผลงวดล่าสุด:",
+    "Updated:": "อัปเดตล่าสุด:",
+    "AI Performance": "ประสิทธิภาพ AI",
+    "AI Manager Control Center": "ศูนย์ระบบประมวลผล",
+    "Why": "พิจารณาทำไมถึงเป็น",
+    "Refresh": "รีเฟรชหน้าต่าง",
+    "Run Pipeline": "ประมวลผลใหม่",
+    "Fetch Result": "ดึงผลรางวัลงวดล่าสุด",
+    "AI MODEL HEALTH & KPIS": "สุขภาพระบบ AI และตัวชี้วัด",
+    "MODEL SCORE": "คะแนนโมเดล",
+    "Fair": "พอใช้",
+    "Declining": "กำลังลดลง",
+    "Stable / Improving": "เสถียร / กำลังดีขึ้น",
+    "Variable": "แปรปรวน",
+    "Excellent": "ดีเยี่ยม",
+    "Needs tuning": "ต้องปรับปรุง",
+    "AVG DIGIT HITS": "ความแม่นยำรายตัวเลขเฉลี่ย",
+    "BEST POS. HITS": "ความแม่นยำตำแหน่งที่ดีที่สุด",
+    "EXACT MATCHES": "จำนวนงวดที่ถูกรางวัลจริง",
+    "PREDICTIONS & STRATEGY SIGNALS": "คาดการณ์และสัญญาณกลยุทธ์",
+    "TOP CANDIDATES": "ตัวเลขคาดการณ์ยอดเยี่ยม",
+    "HOT DIGITS": "ตัวเลขมาแรง",
+    "COLD / OVERDUE": "ตัวเลขหายาก",
+    "TREND SIGNALS & SYSTEM STATUS": "สัญญาณแนวโน้มและสถานะระบบ",
+    "FREQUENCY SPIKES": "สถิติมาแรงผิดปกติ",
+    "SURGING DIGIT PAIRS": "คู่สถิติเพิ่มสูง",
+    "DATASET STATUS": "สถานะข้อมูลชุด",
+    "SYSTEM STATUS": "สถานะระบบ",
+    "Pipeline Cache": "แคชของระบบทำงาน",
+    "API Response": "การตอบสนองระบบ",
+    "Dataset": "ชุดข้อมูลรวม",
+    "Cache Age": "อายุข้อมูลล่าสุด",
+    "total historical": "รวมประวัติศาสตร์ทั้งหมด",
+    "Last Draw:": "ออกล่าสุด:",
+    "Number:": "เลขที่ออก:",
+    "Online": "เชื่อมต่อปกติ",
+    "Cached": "มีข้อมูลแคช",
+    "ago": "ที่แล้ว",
+    "just now": "เมื่อสักครู่"
+  };
+
+  langBtn.onclick = () => {
+    isEN = !isEN;
+    walkTranslators(document.body);
+  };
+  
+  function walkTranslators(node) {
+    if (node.nodeType === 3) {
+      let text = node.nodeValue;
+       Object.entries(dict).forEach(([en, th]) => {
+         if (isEN && text.includes(th)) text = text.replace(new RegExp(th, 'g'), en);
+         if (!isEN && text.includes(en)) text = text.replace(new RegExp(en, 'g'), th);
+       });
+       if (text !== node.nodeValue) node.nodeValue = text;
+    } else if (node.nodeType === 1 && node.nodeName !== 'SCRIPT' && node.nodeName !== 'STYLE') {
+      node.childNodes.forEach(walkTranslators);
+    }
+  }
+  document.body.appendChild(langBtn);
+})();
+</script>
+
+</body>
+</html>

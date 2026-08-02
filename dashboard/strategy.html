@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lottery Strategy Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #0a0f1e;
+      --panel:   rgba(16,26,52,0.85);
+      --border:  rgba(59,130,246,0.15);
+      --text:    #f1f5f9;
+      --muted:   #64748b;
+      --blue:    #3b82f6;
+      --green:   #10b981;
+      --amber:   #f59e0b;
+      --red:     #ef4444;
+      --purple:  #8b5cf6;
+      --cyan:    #06b6d4;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      background-image:
+        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(59,130,246,.12) 0, transparent 60%),
+        radial-gradient(ellipse 60% 30% at 0% 100%, rgba(139,92,246,.08) 0, transparent 50%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 1.5rem 2rem;
+    }
+
+    /* ── Header ──────────────────────────────── */
+    .header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 1.75rem;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      margin-bottom: 1.5rem;
+    }
+    .header-brand { display:flex; align-items:center; gap:12px; }
+    .header-brand .logo {
+      width:42px; height:42px; border-radius:10px;
+      background: linear-gradient(135deg,var(--blue),var(--purple));
+      display:grid; place-items:center; font-size:1.3rem;
+    }
+    .header-brand h1 { font-size:1.15rem; font-weight:700; letter-spacing:-.3px; }
+    .header-brand p  { font-size:.75rem; color:var(--muted); margin-top:1px; }
+    .header-nav { display:flex; gap:.6rem; }
+    .nav-btn {
+      padding:.45rem 1rem; border-radius:8px; font-size:.8rem; font-weight:600;
+      cursor:pointer; border: 1px solid var(--border);
+      background: rgba(255,255,255,.04); color:var(--muted);
+      text-decoration:none; transition:.2s;
+    }
+    .nav-btn:hover { background:rgba(59,130,246,.15); color:var(--blue); border-color:rgba(59,130,246,.35); }
+    .nav-btn.active { background:var(--blue); color:#fff; border-color:var(--blue); }
+    .header-meta { display:flex; align-items:center; gap:1rem; }
+    .live-badge {
+      display:flex; align-items:center; gap:6px;
+      font-size:.75rem; color:var(--green);
+    }
+    .live-dot { width:7px; height:7px; background:var(--green); border-radius:50%; animation:pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+    #clock { font-size:.85rem; color:var(--muted); font-variant-numeric:tabular-nums; }
+
+    /* ── Grid Layout ─────────────────────────── */
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; margin-bottom:1.25rem; }
+    .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-bottom:1.25rem; }
+    .grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:1.25rem; margin-bottom:1.25rem; }
+    .span-2 { grid-column: span 2; }
+
+    /* ── Panel ───────────────────────────────── */
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.4rem;
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+    .panel::before {
+      content:''; position:absolute; inset:0; border-radius:14px;
+      background: linear-gradient(135deg, rgba(59,130,246,.04) 0%, transparent 60%);
+      pointer-events:none;
+    }
+    .panel-title {
+      font-size:.65rem; font-weight:700; letter-spacing:.1em;
+      text-transform:uppercase; color:var(--muted);
+      display:flex; align-items:center; gap:6px; margin-bottom:1.1rem;
+    }
+    .panel-title .icon { font-size:.85rem; }
+
+    /* ── Section Label ───────────────────────── */
+    .section-label {
+      font-size:.68rem; font-weight:700; letter-spacing:.12em;
+      text-transform:uppercase; color:var(--blue);
+      margin:1.5rem 0 .75rem;
+      display:flex; align-items:center; gap:8px;
+    }
+    .section-label::after { content:''; flex:1; height:1px; background:var(--border); }
+
+    /* ── AI Predictions ──────────────────────── */
+    .prediction-banner {
+      background: linear-gradient(135deg, rgba(59,130,246,.12), rgba(139,92,246,.1));
+      border: 1px solid rgba(59,130,246,.3);
+      border-radius:12px; padding:1rem 1.4rem;
+      margin-bottom:1.25rem; text-align:center;
+      font-size:.75rem; color:var(--muted);
+    }
+    .prediction-banner #banner-text { font-size:.82rem; }
+
+    .cand-list { display:flex; flex-direction:column; gap:.6rem; }
+    .cand-row {
+      display:flex; align-items:center; gap:12px;
+      padding:.55rem .8rem; border-radius:9px;
+      background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.05);
+      transition:.2s;
+    }
+    .cand-row:hover { background:rgba(59,130,246,.07); border-color:rgba(59,130,246,.2); }
+    .cand-rank { font-size:.72rem; color:var(--muted); width:20px; text-align:right; }
+    .cand-num  { font-size:1.3rem; font-weight:800; letter-spacing:.08em; font-variant-numeric:tabular-nums; flex:1; }
+    .cand-bar  { flex:2; height:5px; background:rgba(255,255,255,.07); border-radius:99px; overflow:hidden; }
+    .cand-fill { height:100%; border-radius:99px; background:linear-gradient(90deg,var(--blue),var(--cyan)); transition:width .8s ease; }
+    .cand-pct  { font-size:.75rem; color:var(--muted); width:46px; text-align:right; }
+
+    /* ── Latest Result ───────────────────────── */
+    .result-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .result-prize {
+      background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06);
+      border-radius:10px; padding:.9rem; text-align:center;
+    }
+    .result-prize .label { font-size:.65rem; color:var(--muted); margin-bottom:.4rem; text-transform:uppercase; letter-spacing:.08em; }
+    .result-prize .number { font-size:1.5rem; font-weight:800; letter-spacing:.1em; }
+    .result-prize .number.gold { color:#fbbf24; }
+    .result-prize .sub { display:flex; gap:.4rem; justify-content:center; margin-top:.35rem; flex-wrap:wrap; }
+    .num-badge {
+      background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.1);
+      border-radius:6px; padding:.15rem .5rem; font-size:.8rem; font-weight:600;
+    }
+    .result-date { font-size:.75rem; color:var(--muted); text-align:center; margin-top:.8rem; }
+
+    /* ── Hot/Cold Digits ─────────────────────── */
+    .digit-row { display:flex; gap:.5rem; flex-wrap:wrap; }
+    .digit-chip {
+      width:38px; height:38px; border-radius:8px; display:grid; place-items:center;
+      font-size:1rem; font-weight:700; cursor:default; transition:.2s;
+      position:relative;
+    }
+    .digit-chip.hot { 
+      background:rgba(239,68,68,.15); color:#fca5a5; border:1px solid rgba(239,68,68,.3);
+      box-shadow:0 0 12px rgba(239,68,68,.15);
+    }
+    .digit-chip.cold { 
+      background:rgba(6,182,212,.12); color:#67e8f9; border:1px solid rgba(6,182,212,.25);
+    }
+    .digit-chip .heat {
+      position:absolute; bottom:-4px; right:-4px;
+      font-size:.5rem; background:rgba(0,0,0,.7); padding:.1rem .25rem;
+      border-radius:4px; color:var(--muted);
+    }
+    .digit-section + .digit-section { margin-top:.9rem; }
+    .digit-section-label { font-size:.68rem; color:var(--muted); margin-bottom:.5rem; text-transform:uppercase; letter-spacing:.08em; }
+
+    /* ── Model Performance ───────────────────── */
+    .score-big { font-size:3.5rem; font-weight:800; line-height:1; margin:.3rem 0; }
+    .score-label { font-size:.72rem; color:var(--muted); }
+    .score-bar-wrap { margin:.8rem 0; }
+    .score-bar {
+      height:8px; border-radius:99px; background:rgba(255,255,255,.07); overflow:hidden;
+    }
+    .score-fill { height:100%; border-radius:99px; transition:width 1s ease; }
+    .score-fill.blue   { background:linear-gradient(90deg,var(--blue),var(--cyan)); }
+    .score-fill.green  { background:linear-gradient(90deg,var(--green),#34d399); }
+    .score-fill.amber  { background:linear-gradient(90deg,var(--amber),#fcd34d); }
+    .score-fill.purple { background:linear-gradient(90deg,var(--purple),#a78bfa); }
+
+    .stat-row { display:flex; justify-content:space-between; font-size:.78rem; margin:.5rem 0; }
+    .stat-row .key { color:var(--muted); }
+    .stat-row .val { font-weight:600; }
+
+    .badge {
+      display:inline-flex; align-items:center; gap:4px;
+      padding:.2rem .65rem; border-radius:99px; font-size:.72rem; font-weight:600;
+    }
+    .badge.green  { background:rgba(16,185,129,.15); color:var(--green); }
+    .badge.amber  { background:rgba(245,158,11,.15);  color:var(--amber); }
+    .badge.red    { background:rgba(239,68,68,.15);   color:var(--red);   }
+    .badge.blue   { background:rgba(59,130,246,.15);  color:var(--blue);  }
+    .badge.purple { background:rgba(139,92,246,.15);  color:var(--purple);}
+
+    /* ── System Control ──────────────────────── */
+    .status-list { display:flex; flex-direction:column; gap:.6rem; }
+    .status-item {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:.55rem .8rem; border-radius:8px;
+      background:rgba(255,255,255,.03); font-size:.8rem;
+    }
+    .status-item .dot { width:7px; height:7px; border-radius:50%; margin-right:8px; flex-shrink:0; }
+    .status-item .dot.green { background:var(--green); box-shadow:0 0 6px var(--green); }
+    .status-item .dot.amber { background:var(--amber); }
+    .status-item .dot.red   { background:var(--red); }
+    .status-item .left { display:flex; align-items:center; }
+
+    .ctrl-btns { display:flex; flex-direction:column; gap:.65rem; margin-top:.8rem; }
+    .ctrl-btn {
+      padding:.7rem 1rem; border-radius:10px; font-size:.82rem; font-weight:700;
+      cursor:pointer; border:none; transition:.2s; display:flex; align-items:center; gap:8px; justify-content:center;
+    }
+    .ctrl-btn:hover { transform:translateY(-1px); box-shadow:0 4px 15px rgba(0,0,0,.3); }
+    .ctrl-btn.primary { background:linear-gradient(135deg,var(--blue),#6366f1); color:#fff; }
+    .ctrl-btn.success { background:linear-gradient(135deg,var(--green),#059669); color:#fff; }
+    .ctrl-btn.secondary { background:rgba(255,255,255,.06); color:var(--text); border:1px solid var(--border); }
+    .ctrl-btn:disabled { opacity:.45; cursor:not-allowed; transform:none; }
+
+    /* ── Meta Bar ────────────────────────────── */
+    .meta-bar {
+      text-align:center; font-size:.78rem; color:var(--muted);
+      margin-bottom:1.25rem; padding:.65rem;
+      background:rgba(16,26,52,.6); border:1px solid var(--border);
+      border-radius:10px;
+    }
+    #meta-info { color:var(--text); font-weight:500; }
+
+    /* ── Responsive ──────────────────────────── */
+    @media(max-width:900px){
+      .grid-3,.grid-4 { grid-template-columns:1fr 1fr; }
+    }
+    @media(max-width:600px){
+      body { padding:1rem; }
+      .grid-2,.grid-3,.grid-4 { grid-template-columns:1fr; }
+      .span-2 { grid-column:1; }
+      .header { flex-direction:column; gap:.8rem; }
+      .header-nav { flex-wrap:wrap; justify-content:center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══════════════════════════════════════════ -->
+<header class="header">
+  <div class="header-brand">
+    <div class="logo">🎯</div>
+    <div>
+      <h1>Lottery Strategy Dashboard</h1>
+      <p>AI-Powered Prediction & Analysis Suite</p>
+    </div>
+  </div>
+  <nav class="header-nav">
+    <a class="nav-btn active" href="strategy.html">📊 Strategy</a>
+    <a class="nav-btn" href="manager.html">🖥 Manager</a>
+    <a class="nav-btn" href="performance.html">📈 Performance</a>
+  </nav>
+  <div class="header-meta">
+    <div class="live-badge"><div class="live-dot"></div> Live</div>
+    <div id="clock">--:--:--</div>
+  </div>
+</header>
+
+<!-- ═══ META BAR ══════════════════════════════════════════ -->
+<div class="meta-bar">
+  <span id="meta-info">Loading dataset...</span>
+</div>
+
+<!-- ═══ SECTION: AI PREDICTIONS ══════════════════════════ -->
+<div class="section-label"><span class="icon">🤖</span> AI Predictions</div>
+
+<div class="prediction-banner">
+  <span id="banner-text">Fetching latest AI prediction…</span>
+</div>
+
+<div class="grid-2">
+  <!-- Top Candidates -->
+  <div class="panel">
+    <div class="panel-title"><span class="icon">🏆</span> Top AI Candidates</div>
+    <div class="cand-list" id="cand-list">
+      <div class="cand-row">
+        <span class="cand-rank">#1</span>
+        <span class="cand-num" style="color:var(--cyan)">——————</span>
+        <div class="cand-bar"><div class="cand-fill" style="width:0%"></div></div>
+        <span class="cand-pct">—%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- XAI Panel populated by JS -->
+  <div class="panel" id="xai-panel">
+    <div class="panel-title"><span class="icon">🧠</span> Explainable AI (XAI)</div>
+    <p style="color:var(--muted);font-size:.8rem">Loading reasoning…</p>
+  </div>
+</div>
+
+<!-- ═══ SECTION: LATEST LOTTERY RESULT ════════════════════ -->
+<div class="section-label"><span class="icon">🎉</span> Latest Lottery Result</div>
+
+<div class="grid-2 grid-latest">
+  <div class="panel">
+    <div class="panel-title"><span class="icon">🥇</span> Prize Results</div>
+    <div class="result-grid">
+      <div class="result-prize" id="rp-first">
+        <div class="label">รางวัลที่ 1</div>
+        <div class="number gold" id="r-first">——————</div>
+      </div>
+      <div class="result-prize" id="rp-last2">
+        <div class="label">เลขท้าย 2 ตัว</div>
+        <div class="number" id="r-last2">——</div>
+      </div>
+      <div class="result-prize">
+        <div class="label">เลขหน้า 3 ตัว</div>
+        <div class="sub" id="r-front3">
+          <span class="num-badge">—</span>
+          <span class="num-badge">—</span>
+        </div>
+      </div>
+      <div class="result-prize">
+        <div class="label">เลขท้าย 3 ตัว</div>
+        <div class="sub" id="r-back3">
+          <span class="num-badge">—</span>
+          <span class="num-badge">—</span>
+        </div>
+      </div>
+    </div>
+    <div class="result-date" id="r-date">งวดล่าสุด: —</div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title"><span class="icon">🕰</span> Real-Time Trend Scanner</div>
+    <div id="trend-scan-container"><p style="color:var(--muted);font-size:.8rem">Loading trends…</p></div>
+  </div>
+</div>
+
+<!-- ═══ SECTION: HOT / COLD DIGITS ════════════════════════ -->
+<div class="section-label"><span class="icon">🌡</span> Hot / Cold Digits</div>
+
+<div class="grid-2">
+  <div class="panel">
+    <div class="panel-title"><span class="icon">🔥</span> Hot Digits</div>
+    <div class="digit-section">
+      <div class="digit-section-label">Most Frequent (Last 50 draws)</div>
+      <div class="digit-row" id="hot-digits"></div>
+    </div>
+    <div class="digit-section">
+      <div class="digit-section-label">Surging Pairs</div>
+      <div id="surging-pairs" style="display:flex;gap:.5rem;flex-wrap:wrap;"></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title"><span class="icon">❄️</span> Cold / Overdue Digits</div>
+    <div class="digit-section">
+      <div class="digit-section-label">Least Frequent (Last 50 draws)</div>
+      <div class="digit-row" id="cold-digits"></div>
+    </div>
+    <div class="digit-section" style="margin-top:.9rem">
+      <div class="digit-section-label">Frequency Spike Alerts</div>
+      <div id="spike-alerts" style="display:flex;flex-direction:column;gap:.4rem"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION: MODEL PERFORMANCE ════════════════════════ -->
+<div class="section-label"><span class="icon">📈</span> Model Performance</div>
+
+<div class="grid-4">
+  <div class="panel">
+    <div class="panel-title"><span class="icon">🏅</span> Model Score</div>
+    <div class="score-big" id="model-score">—</div><div>/100</div>
+    <div class="score-bar-wrap">
+      <div class="score-bar"><div class="score-fill blue" id="score-bar" style="width:0%"></div></div>
+    </div>
+    <div id="score-badge" class="badge amber" style="margin-top:.4rem">Evaluating…</div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title"><span class="icon">🎯</span> Avg Digit Hits</div>
+    <div class="score-big green" id="avg-hits">—</div>
+    <div class="score-label">out of 6 digits per draw</div>
+    <div class="score-bar-wrap" style="margin-top:.8rem">
+      <div class="score-bar"><div class="score-fill green" id="hits-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title"><span class="icon">📍</span> Best Pos. Hits</div>
+    <div class="score-big" style="color:var(--cyan)" id="pos-hits">—</div>
+    <div class="score-label">positional correct (best candidate)</div>
+    <div class="score-bar-wrap" style="margin-top:.8rem">
+      <div class="score-bar"><div class="score-fill" id="pos-bar" style="width:0%;background:linear-gradient(90deg,var(--cyan),var(--blue))"></div></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title"><span class="icon">✅</span> Exact Matches</div>
+    <div class="score-big" style="color:var(--purple)" id="exact-count">—</div>
+    <div class="score-label">draw(s) evaluated</div>
+    <div class="stat-row" style="margin-top:.8rem">
+      <span class="key">Evaluated</span>
+      <span class="val" id="eval-n">—</span>
+    </div>
+    <div class="stat-row">
+      <span class="key">Trend</span>
+      <span class="val" id="perf-trend">—</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION: SYSTEM CONTROL ════════════════════════════ -->
+<div class="section-label"><span class="icon">⚙️</span> System Control</div>
+
+<div class="grid-2">
+  <div class="panel">
+    <div class="panel-title"><span class="icon">🩺</span> System Status</div>
+    <div class="status-list">
+      <div class="status-item">
+        <div class="left"><div class="dot green"></div>Pipeline Cache</div>
+        <span id="s-cache">—</span>
+      </div>
+      <div class="status-item">
+        <div class="left"><div class="dot green"></div>API Response</div>
+        <span id="s-api">Online</span>
+      </div>
+      <div class="status-item">
+        <div class="left"><div class="dot green"></div>Dataset</div>
+        <span id="s-dataset">—</span>
+      </div>
+      <div class="status-item">
+        <div class="left"><div class="dot amber"></div>Cache Age</div>
+        <span id="s-age">—</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title"><span class="icon">🚀</span> Actions</div>
+    <div class="ctrl-btns">
+      <button class="ctrl-btn primary" id="btn-run" onclick="runPipeline()">
+        ⚡ Run Pipeline
+      </button>
+      <button class="ctrl-btn success" id="btn-fetch" onclick="fetchResult()">
+        📥 Fetch Result
+      </button>
+      <button class="ctrl-btn secondary" onclick="location.reload()">
+        🔄 Refresh
+      </button>
+    </div>
+    <div id="ctrl-log" style="margin-top:.8rem;font-size:.72rem;color:var(--muted)"></div>
+  </div>
+</div>
+
+<!-- ═══ Floating Main Predictions Grid (for app.js) ═══════ -->
+<div id="main-grid" style="margin-top:1.25rem;display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;"></div>
+
+<!-- ═══ SCRIPTS ═══════════════════════════════════════════ -->
+<script>
+// ── Helpers ─────────────────────────────────────────────
+function safeEl(id) { return document.getElementById(id); }
+function safeText(id, val) { const el = safeEl(id); if (el) el.textContent = val; }
+function safeHTML(id, val) { const el = safeEl(id); if (el) el.innerHTML = val; }
+
+// ── CSV Parser ──────────────────────────────────────────
+function parseCSV(txt) {
+  const lines = txt.trim().replace(/\r/g, '').split('\n');
+  if (lines.length < 2) return { headers: [], rows: [] };
+  const headers = lines[0].split(',');
+  const rows = [];
+  for (let i = 1; i < lines.length; i++) {
+    const vals = lines[i].split(',');
+    if (!vals[0]) continue;
+    const obj = {};
+    headers.forEach((h, idx) => { obj[h.trim()] = (vals[idx] || '').trim(); });
+    rows.push(obj);
+  }
+  return { headers, rows };
+}
+
+// Find first row with complete prize data
+function findLatestComplete(rows) {
+  for (const row of rows) {
+    if (row.first_prize && row.front3_1 && row.back3_1 && row.last2) return row;
+  }
+  return rows[0] || {};
+}
+
+// ── Live Clock ──────────────────────────────────────────
+function tickClock() { safeText('clock', new Date().toLocaleTimeString('th-TH')); }
+tickClock(); setInterval(tickClock, 1000);
+
+// ── Global data holders ─────────────────────────────────
+let csvRows = [];
+
+// ── Load CSV → Meta + Latest Result + Hot/Cold + Trends ─
+async function loadCSV() {
+  try {
+    const r = await fetch('../database/dataset/lottery_history.csv?ts=' + Date.now());
+    if (!r.ok) { safeText('meta-info', '⚠ Cannot load dataset'); return; }
+    const txt = await r.text();
+    const { rows } = parseCSV(txt);
+    csvRows = rows;
+    const total = rows.length;
+
+    // --- Meta bar ---
+    const latest = findLatestComplete(rows);
+    safeText('meta-info',
+      `Analysis on ${total} draws | Latest: ${latest.first_prize || '—'} (${latest.draw_date || '—'})`);
+
+    // --- Latest Lottery Result ---
+    try {
+      safeText('r-first', latest.first_prize || '——————');
+      safeText('r-last2', latest.last2 || '——');
+      safeHTML('r-front3',
+        `<span class="num-badge">${latest.front3_1 || '—'}</span><span class="num-badge">${latest.front3_2 || '—'}</span>`);
+      safeHTML('r-back3',
+        `<span class="num-badge">${latest.back3_1 || '—'}</span><span class="num-badge">${latest.back3_2 || '—'}</span>`);
+      safeText('r-date', 'งวดล่าสุด: ' + (latest.draw_date || '—'));
+    } catch(e) { console.warn('Latest result render error:', e); }
+
+    // --- System Status: Dataset ---
+    safeText('s-dataset', `✓ Dataset OK (${total} draws)`);
+
+    // --- Hot / Cold Digits ---
+    try {
+      const recent = rows.slice(0, Math.min(50, rows.length));
+      const freq = Array(10).fill(0);
+      recent.forEach(row => {
+        for (let d = 1; d <= 6; d++) {
+          const v = parseInt(row['digit' + d]);
+          if (!isNaN(v) && v >= 0 && v <= 9) freq[v]++;
+        }
+      });
+      const indexed = freq.map((count, digit) => ({ digit, count }));
+      const sorted = [...indexed].sort((a, b) => b.count - a.count);
+      const hot = sorted.slice(0, 5);
+      const cold = sorted.slice(-5).reverse();
+
+      safeHTML('hot-digits', hot.map(d =>
+        `<div class="digit-chip hot">${d.digit}<span class="heat">${d.count}</span></div>`
+      ).join(''));
+      safeHTML('cold-digits', cold.map(d =>
+        `<div class="digit-chip cold">${d.digit}<span class="heat">${d.count}</span></div>`
+      ).join(''));
+
+      // Surging pairs
+      const pairFreq = {};
+      recent.forEach(row => {
+        const fp = (row.first_prize || '').toString();
+        for (let i = 0; i < fp.length - 1; i++) {
+          const pair = fp.substring(i, i + 2);
+          pairFreq[pair] = (pairFreq[pair] || 0) + 1;
+        }
+      });
+      const topPairs = Object.entries(pairFreq).sort((a,b) => b[1] - a[1]).slice(0, 6);
+      safeHTML('surging-pairs', topPairs.map(([p, c]) =>
+        `<span class="num-badge" style="background:rgba(239,68,68,.12);color:#fca5a5;border:1px solid rgba(239,68,68,.25)">${p} <span style="font-size:.6rem;color:var(--muted)">(${c})</span></span>`
+      ).join(''));
+
+      // Spike alerts
+      const older = rows.slice(50, Math.min(100, rows.length));
+      const oldFreq = Array(10).fill(0);
+      older.forEach(row => {
+        for (let d = 1; d <= 6; d++) {
+          const v = parseInt(row['digit' + d]);
+          if (!isNaN(v) && v >= 0 && v <= 9) oldFreq[v]++;
+        }
+      });
+      const spikes = [];
+      for (let i = 0; i < 10; i++) {
+        const diff = freq[i] - oldFreq[i];
+        if (diff > 5) spikes.push({ digit: i, diff });
+      }
+      safeHTML('spike-alerts', spikes.length
+        ? spikes.map(s => `<div style="font-size:.78rem;color:var(--amber)">⚡ Digit ${s.digit} surged +${s.diff} vs previous period</div>`).join('')
+        : '<div style="font-size:.78rem;color:var(--muted)">No significant spikes detected</div>');
+    } catch(e) { console.warn('Hot/Cold render error:', e); }
+
+    // --- Real-Time Trend Scanner ---
+    try {
+      const last10 = rows.slice(0, Math.min(10, rows.length));
+      const trendHTML = last10.map(row => {
+        const digits = (row.first_prize || '').split('');
+        const sum = digits.reduce((a, c) => a + (parseInt(c) || 0), 0);
+        return `<div style="display:flex;justify-content:space-between;align-items:center;padding:.4rem .6rem;border-radius:6px;background:rgba(255,255,255,.03);margin-bottom:.35rem;font-size:.78rem">
+          <span style="color:var(--muted)">${row.draw_date || '—'}</span>
+          <span style="font-weight:700;letter-spacing:.05em">${row.first_prize || '—'}</span>
+          <span class="badge ${sum % 2 === 0 ? 'blue' : 'purple'}" style="font-size:.65rem">Σ${sum} ${sum % 2 === 0 ? 'คู่' : 'คี่'}</span>
+        </div>`;
+      }).join('');
+      safeHTML('trend-scan-container', trendHTML || '<p style="color:var(--muted);font-size:.8rem">No trend data</p>');
+    } catch(e) { console.warn('Trend scanner error:', e); }
+
+  } catch(e) { console.error('CSV load error:', e); safeText('meta-info', '⚠ Dataset load failed'); }
+}
+
+// ── Pipeline Cache (Predictions) ────────────────────────
+async function loadPipeline() {
+  try {
+    const r = await fetch('../api/predict.php?ts=' + Date.now());
+    if (!r.ok) return;
+    const data = await r.json();
+    const preds = data.candidates ?? data.top_predictions ?? [];
+    const ts    = data.cache?.cached_at ? new Date(data.cache.cached_at) : (data.timestamp ? new Date(data.timestamp) : null);
+
+    if (ts) {
+      const diff = Math.round((Date.now() - ts) / 1000);
+      const h = Math.floor(diff/3600), m = Math.floor((diff%3600)/60), s = diff%60;
+      const ageStr = h > 0 ? `${h}h ${m}m ago` : (m > 0 ? `${m}m ${s}s ago` : 'just now');
+      safeText('s-age', ageStr);
+      safeText('s-cache', '✓ Cached');
+      const timeStr = ts.toLocaleTimeString('th-TH');
+
+      const banner = safeEl('banner-text');
+      if (banner && !window._bannerTimer) {
+        window._bannerTimer = setInterval(() => {
+          banner.textContent = `Using cached prediction from ${timeStr} | Updated: ${new Date().toLocaleTimeString('th-TH')}`;
+        }, 1000);
+      }
+    }
+
+    if (preds.length) {
+      const maxC = Math.max(...preds.map(p => p.confidence || 0));
+      safeHTML('cand-list', preds.map((p,i) => `
+        <div class="cand-row">
+          <span class="cand-rank">#${i+1}</span>
+          <span class="cand-num" style="color:var(--cyan)">${p.number || '—'}</span>
+          <div class="cand-bar"><div class="cand-fill" style="width:${maxC ? (p.confidence/maxC*100).toFixed(1) : 0}%"></div></div>
+          <span class="cand-pct">${(p.confidence || 0).toFixed(1)}%</span>
+        </div>`).join(''));
+    }
+  } catch(e) { console.warn('Pipeline load error:', e); }
+}
+loadCSV();
+loadPipeline();
+setInterval(() => {
+  loadCSV();
+  loadPipeline();
+  loadXAI();
+}, 60 * 1000);
+
+// ── XAI from pipeline_cache.json ────────────────────────
+async function loadXAI() {
+  try {
+    const r = await fetch('../database/predictions/pipeline_cache.json?ts=' + Date.now());
+    if (!r.ok) return;
+    const d = await r.json();
+    const exp = d.explanation;
+    if (!exp?.number) return;
+
+    safeHTML('xai-panel', `
+      <div class="panel-title"><span class="icon">🧠</span> Why ${exp.number}? (XAI)</div>
+      <p style="color:var(--muted);font-size:.75rem;margin-bottom:.9rem">AI reasoning breakdown for the top candidate.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem">
+        <span class="badge blue">📊 Prob: ${exp.overall_factor_pct?.probability_pct ?? 0}%</span>
+        <span class="badge red">🌡 Heat: ${exp.overall_factor_pct?.heatmap_pct ?? 0}%</span>
+        <span class="badge purple">🔎 Pattern: ${exp.overall_factor_pct?.pattern_pct ?? 0}%</span>
+      </div>
+      ${(exp.positions ?? []).map(pos => `
+        <div style="margin-bottom:.65rem;padding:.65rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:8px">
+          <div style="font-weight:700;font-size:.82rem;margin-bottom:.4rem;color:#cbd5e1">🎯 ${pos.position} = ${pos.digit}</div>
+          ${(pos.reasons?.th ?? pos.reasons?.en ?? []).slice(0,2).map(r =>
+            `<div style="font-size:.75rem;color:var(--muted);border-left:2px solid var(--blue);padding-left:8px;margin-bottom:.3rem">${r}</div>`
+          ).join('')}
+        </div>`).join('')}
+    `);
+  } catch(e) { console.warn('XAI load error:', e); }
+}
+setTimeout(loadXAI, 600);
+
+// ── Performance Metrics ──────────────────────────────────
+async function loadPerf() {
+  try {
+    let r = await fetch('../analytics/performance.json?ts=' + Date.now());
+    if (!r.ok) r = await fetch('../performance.json?ts=' + Date.now());
+    if (!r.ok) { safeText('model-score', '—'); return; }
+    const p = await r.json();
+    const avgPos = p.avg_positional_hits ?? 0;
+    const score = Math.round((avgPos / 6) * 100);
+    safeText('model-score', score);
+    const scoreBar = safeEl('score-bar');
+    if (scoreBar) scoreBar.style.width = score + '%';
+    safeText('avg-hits', (p.avg_digit_hits ?? 0).toFixed(2));
+    const hitsBar = safeEl('hits-bar');
+    if (hitsBar) hitsBar.style.width = (((p.avg_digit_hits ?? 0) / 6) * 100).toFixed(1) + '%';
+    safeText('pos-hits', avgPos.toFixed(2));
+    const posBar = safeEl('pos-bar');
+    if (posBar) posBar.style.width = ((avgPos / 6) * 100).toFixed(1) + '%';
+    safeText('exact-count', p.exact_matches ?? 0);
+    safeText('eval-n', p.evaluated ?? 0);
+
+    const badge = safeEl('score-badge');
+    if (badge) {
+      if (score >= 70) { badge.className='badge green'; badge.textContent='Excellent'; }
+      else if (score >= 40) { badge.className='badge amber'; badge.textContent='Fair'; }
+      else { badge.className='badge red'; badge.textContent='Needs tuning'; }
+    }
+
+    const trend = p.trend ?? [];
+    if (trend.length >= 2) {
+      const diff = trend[trend.length-1] - trend[0];
+      safeText('perf-trend', diff > 0 ? '↑ Improving' : diff < 0 ? '↓ Declining' : 'Stable');
+    } else {
+      safeText('perf-trend', '— (not enough data)');
+    }
+  } catch(e) { console.warn('Performance load error:', e); }
+}
+loadPerf();
+
+// ── Pipeline / Fetch Result Controls ────────────────────
+async function runPipeline() {
+  const btn = safeEl('btn-run');
+  const log = safeEl('ctrl-log');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Running…'; }
+  if (log) log.textContent = 'Calling run_pipeline.py…';
+  try {
+    const r = await fetch('../api/predict.php?action=run_pipeline');
+    const d = await r.json().catch(() => ({}));
+    if (log) log.textContent = r.ok ? (d.message || '✓ Pipeline complete!') : (d.message || '⚠ Pipeline error');
+    if (r.ok) {
+      await loadPipeline();
+      await loadXAI();
+      await loadPerf();
+    }
+  } catch(e) { if (log) log.textContent = '⚠ ' + e.message; }
+  if (btn) { btn.disabled = false; btn.textContent = '⚡ Run Pipeline'; }
+}
+
+async function fetchResult() {
+  const btn = safeEl('btn-fetch');
+  const log = safeEl('ctrl-log');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Fetching…'; }
+  if (log) log.textContent = 'Calling result_fetcher…';
+  try {
+    const r = await fetch('../api/predict.php?action=fetch_result');
+    const d = await r.json().catch(() => ({}));
+    if (log) log.textContent = r.ok ? (d.message || '✓ Result fetched & dataset updated!') : (d.message || '⚠ Fetch failed');
+    if (r.ok) {
+      await loadCSV();
+      await loadPipeline();
+      await loadXAI();
+      await loadPerf();
+    }
+  } catch(e) { if (log) log.textContent = '⚠ ' + e.message; }
+  if (btn) { btn.disabled = false; btn.textContent = '📥 Fetch Result'; }
+}
+</script>
+<script src="app.js"></script>
+
+<!-- ── TH/EN Language Toggle ──────────────────────────── -->
+<script>
+(function() {
+  let isEN = false;
+  const btn = document.createElement('button');
+  btn.innerText = '🌐 TH / EN';
+  btn.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;background:linear-gradient(135deg,#3b82f6,#8b5cf6);color:#fff;border:none;padding:12px 20px;border-radius:50px;cursor:pointer;font-weight:700;box-shadow:0 4px 15px rgba(0,0,0,.3);transition:transform .2s;font-family:inherit;font-size:.85rem;';
+  btn.onmouseover = () => btn.style.transform = 'scale(1.05) translateY(-2px)';
+  btn.onmouseout  = () => btn.style.transform = 'scale(1)';
+
+  const dict = {
+    'Lottery Strategy Dashboard':'แดชบอร์ดกลยุทธ์หวย', 'AI Predictions':'คาดการณ์ AI',
+    'Latest Lottery Result':'ผลรางวัลล่าสุด', 'Hot / Cold Digits':'ตัวเลขร้อน / เย็น',
+    'Model Performance':'ประสิทธิภาพโมเดล', 'System Control':'ควบคุมระบบ',
+    'Top AI Candidates':'ตัวเลขคาดการณ์ยอดเยี่ยม', 'Model Score':'คะแนนโมเดล',
+    'Avg Digit Hits':'ความแม่นยำรายตัวเลข', 'Best Pos. Hits':'แม่นยำตำแหน่ง',
+    'Exact Matches':'ถูกต้องเป๊ะ', 'System Status':'สถานะระบบ', 'Actions':'คำสั่ง',
+    'Run Pipeline':'ประมวลผลใหม่', 'Fetch Result':'ดึงผลรางวัล',
+    'Refresh':'รีเฟรช', 'Pipeline Cache':'แคชระบบ', 'API Response':'API สนองตอบ',
+    'Dataset':'ชุดข้อมูล', 'Cache Age':'อายุแคช', 'just now':'เมื่อสักครู่', 'ago':'ที่แล้ว',
+    'Excellent':'ดีเยี่ยม', 'Fair':'พอใช้', 'Needs tuning':'ต้องปรับปรุง',
+    'Improving':'กำลังดีขึ้น', 'Declining':'กำลังลดลง', 'Stable':'เสถียร',
+    'Surging Pairs':'คู่ตัวเลขมาแรง', 'Frequency Spike Alerts':'แจ้งเตือนสถิติมาแรง',
+    'Most Frequent':'ออกบ่อยที่สุด', 'Least Frequent':'ออกน้อยที่สุด',
+  };
+
+  btn.onclick = () => {
+    isEN = !isEN;
+    (function walk(node) {
+      if (node.nodeType === 3) {
+        let t = node.nodeValue;
+        Object.entries(dict).forEach(([en,th]) => {
+          if (isEN && t.includes(th)) t = t.replaceAll(th, en);
+          if (!isEN && t.includes(en)) t = t.replaceAll(en, th);
+        });
+        if (t !== node.nodeValue) node.nodeValue = t;
+      } else if (node.nodeType === 1 && !['SCRIPT','STYLE'].includes(node.nodeName)) {
+        node.childNodes.forEach(walk);
+      }
+    })(document.body);
+  };
+
+  document.body.appendChild(btn);
+})();
+</script>
+</body>
+</html>

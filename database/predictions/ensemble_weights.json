@@ -1,0 +1,10 @@
+{
+  "positional_freq": 0.2,
+  "rolling_heat": 0.2,
+  "conditional": 0.15,
+  "transition": 0.1,
+  "pair_lift": 0.1,
+  "pattern_hot": 0.1,
+  "gap_overdue": 0.08,
+  "temporal_trend": 0.07
+}

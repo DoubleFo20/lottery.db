@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-08-02T18:50:08.409987",
+  "top_predictions": [
+    {
+      "number": "511307",
+      "confidence": 50.0,
+      "votes": 1
+    },
+    {
+      "number": "511304",
+      "confidence": 50.0,
+      "votes": 1
+    },
+    {
+      "number": "511302",
+      "confidence": 50.0,
+      "votes": 1
+    },
+    {
+      "number": "511317",
+      "confidence": 50.0,
+      "votes": 1
+    },
+    {
+      "number": "511314",
+      "confidence": 50.0,
+      "votes": 1
+    }
+  ]
+}

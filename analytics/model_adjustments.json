@@ -1,0 +1,917 @@
+[
+  {
+    "timestamp": "2026-03-12T06:00:48.122098",
+    "model_score": 40.0,
+    "model_grade": "C  ⚠️",
+    "total_evaluated": 1,
+    "evaluation_windows": {
+      "overall": {
+        "count": 1,
+        "avg_pos_hits": 0.0,
+        "avg_dig_hits": 4.0,
+        "exact_matches": 0,
+        "consistency": 1.0,
+        "position_accuracy": {
+          "digit1": 0.0,
+          "digit2": 0.0,
+          "digit3": 0.0,
+          "digit4": 0.0,
+          "digit5": 0.0,
+          "digit6": 0.0
+        }
+      },
+      "window_50": {
+        "count": 1,
+        "avg_pos_hits": 0.0,
+        "avg_dig_hits": 4.0,
+        "exact_matches": 0,
+        "consistency": 1.0,
+        "position_accuracy": {
+          "digit1": 0.0,
+          "digit2": 0.0,
+          "digit3": 0.0,
+          "digit4": 0.0,
+          "digit5": 0.0,
+          "digit6": 0.0
+        }
+      },
+      "window_100": {
+        "count": 1,
+        "avg_pos_hits": 0.0,
+        "avg_dig_hits": 4.0,
+        "exact_matches": 0,
+        "consistency": 1.0,
+        "position_accuracy": {
+          "digit1": 0.0,
+          "digit2": 0.0,
+          "digit3": 0.0,
+          "digit4": 0.0,
+          "digit5": 0.0,
+          "digit6": 0.0
+        }
+      },
+      "window_200": {
+        "count": 1,
+        "avg_pos_hits": 0.0,
+        "avg_dig_hits": 4.0,
+        "exact_matches": 0,
+        "consistency": 1.0,
+        "position_accuracy": {
+          "digit1": 0.0,
+          "digit2": 0.0,
+          "digit3": 0.0,
+          "digit4": 0.0,
+          "digit5": 0.0,
+          "digit6": 0.0
+        }
+      }
+    },
+    "old_weights": {
+      "positional_freq": 0.2,
+      "rolling_heat": 0.2,
+      "conditional": 0.15,
+      "transition": 0.1,
+      "pair_lift": 0.1,
+      "pattern_hot": 0.1,
+      "gap_overdue": 0.08,
+      "temporal_trend": 0.07
+    },
+    "new_weights": {
+      "positional_freq": 0.2,
+      "rolling_heat": 0.2,
+      "conditional": 0.15,
+      "transition": 0.1,
+      "pair_lift": 0.1,
+      "pattern_hot": 0.1,
+      "gap_overdue": 0.08,
+      "temporal_trend": 0.07
+    },
+    "weight_changes": {
+      "rolling_heat": 0.0,
+      "gap_overdue": 0.0,
+      "positional_freq": 0.0,
+      "temporal_trend": 0.0,
+      "pair_lift": 0.0,
+      "pattern_hot": 0.0,
+      "transition": 0.0,
+      "conditional": 0.0
+    },
+    "actions_applied": [
+      {
+        "rule": "INSUFFICIENT_DATA",
+        "trigger": "Only 1 draws evaluated (min recommended: 50)",
+        "action": "Continue logging predictions and recording actuals to build history",
+        "severity": "info"
+      }
+    ],
+    "strategy_ranking": [
+      {
+        "name": "Random Baseline",
+        "signals": [],
+        "weight_sum": 0,
+        "description": "Random selection (baseline comparison)",
+        "effectiveness_score": 278.33,
+        "rank": 1
+      },
+      {
+        "name": "Probability Model",
+        "signals": [
+          "positional_freq",
+          "conditional",
+          "pair_lift"
+        ],
+        "weight_sum": 0.45,
+        "description": "Statistical positional frequency + conditional probability",
+        "effectiveness_score": 30.0,
+        "rank": 2
+      },
+      {
+        "name": "Hot Digit Strategy",
+        "signals": [
+          "pattern_hot",
+          "rolling_heat"
+        ],
+        "weight_sum": 0.30000000000000004,
+        "description": "Based on digits currently trending above average",
+        "effectiveness_score": 20.0,
+        "rank": 3
+      },
+      {
+        "name": "Trend Pattern Strategy",
+        "signals": [
+          "temporal_trend",
+          "gap_overdue"
+        ],
+        "weight_sum": 0.15000000000000002,
+        "description": "Temporal trends + overdue digit recovery",
+        "effectiveness_score": 10.0,
+        "rank": 4
+      },
+      {
+        "name": "Transition Model",
+        "signals": [
+          "transition"
+        ],
+        "weight_sum": 0.1,
+        "description": "Draw-to-draw digit transition probability",
+        "effectiveness_score": 6.67,
+        "rank": 5
+      }
+    ],
+    "recommendations": [
+      {
+        "priority": "HIGH",
+        "title": "Increase Dataset",
+        "detail": "Only 1 draws evaluated. Need ≥50 for reliable adjustments. Run: python analytics/prediction_history.py --log after each draw."
+      },
+      {
+        "priority": "MEDIUM",
+        "title": "Adjust Probability Weights",
+        "detail": "Model score below target. The system has applied automatic adjustments."
+      },
+      {
+        "priority": "LOW",
+        "title": "Review Strategy: Trend Pattern Strategy",
+        "detail": "Effectiveness score 10.0 — consider reducing weight of signals: temporal_trend, gap_overdue"
+      },
+      {
+        "priority": "LOW",
+        "title": "Review Strategy: Transition Model",
+        "detail": "Effectiveness score 6.67 — consider reducing weight of signals: transition"
+      }
+    ],
+    "changes_applied": false
+  },
+  {
+    "timestamp": "2026-03-12T06:01:26.987737",
+    "model_score": 40.0,
+    "model_grade": "C  ⚠️",
+    "total_evaluated": 1,
+    "evaluation_windows": {
+      "overall": {
+        "count": 1,
+        "avg_pos_hits": 0.0,
+        "avg_dig_hits": 4.0,
+        "exact_matches": 0,
+        "consistency": 1.0,
+        "position_accuracy": {
+          "digit1": 0.0,
+          "digit2": 0.0,
+          "digit3": 0.0,
+          "digit4": 0.0,
+          "digit5": 0.0,
+          "digit6": 0.0
+        }
+      },
+      "window_50": {
+        "count": 1,
+        "avg_pos_hits": 0.0,
+        "avg_dig_hits": 4.0,
+        "exact_matches": 0,
+        "consistency": 1.0,
+        "position_accuracy": {
+          "digit1": 0.0,
+          "digit2": 0.0,
+          "digit3": 0.0,
+          "digit4": 0.0,
+          "digit5": 0.0,
+          "digit6": 0.0
+        }
+      },
+      "window_100": {
+        "count": 1,
+        "avg_pos_hits": 0.0,
+        "avg_dig_hits": 4.0,
+        "exact_matches": 0,
+        "consistency": 1.0,
+        "position_accuracy": {
+          "digit1": 0.0,
+          "digit2": 0.0,
+          "digit3": 0.0,
+          "digit4": 0.0,
+          "digit5": 0.0,
+          "digit6": 0.0
+        }
+      },
+      "window_200": {
+        "count": 1,
+        "avg_pos_hits": 0.0,
+        "avg_dig_hits": 4.0,
+        "exact_matches": 0,
+        "consistency": 1.0,
+        "position_accuracy": {
+          "digit1": 0.0,
+          "digit2": 0.0,
+          "digit3": 0.0,
+          "digit4": 0.0,
+          "digit5": 0.0,
+          "digit6": 0.0
+        }
+      }
+    },
+    "old_weights": {
+      "positional_freq": 0.2,
+      "rolling_heat": 0.2,
+      "conditional": 0.15,
+      "transition": 0.1,
+      "pair_lift": 0.1,
+      "pattern_hot": 0.1,
+      "gap_overdue": 0.08,
+      "temporal_trend": 0.07
+    },
+    "new_weights": {
+      "positional_freq": 0.2,
+      "rolling_heat": 0.2,
+      "conditional": 0.15,
+      "transition": 0.1,
+      "pair_lift": 0.1,
+      "pattern_hot": 0.1,
+      "gap_overdue": 0.08,
+      "temporal_trend": 0.07
+    },
+    "weight_changes": {
+      "pair_lift": 0.0,
+      "gap_overdue": 0.0,
+      "conditional": 0.0,
+      "temporal_trend": 0.0,
+      "pattern_hot": 0.0,
+      "positional_freq": 0.0,
+      "rolling_heat": 0.0,
+      "transition": 0.0
+    },
+    "actions_applied": [
+      {
+        "rule": "INSUFFICIENT_DATA",
+        "trigger": "Only 1 draws evaluated (min recommended: 50)",
+        "action": "Continue logging predictions and recording actuals to build history",
+        "severity": "info"
+      }
+    ],
+    "strategy_ranking": [
+      {
+        "name": "Random Baseline",
+        "signals": [],
+        "weight_sum": 0,
+        "description": "Random selection (baseline comparison)",
+        "effectiveness_score": 278.33,
+        "rank": 1
+      },
+      {
+        "name": "Probability Model",
+        "signals": [
+          "positional_freq",
+          "conditional",
+          "pair_lift"
+        ],
+        "weight_sum": 0.45,
+        "description": "Statistical positional frequency + conditional probability",
+        "effectiveness_score": 30.0,
+        "rank": 2
+      },
+      {
+        "name": "Hot Digit Strategy",
+        "signals": [
+          "pattern_hot",
+          "rolling_heat"
+        ],
+        "weight_sum": 0.30000000000000004,
+        "description": "Based on digits currently trending above average",
+        "effectiveness_score": 20.0,
+        "rank": 3
+      },
+      {
+        "name": "Trend Pattern Strategy",
+        "signals": [
+          "temporal_trend",
+          "gap_overdue"
+        ],
+        "weight_sum": 0.15000000000000002,
+        "description": "Temporal trends + overdue digit recovery",
+        "effectiveness_score": 10.0,
+        "rank": 4
+      },
+      {
+        "name": "Transition Model",
+        "signals": [
+          "transition"
+        ],
+        "weight_sum": 0.1,
+        "description": "Draw-to-draw digit transition probability",
+        "effectiveness_score": 6.67,
+        "rank": 5
+      }
+    ],
+    "recommendations": [
+      {
+        "priority": "HIGH",
+        "title": "Increase Dataset",
+        "detail": "Only 1 draws evaluated. Need ≥50 for reliable adjustments. Run: python analytics/prediction_history.py --log after each draw."
+      },
+      {
+        "priority": "MEDIUM",
+        "title": "Adjust Probability Weights",
+        "detail": "Model score below target. The system has applied automatic adjustments."
+      },
+      {
+        "priority": "LOW",
+        "title": "Review Strategy: Trend Pattern Strategy",
+        "detail": "Effectiveness score 10.0 — consider reducing weight of signals: temporal_trend, gap_overdue"
+      },
+      {
+        "priority": "LOW",
+        "title": "Review Strategy: Transition Model",
+        "detail": "Effectiveness score 6.67 — consider reducing weight of signals: transition"
+      }
+    ],
+    "changes_applied": true
+  },
+  {
+    "timestamp": "2026-03-12T06:01:52.532497",
+    "model_score": 40.0,
+    "model_grade": "C  ⚠️",
+    "total_evaluated": 1,
+    "evaluation_windows": {
+      "overall": {
+        "count": 1,
+        "avg_pos_hits": 0.0,
+        "avg_dig_hits": 4.0,
+        "exact_matches": 0,
+        "consistency": 1.0,
+        "position_accuracy": {
+          "digit1": 0.0,
+          "digit2": 0.0,
+          "digit3": 0.0,
+          "digit4": 0.0,
+          "digit5": 0.0,
+          "digit6": 0.0
+        }
+      },
+      "window_50": {
+        "count": 1,
+        "avg_pos_hits": 0.0,
+        "avg_dig_hits": 4.0,
+        "exact_matches": 0,
+        "consistency": 1.0,
+        "position_accuracy": {
+          "digit1": 0.0,
+          "digit2": 0.0,
+          "digit3": 0.0,
+          "digit4": 0.0,
+          "digit5": 0.0,
+          "digit6": 0.0
+        }
+      },
+      "window_100": {
+        "count": 1,
+        "avg_pos_hits": 0.0,
+        "avg_dig_hits": 4.0,
+        "exact_matches": 0,
+        "consistency": 1.0,
+        "position_accuracy": {
+          "digit1": 0.0,
+          "digit2": 0.0,
+          "digit3": 0.0,
+          "digit4": 0.0,
+          "digit5": 0.0,
+          "digit6": 0.0
+        }
+      },
+      "window_200": {
+        "count": 1,
+        "avg_pos_hits": 0.0,
+        "avg_dig_hits": 4.0,
+        "exact_matches": 0,
+        "consistency": 1.0,
+        "position_accuracy": {
+          "digit1": 0.0,
+          "digit2": 0.0,
+          "digit3": 0.0,
+          "digit4": 0.0,
+          "digit5": 0.0,
+          "digit6": 0.0
+        }
+      }
+    },
+    "old_weights": {
+      "positional_freq": 0.2,
+      "rolling_heat": 0.2,
+      "conditional": 0.15,
+      "transition": 0.1,
+      "pair_lift": 0.1,
+      "pattern_hot": 0.1,
+      "gap_overdue": 0.08,
+      "temporal_trend": 0.07
+    },
+    "new_weights": {
+      "positional_freq": 0.2,
+      "rolling_heat": 0.2,
+      "conditional": 0.15,
+      "transition": 0.1,
+      "pair_lift": 0.1,
+      "pattern_hot": 0.1,
+      "gap_overdue": 0.08,
+      "temporal_trend": 0.07
+    },
+    "weight_changes": {
+      "conditional": 0.0,
+      "transition": 0.0,
+      "pattern_hot": 0.0,
+      "gap_overdue": 0.0,
+      "temporal_trend": 0.0,
+      "rolling_heat": 0.0,
+      "pair_lift": 0.0,
+      "positional_freq": 0.0
+    },
+    "actions_applied": [
+      {
+        "rule": "INSUFFICIENT_DATA",
+        "trigger": "Only 1 draws evaluated (min recommended: 50)",
+        "action": "Continue logging predictions and recording actuals to build history",
+        "severity": "info"
+      }
+    ],
+    "strategy_ranking": [
+      {
+        "name": "Random Baseline",
+        "signals": [],
+        "weight_sum": 0,
+        "description": "Random selection (baseline comparison)",
+        "effectiveness_score": 278.33,
+        "rank": 1
+      },
+      {
+        "name": "Probability Model",
+        "signals": [
+          "positional_freq",
+          "conditional",
+          "pair_lift"
+        ],
+        "weight_sum": 0.45,
+        "description": "Statistical positional frequency + conditional probability",
+        "effectiveness_score": 30.0,
+        "rank": 2
+      },
+      {
+        "name": "Hot Digit Strategy",
+        "signals": [
+          "pattern_hot",
+          "rolling_heat"
+        ],
+        "weight_sum": 0.30000000000000004,
+        "description": "Based on digits currently trending above average",
+        "effectiveness_score": 20.0,
+        "rank": 3
+      },
+      {
+        "name": "Trend Pattern Strategy",
+        "signals": [
+          "temporal_trend",
+          "gap_overdue"
+        ],
+        "weight_sum": 0.15000000000000002,
+        "description": "Temporal trends + overdue digit recovery",
+        "effectiveness_score": 10.0,
+        "rank": 4
+      },
+      {
+        "name": "Transition Model",
+        "signals": [
+          "transition"
+        ],
+        "weight_sum": 0.1,
+        "description": "Draw-to-draw digit transition probability",
+        "effectiveness_score": 6.67,
+        "rank": 5
+      }
+    ],
+    "recommendations": [
+      {
+        "priority": "HIGH",
+        "title": "Increase Dataset",
+        "detail": "Only 1 draws evaluated. Need ≥50 for reliable adjustments. Run: python analytics/prediction_history.py --log after each draw."
+      },
+      {
+        "priority": "MEDIUM",
+        "title": "Adjust Probability Weights",
+        "detail": "Model score below target. The system has applied automatic adjustments."
+      },
+      {
+        "priority": "LOW",
+        "title": "Review Strategy: Trend Pattern Strategy",
+        "detail": "Effectiveness score 10.0 — consider reducing weight of signals: temporal_trend, gap_overdue"
+      },
+      {
+        "priority": "LOW",
+        "title": "Review Strategy: Transition Model",
+        "detail": "Effectiveness score 6.67 — consider reducing weight of signals: transition"
+      }
+    ],
+    "changes_applied": false
+  },
+  {
+    "timestamp": "2026-03-12T06:02:01.281908",
+    "model_score": 40.0,
+    "model_grade": "C  ⚠️",
+    "total_evaluated": 1,
+    "evaluation_windows": {
+      "overall": {
+        "count": 1,
+        "avg_pos_hits": 0.0,
+        "avg_dig_hits": 4.0,
+        "exact_matches": 0,
+        "consistency": 1.0,
+        "position_accuracy": {
+          "digit1": 0.0,
+          "digit2": 0.0,
+          "digit3": 0.0,
+          "digit4": 0.0,
+          "digit5": 0.0,
+          "digit6": 0.0
+        }
+      },
+      "window_50": {
+        "count": 1,
+        "avg_pos_hits": 0.0,
+        "avg_dig_hits": 4.0,
+        "exact_matches": 0,
+        "consistency": 1.0,
+        "position_accuracy": {
+          "digit1": 0.0,
+          "digit2": 0.0,
+          "digit3": 0.0,
+          "digit4": 0.0,
+          "digit5": 0.0,
+          "digit6": 0.0
+        }
+      },
+      "window_100": {
+        "count": 1,
+        "avg_pos_hits": 0.0,
+        "avg_dig_hits": 4.0,
+        "exact_matches": 0,
+        "consistency": 1.0,
+        "position_accuracy": {
+          "digit1": 0.0,
+          "digit2": 0.0,
+          "digit3": 0.0,
+          "digit4": 0.0,
+          "digit5": 0.0,
+          "digit6": 0.0
+        }
+      },
+      "window_200": {
+        "count": 1,
+        "avg_pos_hits": 0.0,
+        "avg_dig_hits": 4.0,
+        "exact_matches": 0,
+        "consistency": 1.0,
+        "position_accuracy": {
+          "digit1": 0.0,
+          "digit2": 0.0,
+          "digit3": 0.0,
+          "digit4": 0.0,
+          "digit5": 0.0,
+          "digit6": 0.0
+        }
+      }
+    },
+    "old_weights": {
+      "positional_freq": 0.2,
+      "rolling_heat": 0.2,
+      "conditional": 0.15,
+      "transition": 0.1,
+      "pair_lift": 0.1,
+      "pattern_hot": 0.1,
+      "gap_overdue": 0.08,
+      "temporal_trend": 0.07
+    },
+    "new_weights": {
+      "positional_freq": 0.2,
+      "rolling_heat": 0.2,
+      "conditional": 0.15,
+      "transition": 0.1,
+      "pair_lift": 0.1,
+      "pattern_hot": 0.1,
+      "gap_overdue": 0.08,
+      "temporal_trend": 0.07
+    },
+    "weight_changes": {
+      "transition": 0.0,
+      "rolling_heat": 0.0,
+      "conditional": 0.0,
+      "pair_lift": 0.0,
+      "pattern_hot": 0.0,
+      "gap_overdue": 0.0,
+      "positional_freq": 0.0,
+      "temporal_trend": 0.0
+    },
+    "actions_applied": [
+      {
+        "rule": "INSUFFICIENT_DATA",
+        "trigger": "Only 1 draws evaluated (min recommended: 50)",
+        "action": "Continue logging predictions and recording actuals to build history",
+        "severity": "info"
+      }
+    ],
+    "strategy_ranking": [
+      {
+        "name": "Random Baseline",
+        "signals": [],
+        "weight_sum": 0,
+        "description": "Random selection (baseline comparison)",
+        "effectiveness_score": 278.33,
+        "rank": 1
+      },
+      {
+        "name": "Probability Model",
+        "signals": [
+          "positional_freq",
+          "conditional",
+          "pair_lift"
+        ],
+        "weight_sum": 0.45,
+        "description": "Statistical positional frequency + conditional probability",
+        "effectiveness_score": 30.0,
+        "rank": 2
+      },
+      {
+        "name": "Hot Digit Strategy",
+        "signals": [
+          "pattern_hot",
+          "rolling_heat"
+        ],
+        "weight_sum": 0.30000000000000004,
+        "description": "Based on digits currently trending above average",
+        "effectiveness_score": 20.0,
+        "rank": 3
+      },
+      {
+        "name": "Trend Pattern Strategy",
+        "signals": [
+          "temporal_trend",
+          "gap_overdue"
+        ],
+        "weight_sum": 0.15000000000000002,
+        "description": "Temporal trends + overdue digit recovery",
+        "effectiveness_score": 10.0,
+        "rank": 4
+      },
+      {
+        "name": "Transition Model",
+        "signals": [
+          "transition"
+        ],
+        "weight_sum": 0.1,
+        "description": "Draw-to-draw digit transition probability",
+        "effectiveness_score": 6.67,
+        "rank": 5
+      }
+    ],
+    "recommendations": [
+      {
+        "priority": "HIGH",
+        "title": "Increase Dataset",
+        "detail": "Only 1 draws evaluated. Need ≥50 for reliable adjustments. Run: python analytics/prediction_history.py --log after each draw."
+      },
+      {
+        "priority": "MEDIUM",
+        "title": "Adjust Probability Weights",
+        "detail": "Model score below target. The system has applied automatic adjustments."
+      },
+      {
+        "priority": "LOW",
+        "title": "Review Strategy: Trend Pattern Strategy",
+        "detail": "Effectiveness score 10.0 — consider reducing weight of signals: temporal_trend, gap_overdue"
+      },
+      {
+        "priority": "LOW",
+        "title": "Review Strategy: Transition Model",
+        "detail": "Effectiveness score 6.67 — consider reducing weight of signals: transition"
+      }
+    ],
+    "changes_applied": true
+  },
+  {
+    "timestamp": "2026-03-14T03:44:24.408636",
+    "model_score": 40.0,
+    "model_grade": "C  ⚠️",
+    "total_evaluated": 1,
+    "evaluation_windows": {
+      "overall": {
+        "count": 1,
+        "avg_pos_hits": 0.0,
+        "avg_dig_hits": 4.0,
+        "exact_matches": 0,
+        "consistency": 1.0,
+        "position_accuracy": {
+          "digit1": 0.0,
+          "digit2": 0.0,
+          "digit3": 0.0,
+          "digit4": 0.0,
+          "digit5": 0.0,
+          "digit6": 0.0
+        }
+      },
+      "window_50": {
+        "count": 1,
+        "avg_pos_hits": 0.0,
+        "avg_dig_hits": 4.0,
+        "exact_matches": 0,
+        "consistency": 1.0,
+        "position_accuracy": {
+          "digit1": 0.0,
+          "digit2": 0.0,
+          "digit3": 0.0,
+          "digit4": 0.0,
+          "digit5": 0.0,
+          "digit6": 0.0
+        }
+      },
+      "window_100": {
+        "count": 1,
+        "avg_pos_hits": 0.0,
+        "avg_dig_hits": 4.0,
+        "exact_matches": 0,
+        "consistency": 1.0,
+        "position_accuracy": {
+          "digit1": 0.0,
+          "digit2": 0.0,
+          "digit3": 0.0,
+          "digit4": 0.0,
+          "digit5": 0.0,
+          "digit6": 0.0
+        }
+      },
+      "window_200": {
+        "count": 1,
+        "avg_pos_hits": 0.0,
+        "avg_dig_hits": 4.0,
+        "exact_matches": 0,
+        "consistency": 1.0,
+        "position_accuracy": {
+          "digit1": 0.0,
+          "digit2": 0.0,
+          "digit3": 0.0,
+          "digit4": 0.0,
+          "digit5": 0.0,
+          "digit6": 0.0
+        }
+      }
+    },
+    "old_weights": {
+      "positional_freq": 0.2,
+      "rolling_heat": 0.2,
+      "conditional": 0.15,
+      "transition": 0.1,
+      "pair_lift": 0.1,
+      "pattern_hot": 0.1,
+      "gap_overdue": 0.08,
+      "temporal_trend": 0.07
+    },
+    "new_weights": {
+      "positional_freq": 0.2,
+      "rolling_heat": 0.2,
+      "conditional": 0.15,
+      "transition": 0.1,
+      "pair_lift": 0.1,
+      "pattern_hot": 0.1,
+      "gap_overdue": 0.08,
+      "temporal_trend": 0.07
+    },
+    "weight_changes": {
+      "gap_overdue": 0.0,
+      "pair_lift": 0.0,
+      "positional_freq": 0.0,
+      "conditional": 0.0,
+      "temporal_trend": 0.0,
+      "rolling_heat": 0.0,
+      "transition": 0.0,
+      "pattern_hot": 0.0
+    },
+    "actions_applied": [
+      {
+        "rule": "INSUFFICIENT_DATA",
+        "trigger": "Only 1 draws evaluated (min recommended: 50)",
+        "action": "Continue logging predictions and recording actuals to build history",
+        "severity": "info"
+      }
+    ],
+    "strategy_ranking": [
+      {
+        "name": "Random Baseline",
+        "signals": [],
+        "weight_sum": 0,
+        "description": "Random selection (baseline comparison)",
+        "effectiveness_score": 278.33,
+        "rank": 1
+      },
+      {
+        "name": "Probability Model",
+        "signals": [
+          "positional_freq",
+          "conditional",
+          "pair_lift"
+        ],
+        "weight_sum": 0.45,
+        "description": "Statistical positional frequency + conditional probability",
+        "effectiveness_score": 30.0,
+        "rank": 2
+      },
+      {
+        "name": "Hot Digit Strategy",
+        "signals": [
+          "pattern_hot",
+          "rolling_heat"
+        ],
+        "weight_sum": 0.30000000000000004,
+        "description": "Based on digits currently trending above average",
+        "effectiveness_score": 20.0,
+        "rank": 3
+      },
+      {
+        "name": "Trend Pattern Strategy",
+        "signals": [
+          "temporal_trend",
+          "gap_overdue"
+        ],
+        "weight_sum": 0.15000000000000002,
+        "description": "Temporal trends + overdue digit recovery",
+        "effectiveness_score": 10.0,
+        "rank": 4
+      },
+      {
+        "name": "Transition Model",
+        "signals": [
+          "transition"
+        ],
+        "weight_sum": 0.1,
+        "description": "Draw-to-draw digit transition probability",
+        "effectiveness_score": 6.67,
+        "rank": 5
+      }
+    ],
+    "recommendations": [
+      {
+        "priority": "HIGH",
+        "title": "Increase Dataset",
+        "detail": "Only 1 draws evaluated. Need ≥50 for reliable adjustments. Run: python analytics/prediction_history.py --log after each draw."
+      },
+      {
+        "priority": "MEDIUM",
+        "title": "Adjust Probability Weights",
+        "detail": "Model score below target. The system has applied automatic adjustments."
+      },
+      {
+        "priority": "LOW",
+        "title": "Review Strategy: Trend Pattern Strategy",
+        "detail": "Effectiveness score 10.0 — consider reducing weight of signals: temporal_trend, gap_overdue"
+      },
+      {
+        "priority": "LOW",
+        "title": "Review Strategy: Transition Model",
+        "detail": "Effectiveness score 6.67 — consider reducing weight of signals: transition"
+      }
+    ],
+    "changes_applied": true
+  }
+]

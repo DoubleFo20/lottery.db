@@ -1,0 +1,250 @@
+[
+  {
+    "logged_at": "2026-03-12T05:24:51.924567",
+    "target_date": "2026-04-01",
+    "draw_date_used": "2026-03-01",
+    "last_draw_number": "820866",
+    "candidates": [
+      {
+        "number": "219367",
+        "score": 7.18e-06,
+        "digits": [
+          "2",
+          "1",
+          "9",
+          "3",
+          "6",
+          "7"
+        ],
+        "confidence": 100.0
+      },
+      {
+        "number": "519367",
+        "score": 7.09e-06,
+        "digits": [
+          "5",
+          "1",
+          "9",
+          "3",
+          "6",
+          "7"
+        ],
+        "confidence": 98.73
+      },
+      {
+        "number": "219363",
+        "score": 6.86e-06,
+        "digits": [
+          "2",
+          "1",
+          "9",
+          "3",
+          "6",
+          "3"
+        ],
+        "confidence": 95.54
+      },
+      {
+        "number": "519363",
+        "score": 6.78e-06,
+        "digits": [
+          "5",
+          "1",
+          "9",
+          "3",
+          "6",
+          "3"
+        ],
+        "confidence": 94.33
+      },
+      {
+        "number": "819367",
+        "score": 6.68e-06,
+        "digits": [
+          "8",
+          "1",
+          "9",
+          "3",
+          "6",
+          "7"
+        ],
+        "confidence": 93.02
+      }
+    ],
+    "actual_result": "123456",
+    "accuracy": {
+      "per_candidate": [
+        {
+          "exact_match": false,
+          "positional_hits": 0,
+          "digit_hits": 4,
+          "candidate": "219367",
+          "confidence": 100.0
+        },
+        {
+          "exact_match": false,
+          "positional_hits": 0,
+          "digit_hits": 4,
+          "candidate": "519367",
+          "confidence": 98.73
+        },
+        {
+          "exact_match": false,
+          "positional_hits": 0,
+          "digit_hits": 4,
+          "candidate": "219363",
+          "confidence": 95.54
+        },
+        {
+          "exact_match": false,
+          "positional_hits": 0,
+          "digit_hits": 4,
+          "candidate": "519363",
+          "confidence": 94.33
+        },
+        {
+          "exact_match": false,
+          "positional_hits": 0,
+          "digit_hits": 3,
+          "candidate": "819367",
+          "confidence": 93.02
+        }
+      ],
+      "best": {
+        "exact_match": false,
+        "positional_hits": 0,
+        "digit_hits": 4,
+        "candidate": "219367",
+        "confidence": 100.0
+      },
+      "any_exact_match": false,
+      "avg_positional_hits": 0.0,
+      "avg_digit_hits": 3.8
+    },
+    "note": ""
+  },
+  {
+    "logged_at": "2026-03-14T03:48:50.577154",
+    "target_date": "2026-04-01",
+    "draw_date_used": "2026-03-01",
+    "last_draw_number": "820866",
+    "candidates": [
+      {
+        "number": "219367",
+        "score": 7.18e-06,
+        "digits": [
+          "2",
+          "1",
+          "9",
+          "3",
+          "6",
+          "7"
+        ],
+        "confidence": 100.0
+      },
+      {
+        "number": "519367",
+        "score": 7.09e-06,
+        "digits": [
+          "5",
+          "1",
+          "9",
+          "3",
+          "6",
+          "7"
+        ],
+        "confidence": 98.73
+      },
+      {
+        "number": "219363",
+        "score": 6.86e-06,
+        "digits": [
+          "2",
+          "1",
+          "9",
+          "3",
+          "6",
+          "3"
+        ],
+        "confidence": 95.54
+      },
+      {
+        "number": "519363",
+        "score": 6.78e-06,
+        "digits": [
+          "5",
+          "1",
+          "9",
+          "3",
+          "6",
+          "3"
+        ],
+        "confidence": 94.33
+      },
+      {
+        "number": "819367",
+        "score": 6.68e-06,
+        "digits": [
+          "8",
+          "1",
+          "9",
+          "3",
+          "6",
+          "7"
+        ],
+        "confidence": 93.02
+      }
+    ],
+    "actual_result": "123456",
+    "accuracy": {
+      "per_candidate": [
+        {
+          "exact_match": false,
+          "positional_hits": 0,
+          "digit_hits": 4,
+          "candidate": "219367",
+          "confidence": 100.0
+        },
+        {
+          "exact_match": false,
+          "positional_hits": 0,
+          "digit_hits": 4,
+          "candidate": "519367",
+          "confidence": 98.73
+        },
+        {
+          "exact_match": false,
+          "positional_hits": 0,
+          "digit_hits": 4,
+          "candidate": "219363",
+          "confidence": 95.54
+        },
+        {
+          "exact_match": false,
+          "positional_hits": 0,
+          "digit_hits": 4,
+          "candidate": "519363",
+          "confidence": 94.33
+        },
+        {
+          "exact_match": false,
+          "positional_hits": 0,
+          "digit_hits": 3,
+          "candidate": "819367",
+          "confidence": 93.02
+        }
+      ],
+      "best": {
+        "exact_match": false,
+        "positional_hits": 0,
+        "digit_hits": 4,
+        "candidate": "219367",
+        "confidence": 100.0
+      },
+      "any_exact_match": false,
+      "avg_positional_hits": 0.0,
+      "avg_digit_hits": 3.8
+    },
+    "note": ""
+  }
+]

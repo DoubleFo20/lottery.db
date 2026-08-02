@@ -1,0 +1,581 @@
+{
+  "timestamp": "2026-03-14T04:16:28.409334",
+  "simulations_run": 100000,
+  "historical_draws_used": 459,
+  "distribution": {
+    "pos1": {
+      "0": 0.10457516339869281,
+      "1": 0.09586056644880174,
+      "2": 0.10893246187363835,
+      "3": 0.10457516339869281,
+      "4": 0.09368191721132897,
+      "5": 0.12200435729847495,
+      "6": 0.0718954248366013,
+      "7": 0.07625272331154684,
+      "8": 0.10457516339869281,
+      "9": 0.11764705882352941
+    },
+    "pos2": {
+      "0": 0.09586056644880174,
+      "1": 0.12200435729847495,
+      "2": 0.0915032679738562,
+      "3": 0.10021786492374728,
+      "4": 0.10239651416122005,
+      "5": 0.1111111111111111,
+      "6": 0.09368191721132897,
+      "7": 0.09803921568627451,
+      "8": 0.11328976034858387,
+      "9": 0.0718954248366013
+    },
+    "pos3": {
+      "0": 0.10021786492374728,
+      "1": 0.11982570806100218,
+      "2": 0.08714596949891068,
+      "3": 0.10457516339869281,
+      "4": 0.10021786492374728,
+      "5": 0.10021786492374728,
+      "6": 0.10457516339869281,
+      "7": 0.09368191721132897,
+      "8": 0.09368191721132897,
+      "9": 0.09586056644880174
+    },
+    "pos4": {
+      "0": 0.08278867102396514,
+      "1": 0.08496732026143791,
+      "2": 0.08714596949891068,
+      "3": 0.11982570806100218,
+      "4": 0.1111111111111111,
+      "5": 0.10239651416122005,
+      "6": 0.10893246187363835,
+      "7": 0.0915032679738562,
+      "8": 0.10457516339869281,
+      "9": 0.10675381263616558
+    },
+    "pos5": {
+      "0": 0.12854030501089325,
+      "1": 0.1111111111111111,
+      "2": 0.10021786492374728,
+      "3": 0.0784313725490196,
+      "4": 0.08932461873638345,
+      "5": 0.09586056644880174,
+      "6": 0.10675381263616558,
+      "7": 0.10457516339869281,
+      "8": 0.08714596949891068,
+      "9": 0.09803921568627451
+    },
+    "pos6": {
+      "0": 0.08496732026143791,
+      "1": 0.10021786492374728,
+      "2": 0.10893246187363835,
+      "3": 0.1111111111111111,
+      "4": 0.10893246187363835,
+      "5": 0.09368191721132897,
+      "6": 0.10457516339869281,
+      "7": 0.1394335511982571,
+      "8": 0.0784313725490196,
+      "9": 0.06971677559912855
+    }
+  },
+  "top_candidates": [
+    {
+      "number": "216427",
+      "frequency": 5,
+      "probability": 5e-05
+    },
+    {
+      "number": "423337",
+      "frequency": 4,
+      "probability": 4e-05
+    },
+    {
+      "number": "503036",
+      "frequency": 4,
+      "probability": 4e-05
+    },
+    {
+      "number": "830797",
+      "frequency": 4,
+      "probability": 4e-05
+    },
+    {
+      "number": "041954",
+      "frequency": 4,
+      "probability": 4e-05
+    },
+    {
+      "number": "351494",
+      "frequency": 4,
+      "probability": 4e-05
+    },
+    {
+      "number": "474468",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "847962",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "771692",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "513447",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "451306",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "264697",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "911397",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "523343",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "918126",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "207501",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "931606",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "340673",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "931567",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "237602",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "847413",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "815847",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "916532",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "999268",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "568824",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "897612",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "389417",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "141309",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "231333",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "581378",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "016374",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "348688",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "371897",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "247329",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "860727",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "551820",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "157284",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "456825",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "052406",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "078406",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "471701",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "935903",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "236893",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "576403",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "977932",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "023726",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "131107",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "033957",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "980812",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "309552",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "446782",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "841053",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "958300",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "981506",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "164280",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "912328",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "586162",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "969794",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "538787",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "905577",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "496104",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "985904",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "081363",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "511307",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "253944",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "028933",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "384472",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "287465",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "139007",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "984392",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "152207",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "554442",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "381943",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "954911",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "267476",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "594682",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "646917",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "533807",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "119344",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "530865",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "214611",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "010327",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "176704",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "080306",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "157716",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "324462",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "332498",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "310907",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "147685",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "911755",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "441457",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "687377",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "004497",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "780417",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "314882",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "810524",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "579361",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "873377",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "064848",
+      "frequency": 3,
+      "probability": 3e-05
+    },
+    {
+      "number": "194316",
+      "frequency": 3,
+      "probability": 3e-05
+    }
+  ]
+}

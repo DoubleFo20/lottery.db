@@ -1,0 +1,3 @@
+logged_at,target_date,draw_date_used,rank1_number,rank1_confidence,rank2_number,rank2_confidence,rank3_number,rank3_confidence,rank4_number,rank4_confidence,rank5_number,rank5_confidence,actual_result,exact_match,best_positional_hits,best_digit_hits,note
+2026-03-12T05:24:51.924567,2026-04-01,2026-03-01,219367,100.0,519367,98.73,219363,95.54,519363,94.33,819367,93.02,123456,False,0,4,
+2026-03-14T03:48:50.577154,2026-04-01,2026-03-01,219367,100.0,519367,98.73,219363,95.54,519363,94.33,819367,93.02,123456,False,0,4,

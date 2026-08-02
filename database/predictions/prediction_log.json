@@ -1,0 +1,87 @@
+[
+  {
+    "predicted_at": "2026-03-12T04:50:24.810411",
+    "target_date": "",
+    "candidates": [
+      {
+        "number": "219367",
+        "score": 7.18e-06,
+        "digits": [
+          "2",
+          "1",
+          "9",
+          "3",
+          "6",
+          "7"
+        ],
+        "confidence": 100.0
+      },
+      {
+        "number": "519367",
+        "score": 7.09e-06,
+        "digits": [
+          "5",
+          "1",
+          "9",
+          "3",
+          "6",
+          "7"
+        ],
+        "confidence": 98.73
+      },
+      {
+        "number": "219363",
+        "score": 6.86e-06,
+        "digits": [
+          "2",
+          "1",
+          "9",
+          "3",
+          "6",
+          "3"
+        ],
+        "confidence": 95.54
+      },
+      {
+        "number": "519363",
+        "score": 6.78e-06,
+        "digits": [
+          "5",
+          "1",
+          "9",
+          "3",
+          "6",
+          "3"
+        ],
+        "confidence": 94.33
+      },
+      {
+        "number": "819367",
+        "score": 6.68e-06,
+        "digits": [
+          "8",
+          "1",
+          "9",
+          "3",
+          "6",
+          "7"
+        ],
+        "confidence": 93.02
+      }
+    ],
+    "weights_used": {
+      "positional_freq": 0.2,
+      "rolling_heat": 0.2,
+      "conditional": 0.15,
+      "transition": 0.1,
+      "pair_lift": 0.1,
+      "pattern_hot": 0.1,
+      "gap_overdue": 0.08,
+      "temporal_trend": 0.07
+    },
+    "evaluation": {
+      "status": "pending",
+      "reason": "no actual result yet"
+    }
+  }
+]

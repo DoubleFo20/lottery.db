@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Manager Control Center — Lottery Suite</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════════
+   ROOT / TOKENS
+═══════════════════════════════════════════════ */
+:root {
+  --bg:        #060b14;
+  --surface:   #0d1626;
+  --card:      #111d33;
+  --card-h:    #162040;
+  --border:    rgba(56,139,255,.18);
+  --accent:    #388bff;
+  --accent2:   #00e5ff;
+  --good:      #22d987;
+  --warn:      #f5a623;
+  --bad:       #ff4d6d;
+  --muted:     #5a7099;
+  --text:      #e2eaf8;
+  --text-dim:  #7a91b8;
+  --glow:      0 0 24px rgba(56,139,255,.18);
+  --radius:    14px;
+  font-family: 'Sora', sans-serif;
+  color: var(--text);
+}
+
+/* ═══════════════ RESET / BASE ═══════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: var(--bg); }
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(56,139,255,.07) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(0,229,255,.05) 0%, transparent 70%),
+    var(--bg);
+}
+
+/* ═══════════════ HEADER ═══════════════ */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 32px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(13,22,38,.85);
+  backdrop-filter: blur(12px);
+  position: sticky; top: 0; z-index: 100;
+}
+
+.brand {
+  display: flex; align-items: center; gap: 12px;
+}
+.brand-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; box-shadow: var(--glow);
+}
+.brand h1 {
+  font-size: 1rem; font-weight: 700; letter-spacing: .04em;
+  color: var(--text);
+}
+.brand p { font-size: .72rem; color: var(--text-dim); }
+
+.header-right { display: flex; align-items: center; gap: 16px; }
+
+#last-refresh {
+  font-size: .72rem; color: var(--text-dim);
+}
+
+.btn-refresh {
+  background: rgba(56,139,255,.15);
+  border: 1px solid rgba(56,139,255,.35);
+  color: var(--accent);
+  padding: 7px 16px; border-radius: 8px;
+  font-size: .75rem; cursor: pointer;
+  transition: background .2s;
+}
+.btn-refresh:hover { background: rgba(56,139,255,.28); }
+
+/* ═══════════════ LOADER ═══════════════ */
+#loader {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  flex: 1; gap: 16px; color: var(--text-dim); font-size: .85rem;
+}
+.spinner {
+  width: 40px; height: 40px;
+  border: 3px solid rgba(56,139,255,.15);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ═══════════════ GRID ═══════════════ */
+#dashboard {
+  display: none;
+  flex: 1;
+  padding: 24px 32px 40px;
+}
+
+/* ── Section Title ── */
+.section-title {
+  font-size: .7rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-title::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(to right, var(--border), transparent);
+}
+
+/* ── Row grids ── */
+.row-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px; margin-bottom: 20px;
+}
+.row-3 {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 16px; margin-bottom: 20px;
+}
+.row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px; margin-bottom: 20px;
+}
+@media (max-width: 1100px) {
+  .row-4 { grid-template-columns: repeat(2,1fr); }
+  .row-3 { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .row-4 { grid-template-columns: 1fr; }
+  .row-2 { grid-template-columns: 1fr; }
+  #dashboard { padding: 16px; }
+}
+
+/* ═══════════════ CARD ═══════════════ */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: transform .2s, box-shadow .2s, background .2s;
+  position: relative; overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0; transition: opacity .3s;
+}
+.card:hover { transform: translateY(-3px); background: var(--card-h); box-shadow: var(--glow); }
+.card:hover::before { opacity: 1; }
+
+.card-label {
+  font-size: .68rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--text-dim);
+  margin-bottom: 10px;
+}
+.card-value {
+  font-size: 2rem; font-weight: 700; line-height: 1.1;
+  letter-spacing: -.02em;
+}
+.card-sub {
+  font-size: .73rem; color: var(--text-dim); margin-top: 5px;
+}
+
+/* ── Status colors ── */
+.good  { color: var(--good); }
+.warn  { color: var(--warn); }
+.bad   { color: var(--bad); }
+.blue  { color: var(--accent2); }
+
+/* ── Progress bar ── */
+.prog-wrap {
+  background: rgba(56,139,255,.12);
+  border-radius: 99px; height: 10px; overflow: hidden;
+  margin-top: 12px;
+}
+.prog-bar {
+  height: 100%; border-radius: 99px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transition: width 1s cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+/* ── Badge ── */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 11px; border-radius: 99px;
+  font-size: .7rem; font-weight: 600;
+}
+.badge-good { background: rgba(34,217,135,.12); color: var(--good); border: 1px solid rgba(34,217,135,.3); }
+.badge-warn { background: rgba(245,166,35,.12); color: var(--warn); border: 1px solid rgba(245,166,35,.3); }
+.badge-bad  { background: rgba(255,77,109,.12);  color: var(--bad);  border: 1px solid rgba(255,77,109,.3); }
+.badge-blue { background: rgba(0,229,255,.1);    color: var(--accent2); border: 1px solid rgba(0,229,255,.3); }
+
+/* ── Digit chip ── */
+.digit-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.digit-chip {
+  width: 38px; height: 38px;
+  border-radius: 10px; display: flex;
+  align-items: center; justify-content: center;
+  font-size: 1.05rem; font-weight: 700;
+  transition: transform .2s;
+}
+.digit-chip:hover { transform: scale(1.12); }
+.chip-hot { background: rgba(255,77,109,.15); color: var(--bad); border: 1px solid rgba(255,77,109,.3); }
+.chip-cold{ background: rgba(0,229,255,.1);   color: var(--accent2); border: 1px solid rgba(0,229,255,.3); }
+
+/* ── Candidate list ── */
+.candidate-list { margin-top: 10px; }
+.candidate-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 0; border-bottom: 1px solid var(--border);
+}
+.candidate-row:last-child { border-bottom: none; }
+.rank-num {
+  font-size: .68rem; color: var(--text-dim);
+  width: 18px; text-align: right; flex-shrink: 0;
+}
+.cand-number {
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem; font-weight: 700; letter-spacing: .18em;
+  color: var(--accent2);
+}
+.conf-bar-wrap {
+  flex: 1; height: 5px;
+  background: rgba(56,139,255,.1); border-radius: 99px; overflow: hidden;
+}
+.conf-bar { height: 100%; border-radius: 99px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transition: width .8s;
+}
+.conf-pct { font-size: .7rem; color: var(--text-dim); width: 40px; text-align: right; }
+
+/* ── Spike list ── */
+.spike-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 7px 0; border-bottom: 1px solid var(--border);
+  font-size: .78rem;
+}
+.spike-item:last-child { border-bottom: none; }
+.spike-label { color: var(--text-dim); }
+.spike-ratio { font-weight: 700; color: var(--warn); }
+
+/* ── System health dot ── */
+.health-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 0; border-bottom: 1px solid var(--border); font-size: .8rem;
+}
+.health-row:last-child { border-bottom: none; }
+.health-dot {
+  width: 8px; height: 8px; border-radius: 50%; margin-right: 8px;
+  display: inline-block;
+}
+.dot-good { background: var(--good); box-shadow: 0 0 6px var(--good); }
+.dot-warn { background: var(--warn); box-shadow: 0 0 6px var(--warn); }
+.dot-bad  { background: var(--bad);  box-shadow: 0 0 6px var(--bad); }
+
+/* ── Big score card ── */
+.score-number {
+  font-size: 3.2rem; font-weight: 700; letter-spacing: -.03em;
+}
+.grade-badge {
+  display: inline-block; padding: 4px 14px;
+  border-radius: 8px; font-size: .9rem; font-weight: 700;
+  margin-top: 4px;
+}
+
+/* Trend sparkline-like */
+.trend-arrow { font-size: 1.1rem; }
+
+/* ── Error ── */
+#error-msg {
+  display: none; flex: 1;
+  align-items: center; justify-content: center;
+  flex-direction: column; gap: 10px;
+  color: var(--bad); font-size: .9rem;
+}
+
+/* ── Footer ── */
+footer {
+  text-align: center; padding: 14px;
+  font-size: .68rem; color: var(--muted);
+  border-top: 1px solid var(--border);
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header>
+  <div class="brand">
+    <div class="brand-icon">🧠</div>
+    <div>
+      <h1>AI Manager Control Center</h1>
+      <p>Lottery Analysis Suite — Monitoring &amp; Evaluation</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <a href="strategy.html" style="
+      display:inline-flex;align-items:center;gap:6px;
+      padding:7px 16px;border-radius:8px;font-size:.75rem;
+      background:rgba(0,229,255,.12);border:1px solid rgba(0,229,255,.3);
+      color:#00e5ff;text-decoration:none;transition:background .2s;
+    " onmouseover="this.style.background='rgba(0,229,255,.25)'"
+       onmouseout="this.style.background='rgba(0,229,255,.12)'">🎯 Strategy Dashboard</a>
+    <button class="btn-refresh" onclick="triggerAction('pipeline')" style="background:rgba(34,217,135,.12);border-color:rgba(34,217,135,.3);color:#22d987" id="btn-pipeline">⚡ Run Pipeline</button>
+    <button class="btn-refresh" onclick="triggerAction('fetch')" style="background:rgba(245,166,35,.12);border-color:rgba(245,166,35,.3);color:#f5a623" id="btn-fetch">📡 Fetch Result</button>
+    <span id="last-refresh">Loading…</span>
+    <button class="btn-refresh" onclick="loadAll()">⟳ Refresh</button>
+  </div>
+</header>
+
+<!-- ══ LOADER ══ -->
+<div id="loader">
+  <div class="spinner"></div>
+  <span>Fetching AI data…</span>
+</div>
+
+<!-- ══ ERROR ══ -->
+<div id="error-msg">
+  <span>⚠️ ไม่สามารถโหลดข้อมูลได้ — กรุณารัน pipeline ก่อน</span>
+  <small>python api/run_pipeline.py</small>
+</div>
+
+<!-- ══ DASHBOARD ══ -->
+<div id="dashboard">
+
+  <!-- ① KPI Strip -->
+  <div class="section-title">📊 AI Model Health &amp; KPIs</div>
+  <div class="row-4">
+
+    <!-- Model Score -->
+    <div class="card" id="card-score">
+      <div class="card-label">Model Score</div>
+      <div class="score-number good" id="kpi-score">—</div>
+      <div class="grade-badge" id="kpi-grade-badge">—</div>
+      <div class="prog-wrap" style="margin-top:14px">
+        <div class="prog-bar" id="score-bar" style="width:0%"></div>
+      </div>
+      <div class="card-sub" id="kpi-trend"></div>
+    </div>
+
+    <!-- Avg Digit Hits -->
+    <div class="card">
+      <div class="card-label">Avg Digit Hits</div>
+      <div class="card-value blue" id="kpi-avg-dig">—</div>
+      <div class="card-sub">out of 6 digits per draw</div>
+      <div class="prog-wrap">
+        <div class="prog-bar" id="dig-bar" style="width:0%;background:linear-gradient(90deg,#00e5ff,#388bff)"></div>
+      </div>
+    </div>
+
+    <!-- Best Positional -->
+    <div class="card">
+      <div class="card-label">Best Pos. Hits</div>
+      <div class="card-value warn" id="kpi-pos">—</div>
+      <div class="card-sub">positional correct (best candidate)</div>
+    </div>
+
+    <!-- Exact Matches -->
+    <div class="card">
+      <div class="card-label">Exact Matches</div>
+      <div class="card-value" id="kpi-exact">—</div>
+      <div class="card-sub" id="kpi-evaluated">Evaluated draws</div>
+    </div>
+  </div>
+
+  <!-- ② Predictions + Hot/Cold + System -->
+  <div class="section-title">🎯 Predictions &amp; Strategy Signals</div>
+  <div class="row-3">
+
+    <!-- Top Predictions -->
+    <div class="card">
+      <div class="card-label">Top Candidates</div>
+      <div class="candidate-list" id="candidate-list">
+        <div class="card-sub">Loading…</div>
+      </div>
+    </div>
+
+    <!-- Hot Digits -->
+    <div class="card">
+      <div class="card-label">🔥 Hot Digits</div>
+      <div class="digit-row" id="hot-digits"></div>
+      <div class="card-sub" style="margin-top:12px" id="hot-sub"></div>
+    </div>
+
+    <!-- Cold Digits -->
+    <div class="card">
+      <div class="card-label">❄️ Cold / Overdue</div>
+      <div class="digit-row" id="cold-digits"></div>
+      <div class="card-sub" style="margin-top:12px" id="cold-sub"></div>
+    </div>
+
+  </div>
+
+  <!-- ③ Trend Signals + Dataset + System -->
+  <div class="section-title">📡 Trend Signals &amp; System Status</div>
+  <div class="row-4">
+
+    <!-- Frequency Spikes -->
+    <div class="card">
+      <div class="card-label">🔺 Frequency Spikes</div>
+      <div id="spike-list"><div class="card-sub">—</div></div>
+    </div>
+
+    <!-- Surging Pairs -->
+    <div class="card">
+      <div class="card-label">📈 Surging Digit Pairs</div>
+      <div id="pair-list"><div class="card-sub">—</div></div>
+    </div>
+
+    <!-- Dataset Status -->
+    <div class="card">
+      <div class="card-label">🗃️ Dataset Status</div>
+      <div class="card-value blue" id="ds-draws">—</div>
+      <div class="card-sub">total historical draws</div>
+      <div style="margin-top: 14px; font-size:.78rem;">
+        <div>📅 Last Draw: <span id="ds-last-date" class="good">—</span></div>
+        <div style="margin-top:6px">🔢 Number: <code id="ds-last-num" style="color:var(--accent2)">—</code></div>
+      </div>
+    </div>
+
+    <!-- System Status -->
+    <div class="card">
+      <div class="card-label">⚙️ System Status</div>
+      <div id="system-status-list">
+        <div class="health-row">
+          <span><span class="health-dot" id="dot-pipeline"></span>Pipeline Cache</span>
+          <span id="sys-pipeline">—</span>
+        </div>
+        <div class="health-row">
+          <span><span class="health-dot" id="dot-api"></span>API Response</span>
+          <span id="sys-api" class="good">Online</span>
+        </div>
+        <div class="health-row">
+          <span><span class="health-dot" id="dot-data"></span>Dataset</span>
+          <span id="sys-data">—</span>
+        </div>
+        <div class="health-row">
+          <span><span class="health-dot"></span>Cache Age</span>
+          <span id="sys-cache-age">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ Active Streaks + Ensemble Weights -->
+  <div class="section-title">🔎 Model Configuration &amp; Streaks</div>
+  <div class="row-2">
+
+    <!-- Ensemble Weights -->
+    <div class="card">
+      <div class="card-label">⚖️ Ensemble Signal Weights</div>
+      <div id="weights-list" style="margin-top:10px"></div>
+    </div>
+
+    <!-- Active Streaks -->
+    <div class="card">
+      <div class="card-label">📏 Active Digit Streaks</div>
+      <div id="streak-list" style="margin-top:10px"><div class="card-sub">—</div></div>
+    </div>
+
+  </div>
+
+</div><!-- /dashboard -->
+
+<div id="error-msg">
+  <span>⚠️ ไม่สามารถโหลดข้อมูลได้</span>
+  <small>Run: python api/run_pipeline.py</small>
+</div>
+
+<footer>
+  Lottery AI Analysis Suite — Manager Control Center &nbsp;|&nbsp; Auto-refresh every 5 min
+</footer>
+
+<script>
+const API_BASE = '../backend/api/predict.php';
+let analyticsData = null;
+let predictData   = null;
+
+async function fetchAll() {
+  const [aRes, pRes] = await Promise.all([
+    fetch(`${API_BASE}?action=analytics`),
+    fetch(`${API_BASE}?action=predict`),
+  ]);
+  return {
+    analytics: await aRes.json(),
+    predict:   await pRes.json(),
+  };
+}
+
+// ─── Score → colour ───────────────────────────────────
+function scoreClass(s) {
+  if (s >= 60) return 'good';
+  if (s >= 30) return 'warn';
+  return 'bad';
+}
+function scoreDotClass(s) {
+  if (s >= 60) return 'dot-good';
+  if (s >= 30) return 'dot-warn';
+  return 'dot-bad';
+}
+function formatAge(ms) {
+  if (ms == null || isNaN(ms)) return '—';
+  const diff = Math.floor(ms / 1000);
+  if (diff < 0) return '—';
+  const h = Math.floor(diff / 3600);
+  const m = Math.floor((diff % 3600) / 60).toString().padStart(2, '0');
+  const s = (diff % 60).toString().padStart(2, '0');
+  const str = h > 0 ? `${h}h ${m}m ${s}s` : `${m}m ${s}s`;
+  
+  if (h > 24) return `<span class="bad">${str} ago ⚠</span>`;
+  if (h < 1) return `<span class="good">${str} ago</span>`;
+  return `<span class="warn">${str} ago</span>`;
+}
+
+// ─── Populate KPI cards ───────────────────────────────
+function renderKPIs(analytics, predict) {
+  fetch("../analytics/performance.json?ts=" + Date.now())
+    .then(r => r.ok ? r.json() : fetch("../performance.json?ts=" + Date.now()).then(res => res.json()))
+    .then(perf => {
+      const avgDig = perf.avg_dig ?? perf.avg_digit_hits ?? 0;
+      const avgPos = perf.avg_pos ?? perf.avg_positional_hits ?? 0;
+      const score = Math.round(((avgDig / 6) * 0.7 + (avgPos / 6) * 0.3) * 100);
+      
+      const elSc = document.getElementById('kpi-score');
+      if(elSc) {
+          elSc.textContent = score + ' / 100';
+          elSc.className = 'score-number ' + (score > 70 ? 'good' : score >= 40 ? 'warn' : 'bad');
+      }
+      const scoreBar = document.getElementById('score-bar');
+      if(scoreBar) scoreBar.style.width = score + '%';
+      
+      const badge = document.getElementById('kpi-grade-badge');
+      if(badge) {
+          badge.textContent = score > 70 ? 'Excellent' : score >= 40 ? 'Fair' : 'Needs tuning';
+          badge.className = 'grade-badge ' + (score > 70 ? 'badge-good' : score >= 40 ? 'badge-warn' : 'badge-bad');
+      }
+    }).catch(() => {});
+
+  const det = analytics?.performance?.model_score?.detail ?? {};
+  const hr  = analytics?.performance?.hit_rate ?? {};
+
+  // Trend
+  const consistency = (det.consistency ?? 0) * 100;
+  const trendEl = document.getElementById('kpi-trend');
+  if (consistency >= 80) trendEl.innerHTML = '📈 <span class="good">Stable / Improving</span>';
+  else if (consistency >= 50) trendEl.innerHTML = '➡️ <span class="warn">Variable</span>';
+  else trendEl.innerHTML = '📉 <span class="bad">Declining</span>';
+
+  // Digit hits
+  const avgDig = det.avg_digit_hits ?? 0;
+  document.getElementById('kpi-avg-dig').textContent = avgDig.toFixed(2);
+  document.getElementById('dig-bar').style.width = (avgDig / 6 * 100) + '%';
+
+  // Positional
+  const avgPos = det.avg_positional_hits ?? 0;
+  const posEl = document.getElementById('kpi-pos');
+  posEl.textContent = avgPos.toFixed(2);
+  posEl.className = 'card-value ' + (avgPos >= 2 ? 'good' : avgPos >= 1 ? 'warn' : 'bad');
+
+  // Exact
+  const exact = hr.exact_match_count ?? 0;
+  const evaluated = hr.total_evaluated ?? 0;
+  const exactEl = document.getElementById('kpi-exact');
+  exactEl.textContent = exact;
+  exactEl.className = 'card-value ' + (exact > 0 ? 'good' : 'bad');
+  document.getElementById('kpi-evaluated').textContent = `${evaluated} draw(s) evaluated`;
+}
+
+// ─── Candidates ───────────────────────────────────────
+function renderCandidates(predict) {
+  const cands = predict?.candidates ?? [];
+  const el = document.getElementById('candidate-list');
+  if (!cands.length) { el.innerHTML = '<div class="card-sub">No candidates in cache</div>'; return; }
+  el.innerHTML = cands.map((c, i) => `
+    <div class="candidate-row">
+      <span class="rank-num">#${i+1}</span>
+      <span class="cand-number">${c.number ?? '—'}</span>
+      <div class="conf-bar-wrap">
+        <div class="conf-bar" style="width:${c.confidence ?? 0}%"></div>
+      </div>
+      <span class="conf-pct">${(c.confidence ?? 0).toFixed(1)}%</span>
+    </div>`).join('');
+}
+
+// ─── Hot / Cold ───────────────────────────────────────
+function renderHotCold(analytics) {
+  const hotCold  = analytics?.trends?.hot_digits ?? {};
+  const overall  = hotCold?.overall ?? [];
+
+  const hot  = overall.filter(d => d.status?.includes('HOT')).slice(0, 5);
+  const cold = overall.filter(d => d.z_score < -1).slice(0, 5);
+
+  const hotEl = document.getElementById('hot-digits');
+  hotEl.innerHTML = hot.map(d =>
+    `<div class="digit-chip chip-hot" title="z=${d.z_score}">${d.digit}</div>`
+  ).join('') || '<span class="card-sub">—</span>';
+
+  document.getElementById('hot-sub').textContent =
+    hot.map(d => `${d.digit}:${(d.pct??0).toFixed(1)}%`).join(' · ');
+
+  const coldEl = document.getElementById('cold-digits');
+  coldEl.innerHTML = cold.map(d =>
+    `<div class="digit-chip chip-cold" title="z=${d.z_score}">${d.digit}</div>`
+  ).join('') || '<span class="card-sub">—</span>';
+
+  document.getElementById('cold-sub').textContent =
+    cold.map(d => `${d.digit}:${(d.pct??0).toFixed(1)}%`).join(' · ');
+}
+
+// ─── Spikes ───────────────────────────────────────────
+function renderSpikes(analytics) {
+  const spikes = (analytics?.trends?.frequency_spikes ?? []).slice(0, 6);
+  const el = document.getElementById('spike-list');
+  if (!spikes.length) { el.innerHTML = '<div class="card-sub">—</div>'; return; }
+  el.innerHTML = spikes.map(s => `
+    <div class="spike-item">
+      <span class="spike-label">${s.position} → <b style="color:var(--warn)">${s.digit}</b></span>
+      <span class="spike-ratio">×${s.ratio}</span>
+    </div>`).join('');
+}
+
+// ─── Surging Pairs ────────────────────────────────────
+function renderPairs(analytics) {
+  const pairs = (analytics?.trends?.surging_2digit ?? []).slice(0, 6);
+  const el = document.getElementById('pair-list');
+  if (!pairs.length) { el.innerHTML = '<div class="card-sub">—</div>'; return; }
+  el.innerHTML = pairs.map(p => `
+    <div class="spike-item">
+      <span class="spike-label">Pair <b style="color:var(--accent2)">${p.sequence}</b></span>
+      <span class="spike-ratio">×${p.surge_ratio}</span>
+    </div>`).join('');
+}
+
+// ─── Dataset / Last draw ─────────────────────────────
+async function renderDataset() {
+  try {
+    const res = await fetch("../database/dataset/lottery_history.csv?ts=" + Date.now());
+    const text = await res.text();
+    const rows = text.trim().split("\n").filter(r => r.length > 0);
+    const totalDraws = rows.length > 0 ? rows.length - 1 : 0;
+    
+    if (totalDraws > 0) {
+      const dataRows = rows.slice(1).sort((a, b) => {
+        const da = a.split(",")[0] || "";
+        const db = b.split(",")[0] || "";
+        return db.localeCompare(da);
+      });
+      const last = (dataRows[0] || "").split(",");
+      document.getElementById('ds-draws').textContent = totalDraws;
+      document.getElementById('ds-last-date').textContent = last[0] || '—';
+      document.getElementById('ds-last-num').textContent = last[1] || '—';
+    }
+  } catch (err) {
+    console.error("Dataset fetch failed:", err);
+    document.getElementById('ds-draws').textContent = '—';
+  }
+}
+
+
+// ─── System Status ────────────────────────────────────
+function renderSystem(predict) {
+  const cache = predict?.cache ?? {};
+  const ageS  = cache?.age_seconds;
+  const hasCandidates = (predict?.candidates ?? []).length > 0;
+
+  // Pipeline dot
+  const pipelineDot = document.getElementById('dot-pipeline');
+  const sysP = document.getElementById('sys-pipeline');
+  if (hasCandidates) {
+    pipelineDot.className = 'health-dot dot-good';
+    sysP.innerHTML = '<span class="good">✔ Cached</span>';
+  } else {
+    pipelineDot.className = 'health-dot dot-bad';
+    sysP.innerHTML = '<span class="bad">✗ No cache</span>';
+  }
+
+  // API
+  document.getElementById('dot-api').className = 'health-dot dot-good';
+
+  fetch("../database/dataset/lottery_history.csv?ts=" + Date.now())
+    .then(r => r.text())
+    .then(text => {
+      const totalDraws = text.trim().split("\n").length - 1;
+      const dot = document.getElementById('dot-data');
+      const sys = document.getElementById('sys-data');
+      if (totalDraws > 100) {
+        dot.className = 'health-dot dot-good';
+        sys.innerHTML = `<span class="good">✓ Dataset OK (${totalDraws} draws)</span>`;
+      } else if (totalDraws < 50) {
+        dot.className = 'health-dot dot-warn';
+        sys.innerHTML = `<span class="warn">Dataset low (${totalDraws} draws)</span>`;
+      } else {
+        dot.className = 'health-dot dot-good';
+        sys.innerHTML = `<span class="good">${totalDraws} draws</span>`;
+      }
+    })
+    .catch(() => document.getElementById('sys-data').innerHTML = '<span class="bad">Error</span>');
+
+  // Cache Age
+  fetch("../database/predictions/pipeline_cache.json", {method: "HEAD"}).then(r => {
+    const lm = r.headers.get("Last-Modified");
+    if (!lm) return;
+    const cacheTime = new Date(lm).getTime();
+    
+    function updateAge() {
+      const ms = Date.now() - cacheTime;
+      const el = document.getElementById('sys-cache-age');
+      if (el) el.innerHTML = formatAge(ms);
+    }
+    updateAge();
+    if(window._ageTimer) clearInterval(window._ageTimer);
+    window._ageTimer = setInterval(updateAge, 1000);
+  }).catch(() => {
+    document.getElementById('sys-cache-age').innerHTML = '—';
+  });
+}
+
+// ─── Weights ─────────────────────────────────────────
+function renderWeights(predict) {
+  const weights = predict?.ensemble_weights ?? {};
+  const el = document.getElementById('weights-list');
+  const entries = Object.entries(weights).sort((a,b) => b[1]-a[1]);
+  if (!entries.length) { el.innerHTML = '<div class="card-sub">—</div>'; return; }
+  el.innerHTML = entries.map(([k, v]) => {
+    const pct = (v * 100).toFixed(0);
+    return `
+      <div style="margin-bottom:9px">
+        <div style="display:flex;justify-content:space-between;font-size:.73rem;margin-bottom:4px">
+          <span style="color:var(--text-dim)">${k.replace(/_/g,' ')}</span>
+          <span style="color:var(--accent)">${pct}%</span>
+        </div>
+        <div class="prog-wrap" style="height:5px">
+          <div class="prog-bar" style="width:${pct*3}%;background:linear-gradient(90deg,var(--accent),var(--accent2))"></div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ─── Streaks ─────────────────────────────────────────
+function renderStreaks(analytics) {
+  const streaks = analytics?.trends?.active_streaks ?? [];
+  const el = document.getElementById('streak-list');
+  if (!streaks.length) { el.innerHTML = '<div class="card-sub">No active streaks</div>'; return; }
+  el.innerHTML = streaks.map(s => `
+    <div class="health-row">
+      <span><span class="health-dot dot-warn"></span>${s.position}</span>
+      <span>
+        <span class="badge badge-warn">Digit ${s.digit} × ${s.length}</span>
+      </span>
+    </div>`).join('');
+}
+
+// ─── MAIN ─────────────────────────────────────────────
+async function loadAll() {
+  document.getElementById('loader').style.display = 'flex';
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('error-msg').style.display = 'none';
+
+  try {
+    const { analytics, predict } = await fetchAll();
+
+    renderKPIs(analytics, predict);
+    renderCandidates(predict);
+    renderHotCold(analytics);
+    renderSpikes(analytics);
+    renderPairs(analytics);
+    renderDataset();
+    renderSystem(predict);
+    renderWeights(predict);
+    renderStreaks(analytics);
+
+    document.getElementById('last-refresh').textContent =
+      'Updated: ' + new Date().toLocaleTimeString('th-TH');
+    document.getElementById('loader').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+  } catch (e) {
+    document.getElementById('loader').style.display = 'none';
+    document.getElementById('error-msg').style.display = 'flex';
+    console.error(e);
+  }
+}
+
+// Auto-refresh every minute so cache/status changes show up without a page reload.
+loadAll();
+setInterval(loadAll, 60 * 1000);
+
+// ─── Action Buttons ──────────────────────────────────
+function showToast(msg, ok) {
+  let t = document.getElementById('_toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = '_toast';
+    t.style = 'position:fixed;bottom:28px;right:28px;padding:12px 22px;border-radius:10px;'
+             +'font-size:.8rem;font-weight:600;z-index:9999;transition:opacity .4s;';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.background = ok ? 'rgba(34,217,135,.2)' : 'rgba(255,77,109,.2)';
+  t.style.border = ok ? '1px solid rgba(34,217,135,.4)' : '1px solid rgba(255,77,109,.4)';
+  t.style.color  = ok ? '#22d987' : '#ff4d6d';
+  t.style.opacity = '1';
+  setTimeout(() => { t.style.opacity = '0'; }, 3500);
+}
+
+async function triggerAction(type) {
+  const apiMap = {
+    pipeline: '../backend/api/predict.php?action=run_pipeline',
+    fetch:    '../backend/api/predict.php?action=fetch_result',
+  };
+  const btnId = type === 'pipeline' ? 'btn-pipeline' : 'btn-fetch';
+  const btn   = document.getElementById(btnId);
+  if (btn) { btn.disabled = true; btn.textContent = '…'; }
+  try {
+    const r = await fetch(apiMap[type]);
+    const d = await r.json();
+    showToast(d.message ?? 'Done ✔', r.ok && !d.error);
+    if (r.ok) loadAll();
+  } catch(e) {
+    showToast('⚠ Could not connect to API', false);
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = type === 'pipeline' ? '⚡ Run Pipeline' : '📡 Fetch Result'; }
+  }
+}
+</script>
+<script>
+// --- GLOBAL TH/EN LANGUAGE TOGGLE ---
+(function() {
+  let isEN = false;
+  const langBtn = document.createElement('button');
+  langBtn.innerText = "🌐 TH / EN";
+  langBtn.style.cssText = "position:fixed;bottom:20px;right:20px;z-index:9999;background:linear-gradient(135deg,#3b82f6,#8b5cf6);color:#fff;border:none;padding:12px 20px;border-radius:50px;cursor:pointer;font-weight:700;box-shadow:0 4px 15px rgba(0,0,0,0.3);transition:transform 0.2s;font-family:inherit;";
+  langBtn.onmouseover = () => langBtn.style.transform = "scale(1.05) translateY(-2px)";
+  langBtn.onmouseout = () => langBtn.style.transform = "scale(1)";
+  
+  const dict = {
+    "Lottery Strategy Dashboard": "แดชบอร์ดกลยุทธ์หวย",
+    "Real-time Trend Scanner": "สแกนแนวโน้ม",
+    "Top AI Predictions": "ผลคาดการณ์ที่ดีที่สุด",
+    "Using cached prediction from": "ดึงข้อมูลจากแคชเวลา",
+    "Analysis on": "วิเคราะห์จาก",
+    "draws": "งวด",
+    "Latest:": "ผลงวดล่าสุด:",
+    "Updated:": "อัปเดตล่าสุด:",
+    "AI Performance": "ประสิทธิภาพ AI",
+    "AI Manager Control Center": "ศูนย์ระบบประมวลผล",
+    "Why": "พิจารณาทำไมถึงเป็น",
+    "Refresh": "รีเฟรชหน้าต่าง",
+    "Run Pipeline": "ประมวลผลใหม่",
+    "Fetch Result": "ดึงผลรางวัลงวดล่าสุด",
+    "AI MODEL HEALTH & KPIS": "สุขภาพระบบ AI และตัวชี้วัด",
+    "MODEL SCORE": "คะแนนโมเดล",
+    "Fair": "พอใช้",
+    "Declining": "กำลังลดลง",
+    "Stable / Improving": "เสถียร / กำลังดีขึ้น",
+    "Variable": "แปรปรวน",
+    "Excellent": "ดีเยี่ยม",
+    "Needs tuning": "ต้องปรับปรุง",
+    "AVG DIGIT HITS": "ความแม่นยำรายตัวเลขเฉลี่ย",
+    "BEST POS. HITS": "ความแม่นยำตำแหน่งที่ดีที่สุด",
+    "EXACT MATCHES": "จำนวนงวดที่ถูกรางวัลจริง",
+    "PREDICTIONS & STRATEGY SIGNALS": "คาดการณ์และสัญญาณกลยุทธ์",
+    "TOP CANDIDATES": "ตัวเลขคาดการณ์ยอดเยี่ยม",
+    "HOT DIGITS": "ตัวเลขมาแรง",
+    "COLD / OVERDUE": "ตัวเลขหายาก",
+    "TREND SIGNALS & SYSTEM STATUS": "สัญญาณแนวโน้มและสถานะระบบ",
+    "FREQUENCY SPIKES": "สถิติมาแรงผิดปกติ",
+    "SURGING DIGIT PAIRS": "คู่สถิติเพิ่มสูง",
+    "DATASET STATUS": "สถานะข้อมูลชุด",
+    "SYSTEM STATUS": "สถานะระบบ",
+    "Pipeline Cache": "แคชของระบบทำงาน",
+    "API Response": "การตอบสนองระบบ",
+    "Dataset": "ชุดข้อมูลรวม",
+    "Cache Age": "อายุข้อมูลล่าสุด",
+    "total historical": "รวมประวัติศาสตร์ทั้งหมด",
+    "Last Draw:": "ออกล่าสุด:",
+    "Number:": "เลขที่ออก:",
+    "Online": "เชื่อมต่อปกติ",
+    "Cached": "มีข้อมูลแคช",
+    "ago": "ที่แล้ว",
+    "just now": "เมื่อสักครู่"
+  };
+
+  langBtn.onclick = () => {
+    isEN = !isEN;
+    walkTranslators(document.body);
+  };
+  
+  function walkTranslators(node) {
+    if (node.nodeType === 3) {
+      let text = node.nodeValue;
+       Object.entries(dict).forEach(([en, th]) => {
+         if (isEN && text.includes(th)) text = text.replace(new RegExp(th, 'g'), en);
+         if (!isEN && text.includes(en)) text = text.replace(new RegExp(en, 'g'), th);
+       });
+       if (text !== node.nodeValue) node.nodeValue = text;
+    } else if (node.nodeType === 1 && node.nodeName !== 'SCRIPT' && node.nodeName !== 'STYLE') {
+      node.childNodes.forEach(walkTranslators);
+    }
+  }
+  document.body.appendChild(langBtn);
+})();
+</script>
+</body>
+</html>
