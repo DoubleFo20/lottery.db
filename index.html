@@ -1464,8 +1464,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 // ── 2. Dataset Initialization ──────────────────────────────
 async function initDataset() {
   try {
-    const res = await fetch('../database/dataset/lottery_history.csv?ts=' + Date.now());
-    if (res.ok) {
+    let res = await fetch('database/dataset/lottery_history.csv?ts=' + Date.now()).catch(() => null);
+    if (!res || !res.ok) {
+      res = await fetch('../database/dataset/lottery_history.csv?ts=' + Date.now()).catch(() => null);
+    }
+    if (res && res.ok) {
       const csvText = await res.text();
       allDraws = parseCSV(csvText);
       console.log(`Loaded ${allDraws.length} draws from server CSV`);
@@ -1758,8 +1761,14 @@ function renderHeatmap(mode) {
 
 // ── 6. Chart.js Visualizations ─────────────────────────────
 function initCharts() {
-  Chart.defaults.color = '#94a3b8';
-  Chart.defaults.font.family = "'Sarabun', 'Inter', sans-serif";
+  if (typeof Chart === 'undefined') {
+    console.warn('Chart.js not loaded, skipping charts');
+    return;
+  }
+  if (Chart.defaults) {
+    Chart.defaults.color = '#94a3b8';
+    if (Chart.defaults.font) Chart.defaults.font.family = "'Sarabun', 'Inter', sans-serif";
+  }
 
   // 1. Monthly Distribution Chart
   const ctxMonthly = el('chart-monthly').getContext('2d');
@@ -2144,8 +2153,6 @@ async function fetchPipelineStatus() {
 }
 
 // ── 9. Language Switcher (TH / EN) ─────────────────────────
-let isEnglish = false;
-
 const fullDict = [
   // Navigation
   ['🎯 คาดการณ์', '🎯 Predictions'],
