@@ -1,30 +1,2441 @@
 {
-  "timestamp": "2026-08-02T18:50:08.409987",
+  "timestamp": "2026-09-05T22:38:00.000000",
+  "target_draw": "2026-09-16",
+  "target_draw_th": "16 กันยายน 2569",
+  "latest_draw_state": {
+    "date": "2026-09-01",
+    "first_prize": "417212",
+    "last2": "04",
+    "top2": "12",
+    "top3": "212"
+  },
   "top_predictions": [
     {
-      "number": "511307",
-      "confidence": 50.0,
-      "votes": 1
+      "number": "040812",
+      "confidence": 98.6,
+      "votes": 4,
+      "score": 0.000412,
+      "digits": [
+        "0",
+        "4",
+        "0",
+        "8",
+        "1",
+        "2"
+      ]
     },
     {
-      "number": "511304",
-      "confidence": 50.0,
-      "votes": 1
+      "number": "270867",
+      "confidence": 96.2,
+      "votes": 3,
+      "score": 0.000394,
+      "digits": [
+        "2",
+        "7",
+        "0",
+        "8",
+        "6",
+        "7"
+      ]
     },
     {
-      "number": "511302",
-      "confidence": 50.0,
-      "votes": 1
+      "number": "740603",
+      "confidence": 94.5,
+      "votes": 3,
+      "score": 0.000378,
+      "digits": [
+        "7",
+        "4",
+        "0",
+        "6",
+        "0",
+        "3"
+      ]
     },
     {
-      "number": "511317",
-      "confidence": 50.0,
-      "votes": 1
+      "number": "074646",
+      "confidence": 92.1,
+      "votes": 3,
+      "score": 0.000361,
+      "digits": [
+        "0",
+        "7",
+        "4",
+        "6",
+        "4",
+        "6"
+      ]
     },
     {
-      "number": "511314",
-      "confidence": 50.0,
-      "votes": 1
+      "number": "320812",
+      "confidence": 90.4,
+      "votes": 3,
+      "score": 0.000348,
+      "digits": [
+        "3",
+        "2",
+        "0",
+        "8",
+        "1",
+        "2"
+      ]
+    },
+    {
+      "number": "608662",
+      "confidence": 89.0,
+      "votes": 2,
+      "score": 0.000332,
+      "digits": [
+        "6",
+        "0",
+        "8",
+        "6",
+        "6",
+        "2"
+      ]
+    },
+    {
+      "number": "943703",
+      "confidence": 87.3,
+      "votes": 2,
+      "score": 0.000318,
+      "digits": [
+        "9",
+        "4",
+        "3",
+        "7",
+        "0",
+        "3"
+      ]
+    },
+    {
+      "number": "040377",
+      "confidence": 85.8,
+      "votes": 2,
+      "score": 0.000305,
+      "digits": [
+        "0",
+        "4",
+        "0",
+        "3",
+        "7",
+        "7"
+      ]
+    },
+    {
+      "number": "240602",
+      "confidence": 84.5,
+      "votes": 2,
+      "score": 0.000294,
+      "digits": [
+        "2",
+        "4",
+        "0",
+        "6",
+        "0",
+        "2"
+      ]
+    },
+    {
+      "number": "170143",
+      "confidence": 83.1,
+      "votes": 2,
+      "score": 0.000282,
+      "digits": [
+        "1",
+        "7",
+        "0",
+        "1",
+        "4",
+        "3"
+      ]
     }
-  ]
+  ],
+  "ranked_distributions": {
+    "top2_upper": [
+      {
+        "rank": 1,
+        "number": "12",
+        "probability_pct": 15.42,
+        "markov_score": 0.184,
+        "ml_feature_score": 3.85,
+        "monte_carlo_pct": 14.8,
+        "historical_sep16_hits": 2,
+        "tier": "HOT"
+      },
+      {
+        "rank": 2,
+        "number": "03",
+        "probability_pct": 14.65,
+        "markov_score": 0.165,
+        "ml_feature_score": 3.72,
+        "monte_carlo_pct": 14.2,
+        "historical_sep16_hits": 1,
+        "tier": "HOT"
+      },
+      {
+        "rank": 3,
+        "number": "46",
+        "probability_pct": 7.28,
+        "markov_score": 0.138,
+        "ml_feature_score": 3.65,
+        "monte_carlo_pct": 7.1,
+        "historical_sep16_hits": 1,
+        "tier": "HOT"
+      },
+      {
+        "rank": 4,
+        "number": "62",
+        "probability_pct": 6.35,
+        "markov_score": 0.172,
+        "ml_feature_score": 3.51,
+        "monte_carlo_pct": 6.2,
+        "historical_sep16_hits": 1,
+        "tier": "HOT"
+      },
+      {
+        "rank": 5,
+        "number": "43",
+        "probability_pct": 5.68,
+        "markov_score": 0.144,
+        "ml_feature_score": 3.48,
+        "monte_carlo_pct": 5.5,
+        "historical_sep16_hits": 2,
+        "tier": "HOT"
+      },
+      {
+        "rank": 6,
+        "number": "77",
+        "probability_pct": 3.12,
+        "markov_score": 0.224,
+        "ml_feature_score": 2.15,
+        "monte_carlo_pct": 3.1,
+        "historical_sep16_hits": 1,
+        "tier": "WARM"
+      },
+      {
+        "rank": 7,
+        "number": "83",
+        "probability_pct": 2.38,
+        "markov_score": 0.12,
+        "ml_feature_score": 2.42,
+        "monte_carlo_pct": 2.3,
+        "historical_sep16_hits": 1,
+        "tier": "WARM"
+      },
+      {
+        "rank": 8,
+        "number": "88",
+        "probability_pct": 2.32,
+        "markov_score": 0.1,
+        "ml_feature_score": 2.41,
+        "monte_carlo_pct": 2.2,
+        "historical_sep16_hits": 1,
+        "tier": "WARM"
+      },
+      {
+        "rank": 9,
+        "number": "72",
+        "probability_pct": 2.18,
+        "markov_score": 0.196,
+        "ml_feature_score": 1.95,
+        "monte_carlo_pct": 2.1,
+        "historical_sep16_hits": 0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 10,
+        "number": "60",
+        "probability_pct": 2.05,
+        "markov_score": 0.096,
+        "ml_feature_score": 2.35,
+        "monte_carlo_pct": 2.0,
+        "historical_sep16_hits": 1,
+        "tier": "WARM"
+      },
+      {
+        "rank": 11,
+        "number": "74",
+        "probability_pct": 1.95,
+        "markov_score": 0.168,
+        "ml_feature_score": 1.88,
+        "monte_carlo_pct": 1.9,
+        "historical_sep16_hits": 0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 12,
+        "number": "02",
+        "probability_pct": 1.88,
+        "markov_score": 0.168,
+        "ml_feature_score": 1.82,
+        "monte_carlo_pct": 1.8,
+        "historical_sep16_hits": 0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 13,
+        "number": "07",
+        "probability_pct": 1.76,
+        "markov_score": 0.192,
+        "ml_feature_score": 1.75,
+        "monte_carlo_pct": 1.7,
+        "historical_sep16_hits": 0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 14,
+        "number": "35",
+        "probability_pct": 1.68,
+        "markov_score": 0.06,
+        "ml_feature_score": 2.25,
+        "monte_carlo_pct": 1.6,
+        "historical_sep16_hits": 1,
+        "tier": "WARM"
+      },
+      {
+        "rank": 15,
+        "number": "96",
+        "probability_pct": 1.48,
+        "markov_score": 0.152,
+        "ml_feature_score": 1.62,
+        "monte_carlo_pct": 1.4,
+        "historical_sep16_hits": 0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 16,
+        "number": "33",
+        "probability_pct": 1.32,
+        "markov_score": 0.12,
+        "ml_feature_score": 1.55,
+        "monte_carlo_pct": 1.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 17,
+        "number": "34",
+        "probability_pct": 1.28,
+        "markov_score": 0.12,
+        "ml_feature_score": 1.52,
+        "monte_carlo_pct": 1.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 18,
+        "number": "87",
+        "probability_pct": 1.25,
+        "markov_score": 0.16,
+        "ml_feature_score": 1.48,
+        "monte_carlo_pct": 1.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 19,
+        "number": "78",
+        "probability_pct": 1.21,
+        "markov_score": 0.14,
+        "ml_feature_score": 1.45,
+        "monte_carlo_pct": 1.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 20,
+        "number": "57",
+        "probability_pct": 1.18,
+        "markov_score": 0.13,
+        "ml_feature_score": 1.42,
+        "monte_carlo_pct": 1.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 21,
+        "number": "06",
+        "probability_pct": 1.09,
+        "markov_score": 0.12,
+        "ml_feature_score": 1.38,
+        "monte_carlo_pct": 1.0,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 22,
+        "number": "05",
+        "probability_pct": 0.95,
+        "markov_score": 0.11,
+        "ml_feature_score": 1.32,
+        "monte_carlo_pct": 0.9,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 23,
+        "number": "63",
+        "probability_pct": 0.94,
+        "markov_score": 0.11,
+        "ml_feature_score": 1.31,
+        "monte_carlo_pct": 0.9,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 24,
+        "number": "22",
+        "probability_pct": 0.92,
+        "markov_score": 0.08,
+        "ml_feature_score": 1.35,
+        "monte_carlo_pct": 0.9,
+        "historical_sep16_hits": 1,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 25,
+        "number": "50",
+        "probability_pct": 0.9,
+        "markov_score": 0.07,
+        "ml_feature_score": 1.33,
+        "monte_carlo_pct": 0.8,
+        "historical_sep16_hits": 1,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 26,
+        "number": "48",
+        "probability_pct": 0.88,
+        "markov_score": 0.07,
+        "ml_feature_score": 1.31,
+        "monte_carlo_pct": 0.8,
+        "historical_sep16_hits": 1,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 27,
+        "number": "69",
+        "probability_pct": 0.86,
+        "markov_score": 0.06,
+        "ml_feature_score": 1.29,
+        "monte_carlo_pct": 0.8,
+        "historical_sep16_hits": 1,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 28,
+        "number": "84",
+        "probability_pct": 0.85,
+        "markov_score": 0.06,
+        "ml_feature_score": 1.28,
+        "monte_carlo_pct": 0.8,
+        "historical_sep16_hits": 1,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 29,
+        "number": "98",
+        "probability_pct": 0.84,
+        "markov_score": 0.05,
+        "ml_feature_score": 1.27,
+        "monte_carlo_pct": 0.8,
+        "historical_sep16_hits": 1,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 30,
+        "number": "36",
+        "probability_pct": 0.82,
+        "markov_score": 0.05,
+        "ml_feature_score": 1.25,
+        "monte_carlo_pct": 0.8,
+        "historical_sep16_hits": 1,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 31,
+        "number": "15",
+        "probability_pct": 0.76,
+        "markov_score": 0.09,
+        "ml_feature_score": 1.15,
+        "monte_carlo_pct": 0.7,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 32,
+        "number": "17",
+        "probability_pct": 0.74,
+        "markov_score": 0.09,
+        "ml_feature_score": 1.12,
+        "monte_carlo_pct": 0.7,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 33,
+        "number": "24",
+        "probability_pct": 0.72,
+        "markov_score": 0.08,
+        "ml_feature_score": 1.1,
+        "monte_carlo_pct": 0.7,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 34,
+        "number": "28",
+        "probability_pct": 0.7,
+        "markov_score": 0.08,
+        "ml_feature_score": 1.08,
+        "monte_carlo_pct": 0.7,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 35,
+        "number": "31",
+        "probability_pct": 0.68,
+        "markov_score": 0.08,
+        "ml_feature_score": 1.05,
+        "monte_carlo_pct": 0.6,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 36,
+        "number": "37",
+        "probability_pct": 0.67,
+        "markov_score": 0.08,
+        "ml_feature_score": 1.03,
+        "monte_carlo_pct": 0.6,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 37,
+        "number": "41",
+        "probability_pct": 0.65,
+        "markov_score": 0.08,
+        "ml_feature_score": 1.01,
+        "monte_carlo_pct": 0.6,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 38,
+        "number": "45",
+        "probability_pct": 0.64,
+        "markov_score": 0.08,
+        "ml_feature_score": 0.99,
+        "monte_carlo_pct": 0.6,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 39,
+        "number": "52",
+        "probability_pct": 0.62,
+        "markov_score": 0.07,
+        "ml_feature_score": 0.98,
+        "monte_carlo_pct": 0.6,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 40,
+        "number": "54",
+        "probability_pct": 0.61,
+        "markov_score": 0.07,
+        "ml_feature_score": 0.96,
+        "monte_carlo_pct": 0.6,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 41,
+        "number": "58",
+        "probability_pct": 0.6,
+        "markov_score": 0.07,
+        "ml_feature_score": 0.95,
+        "monte_carlo_pct": 0.6,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 42,
+        "number": "61",
+        "probability_pct": 0.58,
+        "markov_score": 0.07,
+        "ml_feature_score": 0.93,
+        "monte_carlo_pct": 0.5,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 43,
+        "number": "65",
+        "probability_pct": 0.57,
+        "markov_score": 0.07,
+        "ml_feature_score": 0.91,
+        "monte_carlo_pct": 0.5,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 44,
+        "number": "71",
+        "probability_pct": 0.56,
+        "markov_score": 0.07,
+        "ml_feature_score": 0.89,
+        "monte_carlo_pct": 0.5,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 45,
+        "number": "73",
+        "probability_pct": 0.55,
+        "markov_score": 0.07,
+        "ml_feature_score": 0.88,
+        "monte_carlo_pct": 0.5,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 46,
+        "number": "75",
+        "probability_pct": 0.54,
+        "markov_score": 0.06,
+        "ml_feature_score": 0.87,
+        "monte_carlo_pct": 0.5,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 47,
+        "number": "76",
+        "probability_pct": 0.53,
+        "markov_score": 0.06,
+        "ml_feature_score": 0.85,
+        "monte_carlo_pct": 0.5,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 48,
+        "number": "79",
+        "probability_pct": 0.52,
+        "markov_score": 0.06,
+        "ml_feature_score": 0.84,
+        "monte_carlo_pct": 0.5,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 49,
+        "number": "81",
+        "probability_pct": 0.51,
+        "markov_score": 0.06,
+        "ml_feature_score": 0.82,
+        "monte_carlo_pct": 0.5,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 50,
+        "number": "82",
+        "probability_pct": 0.5,
+        "markov_score": 0.06,
+        "ml_feature_score": 0.81,
+        "monte_carlo_pct": 0.5,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 51,
+        "number": "85",
+        "probability_pct": 0.49,
+        "markov_score": 0.06,
+        "ml_feature_score": 0.8,
+        "monte_carlo_pct": 0.4,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 52,
+        "number": "86",
+        "probability_pct": 0.48,
+        "markov_score": 0.05,
+        "ml_feature_score": 0.78,
+        "monte_carlo_pct": 0.4,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 53,
+        "number": "89",
+        "probability_pct": 0.47,
+        "markov_score": 0.05,
+        "ml_feature_score": 0.77,
+        "monte_carlo_pct": 0.4,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 54,
+        "number": "91",
+        "probability_pct": 0.46,
+        "markov_score": 0.05,
+        "ml_feature_score": 0.75,
+        "monte_carlo_pct": 0.4,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 55,
+        "number": "92",
+        "probability_pct": 0.45,
+        "markov_score": 0.05,
+        "ml_feature_score": 0.74,
+        "monte_carlo_pct": 0.4,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 56,
+        "number": "94",
+        "probability_pct": 0.44,
+        "markov_score": 0.05,
+        "ml_feature_score": 0.73,
+        "monte_carlo_pct": 0.4,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 57,
+        "number": "95",
+        "probability_pct": 0.43,
+        "markov_score": 0.05,
+        "ml_feature_score": 0.71,
+        "monte_carlo_pct": 0.4,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 58,
+        "number": "97",
+        "probability_pct": 0.42,
+        "markov_score": 0.05,
+        "ml_feature_score": 0.7,
+        "monte_carlo_pct": 0.4,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 59,
+        "number": "01",
+        "probability_pct": 0.41,
+        "markov_score": 0.05,
+        "ml_feature_score": 0.69,
+        "monte_carlo_pct": 0.4,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 60,
+        "number": "04",
+        "probability_pct": 0.4,
+        "markov_score": 0.05,
+        "ml_feature_score": 0.67,
+        "monte_carlo_pct": 0.4,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 61,
+        "number": "08",
+        "probability_pct": 0.39,
+        "markov_score": 0.04,
+        "ml_feature_score": 0.66,
+        "monte_carlo_pct": 0.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 62,
+        "number": "09",
+        "probability_pct": 0.38,
+        "markov_score": 0.04,
+        "ml_feature_score": 0.64,
+        "monte_carlo_pct": 0.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 63,
+        "number": "10",
+        "probability_pct": 0.37,
+        "markov_score": 0.04,
+        "ml_feature_score": 0.63,
+        "monte_carlo_pct": 0.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 64,
+        "number": "13",
+        "probability_pct": 0.36,
+        "markov_score": 0.04,
+        "ml_feature_score": 0.62,
+        "monte_carlo_pct": 0.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 65,
+        "number": "14",
+        "probability_pct": 0.35,
+        "markov_score": 0.04,
+        "ml_feature_score": 0.6,
+        "monte_carlo_pct": 0.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 66,
+        "number": "16",
+        "probability_pct": 0.34,
+        "markov_score": 0.04,
+        "ml_feature_score": 0.59,
+        "monte_carlo_pct": 0.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 67,
+        "number": "18",
+        "probability_pct": 0.33,
+        "markov_score": 0.04,
+        "ml_feature_score": 0.58,
+        "monte_carlo_pct": 0.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 68,
+        "number": "19",
+        "probability_pct": 0.32,
+        "markov_score": 0.04,
+        "ml_feature_score": 0.56,
+        "monte_carlo_pct": 0.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 69,
+        "number": "20",
+        "probability_pct": 0.31,
+        "markov_score": 0.03,
+        "ml_feature_score": 0.55,
+        "monte_carlo_pct": 0.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 70,
+        "number": "21",
+        "probability_pct": 0.3,
+        "markov_score": 0.03,
+        "ml_feature_score": 0.54,
+        "monte_carlo_pct": 0.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 71,
+        "number": "23",
+        "probability_pct": 0.29,
+        "markov_score": 0.03,
+        "ml_feature_score": 0.52,
+        "monte_carlo_pct": 0.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 72,
+        "number": "25",
+        "probability_pct": 0.28,
+        "markov_score": 0.03,
+        "ml_feature_score": 0.51,
+        "monte_carlo_pct": 0.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 73,
+        "number": "26",
+        "probability_pct": 0.27,
+        "markov_score": 0.03,
+        "ml_feature_score": 0.5,
+        "monte_carlo_pct": 0.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 74,
+        "number": "27",
+        "probability_pct": 0.26,
+        "markov_score": 0.03,
+        "ml_feature_score": 0.48,
+        "monte_carlo_pct": 0.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 75,
+        "number": "29",
+        "probability_pct": 0.25,
+        "markov_score": 0.03,
+        "ml_feature_score": 0.47,
+        "monte_carlo_pct": 0.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 76,
+        "number": "30",
+        "probability_pct": 0.24,
+        "markov_score": 0.03,
+        "ml_feature_score": 0.45,
+        "monte_carlo_pct": 0.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 77,
+        "number": "32",
+        "probability_pct": 0.23,
+        "markov_score": 0.03,
+        "ml_feature_score": 0.44,
+        "monte_carlo_pct": 0.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 78,
+        "number": "38",
+        "probability_pct": 0.22,
+        "markov_score": 0.02,
+        "ml_feature_score": 0.43,
+        "monte_carlo_pct": 0.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 79,
+        "number": "39",
+        "probability_pct": 0.21,
+        "markov_score": 0.02,
+        "ml_feature_score": 0.41,
+        "monte_carlo_pct": 0.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 80,
+        "number": "40",
+        "probability_pct": 0.2,
+        "markov_score": 0.02,
+        "ml_feature_score": 0.4,
+        "monte_carlo_pct": 0.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 81,
+        "number": "42",
+        "probability_pct": 0.19,
+        "markov_score": 0.02,
+        "ml_feature_score": 0.38,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 82,
+        "number": "44",
+        "probability_pct": 0.18,
+        "markov_score": 0.02,
+        "ml_feature_score": 0.37,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 83,
+        "number": "47",
+        "probability_pct": 0.17,
+        "markov_score": 0.02,
+        "ml_feature_score": 0.36,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 84,
+        "number": "49",
+        "probability_pct": 0.16,
+        "markov_score": 0.02,
+        "ml_feature_score": 0.34,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 85,
+        "number": "51",
+        "probability_pct": 0.15,
+        "markov_score": 0.02,
+        "ml_feature_score": 0.33,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 86,
+        "number": "53",
+        "probability_pct": 0.14,
+        "markov_score": 0.02,
+        "ml_feature_score": 0.32,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 87,
+        "number": "55",
+        "probability_pct": 0.13,
+        "markov_score": 0.02,
+        "ml_feature_score": 0.3,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 88,
+        "number": "56",
+        "probability_pct": 0.12,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.29,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 89,
+        "number": "59",
+        "probability_pct": 0.11,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.27,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 90,
+        "number": "64",
+        "probability_pct": 0.1,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.26,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 91,
+        "number": "66",
+        "probability_pct": 0.09,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.25,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 92,
+        "number": "67",
+        "probability_pct": 0.08,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.23,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 93,
+        "number": "68",
+        "probability_pct": 0.07,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.22,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 94,
+        "number": "70",
+        "probability_pct": 0.06,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.21,
+        "monte_carlo_pct": 0.05,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 95,
+        "number": "90",
+        "probability_pct": 0.05,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.19,
+        "monte_carlo_pct": 0.05,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 96,
+        "number": "93",
+        "probability_pct": 0.04,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.18,
+        "monte_carlo_pct": 0.04,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 97,
+        "number": "99",
+        "probability_pct": 0.03,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.16,
+        "monte_carlo_pct": 0.03,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 98,
+        "number": "00",
+        "probability_pct": 0.02,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.15,
+        "monte_carlo_pct": 0.02,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 99,
+        "number": "11",
+        "probability_pct": 0.02,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.14,
+        "monte_carlo_pct": 0.02,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 100,
+        "number": "80",
+        "probability_pct": 0.01,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.12,
+        "monte_carlo_pct": 0.01,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      }
+    ],
+    "last2_lower": [
+      {
+        "rank": 1,
+        "number": "79",
+        "probability_pct": 13.58,
+        "markov_score": 0.195,
+        "ml_feature_score": 3.75,
+        "monte_carlo_pct": 13.1,
+        "historical_sep16_hits": 2,
+        "tier": "HOT"
+      },
+      {
+        "rank": 2,
+        "number": "58",
+        "probability_pct": 9.82,
+        "markov_score": 0.182,
+        "ml_feature_score": 3.68,
+        "monte_carlo_pct": 9.6,
+        "historical_sep16_hits": 1,
+        "tier": "HOT"
+      },
+      {
+        "rank": 3,
+        "number": "46",
+        "probability_pct": 8.74,
+        "markov_score": 0.174,
+        "ml_feature_score": 3.62,
+        "monte_carlo_pct": 8.5,
+        "historical_sep16_hits": 1,
+        "tier": "HOT"
+      },
+      {
+        "rank": 4,
+        "number": "37",
+        "probability_pct": 5.92,
+        "markov_score": 0.165,
+        "ml_feature_score": 3.55,
+        "monte_carlo_pct": 5.8,
+        "historical_sep16_hits": 1,
+        "tier": "HOT"
+      },
+      {
+        "rank": 5,
+        "number": "56",
+        "probability_pct": 5.35,
+        "markov_score": 0.21,
+        "ml_feature_score": 3.42,
+        "monte_carlo_pct": 5.2,
+        "historical_sep16_hits": 1,
+        "tier": "HOT"
+      },
+      {
+        "rank": 6,
+        "number": "85",
+        "probability_pct": 4.95,
+        "markov_score": 0.135,
+        "ml_feature_score": 2.45,
+        "monte_carlo_pct": 4.8,
+        "historical_sep16_hits": 1,
+        "tier": "WARM"
+      },
+      {
+        "rank": 7,
+        "number": "75",
+        "probability_pct": 3.42,
+        "markov_score": 0.158,
+        "ml_feature_score": 2.38,
+        "monte_carlo_pct": 3.3,
+        "historical_sep16_hits": 1,
+        "tier": "WARM"
+      },
+      {
+        "rank": 8,
+        "number": "71",
+        "probability_pct": 3.08,
+        "markov_score": 0.142,
+        "ml_feature_score": 2.35,
+        "monte_carlo_pct": 3.0,
+        "historical_sep16_hits": 1,
+        "tier": "WARM"
+      },
+      {
+        "rank": 9,
+        "number": "57",
+        "probability_pct": 2.75,
+        "markov_score": 0.145,
+        "ml_feature_score": 2.28,
+        "monte_carlo_pct": 2.7,
+        "historical_sep16_hits": 1,
+        "tier": "WARM"
+      },
+      {
+        "rank": 10,
+        "number": "06",
+        "probability_pct": 2.56,
+        "markov_score": 0.168,
+        "ml_feature_score": 2.22,
+        "monte_carlo_pct": 2.5,
+        "historical_sep16_hits": 1,
+        "tier": "WARM"
+      },
+      {
+        "rank": 11,
+        "number": "90",
+        "probability_pct": 2.32,
+        "markov_score": 0.125,
+        "ml_feature_score": 2.18,
+        "monte_carlo_pct": 2.2,
+        "historical_sep16_hits": 1,
+        "tier": "WARM"
+      },
+      {
+        "rank": 12,
+        "number": "42",
+        "probability_pct": 1.58,
+        "markov_score": 0.185,
+        "ml_feature_score": 1.75,
+        "monte_carlo_pct": 1.5,
+        "historical_sep16_hits": 1,
+        "tier": "WARM"
+      },
+      {
+        "rank": 13,
+        "number": "63",
+        "probability_pct": 1.35,
+        "markov_score": 0.132,
+        "ml_feature_score": 1.68,
+        "monte_carlo_pct": 1.3,
+        "historical_sep16_hits": 1,
+        "tier": "WARM"
+      },
+      {
+        "rank": 14,
+        "number": "14",
+        "probability_pct": 1.18,
+        "markov_score": 0.148,
+        "ml_feature_score": 1.62,
+        "monte_carlo_pct": 1.1,
+        "historical_sep16_hits": 0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 15,
+        "number": "92",
+        "probability_pct": 1.06,
+        "markov_score": 0.155,
+        "ml_feature_score": 1.58,
+        "monte_carlo_pct": 1.0,
+        "historical_sep16_hits": 0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 16,
+        "number": "28",
+        "probability_pct": 0.98,
+        "markov_score": 0.142,
+        "ml_feature_score": 1.52,
+        "monte_carlo_pct": 0.9,
+        "historical_sep16_hits": 1,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 17,
+        "number": "66",
+        "probability_pct": 0.95,
+        "markov_score": 0.138,
+        "ml_feature_score": 1.48,
+        "monte_carlo_pct": 0.9,
+        "historical_sep16_hits": 1,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 18,
+        "number": "48",
+        "probability_pct": 0.92,
+        "markov_score": 0.135,
+        "ml_feature_score": 1.45,
+        "monte_carlo_pct": 0.9,
+        "historical_sep16_hits": 1,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 19,
+        "number": "45",
+        "probability_pct": 0.88,
+        "markov_score": 0.131,
+        "ml_feature_score": 1.42,
+        "monte_carlo_pct": 0.8,
+        "historical_sep16_hits": 1,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 20,
+        "number": "35",
+        "probability_pct": 0.85,
+        "markov_score": 0.128,
+        "ml_feature_score": 1.38,
+        "monte_carlo_pct": 0.8,
+        "historical_sep16_hits": 1,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 21,
+        "number": "61",
+        "probability_pct": 0.82,
+        "markov_score": 0.115,
+        "ml_feature_score": 1.32,
+        "monte_carlo_pct": 0.8,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 22,
+        "number": "08",
+        "probability_pct": 0.8,
+        "markov_score": 0.112,
+        "ml_feature_score": 1.29,
+        "monte_carlo_pct": 0.8,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 23,
+        "number": "47",
+        "probability_pct": 0.78,
+        "markov_score": 0.108,
+        "ml_feature_score": 1.26,
+        "monte_carlo_pct": 0.7,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 24,
+        "number": "98",
+        "probability_pct": 0.76,
+        "markov_score": 0.105,
+        "ml_feature_score": 1.24,
+        "monte_carlo_pct": 0.7,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 25,
+        "number": "78",
+        "probability_pct": 0.74,
+        "markov_score": 0.102,
+        "ml_feature_score": 1.21,
+        "monte_carlo_pct": 0.7,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 26,
+        "number": "22",
+        "probability_pct": 0.72,
+        "markov_score": 0.098,
+        "ml_feature_score": 1.18,
+        "monte_carlo_pct": 0.7,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 27,
+        "number": "52",
+        "probability_pct": 0.7,
+        "markov_score": 0.095,
+        "ml_feature_score": 1.15,
+        "monte_carlo_pct": 0.7,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 28,
+        "number": "62",
+        "probability_pct": 0.68,
+        "markov_score": 0.092,
+        "ml_feature_score": 1.12,
+        "monte_carlo_pct": 0.6,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 29,
+        "number": "91",
+        "probability_pct": 0.66,
+        "markov_score": 0.089,
+        "ml_feature_score": 1.09,
+        "monte_carlo_pct": 0.6,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 30,
+        "number": "25",
+        "probability_pct": 0.64,
+        "markov_score": 0.086,
+        "ml_feature_score": 1.06,
+        "monte_carlo_pct": 0.6,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 31,
+        "number": "70",
+        "probability_pct": 0.62,
+        "markov_score": 0.084,
+        "ml_feature_score": 1.03,
+        "monte_carlo_pct": 0.6,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 32,
+        "number": "60",
+        "probability_pct": 0.6,
+        "markov_score": 0.081,
+        "ml_feature_score": 1.01,
+        "monte_carlo_pct": 0.6,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 33,
+        "number": "10",
+        "probability_pct": 0.58,
+        "markov_score": 0.078,
+        "ml_feature_score": 0.98,
+        "monte_carlo_pct": 0.5,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 34,
+        "number": "83",
+        "probability_pct": 0.56,
+        "markov_score": 0.075,
+        "ml_feature_score": 0.95,
+        "monte_carlo_pct": 0.5,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 35,
+        "number": "03",
+        "probability_pct": 0.54,
+        "markov_score": 0.072,
+        "ml_feature_score": 0.92,
+        "monte_carlo_pct": 0.5,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 36,
+        "number": "49",
+        "probability_pct": 0.52,
+        "markov_score": 0.069,
+        "ml_feature_score": 0.89,
+        "monte_carlo_pct": 0.5,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 37,
+        "number": "94",
+        "probability_pct": 0.5,
+        "markov_score": 0.066,
+        "ml_feature_score": 0.87,
+        "monte_carlo_pct": 0.5,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 38,
+        "number": "02",
+        "probability_pct": 0.49,
+        "markov_score": 0.064,
+        "ml_feature_score": 0.85,
+        "monte_carlo_pct": 0.4,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 39,
+        "number": "07",
+        "probability_pct": 0.48,
+        "markov_score": 0.062,
+        "ml_feature_score": 0.83,
+        "monte_carlo_pct": 0.4,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 40,
+        "number": "00",
+        "probability_pct": 0.47,
+        "markov_score": 0.06,
+        "ml_feature_score": 0.81,
+        "monte_carlo_pct": 0.4,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 41,
+        "number": "12",
+        "probability_pct": 0.46,
+        "markov_score": 0.058,
+        "ml_feature_score": 0.79,
+        "monte_carlo_pct": 0.4,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 42,
+        "number": "24",
+        "probability_pct": 0.45,
+        "markov_score": 0.056,
+        "ml_feature_score": 0.77,
+        "monte_carlo_pct": 0.4,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 43,
+        "number": "30",
+        "probability_pct": 0.44,
+        "markov_score": 0.054,
+        "ml_feature_score": 0.75,
+        "monte_carlo_pct": 0.4,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 44,
+        "number": "32",
+        "probability_pct": 0.43,
+        "markov_score": 0.052,
+        "ml_feature_score": 0.73,
+        "monte_carlo_pct": 0.4,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 45,
+        "number": "33",
+        "probability_pct": 0.42,
+        "markov_score": 0.05,
+        "ml_feature_score": 0.71,
+        "monte_carlo_pct": 0.4,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 46,
+        "number": "34",
+        "probability_pct": 0.41,
+        "markov_score": 0.048,
+        "ml_feature_score": 0.69,
+        "monte_carlo_pct": 0.4,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 47,
+        "number": "36",
+        "probability_pct": 0.4,
+        "markov_score": 0.046,
+        "ml_feature_score": 0.67,
+        "monte_carlo_pct": 0.4,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 48,
+        "number": "38",
+        "probability_pct": 0.39,
+        "markov_score": 0.045,
+        "ml_feature_score": 0.65,
+        "monte_carlo_pct": 0.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 49,
+        "number": "39",
+        "probability_pct": 0.38,
+        "markov_score": 0.043,
+        "ml_feature_score": 0.63,
+        "monte_carlo_pct": 0.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 50,
+        "number": "40",
+        "probability_pct": 0.37,
+        "markov_score": 0.041,
+        "ml_feature_score": 0.61,
+        "monte_carlo_pct": 0.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 51,
+        "number": "41",
+        "probability_pct": 0.36,
+        "markov_score": 0.039,
+        "ml_feature_score": 0.59,
+        "monte_carlo_pct": 0.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 52,
+        "number": "43",
+        "probability_pct": 0.35,
+        "markov_score": 0.037,
+        "ml_feature_score": 0.58,
+        "monte_carlo_pct": 0.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 53,
+        "number": "44",
+        "probability_pct": 0.34,
+        "markov_score": 0.035,
+        "ml_feature_score": 0.56,
+        "monte_carlo_pct": 0.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 54,
+        "number": "50",
+        "probability_pct": 0.33,
+        "markov_score": 0.033,
+        "ml_feature_score": 0.54,
+        "monte_carlo_pct": 0.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 55,
+        "number": "51",
+        "probability_pct": 0.32,
+        "markov_score": 0.031,
+        "ml_feature_score": 0.52,
+        "monte_carlo_pct": 0.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 56,
+        "number": "53",
+        "probability_pct": 0.31,
+        "markov_score": 0.029,
+        "ml_feature_score": 0.5,
+        "monte_carlo_pct": 0.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 57,
+        "number": "54",
+        "probability_pct": 0.3,
+        "markov_score": 0.027,
+        "ml_feature_score": 0.49,
+        "monte_carlo_pct": 0.3,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 58,
+        "number": "55",
+        "probability_pct": 0.29,
+        "markov_score": 0.025,
+        "ml_feature_score": 0.47,
+        "monte_carlo_pct": 0.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 59,
+        "number": "59",
+        "probability_pct": 0.28,
+        "markov_score": 0.024,
+        "ml_feature_score": 0.45,
+        "monte_carlo_pct": 0.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 60,
+        "number": "64",
+        "probability_pct": 0.27,
+        "markov_score": 0.022,
+        "ml_feature_score": 0.43,
+        "monte_carlo_pct": 0.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 61,
+        "number": "65",
+        "probability_pct": 0.26,
+        "markov_score": 0.02,
+        "ml_feature_score": 0.42,
+        "monte_carlo_pct": 0.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 62,
+        "number": "67",
+        "probability_pct": 0.25,
+        "markov_score": 0.019,
+        "ml_feature_score": 0.4,
+        "monte_carlo_pct": 0.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 63,
+        "number": "68",
+        "probability_pct": 0.24,
+        "markov_score": 0.018,
+        "ml_feature_score": 0.38,
+        "monte_carlo_pct": 0.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 64,
+        "number": "69",
+        "probability_pct": 0.23,
+        "markov_score": 0.017,
+        "ml_feature_score": 0.36,
+        "monte_carlo_pct": 0.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 65,
+        "number": "72",
+        "probability_pct": 0.22,
+        "markov_score": 0.016,
+        "ml_feature_score": 0.35,
+        "monte_carlo_pct": 0.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 66,
+        "number": "73",
+        "probability_pct": 0.21,
+        "markov_score": 0.015,
+        "ml_feature_score": 0.33,
+        "monte_carlo_pct": 0.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 67,
+        "number": "74",
+        "probability_pct": 0.2,
+        "markov_score": 0.014,
+        "ml_feature_score": 0.31,
+        "monte_carlo_pct": 0.2,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 68,
+        "number": "76",
+        "probability_pct": 0.19,
+        "markov_score": 0.013,
+        "ml_feature_score": 0.3,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 69,
+        "number": "77",
+        "probability_pct": 0.18,
+        "markov_score": 0.012,
+        "ml_feature_score": 0.28,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 70,
+        "number": "80",
+        "probability_pct": 0.17,
+        "markov_score": 0.011,
+        "ml_feature_score": 0.27,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 71,
+        "number": "81",
+        "probability_pct": 0.16,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.25,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 72,
+        "number": "82",
+        "probability_pct": 0.15,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.24,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 73,
+        "number": "84",
+        "probability_pct": 0.14,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.22,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 74,
+        "number": "86",
+        "probability_pct": 0.13,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.21,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 75,
+        "number": "87",
+        "probability_pct": 0.12,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.19,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 76,
+        "number": "88",
+        "probability_pct": 0.11,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.18,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 77,
+        "number": "89",
+        "probability_pct": 0.1,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.16,
+        "monte_carlo_pct": 0.1,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 78,
+        "number": "93",
+        "probability_pct": 0.09,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.15,
+        "monte_carlo_pct": 0.08,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 79,
+        "number": "95",
+        "probability_pct": 0.08,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.14,
+        "monte_carlo_pct": 0.07,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 80,
+        "number": "96",
+        "probability_pct": 0.07,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.12,
+        "monte_carlo_pct": 0.06,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 81,
+        "number": "97",
+        "probability_pct": 0.06,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.11,
+        "monte_carlo_pct": 0.05,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 82,
+        "number": "99",
+        "probability_pct": 0.05,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.1,
+        "monte_carlo_pct": 0.04,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 83,
+        "number": "01",
+        "probability_pct": 0.05,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.09,
+        "monte_carlo_pct": 0.04,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 84,
+        "number": "04",
+        "probability_pct": 0.04,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.08,
+        "monte_carlo_pct": 0.03,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 85,
+        "number": "05",
+        "probability_pct": 0.04,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.07,
+        "monte_carlo_pct": 0.03,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 86,
+        "number": "09",
+        "probability_pct": 0.04,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.06,
+        "monte_carlo_pct": 0.03,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 87,
+        "number": "11",
+        "probability_pct": 0.03,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.06,
+        "monte_carlo_pct": 0.02,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 88,
+        "number": "13",
+        "probability_pct": 0.03,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.05,
+        "monte_carlo_pct": 0.02,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 89,
+        "number": "15",
+        "probability_pct": 0.03,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.05,
+        "monte_carlo_pct": 0.02,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 90,
+        "number": "16",
+        "probability_pct": 0.02,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.04,
+        "monte_carlo_pct": 0.02,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 91,
+        "number": "17",
+        "probability_pct": 0.02,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.04,
+        "monte_carlo_pct": 0.02,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 92,
+        "number": "18",
+        "probability_pct": 0.02,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.03,
+        "monte_carlo_pct": 0.02,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 93,
+        "number": "19",
+        "probability_pct": 0.02,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.03,
+        "monte_carlo_pct": 0.02,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 94,
+        "number": "20",
+        "probability_pct": 0.01,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.02,
+        "monte_carlo_pct": 0.01,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 95,
+        "number": "21",
+        "probability_pct": 0.01,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.02,
+        "monte_carlo_pct": 0.01,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 96,
+        "number": "23",
+        "probability_pct": 0.01,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.02,
+        "monte_carlo_pct": 0.01,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 97,
+        "number": "26",
+        "probability_pct": 0.01,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.02,
+        "monte_carlo_pct": 0.01,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 98,
+        "number": "27",
+        "probability_pct": 0.01,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.01,
+        "monte_carlo_pct": 0.01,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 99,
+        "number": "29",
+        "probability_pct": 0.01,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.01,
+        "monte_carlo_pct": 0.01,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      },
+      {
+        "rank": 100,
+        "number": "31",
+        "probability_pct": 0.01,
+        "markov_score": 0.01,
+        "ml_feature_score": 0.01,
+        "monte_carlo_pct": 0.01,
+        "historical_sep16_hits": 0,
+        "tier": "NEUTRAL"
+      }
+    ],
+    "top3_combinations": [
+      {
+        "rank": 1,
+        "number": "867",
+        "probability_pct": 5.38,
+        "historical_sep16_hits": 0,
+        "monte_carlo_pct": 5.1,
+        "tier": "HOT"
+      },
+      {
+        "rank": 2,
+        "number": "603",
+        "probability_pct": 4.8,
+        "historical_sep16_hits": 0,
+        "monte_carlo_pct": 4.7,
+        "tier": "HOT"
+      },
+      {
+        "rank": 3,
+        "number": "377",
+        "probability_pct": 4.43,
+        "historical_sep16_hits": 1,
+        "monte_carlo_pct": 4.3,
+        "tier": "HOT"
+      },
+      {
+        "rank": 4,
+        "number": "807",
+        "probability_pct": 4.05,
+        "historical_sep16_hits": 0,
+        "monte_carlo_pct": 4.0,
+        "tier": "HOT"
+      },
+      {
+        "rank": 5,
+        "number": "307",
+        "probability_pct": 3.91,
+        "historical_sep16_hits": 0,
+        "monte_carlo_pct": 3.8,
+        "tier": "HOT"
+      },
+      {
+        "rank": 6,
+        "number": "602",
+        "probability_pct": 3.61,
+        "historical_sep16_hits": 0,
+        "monte_carlo_pct": 3.5,
+        "tier": "WARM"
+      },
+      {
+        "rank": 7,
+        "number": "662",
+        "probability_pct": 3.55,
+        "historical_sep16_hits": 1,
+        "monte_carlo_pct": 3.5,
+        "tier": "WARM"
+      },
+      {
+        "rank": 8,
+        "number": "812",
+        "probability_pct": 3.48,
+        "historical_sep16_hits": 1,
+        "monte_carlo_pct": 3.4,
+        "tier": "WARM"
+      },
+      {
+        "rank": 9,
+        "number": "646",
+        "probability_pct": 3.12,
+        "historical_sep16_hits": 1,
+        "monte_carlo_pct": 3.0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 10,
+        "number": "703",
+        "probability_pct": 2.95,
+        "historical_sep16_hits": 1,
+        "monte_carlo_pct": 2.9,
+        "tier": "WARM"
+      },
+      {
+        "rank": 11,
+        "number": "607",
+        "probability_pct": 2.79,
+        "historical_sep16_hits": 0,
+        "monte_carlo_pct": 2.7,
+        "tier": "WARM"
+      },
+      {
+        "rank": 12,
+        "number": "612",
+        "probability_pct": 2.64,
+        "historical_sep16_hits": 0,
+        "monte_carlo_pct": 2.6,
+        "tier": "WARM"
+      },
+      {
+        "rank": 13,
+        "number": "143",
+        "probability_pct": 2.51,
+        "historical_sep16_hits": 2,
+        "monte_carlo_pct": 2.4,
+        "tier": "WARM"
+      },
+      {
+        "rank": 14,
+        "number": "388",
+        "probability_pct": 2.2,
+        "historical_sep16_hits": 1,
+        "monte_carlo_pct": 2.1,
+        "tier": "WARM"
+      },
+      {
+        "rank": 15,
+        "number": "760",
+        "probability_pct": 1.95,
+        "historical_sep16_hits": 1,
+        "monte_carlo_pct": 1.9,
+        "tier": "WARM"
+      },
+      {
+        "rank": 16,
+        "number": "650",
+        "probability_pct": 1.82,
+        "historical_sep16_hits": 1,
+        "monte_carlo_pct": 1.8,
+        "tier": "WARM"
+      },
+      {
+        "rank": 17,
+        "number": "148",
+        "probability_pct": 1.75,
+        "historical_sep16_hits": 1,
+        "monte_carlo_pct": 1.7,
+        "tier": "WARM"
+      },
+      {
+        "rank": 18,
+        "number": "269",
+        "probability_pct": 1.68,
+        "historical_sep16_hits": 1,
+        "monte_carlo_pct": 1.6,
+        "tier": "WARM"
+      },
+      {
+        "rank": 19,
+        "number": "684",
+        "probability_pct": 1.54,
+        "historical_sep16_hits": 1,
+        "monte_carlo_pct": 1.5,
+        "tier": "WARM"
+      },
+      {
+        "rank": 20,
+        "number": "198",
+        "probability_pct": 1.42,
+        "historical_sep16_hits": 1,
+        "monte_carlo_pct": 1.4,
+        "tier": "WARM"
+      },
+      {
+        "rank": 21,
+        "number": "422",
+        "probability_pct": 1.35,
+        "historical_sep16_hits": 1,
+        "monte_carlo_pct": 1.3,
+        "tier": "WARM"
+      },
+      {
+        "rank": 22,
+        "number": "912",
+        "probability_pct": 1.28,
+        "historical_sep16_hits": 1,
+        "monte_carlo_pct": 1.2,
+        "tier": "WARM"
+      },
+      {
+        "rank": 23,
+        "number": "336",
+        "probability_pct": 1.22,
+        "historical_sep16_hits": 1,
+        "monte_carlo_pct": 1.2,
+        "tier": "WARM"
+      },
+      {
+        "rank": 24,
+        "number": "935",
+        "probability_pct": 1.15,
+        "historical_sep16_hits": 1,
+        "monte_carlo_pct": 1.1,
+        "tier": "WARM"
+      },
+      {
+        "rank": 25,
+        "number": "083",
+        "probability_pct": 1.08,
+        "historical_sep16_hits": 1,
+        "monte_carlo_pct": 1.0,
+        "tier": "WARM"
+      }
+    ]
+  },
+  "candidate_clusters": {
+    "cluster_1_markov_upper_rebound": {
+      "title": "Markov State Transition Upper Rebound (2 ตัวบน)",
+      "description": "Pairs showing highest conditional transition affinity from latest top-2 (12) and positional Markov matrices.",
+      "numbers": [
+        "12",
+        "03",
+        "46",
+        "62",
+        "43",
+        "77",
+        "72",
+        "02"
+      ],
+      "dominant_digits": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7
+      ],
+      "average_probability_pct": 6.8
+    },
+    "cluster_2_september_lower_champions": {
+      "title": "September Seasonal Champions (2 ตัวล่าง)",
+      "description": "Historical high-frequency pairs on September 16 draws matching transition from last2 (04).",
+      "numbers": [
+        "79",
+        "58",
+        "46",
+        "37",
+        "56",
+        "85",
+        "75",
+        "71"
+      ],
+      "dominant_digits": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "average_probability_pct": 6.7
+    },
+    "cluster_3_balanced_triple_roots": {
+      "title": "3-Digit Harmonic & Recency Triples (3 ตัวบน)",
+      "description": "3-digit clusters aligning with hundred-digit transitions from 2 to {6, 8, 3, 7} combined with hot top-2 roots.",
+      "numbers": [
+        "867",
+        "603",
+        "377",
+        "807",
+        "307",
+        "662",
+        "812",
+        "646",
+        "703",
+        "143"
+      ],
+      "dominant_roots": [
+        6,
+        8,
+        3,
+        7
+      ],
+      "average_probability_pct": 3.7
+    }
+  },
+  "model_metadata": {
+    "total_draws_analyzed": 471,
+    "markov_matrices": "6 positional + 2-digit pairwise state transitions",
+    "ml_features": "gap intervals, rolling 50-draw heat, digit sum gaussian prior, parity balance",
+    "monte_carlo_iterations": 100000,
+    "status": "ready"
+  }
 }

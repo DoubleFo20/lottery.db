@@ -506,3 +506,69 @@ button {
   gap: 12px;
   flex-wrap: wrap;
 }
+
+.history-summary,
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.history-summary {
+  margin-bottom: 12px;
+}
+
+.history-summary p {
+  margin: 0;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 520px;
+}
+
+.data-table th,
+.data-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.data-table th {
+  color: var(--text-h);
+  background: var(--accent-bg);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.data-table tbody tr:hover {
+  background: var(--accent-bg);
+}
+
+.lottery-number {
+  color: var(--text-h);
+  font-family: var(--mono);
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.lottery-number--primary {
+  color: var(--accent);
+  font-size: 16px;
+}
+
+.pagination {
+  margin-top: 14px;
+}

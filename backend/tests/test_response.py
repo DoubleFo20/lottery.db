@@ -1,4 +1,4 @@
-from app.core.config import get_settings
+from app.core.config import Settings, get_settings
 from app.schemas.response import ApiResponse, error_response, ok_response
 
 
@@ -7,6 +7,14 @@ def test_settings_defaults() -> None:
     assert settings.app_name == "Lottery Foundation API"
     assert settings.db_path.endswith("lottery.sqlite")
     assert "http://localhost:5173" in settings.cors_origins
+
+
+def test_settings_ignore_unprefixed_environment(monkeypatch) -> None:
+    monkeypatch.setenv("DEBUG", "release")
+
+    settings = Settings(_env_file=None)
+
+    assert settings.debug is False
 
 
 def test_ok_response() -> None:

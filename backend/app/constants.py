@@ -2,6 +2,7 @@ APP_NAME = "Lottery Foundation API"
 APP_VERSION = "0.1.0"
 
 HEALTH_PATH = "/health"
+HISTORY_PATH = "/history"
 
 DEFAULT_CORS_ORIGINS = [
     "http://localhost:5173",

@@ -1,6 +1,6 @@
 # 16 — Changelog
 
-**Status: Draft**
+**Status: Draft — updated 2026-08-07**
 
 ## Purpose
 
@@ -27,6 +27,19 @@ Records notable changes to the repository in chronological order, giving contrib
 ```
 
 ## Entries
+
+### 2026-08-07 — Lottery history data flow
+
+- Added idempotent startup seeding from the 467-row canonical `lottery_history.csv` into SQLite `lottery_draws` without a schema migration.
+- Added paginated `GET /history` with newest-first results and FastAPI parameter validation.
+- Replaced the Lottery History placeholder with an API-backed table, loading/error/empty states, and pagination controls.
+- Verified 467 SQLite rows, zero duplicate inserts on a second seed, newest draw `2026-07-01` / `751495` / `62`, backend tests, frontend build, and frontend lint.
+
+### 2026-08-07 — Backend environment isolation
+
+- Scoped FastAPI settings to `LOTTERY_` environment variables so unrelated system variables such as `DEBUG` cannot prevent application startup (`backend/app/core/config.py`).
+- Added regression coverage for unprefixed environment variables (`backend/tests/test_response.py`).
+- Verified with the backend test suite and the `/health` runtime smoke check.
 
 ### 2026-08-02 — Sprint 2.1: Lottery database foundation
 

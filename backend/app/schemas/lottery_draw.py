@@ -24,3 +24,17 @@ class LotteryDrawRead(LotteryDrawBase):
 
     id: int
     created_at: datetime
+
+
+class LotteryHistoryItem(BaseSchema):
+    id: int
+    draw_date: date
+    first_prize: str
+    last_two: str | None = None
+
+
+class LotteryHistoryPage(BaseSchema):
+    items: list[LotteryHistoryItem]
+    total: int
+    offset: int
+    limit: int

@@ -251,13 +251,15 @@ async function loadMetrics() {
     // Populate performance.json banner
     if (perfRes && perfRes.ok) {
       const perf = await perfRes.json();
-      const ms = perf?.model_score ?? {};
-      document.getElementById('pf-score').textContent = (ms.score ?? perf.avg_positional_hits ?? '—');
-      document.getElementById('pf-grade').textContent = ms.grade ?? '—';
-      document.getElementById('pf-pos').textContent   = (perf.avg_positional_hits ?? '—').toString();
-      document.getElementById('pf-dig').textContent   = (perf.avg_digit_hits ?? '—').toString();
-      const s = ms.score ?? 0;
-      document.getElementById('pf-bar').style.width = s + '%';
+      const avgDig = perf.avg_digit_hits ?? 0;
+      const avgPos = perf.avg_positional_hits ?? 0;
+      const score = perf?.model_score?.score ?? Math.round(((avgDig / 6) * 0.7 + (avgPos / 6) * 0.3) * 100);
+      const grade = perf?.model_score?.grade ?? (score >= 70 ? 'A (Excellent)' : (score >= 50 ? 'B (Good)' : (score >= 30 ? 'C (Fair)' : 'D (Needs Tuning)')));
+      document.getElementById('pf-score').textContent = score.toString();
+      document.getElementById('pf-grade').textContent = grade;
+      document.getElementById('pf-pos').textContent   = avgPos.toString();
+      document.getElementById('pf-dig').textContent   = avgDig.toString();
+      document.getElementById('pf-bar').style.width = Math.min(100, Math.max(0, score)) + '%';
       document.getElementById('perf-banner').style.display = 'flex';
     }
 

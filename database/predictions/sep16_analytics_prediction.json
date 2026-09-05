@@ -1,0 +1,612 @@
+{
+  "metadata": {
+    "target_draw": "2026-09-16",
+    "target_draw_th": "16 กันยายน 2569",
+    "latest_historical_draw": "2026-09-01",
+    "latest_first_prize": "417212",
+    "latest_last2": "04",
+    "total_historical_draws": 471,
+    "sep16_sample_size_years": 19,
+    "generated_at": "2026-09-05T22:29:29.407796"
+  },
+  "sep16_historical_draws": [
+    {
+      "date": "2007-09-16",
+      "year": 2007,
+      "first_prize": "499336",
+      "top2": "36",
+      "last2": "45",
+      "top3": "336",
+      "weight": 0.5
+    },
+    {
+      "date": "2008-09-16",
+      "year": 2008,
+      "first_prize": "012377",
+      "top2": "77",
+      "last2": "56",
+      "top3": "377",
+      "weight": 0.5
+    },
+    {
+      "date": "2009-09-16",
+      "year": 2009,
+      "first_prize": "202912",
+      "top2": "12",
+      "last2": "48",
+      "top3": "912",
+      "weight": 0.5
+    },
+    {
+      "date": "2010-09-16",
+      "year": 2010,
+      "first_prize": "017422",
+      "top2": "22",
+      "last2": "66",
+      "top3": "422",
+      "weight": 0.5
+    },
+    {
+      "date": "2011-09-16",
+      "year": 2011,
+      "first_prize": "731198",
+      "top2": "98",
+      "last2": "28",
+      "top3": "198",
+      "weight": 0.5
+    },
+    {
+      "date": "2012-09-16",
+      "year": 2012,
+      "first_prize": "540143",
+      "top2": "43",
+      "last2": "79",
+      "top3": "143",
+      "weight": 1.0
+    },
+    {
+      "date": "2013-09-16",
+      "year": 2013,
+      "first_prize": "562684",
+      "top2": "84",
+      "last2": "63",
+      "top3": "684",
+      "weight": 1.0
+    },
+    {
+      "date": "2014-09-16",
+      "year": 2014,
+      "first_prize": "772269",
+      "top2": "69",
+      "last2": "35",
+      "top3": "269",
+      "weight": 1.0
+    },
+    {
+      "date": "2015-09-16",
+      "year": 2015,
+      "first_prize": "743148",
+      "top2": "48",
+      "last2": "06",
+      "top3": "148",
+      "weight": 1.0
+    },
+    {
+      "date": "2016-09-16",
+      "year": 2016,
+      "first_prize": "240650",
+      "top2": "50",
+      "last2": "42",
+      "top3": "650",
+      "weight": 1.0
+    },
+    {
+      "date": "2017-09-16",
+      "year": 2017,
+      "first_prize": "170143",
+      "top2": "43",
+      "last2": "71",
+      "top3": "143",
+      "weight": 2.0
+    },
+    {
+      "date": "2018-09-16",
+      "year": 2018,
+      "first_prize": "149760",
+      "top2": "60",
+      "last2": "79",
+      "top3": "760",
+      "weight": 2.0
+    },
+    {
+      "date": "2019-09-16",
+      "year": 2019,
+      "first_prize": "340388",
+      "top2": "88",
+      "last2": "85",
+      "top3": "388",
+      "weight": 2.0
+    },
+    {
+      "date": "2020-09-16",
+      "year": 2020,
+      "first_prize": "244083",
+      "top2": "83",
+      "last2": "57",
+      "top3": "083",
+      "weight": 2.0
+    },
+    {
+      "date": "2021-09-16",
+      "year": 2021,
+      "first_prize": "070935",
+      "top2": "35",
+      "last2": "90",
+      "top3": "935",
+      "weight": 2.0
+    },
+    {
+      "date": "2022-09-16",
+      "year": 2022,
+      "first_prize": "943703",
+      "top2": "03",
+      "last2": "75",
+      "top3": "703",
+      "weight": 3.0
+    },
+    {
+      "date": "2023-09-16",
+      "year": 2023,
+      "first_prize": "320812",
+      "top2": "12",
+      "last2": "46",
+      "top3": "812",
+      "weight": 3.0
+    },
+    {
+      "date": "2024-09-16",
+      "year": 2024,
+      "first_prize": "608662",
+      "top2": "62",
+      "last2": "37",
+      "top3": "662",
+      "weight": 3.0
+    },
+    {
+      "date": "2025-09-16",
+      "year": 2025,
+      "first_prize": "074646",
+      "top2": "46",
+      "last2": "58",
+      "top3": "646",
+      "weight": 3.0
+    }
+  ],
+  "top_predictions": {
+    "top2_upper": [
+      {
+        "rank": 1,
+        "number": "12",
+        "probability_pct": 15.74,
+        "sep16_raw_freq": 2,
+        "sep16_weighted_freq": 3.5,
+        "tier": "HOT"
+      },
+      {
+        "rank": 2,
+        "number": "03",
+        "probability_pct": 14.97,
+        "sep16_raw_freq": 1,
+        "sep16_weighted_freq": 3.0,
+        "tier": "HOT"
+      },
+      {
+        "rank": 3,
+        "number": "46",
+        "probability_pct": 7.43,
+        "sep16_raw_freq": 1,
+        "sep16_weighted_freq": 3.0,
+        "tier": "HOT"
+      },
+      {
+        "rank": 4,
+        "number": "62",
+        "probability_pct": 6.4,
+        "sep16_raw_freq": 1,
+        "sep16_weighted_freq": 3.0,
+        "tier": "HOT"
+      },
+      {
+        "rank": 5,
+        "number": "43",
+        "probability_pct": 5.79,
+        "sep16_raw_freq": 2,
+        "sep16_weighted_freq": 3.0,
+        "tier": "HOT"
+      },
+      {
+        "rank": 6,
+        "number": "83",
+        "probability_pct": 1.83,
+        "sep16_raw_freq": 1,
+        "sep16_weighted_freq": 2.0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 7,
+        "number": "88",
+        "probability_pct": 1.83,
+        "sep16_raw_freq": 1,
+        "sep16_weighted_freq": 2.0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 8,
+        "number": "60",
+        "probability_pct": 1.74,
+        "sep16_raw_freq": 1,
+        "sep16_weighted_freq": 2.0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 9,
+        "number": "72",
+        "probability_pct": 1.58,
+        "sep16_raw_freq": 0,
+        "sep16_weighted_freq": 0.0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 10,
+        "number": "35",
+        "probability_pct": 1.5,
+        "sep16_raw_freq": 1,
+        "sep16_weighted_freq": 2.0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 11,
+        "number": "77",
+        "probability_pct": 1.36,
+        "sep16_raw_freq": 1,
+        "sep16_weighted_freq": 0.5,
+        "tier": "WARM"
+      },
+      {
+        "rank": 12,
+        "number": "06",
+        "probability_pct": 1.11,
+        "sep16_raw_freq": 0,
+        "sep16_weighted_freq": 0.0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 13,
+        "number": "05",
+        "probability_pct": 0.96,
+        "sep16_raw_freq": 0,
+        "sep16_weighted_freq": 0.0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 14,
+        "number": "63",
+        "probability_pct": 0.96,
+        "sep16_raw_freq": 0,
+        "sep16_weighted_freq": 0.0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 15,
+        "number": "96",
+        "probability_pct": 0.96,
+        "sep16_raw_freq": 0,
+        "sep16_weighted_freq": 0.0,
+        "tier": "WARM"
+      }
+    ],
+    "last2_lower": [
+      {
+        "rank": 1,
+        "number": "79",
+        "probability_pct": 13.85,
+        "sep16_raw_freq": 2,
+        "sep16_weighted_freq": 3.0,
+        "tier": "HOT"
+      },
+      {
+        "rank": 2,
+        "number": "58",
+        "probability_pct": 9.76,
+        "sep16_raw_freq": 1,
+        "sep16_weighted_freq": 3.0,
+        "tier": "HOT"
+      },
+      {
+        "rank": 3,
+        "number": "46",
+        "probability_pct": 8.83,
+        "sep16_raw_freq": 1,
+        "sep16_weighted_freq": 3.0,
+        "tier": "HOT"
+      },
+      {
+        "rank": 4,
+        "number": "37",
+        "probability_pct": 5.63,
+        "sep16_raw_freq": 1,
+        "sep16_weighted_freq": 3.0,
+        "tier": "HOT"
+      },
+      {
+        "rank": 5,
+        "number": "85",
+        "probability_pct": 5.09,
+        "sep16_raw_freq": 1,
+        "sep16_weighted_freq": 2.0,
+        "tier": "HOT"
+      },
+      {
+        "rank": 6,
+        "number": "75",
+        "probability_pct": 3.25,
+        "sep16_raw_freq": 1,
+        "sep16_weighted_freq": 3.0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 7,
+        "number": "71",
+        "probability_pct": 2.94,
+        "sep16_raw_freq": 1,
+        "sep16_weighted_freq": 2.0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 8,
+        "number": "57",
+        "probability_pct": 2.66,
+        "sep16_raw_freq": 1,
+        "sep16_weighted_freq": 2.0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 9,
+        "number": "06",
+        "probability_pct": 2.53,
+        "sep16_raw_freq": 1,
+        "sep16_weighted_freq": 1.0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 10,
+        "number": "90",
+        "probability_pct": 2.29,
+        "sep16_raw_freq": 1,
+        "sep16_weighted_freq": 2.0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 11,
+        "number": "42",
+        "probability_pct": 1.19,
+        "sep16_raw_freq": 1,
+        "sep16_weighted_freq": 1.0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 12,
+        "number": "63",
+        "probability_pct": 1.08,
+        "sep16_raw_freq": 1,
+        "sep16_weighted_freq": 1.0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 13,
+        "number": "14",
+        "probability_pct": 0.98,
+        "sep16_raw_freq": 0,
+        "sep16_weighted_freq": 0.0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 14,
+        "number": "92",
+        "probability_pct": 0.98,
+        "sep16_raw_freq": 0,
+        "sep16_weighted_freq": 0.0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 15,
+        "number": "61",
+        "probability_pct": 0.89,
+        "sep16_raw_freq": 0,
+        "sep16_weighted_freq": 0.0,
+        "tier": "WARM"
+      }
+    ],
+    "top3_combinations": [
+      {
+        "rank": 1,
+        "number": "867",
+        "probability_pct": 5.38,
+        "historical_sep16_hits": 0,
+        "tier": "HOT"
+      },
+      {
+        "rank": 2,
+        "number": "603",
+        "probability_pct": 4.8,
+        "historical_sep16_hits": 0,
+        "tier": "HOT"
+      },
+      {
+        "rank": 3,
+        "number": "377",
+        "probability_pct": 4.43,
+        "historical_sep16_hits": 1,
+        "tier": "HOT"
+      },
+      {
+        "rank": 4,
+        "number": "807",
+        "probability_pct": 4.05,
+        "historical_sep16_hits": 0,
+        "tier": "HOT"
+      },
+      {
+        "rank": 5,
+        "number": "307",
+        "probability_pct": 3.91,
+        "historical_sep16_hits": 0,
+        "tier": "HOT"
+      },
+      {
+        "rank": 6,
+        "number": "602",
+        "probability_pct": 3.61,
+        "historical_sep16_hits": 0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 7,
+        "number": "662",
+        "probability_pct": 3.55,
+        "historical_sep16_hits": 1,
+        "tier": "WARM"
+      },
+      {
+        "rank": 8,
+        "number": "812",
+        "probability_pct": 3.48,
+        "historical_sep16_hits": 1,
+        "tier": "WARM"
+      },
+      {
+        "rank": 9,
+        "number": "607",
+        "probability_pct": 2.79,
+        "historical_sep16_hits": 0,
+        "tier": "WARM"
+      },
+      {
+        "rank": 10,
+        "number": "612",
+        "probability_pct": 2.64,
+        "historical_sep16_hits": 0,
+        "tier": "WARM"
+      }
+    ]
+  },
+  "positional_hot_cold": {
+    "digit_1": {
+      "hot_digits": [
+        0,
+        2,
+        7
+      ],
+      "frequencies": {
+        "0": 4,
+        "2": 3,
+        "7": 3,
+        "5": 2,
+        "1": 2,
+        "3": 2,
+        "4": 1,
+        "9": 1,
+        "6": 1
+      }
+    },
+    "digit_2": {
+      "hot_digits": [
+        4,
+        7,
+        1
+      ],
+      "frequencies": {
+        "4": 7,
+        "7": 4,
+        "1": 2,
+        "0": 2,
+        "9": 1,
+        "3": 1,
+        "6": 1,
+        "2": 1
+      }
+    },
+    "digit_3": {
+      "hot_digits": [
+        0,
+        2,
+        9
+      ],
+      "frequencies": {
+        "0": 6,
+        "2": 4,
+        "9": 2,
+        "3": 2,
+        "4": 2,
+        "7": 1,
+        "1": 1,
+        "8": 1
+      }
+    },
+    "digit_4": {
+      "hot_digits": [
+        1,
+        6,
+        3
+      ],
+      "frequencies": {
+        "1": 4,
+        "6": 4,
+        "3": 3,
+        "9": 2,
+        "7": 2,
+        "4": 1,
+        "2": 1,
+        "0": 1,
+        "8": 1
+      }
+    },
+    "digit_5": {
+      "hot_digits": [
+        4,
+        8,
+        6
+      ],
+      "frequencies": {
+        "4": 4,
+        "8": 3,
+        "6": 3,
+        "3": 2,
+        "1": 2,
+        "7": 1,
+        "2": 1,
+        "9": 1,
+        "5": 1,
+        "0": 1
+      }
+    },
+    "digit_6": {
+      "hot_digits": [
+        2,
+        3,
+        8
+      ],
+      "frequencies": {
+        "2": 4,
+        "3": 4,
+        "8": 3,
+        "6": 2,
+        "0": 2,
+        "7": 1,
+        "4": 1,
+        "9": 1,
+        "5": 1
+      }
+    }
+  }
+}

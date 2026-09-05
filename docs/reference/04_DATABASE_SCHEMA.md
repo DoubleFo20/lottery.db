@@ -1,6 +1,6 @@
 # 04 — Database Schema
 
-**Status: Draft**
+**Status: Draft — updated 2026-08-07**
 
 ## Purpose
 
@@ -32,6 +32,7 @@ The foundation API (Sprint 2.1) introduces a local SQLite database managed via S
 - Repository layer: `app/repositories/` — generic `CRUDBase` plus per-model repositories.
 - Migrations: `migrations/` (Alembic); initial migration `ea56edd686c9`.
 - Database path: `LOTTERY_DB_PATH` env var (default `database/lottery.sqlite`); `app/database.py` exposes `init()`, `connect()`, `verify()`, `get_db()`.
+- On FastAPI startup, `app/services/history_seed_service.py` idempotently seeds core draw fields (`draw_date`, `first_prize`, `last_two`) from the canonical `lottery_history.csv`. Existing draw dates are preserved, so repeated startups do not create duplicates.
 
 ## MySQL Schema
 
@@ -67,6 +68,8 @@ Configuration is hardcoded in `backend/config/database.php` (see `docs/governanc
 Remediation is tracked in `docs/governance/08_ROADMAP.md` Phase 0.
 
 ## References
+
+- `specs/backend/02-lottery-history.md` — implemented history seed and read API
 
 - `database/schema.sql` — schema source
 - `app/models/` — SQLAlchemy ORM models (SQLite layer)

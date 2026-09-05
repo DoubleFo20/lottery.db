@@ -1,6 +1,6 @@
 # 05 — API Specification
 
-**Status: Draft**
+**Status: Draft — updated 2026-08-07**
 
 ## Purpose
 
@@ -20,6 +20,15 @@ Defines the canonical API contract for the Lottery system. Resolves the current 
 - Constrain implementation work (`prompts/build.md`) and review (`prompts/review.md`).
 
 ## Current State
+
+The foundation FastAPI currently exposes these read-only endpoints:
+
+| Method | Path | Response |
+|---|---|---|
+| GET | `/health` | `{"status": "ok"}` |
+| GET | `/history?offset=0&limit=20` | `ApiResponse` containing newest-first core draw records and pagination metadata; `limit` is constrained to 1–100 |
+
+The history endpoint is implemented by `backend/app/main.py` and reads the seeded SQLite `lottery_draws` table. It does not replace the legacy PHP prediction API described below.
 
 Two near-duplicate PHP API layers exist and are referenced inconsistently:
 
@@ -55,6 +64,8 @@ Consolidation is tracked as `docs/governance/10_TECHNICAL_DEBT.md` D5/D6 and `do
 4. All dynamic values escaped at render time (frontend).
 
 ## References
+
+- `specs/backend/02-lottery-history.md` — FastAPI history contract
 
 - `backend/api/predict.php` — reference implementation
 - `docs/reference/02_SYSTEM_ARCHITECTURE.md` — layer rules
