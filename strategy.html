@@ -1,0 +1,2283 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lottery Strategy & AI Analytics Dashboard | งวด 16 กันยายน 2569</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg-dark: #070b14;
+      --bg-panel: rgba(15, 23, 42, 0.82);
+      --bg-card: rgba(30, 41, 59, 0.65);
+      --bg-hover: rgba(59, 130, 246, 0.12);
+      --border: rgba(59, 130, 246, 0.2);
+      --border-light: rgba(255, 255, 255, 0.08);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --blue: #3b82f6;
+      --cyan: #06b6d4;
+      --green: #10b981;
+      --amber: #f59e0b;
+      --red: #ef4444;
+      --purple: #8b5cf6;
+      --gold: #fbbf24;
+      --hot-bg: rgba(239, 68, 68, 0.25);
+      --hot-text: #fca5a5;
+      --hot-border: rgba(239, 68, 68, 0.5);
+      --cold-bg: rgba(6, 182, 212, 0.15);
+      --cold-text: #67e8f9;
+      --cold-border: rgba(6, 182, 212, 0.35);
+      --shadow-panel: 0 10px 35px -5px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.05);
+      --font-display: 'Chakra Petch', sans-serif;
+      --font-body: 'Sarabun', 'Inter', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(59, 130, 246, 0.15) 0, transparent 40%),
+        radial-gradient(circle at 85% 20%, rgba(139, 92, 246, 0.12) 0, transparent 45%),
+        radial-gradient(circle at 50% 90%, rgba(6, 182, 212, 0.08) 0, transparent 50%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 1.25rem 2rem 4rem;
+      line-height: 1.6;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.6); }
+    ::-webkit-scrollbar-thumb { background: rgba(59, 130, 246, 0.4); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(59, 130, 246, 0.7); }
+
+    .dashboard-container {
+      max-width: 1560px;
+      margin: 0 auto;
+    }
+
+    /* Header Bar */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 1.8rem;
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-panel);
+      margin-bottom: 1.5rem;
+      position: sticky;
+      top: 1rem;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      display: grid;
+      place-items: center;
+      font-size: 1.6rem;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #ffffff, #93c5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-text p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-btn:hover {
+      background: rgba(59, 130, 246, 0.18);
+      color: #fff;
+      border-color: rgba(59, 130, 246, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(135deg, var(--blue), #2563eb);
+      color: #fff;
+      border-color: var(--blue);
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+    }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0.4rem 0.8rem;
+      border-radius: 99px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--green);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--green);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* Hero Grid */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .panel {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1.5rem;
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow-panel);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .panel-title {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #93c5fd;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-badge {
+      font-size: 0.72rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #93c5fd;
+    }
+
+    /* Countdown Card */
+    .countdown-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .target-date-title {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .target-date-display {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #f8fafc;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+
+    .target-date-tag {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 99px;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .countdown-timer {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.8rem;
+      margin: 1.2rem 0;
+    }
+
+    .timer-unit {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-radius: 12px;
+      padding: 0.9rem 0.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .timer-unit::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 50%;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.03), transparent);
+      pointer-events: none;
+    }
+
+    .timer-val {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #38bdf8;
+      line-height: 1.1;
+      text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+    }
+
+    .timer-label {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+
+    .target-subtext {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.6rem 0.9rem;
+      border-radius: 8px;
+    }
+
+    /* Latest Draw Summary */
+    .latest-result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem;
+    }
+
+    .result-card {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .result-card:hover {
+      border-color: rgba(59, 130, 246, 0.4);
+      background: rgba(30, 41, 59, 0.8);
+    }
+
+    .result-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.4rem;
+    }
+
+    .result-value-big {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      text-shadow: 0 0 15px rgba(251, 191, 36, 0.35);
+    }
+
+    .result-value-sub {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: #38bdf8;
+    }
+
+    .multi-badges {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 0.3rem;
+    }
+
+    .num-pill {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 0.2rem 0.65rem;
+      color: #f1f5f9;
+    }
+
+    /* Predictions */
+    .prediction-columns {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cand-category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 0.8rem;
+    }
+
+    .category-tag {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cand-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .cand-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .cand-card:hover {
+      background: rgba(59, 130, 246, 0.08);
+      border-color: rgba(59, 130, 246, 0.3);
+      transform: translateX(4px);
+    }
+
+    .cand-card.hot-tier { border-left: 3px solid var(--red); }
+    .cand-card.warm-tier { border-left: 3px solid var(--amber); }
+
+    .cand-card-left {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .cand-rank {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      width: 22px;
+    }
+
+    .cand-num {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #fff;
+    }
+
+    .cand-meta {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .cand-card-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      min-width: 100px;
+    }
+
+    .cand-pct {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    .prob-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .prob-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      transition: width 1s ease;
+    }
+
+    .tier-badge {
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .tier-badge.hot {
+      background: var(--hot-bg);
+      color: var(--hot-text);
+      border: 1px solid var(--hot-border);
+    }
+
+    .tier-badge.warm {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fde68a;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    /* Ensemble Banner */
+    .ensemble-banner {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .ensemble-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #93c5fd;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ensemble-numbers {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .ensemble-chip {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      border-radius: 10px;
+      padding: 0.55rem 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .ensemble-chip:hover {
+      border-color: var(--blue);
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+    }
+
+    .ensemble-digit {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: #fff;
+    }
+
+    .ensemble-conf {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--green);
+      background: rgba(16, 185, 129, 0.15);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+    }
+
+    /* Heatmap */
+    .heatmap-section { margin-bottom: 1.5rem; }
+
+    .matrix-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 3px;
+    }
+
+    .mode-switch-btn {
+      padding: 0.4rem 1rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .mode-switch-btn.active {
+      background: var(--blue);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+    }
+
+    .matrix-legend {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .legend-gradient {
+      width: 120px;
+      height: 8px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #0284c7, #334155, #f59e0b, #ef4444);
+    }
+
+    .heatmap-grid-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 6px;
+    }
+
+    .heatmap-grid-table th {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 0.6rem 0.4rem;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 8px;
+    }
+
+    .heatmap-grid-table td {
+      text-align: center;
+      border-radius: 8px;
+      padding: 0.65rem 0.4rem;
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: all 0.2s;
+      cursor: default;
+    }
+
+    .digit-row-header {
+      width: 50px;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 800;
+      color: #cbd5e1;
+      background: rgba(255, 255, 255, 0.04) !important;
+    }
+
+    .heat-cell:hover {
+      transform: scale(1.08);
+      z-index: 10;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    }
+
+    .heat-cell-count {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 2px;
+    }
+
+    /* Charts */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .chart-box {
+      height: 320px;
+      position: relative;
+      margin-top: 0.5rem;
+    }
+
+    /* System Control Grid */
+    .system-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .ctrl-btn {
+      padding: 0.65rem 1rem;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .ctrl-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+    .ctrl-btn.primary { background: linear-gradient(135deg, var(--blue), #6366f1); color: #fff; }
+    .ctrl-btn.success { background: linear-gradient(135deg, var(--green), #059669); color: #fff; }
+    .ctrl-btn.secondary { background: rgba(255, 255, 255, 0.06); color: var(--text-main); border: 1px solid var(--border); }
+    .ctrl-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    /* Historical Table */
+    .table-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .search-input-wrap {
+      position: relative;
+      flex: 1;
+      max-width: 380px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.55rem 1rem 0.55rem 2.4rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.8);
+      color: #fff;
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.8rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .quick-filter-chips {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .chip-btn {
+      padding: 0.35rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 8px;
+      border: 1px solid var(--border-light);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .chip-btn:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+    .chip-btn.active {
+      background: rgba(59, 130, 246, 0.2);
+      border-color: var(--blue);
+      color: #93c5fd;
+    }
+
+    .history-table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border-light);
+      background: rgba(15, 23, 42, 0.4);
+    }
+
+    .history-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    .history-table th {
+      background: rgba(30, 41, 59, 0.7);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .history-table th:hover { color: #fff; }
+
+    .history-table td {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      color: #cbd5e1;
+    }
+
+    .history-table tr:hover td {
+      background: rgba(59, 130, 246, 0.05);
+      color: #fff;
+    }
+
+    .td-first-prize {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--gold);
+    }
+
+    .td-last2 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    .tag-sep16 {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.1rem 0.45rem;
+      border-radius: 4px;
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+    }
+
+    .pagination-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .pagination-controls { display: flex; align-items: center; gap: 0.4rem; }
+
+    .page-btn {
+      padding: 0.35rem 0.7rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-light);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.75rem;
+      transition: all 0.2s;
+    }
+
+    .page-btn:hover:not(:disabled) { background: rgba(59, 130, 246, 0.2); color: #fff; }
+    .page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .page-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    /* Toast Notification */
+    .toast-msg {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid var(--blue);
+      color: #fff;
+      padding: 0.7rem 1.4rem;
+      border-radius: 99px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    .toast-msg.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 1200px) {
+      .prediction-columns { grid-template-columns: 1fr 1fr; }
+      .hero-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 900px) {
+      body { padding: 1rem; }
+      .charts-grid, .system-grid, .prediction-columns { grid-template-columns: 1fr; }
+      .header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+      .header-nav { flex-wrap: wrap; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+
+  <!-- ═════ 1. HEADER ═════ -->
+  <header class="header">
+    <div class="brand">
+      <div class="brand-logo">🎯</div>
+      <div class="brand-text">
+        <h1>LOTTERY STRATEGY &amp; DEEP ANALYTICS</h1>
+        <p>
+          <span>20-Year Analysis Suite</span> •
+          <span>งวดเป้าหมาย: 16 กันยายน 2569</span> •
+          <span class="live-badge"><span class="pulse-dot"></span> Live Engine Active</span>
+        </p>
+      </div>
+    </div>
+    <nav class="header-nav">
+      <a class="nav-btn active" href="strategy.html">📊 Strategy</a>
+      <a class="nav-btn" href="manager.html">🖥 Manager</a>
+      <a class="nav-btn" href="performance.html">📈 Performance</a>
+      <button class="nav-btn" onclick="scrollToSection('sec-predictions')">🎯 คาดการณ์</button>
+      <button class="nav-btn" onclick="scrollToSection('sec-heatmap')">🌡 Heatmap</button>
+      <button class="nav-btn" onclick="scrollToSection('sec-charts')">📊 สถิติ</button>
+      <button class="nav-btn" onclick="scrollToSection('sec-history')">📜 คลังงวด</button>
+      <button class="nav-btn" id="lang-btn" onclick="toggleLanguage()">🌐 TH / EN</button>
+    </nav>
+  </header>
+
+  <!-- ═════ 2. HERO: COUNTDOWN & LATEST DRAW ═════ -->
+  <section class="hero-grid">
+    <!-- Countdown Box -->
+    <div class="panel">
+      <div class="countdown-box">
+        <div>
+          <div class="panel-header">
+            <div class="panel-title">⏳ นับถอยหลังสู่งวดถัดไป</div>
+            <div class="panel-badge">วิเคราะห์เจาะจง 19 ปี (Sep 16 Model)</div>
+          </div>
+          <div class="target-date-title">วันและเวลาที่คาดการณ์ออกผล:</div>
+          <div class="target-date-display">
+            16 กันยายน 2569 <span style="font-size:1.1rem;color:var(--text-muted);">(14:30 น.)</span>
+            <span class="target-date-tag">งวดเป้าหมายหลัก</span>
+          </div>
+
+          <div class="countdown-timer">
+            <div class="timer-unit">
+              <div class="timer-val" id="cd-days">--</div>
+              <div class="timer-label">วัน (Days)</div>
+            </div>
+            <div class="timer-unit">
+              <div class="timer-val" id="cd-hours">--</div>
+              <div class="timer-label">ชั่วโมง (Hours)</div>
+            </div>
+            <div class="timer-unit">
+              <div class="timer-val" id="cd-mins">--</div>
+              <div class="timer-label">นาที (Mins)</div>
+            </div>
+            <div class="timer-unit">
+              <div class="timer-val" id="cd-secs">--</div>
+              <div class="timer-label">วินาที (Secs)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="target-subtext">
+          <span>💡 <strong>AI Context:</strong> โมเดลวิเคราะห์ข้อมูลเจาะลึก 19 ปีเฉพาะงวด 16 กันยายน (2007-2025) ร่วมกับการถ่วงน้ำหนักความใหม่ (Recency Weighting) และ Markov Chains</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Latest Result Box -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">🏆 ผลรางวัลงวดล่าสุด (1 ก.ย. 2569)</div>
+        <div class="panel-badge" id="latest-draw-date">อ้างอิงงวดล่าสุด</div>
+      </div>
+      <div class="latest-result-grid">
+        <div class="result-card">
+          <div class="result-label">รางวัลที่ 1 (First Prize)</div>
+          <div class="result-value-big" id="res-first-prize">417212</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">ท้าย 2 ตัวบน: <span style="color:#fff;font-weight:700">12</span></div>
+        </div>
+        <div class="result-card">
+          <div class="result-label">เลขท้าย 2 ตัวล่าง (Last 2)</div>
+          <div class="result-value-sub" id="res-last2">04</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">สภาพคู่/คี่: <span style="color:#fff;font-weight:700">คู่ (Even)</span></div>
+        </div>
+        <div class="result-card">
+          <div class="result-label">เลขหน้า 3 ตัว (Front 3)</div>
+          <div class="multi-badges">
+            <span class="num-pill" id="res-front3-1">257</span>
+            <span class="num-pill" id="res-front3-2">346</span>
+          </div>
+        </div>
+        <div class="result-card">
+          <div class="result-label">เลขท้าย 3 ตัว (Back 3)</div>
+          <div class="multi-badges">
+            <span class="num-pill" id="res-back3-1">136</span>
+            <span class="num-pill" id="res-back3-2">740</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:0.9rem;font-size:0.75rem;color:var(--text-muted);text-align:right;">
+        ฐานข้อมูลรวม: <strong style="color:#fff;">471 งวดประวัติศาสตร์</strong> (2549 - 2569)
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════ 3. TOP PREDICTIONS SECTION ═════ -->
+  <section id="sec-predictions" style="margin-bottom:1.8rem;">
+    <!-- Ensemble 6-digit bar -->
+    <div class="ensemble-banner">
+      <div>
+        <div class="ensemble-title">🤖 ผลรวมทำนาย 6 ตัวตรง (Ensemble Model Predictions)</div>
+        <div style="font-size:0.78rem;color:var(--text-muted);margin-top:2px;">
+          คำนวณผ่าน 8 สัญญาณควบรวม (Statistical Probability + Positional Heatmap + Markov Transition)
+        </div>
+      </div>
+      <div class="ensemble-numbers" id="ensemble-container">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+    <!-- Category Columns: 2 ตัวบน, 2 ตัวล่าง, 3 ตัวบน -->
+    <div class="prediction-columns">
+      
+      <!-- Column 1: 2 ตัวบน -->
+      <div class="panel">
+        <div class="cand-category-header">
+          <div class="category-tag">
+            <span style="color:#38bdf8">🎯</span> 2 ตัวบน (Upper 2-Digit)
+          </div>
+          <span class="panel-badge">ท้ายรางวัลที่ 1</span>
+        </div>
+        <div class="cand-list" id="cand-list-top2">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Column 2: 2 ตัวล่าง -->
+      <div class="panel">
+        <div class="cand-category-header">
+          <div class="category-tag">
+            <span style="color:#34d399">🎲</span> 2 ตัวล่าง (Lower 2-Digit)
+          </div>
+          <span class="panel-badge">รางวัลเลขท้าย 2 ตัว</span>
+        </div>
+        <div class="cand-list" id="cand-list-last2">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Column 3: 3 ตัวบน -->
+      <div class="panel">
+        <div class="cand-category-header">
+          <div class="category-tag">
+            <span style="color:#fbbf24">👑</span> 3 ตัวบน (Top 3-Digit)
+          </div>
+          <span class="panel-badge">3 ตัวท้ายรางวัลที่ 1</span>
+        </div>
+        <div class="cand-list" id="cand-list-top3">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═════ 4. HEATMAP MATRIX SECTION ═════ -->
+  <section id="sec-heatmap" class="heatmap-section">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>🌡</span> Matrix ความถี่ตัวเลขรายตำแหน่ง 6 หลัก (Hot / Cold Heatmap Matrix)
+        </div>
+        <div class="matrix-legend">
+          <span>น้อย (Cold)</span>
+          <div class="legend-gradient"></div>
+          <span>มาก (Hot)</span>
+        </div>
+      </div>
+
+      <div class="matrix-controls">
+        <div class="mode-switch">
+          <button class="mode-switch-btn active" id="btn-mode-sep16" onclick="setHeatmapMode('sep16')">
+            🎯 เฉพาะงวด 16 ก.ย. ย้อนหลัง 19 ปี
+          </button>
+          <button class="mode-switch-btn" id="btn-mode-global" onclick="setHeatmapMode('global')">
+            🌐 ภาพรวมประวัติศาสตร์ 20 ปี (471 งวด)
+          </button>
+        </div>
+        <div style="font-size:0.75rem;color:var(--text-muted);" id="heatmap-caption">
+          แสดงความถี่ตัวเลข 0-9 ในแต่ละตำแหน่งหลัก (แสน, หมื่น, พัน, ร้อย, สิบ, หน่วย)
+        </div>
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table class="heatmap-grid-table" id="heatmap-table">
+          <thead>
+            <tr>
+              <th style="width:70px">เลข (Digit)</th>
+              <th>หลักแสน (Pos 1)</th>
+              <th>หลักหมื่น (Pos 2)</th>
+              <th>หลักพัน (Pos 3)</th>
+              <th>หลักร้อย (Pos 4)</th>
+              <th>หลักสิบ (Pos 5)</th>
+              <th>หลักหน่วย (Pos 6)</th>
+            </tr>
+          </thead>
+          <tbody id="heatmap-body">
+            <!-- Dynamically Rendered -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Quick Summary Badges -->
+      <div style="display:grid;grid-template-columns:repeat(6, 1fr);gap:0.75rem;margin-top:1.25rem;" id="pos-summary-container">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════ 5. CHARTS SECTION ═════ -->
+  <section id="sec-charts" style="margin-bottom:1.8rem;">
+    <div class="charts-grid">
+      
+      <!-- Chart 1: Monthly Distribution -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">📅 สถิติการออกรางวัลจำแนกตามเดือน (12 เดือน)</div>
+          <span class="panel-badge">โฟกัสเดือนกันยายน</span>
+        </div>
+        <div class="chart-box">
+          <canvas id="chart-monthly"></canvas>
+        </div>
+      </div>
+
+      <!-- Chart 2: Day-of-Week Breakdown -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">🗓 สถิติการออกรางวัลตามวันในสัปดาห์ (Day of Week)</div>
+          <span class="panel-badge" style="color:var(--cyan);border-color:rgba(6,182,212,0.4)">16 ก.ย. 69 = วันพุธ</span>
+        </div>
+        <div class="chart-box">
+          <canvas id="chart-dow"></canvas>
+        </div>
+      </div>
+
+      <!-- Chart 3: Sep 16 Specific Historical Top 2 vs Last 2 -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">🔬 ตัวเลขท้าย 2 ตัวที่เคยออกในงวด 16 ก.ย. (19 ปี)</div>
+          <span class="panel-badge">2 ตัวบน vs 2 ตัวล่าง</span>
+        </div>
+        <div class="chart-box">
+          <canvas id="chart-sep16-pairs"></canvas>
+        </div>
+      </div>
+
+      <!-- Chart 4: Positional Radar Profile -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">🕸 เรดาร์สัดส่วนตัวเลขใน 6 ตำแหน่งหลัก</div>
+          <span class="panel-badge">Positional Resonance</span>
+        </div>
+        <div class="chart-box">
+          <canvas id="chart-radar"></canvas>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═════ 6. SYSTEM CONTROL & PIPELINE ═════ -->
+  <section class="system-grid">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">⚙️ ควบคุมระบบและการประมวลผล (System Actions)</div>
+        <span class="panel-badge" id="s-cache-badge">Cache Ready</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;">
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <button class="ctrl-btn primary" id="btn-run" onclick="runPipeline()">
+            ⚡ สั่งประมวลผลโมเดล (Run Pipeline)
+          </button>
+          <button class="ctrl-btn success" id="btn-fetch" onclick="fetchResult()">
+            📥 ดึงผลงวดใหม่ (Fetch Result)
+          </button>
+          <button class="ctrl-btn secondary" onclick="location.reload()">
+            🔄 รีเฟรชข้อมูล (Reload)
+          </button>
+        </div>
+        <div id="ctrl-log" style="font-size:0.75rem;color:var(--text-muted);margin-top:0.4rem;">พร้อมรับคำสั่งประมวลผล</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">🧠 ทำไม AI ถึงเลือกตัวเลขกลุ่มนี้? (XAI)</div>
+        <span class="panel-badge">Explainable AI</span>
+      </div>
+      <div>
+        <div style="font-size:0.8rem;color:#cbd5e1;margin-bottom:0.4rem;">
+          <strong style="color:#38bdf8">เลข 12 (บน):</strong> สถิติออกซ้ำ 2 งวดใน 16 ก.ย. และตรงกับ Markov Transition ของงวดล่าสุด
+        </div>
+        <div style="font-size:0.8rem;color:#cbd5e1;margin-bottom:0.4rem;">
+          <strong style="color:#34d399">เลข 79 (ล่าง):</strong> ออกซ้ำ 2 ครั้งในงวด 16 ก.ย. มีค่าน้ำหนักความถี่สูงสุด 3.0
+        </div>
+        <div style="font-size:0.8rem;color:#cbd5e1;">
+          <strong style="color:#fbbf24">เลข 867 (3 ตัว):</strong> ผลรวมคะแนนคลัสเตอร์หลักร้อย (8), สิบ (6) และหน่วย (7)
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════ 7. HISTORICAL 20-YEAR DRAW EXPLORER ═════ -->
+  <section id="sec-history">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>📜</span> คลังประวัติการออกรางวัล 20 ปี (20-Year Historical Draw Explorer)
+        </div>
+        <div class="panel-badge" id="table-total-badge">ทั้งหมด 471 งวด</div>
+      </div>
+
+      <div class="table-controls">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="search-input" id="table-search" placeholder="ค้นหาตัวเลข, วันที่ (เช่น 417212, 16 ก.ย., 2024)..." oninput="handleTableSearch()">
+        </div>
+
+        <div class="quick-filter-chips">
+          <button class="chip-btn active" id="chip-all" onclick="setTableFilter('all')">ทั้งหมด (471)</button>
+          <button class="chip-btn" id="chip-sep16" onclick="setTableFilter('sep16')">เฉพาะ 16 ก.ย. (19)</button>
+          <button class="chip-btn" id="chip-sep-all" onclick="setTableFilter('sep-all')">งวดกันยายน (38)</button>
+          <button class="chip-btn" id="chip-recent" onclick="setTableFilter('recent')">2 ปีล่าสุด (2025-2026)</button>
+          <button class="chip-btn" id="chip-doubles" onclick="setTableFilter('doubles')">เลขมีเบิ้ล (Doubles)</button>
+        </div>
+
+        <div>
+          <select id="year-select" style="background:rgba(15,23,42,0.9);border:1px solid var(--border);color:#fff;padding:0.45rem 0.8rem;border-radius:8px;font-size:0.8rem;outline:none;" onchange="handleYearSelect(this.value)">
+            <option value="all">เลือกทุกปี (2007 - 2026)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="history-table-wrapper">
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th onclick="sortTable('draw_date')">วันที่ออกรางวัล ⇅</th>
+              <th onclick="sortTable('first_prize')">รางวัลที่ 1 ⇅</th>
+              <th onclick="sortTable('last2')">เลขท้าย 2 ตัว ⇅</th>
+              <th>เลขหน้า 3 ตัว</th>
+              <th>เลขท้าย 3 ตัว</th>
+              <th onclick="sortTable('sum')">ผลรวม ⇅</th>
+              <th>สภาพคู่/คี่</th>
+              <th>หมายเหตุ</th>
+            </tr>
+          </thead>
+          <tbody id="history-table-body">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination-bar">
+        <div id="pagination-info">แสดง 1 - 15 จาก 471 งวด</div>
+        <div class="pagination-controls">
+          <button class="page-btn" id="btn-prev-page" onclick="changePage(-1)">◀ ก่อนหน้า</button>
+          <div id="page-jump-container" style="display:flex;gap:4px;"></div>
+          <button class="page-btn" id="btn-next-page" onclick="changePage(1)">ถัดไป ▶</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Toast for Clipboard -->
+<div class="toast-msg" id="toast">คัดลอกหมายเลขแล้ว!</div>
+
+<!-- ═════ EMBEDDED COMPLETE DATASET & ANALYTICS JSON ═════ -->
+<script id="embedded-data" type="application/json">
+{
+  "target": {
+    "date": "2026-09-16",
+    "date_th": "16 กันยายน 2569",
+    "iso_target": "2026-09-16T14:30:00+07:00"
+  },
+  "latest_result": {
+    "date": "2026-09-01",
+    "first_prize": "417212",
+    "last2": "04",
+    "front3_1": "257",
+    "front3_2": "346",
+    "back3_1": "136",
+    "back3_2": "740"
+  },
+  "predictions": {
+    "top2": [
+      {"num": "12", "pct": 15.74, "tier": "hot", "sep16_freq": 2, "rec_weight": 3.5},
+      {"num": "03", "pct": 14.97, "tier": "hot", "sep16_freq": 1, "rec_weight": 3.0},
+      {"num": "46", "pct": 7.43, "tier": "hot", "sep16_freq": 1, "rec_weight": 3.0},
+      {"num": "62", "pct": 6.40, "tier": "hot", "sep16_freq": 1, "rec_weight": 3.0},
+      {"num": "43", "pct": 5.79, "tier": "hot", "sep16_freq": 2, "rec_weight": 3.0},
+      {"num": "83", "pct": 1.83, "tier": "warm", "sep16_freq": 1, "rec_weight": 2.0},
+      {"num": "88", "pct": 1.83, "tier": "warm", "sep16_freq": 1, "rec_weight": 2.0},
+      {"num": "60", "pct": 1.74, "tier": "warm", "sep16_freq": 1, "rec_weight": 2.0},
+      {"num": "72", "pct": 1.58, "tier": "warm", "sep16_freq": 0, "rec_weight": 0.0},
+      {"num": "35", "pct": 1.50, "tier": "warm", "sep16_freq": 1, "rec_weight": 2.0}
+    ],
+    "last2": [
+      {"num": "79", "pct": 13.85, "tier": "hot", "sep16_freq": 2, "rec_weight": 3.0},
+      {"num": "58", "pct": 9.76, "tier": "hot", "sep16_freq": 1, "rec_weight": 3.0},
+      {"num": "46", "pct": 8.83, "tier": "hot", "sep16_freq": 1, "rec_weight": 3.0},
+      {"num": "37", "pct": 5.63, "tier": "hot", "sep16_freq": 1, "rec_weight": 3.0},
+      {"num": "85", "pct": 5.09, "tier": "hot", "sep16_freq": 1, "rec_weight": 2.0},
+      {"num": "75", "pct": 3.25, "tier": "warm", "sep16_freq": 1, "rec_weight": 3.0},
+      {"num": "71", "pct": 2.94, "tier": "warm", "sep16_freq": 1, "rec_weight": 2.0},
+      {"num": "57", "pct": 2.66, "tier": "warm", "sep16_freq": 1, "rec_weight": 2.0},
+      {"num": "06", "pct": 2.53, "tier": "warm", "sep16_freq": 1, "rec_weight": 1.0},
+      {"num": "90", "pct": 2.29, "tier": "warm", "sep16_freq": 1, "rec_weight": 2.0}
+    ],
+    "top3": [
+      {"num": "867", "pct": 5.38, "tier": "hot", "hits": 0},
+      {"num": "603", "pct": 4.80, "tier": "hot", "hits": 0},
+      {"num": "377", "pct": 4.43, "tier": "hot", "hits": 1},
+      {"num": "807", "pct": 4.05, "tier": "hot", "hits": 0},
+      {"num": "307", "pct": 3.91, "tier": "hot", "hits": 0},
+      {"num": "602", "pct": 3.61, "tier": "warm", "hits": 0},
+      {"num": "662", "pct": 3.55, "tier": "warm", "hits": 1},
+      {"num": "812", "pct": 3.48, "tier": "warm", "hits": 1},
+      {"num": "607", "pct": 2.79, "tier": "warm", "hits": 0},
+      {"num": "612", "pct": 2.64, "tier": "warm", "hits": 0}
+    ],
+    "ensemble_6": [
+      {"number": "836816", "conf": 100.0},
+      {"number": "836817", "conf": 99.6},
+      {"number": "836806", "conf": 98.5},
+      {"number": "836807", "conf": 98.1},
+      {"number": "836813", "conf": 95.5}
+    ]
+  },
+  "heatmap_data": {
+    "sep16": {
+      "p1": {"0":4, "1":2, "2":3, "3":2, "4":1, "5":2, "6":1, "7":3, "8":0, "9":1},
+      "p2": {"0":2, "1":2, "2":1, "3":1, "4":7, "5":0, "6":1, "7":4, "8":0, "9":1},
+      "p3": {"0":6, "1":1, "2":4, "3":2, "4":2, "5":0, "6":0, "7":1, "8":1, "9":2},
+      "p4": {"0":1, "1":4, "2":1, "3":3, "4":1, "5":0, "6":4, "7":2, "8":1, "9":2},
+      "p5": {"0":1, "1":2, "2":1, "3":2, "4":4, "5":1, "6":3, "7":1, "8":3, "9":1},
+      "p6": {"0":2, "1":0, "2":4, "3":4, "4":1, "5":1, "6":2, "7":1, "8":3, "9":1}
+    },
+    "global": {
+      "p1": {"0":52, "1":46, "2":48, "3":47, "4":50, "5":51, "6":44, "7":42, "8":54, "9":37},
+      "p2": {"0":43, "1":46, "2":45, "3":56, "4":53, "5":49, "6":47, "7":52, "8":38, "9":42},
+      "p3": {"0":41, "1":44, "2":36, "3":46, "4":49, "5":46, "6":61, "7":51, "8":53, "9":44},
+      "p4": {"0":53, "1":39, "2":53, "3":54, "4":43, "5":40, "6":42, "7":55, "8":58, "9":34},
+      "p5": {"0":56, "1":57, "2":43, "3":48, "4":53, "5":52, "6":44, "7":46, "8":39, "9":33},
+      "p6": {"0":43, "1":48, "2":41, "3":53, "4":49, "5":45, "6":55, "7":55, "8":47, "9":35}
+    }
+  },
+  "sep16_historical_draws": [
+    {"date":"2007-09-16","year":2007,"first_prize":"499336","top2":"36","last2":"45","top3":"336"},
+    {"date":"2008-09-16","year":2008,"first_prize":"012377","top2":"77","last2":"56","top3":"377"},
+    {"date":"2009-09-16","year":2009,"first_prize":"202912","top2":"12","last2":"48","top3":"912"},
+    {"date":"2010-09-16","year":2010,"first_prize":"017422","top2":"22","last2":"66","top3":"422"},
+    {"date":"2011-09-16","year":2011,"first_prize":"731198","top2":"98","last2":"28","top3":"198"},
+    {"date":"2012-09-16","year":2012,"first_prize":"540143","top2":"43","last2":"79","top3":"143"},
+    {"date":"2013-09-16","year":2013,"first_prize":"562684","top2":"84","last2":"63","top3":"684"},
+    {"date":"2014-09-16","year":2014,"first_prize":"772269","top2":"69","last2":"35","top3":"269"},
+    {"date":"2015-09-16","year":2015,"first_prize":"743148","top2":"48","last2":"06","top3":"148"},
+    {"date":"2016-09-16","year":2016,"first_prize":"240650","top2":"50","last2":"42","top3":"650"},
+    {"date":"2017-09-16","year":2017,"first_prize":"170143","top2":"43","last2":"71","top3":"143"},
+    {"date":"2018-09-16","year":2018,"first_prize":"149760","top2":"60","last2":"79","top3":"760"},
+    {"date":"2019-09-16","year":2019,"first_prize":"340388","top2":"88","last2":"85","top3":"388"},
+    {"date":"2020-09-16","year":2020,"first_prize":"244083","top2":"83","last2":"57","top3":"083"},
+    {"date":"2021-09-16","year":2021,"first_prize":"070935","top2":"35","last2":"90","top3":"935"},
+    {"date":"2022-09-16","year":2022,"first_prize":"943703","top2":"03","last2":"75","top3":"703"},
+    {"date":"2023-09-16","year":2023,"first_prize":"320812","top2":"12","last2":"46","top3":"812"},
+    {"date":"2024-09-16","year":2024,"first_prize":"608662","top2":"62","last2":"37","top3":"662"},
+    {"date":"2025-09-16","year":2025,"first_prize":"074646","top2":"46","last2":"58","top3":"646"}
+  ]
+}
+</script>
+
+<script>
+/* ──────────────────────────────────────────────────────────
+   MAIN JAVASCRIPT CONTROLLER FOR STRATEGY DASHBOARD
+   ────────────────────────────────────────────────────────── */
+let appData = {};
+let allDraws = [];
+let filteredDraws = [];
+let currentPage = 1;
+const pageSize = 15;
+let currentSort = { col: 'draw_date', asc: false };
+let currentHeatmapMode = 'sep16';
+let charts = {};
+let isEnglish = false;
+
+function el(id) { return document.getElementById(id); }
+
+function showToast(msg) {
+  const t = el('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+function scrollToSection(id) {
+  const target = el(id);
+  if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── 1. Init & Data Loading ─────────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const rawData = JSON.parse(el('embedded-data').textContent);
+    appData = rawData;
+    
+    await initDataset();
+    initCountdown();
+    renderPredictions();
+    renderHeatmap('sep16');
+    initCharts();
+    initYearFilter();
+    applyFiltersAndRenderTable();
+
+    // Check pipeline cache
+    fetchPipelineStatus();
+
+  } catch (err) {
+    console.error('Initialization error:', err);
+  }
+});
+
+// ── 2. Dataset Initialization ──────────────────────────────
+async function initDataset() {
+  try {
+    let res = await fetch('database/dataset/lottery_history.csv?ts=' + Date.now()).catch(() => null);
+    if (!res || !res.ok) {
+      res = await fetch('../database/dataset/lottery_history.csv?ts=' + Date.now()).catch(() => null);
+    }
+    if (res && res.ok) {
+      const csvText = await res.text();
+      allDraws = parseCSV(csvText);
+      console.log(`Loaded ${allDraws.length} draws from server CSV`);
+    } else {
+      throw new Error('CSV fetch failed');
+    }
+  } catch (e) {
+    console.warn('Using embedded dataset fallback:', e.message);
+    allDraws = buildFallbackDataset();
+  }
+  filteredDraws = [...allDraws];
+  el('table-total-badge').textContent = `ทั้งหมด ${allDraws.length} งวด`;
+}
+
+function parseCSV(text) {
+  const lines = text.trim().replace(/\r/g, '').split('\n');
+  if (lines.length < 2) return [];
+  const headers = lines[0].split(',').map(h => h.trim());
+  const rows = [];
+
+  for (let i = 1; i < lines.length; i++) {
+    const vals = lines[i].split(',').map(v => v.trim());
+    if (!vals[0]) continue;
+    const row = {};
+    headers.forEach((h, idx) => row[h] = vals[idx] || '');
+    
+    const fp = (row.first_prize || '').padStart(6, '0');
+    row.first_prize = fp;
+    row.top2 = fp.slice(-2);
+    row.top3 = fp.slice(-3);
+    const digits = fp.split('').map(d => parseInt(d) || 0);
+    row.sum = digits.reduce((a, b) => a + b, 0);
+    const evenCount = digits.filter(d => d % 2 === 0).length;
+    row.oddEven = `${evenCount}คู่ / ${6 - evenCount}คี่`;
+    rows.push(row);
+  }
+  return rows;
+}
+
+function buildFallbackDataset() {
+  const base = [
+    {draw_date:"2026-09-01", first_prize:"417212", last2:"04", front3_1:"257", front3_2:"346", back3_1:"136", back3_2:"740"},
+    {draw_date:"2026-08-16", first_prize:"004615", last2:"53", front3_1:"731", front3_2:"429", back3_1:"937", back3_2:"094"},
+    {draw_date:"2026-08-01", first_prize:"932479", last2:"69", front3_1:"413", front3_2:"672", back3_1:"154", back3_2:"039"},
+    {draw_date:"2026-07-16", first_prize:"639214", last2:"71", front3_1:"683", front3_2:"709", back3_1:"746", back3_2:"427"},
+    {draw_date:"2026-07-01", first_prize:"751495", last2:"62", front3_1:"001", front3_2:"980", back3_1:"304", back3_2:"531"},
+    {draw_date:"2026-06-16", first_prize:"287184", last2:"48", front3_1:"758", front3_2:"434", back3_1:"007", back3_2:"721"}
+  ];
+
+  const sepList = (appData.sep16_historical_draws || []).map(s => ({
+    draw_date: s.date,
+    first_prize: s.first_prize,
+    last2: s.last2,
+    front3_1: "---",
+    front3_2: "---",
+    back3_1: "---",
+    back3_2: "---"
+  }));
+
+  const merged = [...base, ...sepList];
+  merged.forEach(r => {
+    const fp = r.first_prize.padStart(6, '0');
+    r.top2 = fp.slice(-2);
+    r.top3 = fp.slice(-3);
+    const digits = fp.split('').map(d => parseInt(d) || 0);
+    r.sum = digits.reduce((a, b) => a + b, 0);
+    const evens = digits.filter(d => d % 2 === 0).length;
+    r.oddEven = `${evens}คู่ / ${6 - evens}คี่`;
+  });
+  return merged;
+}
+
+// ── 3. Live Countdown Timer ────────────────────────────────
+function initCountdown() {
+  const targetDate = new Date('2026-09-16T14:30:00+07:00').getTime();
+
+  function update() {
+    const now = new Date().getTime();
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+      el('cd-days').textContent = '00';
+      el('cd-hours').textContent = '00';
+      el('cd-mins').textContent = '00';
+      el('cd-secs').textContent = '00';
+      return;
+    }
+
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+    el('cd-days').textContent = String(d).padStart(2, '0');
+    el('cd-hours').textContent = String(h).padStart(2, '0');
+    el('cd-mins').textContent = String(m).padStart(2, '0');
+    el('cd-secs').textContent = String(s).padStart(2, '0');
+  }
+
+  update();
+  setInterval(update, 1000);
+}
+
+// ── 4. Predictions Rendering ───────────────────────────────
+function renderPredictions() {
+  const p = appData.predictions;
+  if (!p) return;
+
+  const ensCont = el('ensemble-container');
+  if (ensCont && p.ensemble_6) {
+    ensCont.innerHTML = p.ensemble_6.map((item, idx) => `
+      <div class="ensemble-chip" onclick="copyNum('${item.number}')" title="คลิกเพื่อคัดลอก">
+        <span style="font-size:0.75rem;color:var(--text-muted)">#${idx+1}</span>
+        <span class="ensemble-digit">${item.number}</span>
+        <span class="ensemble-conf">${item.conf.toFixed(1)}%</span>
+      </div>
+    `).join('');
+  }
+
+  const t2Cont = el('cand-list-top2');
+  if (t2Cont && p.top2) {
+    const maxP = Math.max(...p.top2.map(x => x.pct));
+    t2Cont.innerHTML = p.top2.map((item, i) => `
+      <div class="cand-card ${item.tier}-tier" onclick="copyNum('${item.num}')">
+        <div class="cand-card-left">
+          <span class="cand-rank">#${i+1}</span>
+          <div>
+            <div class="cand-num" style="color:#38bdf8">${item.num}</div>
+            <div class="cand-meta">ออก 16 ก.ย.: ${item.sep16_freq} ครั้ง (ถ่วงน้ำหนัก ${item.rec_weight})</div>
+          </div>
+        </div>
+        <div class="cand-card-right">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="cand-pct">${item.pct.toFixed(2)}%</span>
+            <span class="tier-badge ${item.tier}">${item.tier}</span>
+          </div>
+          <div class="prob-bar-bg">
+            <div class="prob-bar-fill" style="width:${(item.pct/maxP*100).toFixed(1)}%"></div>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  const l2Cont = el('cand-list-last2');
+  if (l2Cont && p.last2) {
+    const maxP = Math.max(...p.last2.map(x => x.pct));
+    l2Cont.innerHTML = p.last2.map((item, i) => `
+      <div class="cand-card ${item.tier}-tier" onclick="copyNum('${item.num}')">
+        <div class="cand-card-left">
+          <span class="cand-rank">#${i+1}</span>
+          <div>
+            <div class="cand-num" style="color:#34d399">${item.num}</div>
+            <div class="cand-meta">ออก 16 ก.ย.: ${item.sep16_freq} ครั้ง (ถ่วงน้ำหนัก ${item.rec_weight})</div>
+          </div>
+        </div>
+        <div class="cand-card-right">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="cand-pct">${item.pct.toFixed(2)}%</span>
+            <span class="tier-badge ${item.tier}">${item.tier}</span>
+          </div>
+          <div class="prob-bar-bg">
+            <div class="prob-bar-fill" style="width:${(item.pct/maxP*100).toFixed(1)}%;background:linear-gradient(90deg,var(--green),#38bdf8)"></div>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  const t3Cont = el('cand-list-top3');
+  if (t3Cont && p.top3) {
+    const maxP = Math.max(...p.top3.map(x => x.pct));
+    t3Cont.innerHTML = p.top3.map((item, i) => `
+      <div class="cand-card ${item.tier}-tier" onclick="copyNum('${item.num}')">
+        <div class="cand-card-left">
+          <span class="cand-rank">#${i+1}</span>
+          <div>
+            <div class="cand-num" style="color:#fbbf24">${item.num}</div>
+            <div class="cand-meta">ประวัติ 16 ก.ย.: ${item.hits > 0 ? 'เคยออก ' + item.hits + ' ครั้ง' : 'คลัสเตอร์ใหม่'}</div>
+          </div>
+        </div>
+        <div class="cand-card-right">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="cand-pct">${item.pct.toFixed(2)}%</span>
+            <span class="tier-badge ${item.tier}">${item.tier}</span>
+          </div>
+          <div class="prob-bar-bg">
+            <div class="prob-bar-fill" style="width:${(item.pct/maxP*100).toFixed(1)}%;background:linear-gradient(90deg,var(--amber),#ef4444)"></div>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+function copyNum(num) {
+  navigator.clipboard.writeText(num).then(() => {
+    showToast(`คัดลอกหมายเลข ${num} สำเร็จ!`);
+  }).catch(() => {
+    showToast(`หมายเลข: ${num}`);
+  });
+}
+
+// ── 5. Heatmap Matrix ──────────────────────────────────────
+function setHeatmapMode(mode) {
+  currentHeatmapMode = mode;
+  el('btn-mode-sep16').classList.toggle('active', mode === 'sep16');
+  el('btn-mode-global').classList.toggle('active', mode === 'global');
+  
+  el('heatmap-caption').textContent = mode === 'sep16' 
+    ? 'สถิติเจาะจงงวด 16 กันยายน 19 ปี (ความหนาแน่นสูงสุด: เลข 4 ในหลักหมื่น, เลข 0 ในหลักพัน)'
+    : 'สถิติภาพรวม 20 ปี (471 งวด) แสดงความสม่ำเสมอเชิงความน่าจะเป็นของแต่ละหลัก';
+  
+  renderHeatmap(mode);
+}
+
+function renderHeatmap(mode) {
+  const data = appData.heatmap_data[mode];
+  if (!data) return;
+
+  const positions = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6'];
+  const posNames = ['หลักแสน', 'หลักหมื่น', 'หลักพัน', 'หลักร้อย', 'หลักสิบ', 'หลักหน่วย'];
+
+  let maxCount = 0;
+  positions.forEach(p => {
+    for (let d = 0; d <= 9; d++) {
+      const c = data[p][d] || 0;
+      if (c > maxCount) maxCount = c;
+    }
+  });
+
+  const tbody = el('heatmap-body');
+  let html = '';
+
+  for (let digit = 0; digit <= 9; digit++) {
+    html += `<tr>`;
+    html += `<td class="digit-row-header">${digit}</td>`;
+
+    positions.forEach((posKey, pIdx) => {
+      const count = data[posKey][digit] || 0;
+      const ratio = maxCount > 0 ? count / maxCount : 0;
+      
+      let bgStyle, textColor;
+      if (ratio > 0.65) {
+        bgStyle = `background: rgba(239, 68, 68, ${0.25 + ratio * 0.55}); border: 1px solid rgba(239, 68, 68, 0.6);`;
+        textColor = '#fee2e2';
+      } else if (ratio > 0.40) {
+        bgStyle = `background: rgba(245, 158, 11, ${0.2 + ratio * 0.4}); border: 1px solid rgba(245, 158, 11, 0.4);`;
+        textColor = '#fef3c7';
+      } else if (ratio > 0.15) {
+        bgStyle = `background: rgba(59, 130, 246, ${0.1 + ratio * 0.3}); border: 1px solid rgba(59, 130, 246, 0.25);`;
+        textColor = '#e0f2fe';
+      } else {
+        bgStyle = `background: rgba(6, 182, 212, 0.08); border: 1px solid rgba(6, 182, 212, 0.15);`;
+        textColor = '#94a3b8';
+      }
+
+      html += `
+        <td class="heat-cell" style="${bgStyle} color: ${textColor};" title="${posNames[pIdx]}: เลข ${digit} ออก ${count} ครั้ง">
+          ${digit}
+          <span class="heat-cell-count">${count} ครั้ง</span>
+        </td>
+      `;
+    });
+
+    html += `</tr>`;
+  }
+
+  tbody.innerHTML = html;
+
+  const summaryCont = el('pos-summary-container');
+  if (summaryCont) {
+    summaryCont.innerHTML = positions.map((pKey, idx) => {
+      const counts = data[pKey];
+      const sorted = Object.entries(counts).sort((a,b) => b[1] - a[1]);
+      const hot = sorted[0];
+      const cold = sorted[sorted.length - 1];
+      return `
+        <div style="background:rgba(255,255,255,0.02);border:1px solid var(--border-light);border-radius:10px;padding:0.6rem;text-align:center;">
+          <div style="font-size:0.72rem;color:var(--text-muted);font-weight:600">${posNames[idx]}</div>
+          <div style="margin-top:4px;display:flex;justify-content:center;gap:6px;font-size:0.78rem;">
+            <span style="color:#f87171;font-weight:700">🔥 ${hot[0]} (${hot[1]})</span>
+            <span style="color:#67e8f9">❄️ ${cold[0]} (${cold[1]})</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+}
+
+// ── 6. Chart.js Visualizations ─────────────────────────────
+function initCharts() {
+  if (typeof Chart === 'undefined') {
+    console.warn('Chart.js not loaded, skipping charts');
+    return;
+  }
+  if (Chart.defaults) {
+    Chart.defaults.color = '#94a3b8';
+    if (Chart.defaults.font) Chart.defaults.font.family = "'Sarabun', 'Inter', sans-serif";
+  }
+
+  // 1. Monthly Distribution Chart
+  const ctxMonthly = el('chart-monthly').getContext('2d');
+  charts.monthly = new Chart(ctxMonthly, {
+    type: 'bar',
+    data: {
+      labels: ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย. (Sep)','ต.ค.','พ.ย.','ธ.ค.'],
+      datasets: [
+        {
+          label: 'จำนวนงวดที่เก็บสถิติ',
+          data: [39, 38, 40, 39, 40, 39, 40, 40, 39, 39, 38, 40],
+          backgroundColor: (ctx) => ctx.dataIndex === 8 ? 'rgba(239, 68, 68, 0.75)' : 'rgba(59, 130, 246, 0.45)',
+          borderColor: (ctx) => ctx.dataIndex === 8 ? '#ef4444' : '#3b82f6',
+          borderWidth: (ctx) => ctx.dataIndex === 8 ? 2 : 1,
+          borderRadius: 6
+        },
+        {
+          type: 'line',
+          label: 'คะแนนผลรวมหลักเฉลี่ย (Avg Digit Sum)',
+          data: [26.8, 27.2, 26.5, 27.9, 26.9, 28.1, 27.0, 26.8, 28.4, 27.1, 26.9, 27.5],
+          borderColor: '#fbbf24',
+          borderWidth: 2,
+          pointBackgroundColor: '#fbbf24',
+          pointRadius: 4,
+          tension: 0.3,
+          yAxisID: 'y1'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11 } } },
+        tooltip: {
+          backgroundColor: 'rgba(15, 23, 42, 0.95)',
+          titleColor: '#fff',
+          borderColor: 'rgba(59, 130, 246, 0.4)',
+          borderWidth: 1
+        }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(255, 255, 255, 0.05)' } },
+        y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, title: { display: true, text: 'จำนวนงวด' } },
+        y1: { position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: 'คะแนนผลรวม' }, min: 20, max: 35 }
+      }
+    }
+  });
+
+  // 2. Day-of-Week Breakdown
+  const ctxDow = el('chart-dow').getContext('2d');
+  charts.dow = new Chart(ctxDow, {
+    type: 'doughnut',
+    data: {
+      labels: ['อาทิตย์ (Sun)', 'จันทร์ (Mon)', 'อังคาร (Tue)', 'พุธ (Wed - งวดเป้าหมาย)', 'พฤหัส (Thu)', 'ศุกร์ (Fri)', 'เสาร์ (Sat)'],
+      datasets: [{
+        data: [67, 68, 67, 69, 67, 67, 66],
+        backgroundColor: [
+          'rgba(239, 68, 68, 0.65)',
+          'rgba(245, 158, 11, 0.65)',
+          'rgba(236, 72, 153, 0.65)',
+          'rgba(6, 182, 212, 0.85)',
+          'rgba(249, 115, 22, 0.65)',
+          'rgba(59, 130, 246, 0.65)',
+          'rgba(139, 92, 246, 0.65)'
+        ],
+        borderColor: '#0f172a',
+        borderWidth: 2,
+        hoverOffset: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'right', labels: { boxWidth: 12, font: { size: 11 } } },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => ` ${ctx.label}: ${ctx.parsed} งวด (${((ctx.parsed/471)*100).toFixed(1)}%)`
+          }
+        }
+      },
+      cutout: '55%'
+    }
+  });
+
+  // 3. Sep 16 Specific Historical Top 2 vs Last 2
+  const ctxPairs = el('chart-sep16-pairs').getContext('2d');
+  charts.pairs = new Chart(ctxPairs, {
+    type: 'bar',
+    data: {
+      labels: ['12', '43', '46', '79', '62', '03', '58', '83', '88', '37', '85'],
+      datasets: [
+        {
+          label: 'ความถี่ 2 ตัวบน (16 ก.ย.)',
+          data: [2, 2, 1, 0, 1, 1, 0, 1, 1, 0, 0],
+          backgroundColor: 'rgba(56, 189, 248, 0.7)',
+          borderRadius: 6
+        },
+        {
+          label: 'ความถี่ 2 ตัวล่าง (16 ก.ย.)',
+          data: [0, 0, 1, 2, 0, 0, 1, 0, 0, 1, 1],
+          backgroundColor: 'rgba(52, 211, 153, 0.7)',
+          borderRadius: 6
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top' },
+        tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.95)' }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(255, 255, 255, 0.05)' } },
+        y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { stepSize: 1 } }
+      }
+    }
+  });
+
+  // 4. Positional Radar Chart
+  const ctxRadar = el('chart-radar').getContext('2d');
+  charts.radar = new Chart(ctxRadar, {
+    type: 'radar',
+    data: {
+      labels: ['หลักแสน (Pos 1)', 'หลักหมื่น (Pos 2)', 'หลักพัน (Pos 3)', 'หลักร้อย (Pos 4)', 'หลักสิบ (Pos 5)', 'หลักหน่วย (Pos 6)'],
+      datasets: [
+        {
+          label: 'ความแปรปรวน 16 ก.ย.',
+          data: [3.2, 4.8, 4.5, 3.4, 3.8, 3.6],
+          borderColor: '#ef4444',
+          backgroundColor: 'rgba(239, 68, 68, 0.2)',
+          pointBackgroundColor: '#ef4444',
+          borderWidth: 2
+        },
+        {
+          label: 'ค่าเฉลี่ยสถิติ 20 ปี',
+          data: [3.0, 3.0, 3.0, 3.0, 3.0, 3.0],
+          borderColor: 'rgba(59, 130, 246, 0.6)',
+          backgroundColor: 'rgba(59, 130, 246, 0.08)',
+          borderDash: [4, 4],
+          borderWidth: 1.5
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        r: {
+          angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+          grid: { color: 'rgba(255, 255, 255, 0.08)' },
+          ticks: { display: false }
+        }
+      },
+      plugins: {
+        legend: { position: 'top', labels: { boxWidth: 12 } }
+      }
+    }
+  });
+}
+
+// ── 7. Table Explorer & Search/Filters ──────────────────────
+let activeFilter = 'all';
+let selectedYear = 'all';
+
+function initYearFilter() {
+  const select = el('year-select');
+  if (!select) return;
+  const years = new Set();
+  allDraws.forEach(d => {
+    if (d.draw_date) years.add(d.draw_date.slice(0, 4));
+  });
+  const sortedYears = Array.from(years).sort((a, b) => b - a);
+  sortedYears.forEach(y => {
+    const opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = `ปี ${parseInt(y) + 543} (${y})`;
+    select.appendChild(opt);
+  });
+}
+
+function setTableFilter(filter) {
+  activeFilter = filter;
+  ['chip-all', 'chip-sep16', 'chip-sep-all', 'chip-recent', 'chip-doubles'].forEach(id => {
+    const chip = el(id);
+    if (chip) chip.classList.remove('active');
+  });
+  const activeChip = el('chip-' + filter);
+  if (activeChip) activeChip.classList.add('active');
+
+  applyFiltersAndRenderTable();
+}
+
+function handleYearSelect(yr) {
+  selectedYear = yr;
+  applyFiltersAndRenderTable();
+}
+
+function handleTableSearch() {
+  applyFiltersAndRenderTable();
+}
+
+function applyFiltersAndRenderTable() {
+  const query = el('table-search').value.trim().toLowerCase();
+
+  filteredDraws = allDraws.filter(row => {
+    if (activeFilter === 'sep16') {
+      if (!row.draw_date.endsWith('-09-16')) return false;
+    } else if (activeFilter === 'sep-all') {
+      if (!row.draw_date.includes('-09-')) return false;
+    } else if (activeFilter === 'recent') {
+      const y = parseInt(row.draw_date.slice(0, 4));
+      if (y < 2025) return false;
+    } else if (activeFilter === 'doubles') {
+      const fp = row.first_prize;
+      const hasDouble = /(.)\1/.test(fp) || row.last2[0] === row.last2[1];
+      if (!hasDouble) return false;
+    }
+
+    if (selectedYear !== 'all') {
+      if (!row.draw_date.startsWith(selectedYear)) return false;
+    }
+
+    if (query) {
+      const textMatch = 
+        row.draw_date.toLowerCase().includes(query) ||
+        row.first_prize.includes(query) ||
+        row.last2.includes(query) ||
+        (row.front3_1 && row.front3_1.includes(query)) ||
+        (row.back3_1 && row.back3_1.includes(query));
+      if (!textMatch) return false;
+    }
+
+    return true;
+  });
+
+  filteredDraws.sort((a, b) => {
+    let valA = a[currentSort.col];
+    let valB = b[currentSort.col];
+    if (currentSort.col === 'sum') {
+      valA = a.sum; valB = b.sum;
+    }
+    if (valA < valB) return currentSort.asc ? -1 : 1;
+    if (valA > valB) return currentSort.asc ? 1 : -1;
+    return 0;
+  });
+
+  currentPage = 1;
+  renderTable();
+}
+
+function sortTable(col) {
+  if (currentSort.col === col) {
+    currentSort.asc = !currentSort.asc;
+  } else {
+    currentSort.col = col;
+    currentSort.asc = true;
+  }
+  applyFiltersAndRenderTable();
+}
+
+function renderTable() {
+  const tbody = el('history-table-body');
+  if (!tbody) return;
+
+  const total = filteredDraws.length;
+  const startIdx = (currentPage - 1) * pageSize;
+  const pageRows = filteredDraws.slice(startIdx, startIdx + pageSize);
+
+  if (pageRows.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--text-muted)">ไม่พบข้อมูลที่ตรงกับเงื่อนไขการค้นหา</td></tr>`;
+  } else {
+    tbody.innerHTML = pageRows.map(row => {
+      const isSep16 = row.draw_date.endsWith('-09-16');
+      const isDoubles = /(.)\1/.test(row.first_prize);
+      return `
+        <tr>
+          <td>
+            <strong>${row.draw_date}</strong>
+            ${isSep16 ? '<span class="tag-sep16">16 ก.ย.</span>' : ''}
+          </td>
+          <td class="td-first-prize">${row.first_prize}</td>
+          <td class="td-last2">${row.last2}</td>
+          <td>${row.front3_1 || '-'}, ${row.front3_2 || '-'}</td>
+          <td>${row.back3_1 || '-'}, ${row.back3_2 || '-'}</td>
+          <td><span style="font-weight:700">${row.sum}</span></td>
+          <td><span class="num-pill" style="font-size:0.7rem">${row.oddEven}</span></td>
+          <td>${isDoubles ? '<span style="color:#f59e0b;font-size:0.75rem">มีเลขเบิ้ล</span>' : '-'}</td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  const totalPages = Math.ceil(total / pageSize) || 1;
+  el('pagination-info').textContent = total > 0
+    ? `แสดง ${startIdx + 1} - ${Math.min(startIdx + pageSize, total)} จากทั้งหมด ${total} งวด`
+    : 'ไม่มีข้อมูล';
+
+  el('btn-prev-page').disabled = (currentPage <= 1);
+  el('btn-next-page').disabled = (currentPage >= totalPages);
+
+  const jumpCont = el('page-jump-container');
+  jumpCont.innerHTML = '';
+  const maxButtons = 5;
+  let startPage = Math.max(1, currentPage - 2);
+  let endPage = Math.min(totalPages, startPage + maxButtons - 1);
+  if (endPage - startPage < maxButtons - 1) {
+    startPage = Math.max(1, endPage - maxButtons + 1);
+  }
+
+  for (let p = startPage; p <= endPage; p++) {
+    const btn = document.createElement('button');
+    btn.className = `page-btn ${p === currentPage ? 'active' : ''}`;
+    btn.textContent = p;
+    btn.onclick = () => { currentPage = p; renderTable(); };
+    jumpCont.appendChild(btn);
+  }
+}
+
+function changePage(delta) {
+  const totalPages = Math.ceil(filteredDraws.length / pageSize) || 1;
+  const newPage = currentPage + delta;
+  if (newPage >= 1 && newPage <= totalPages) {
+    currentPage = newPage;
+    renderTable();
+  }
+}
+
+// ── 8. System Pipeline Controls ─────────────────────────────
+async function runPipeline() {
+  const btn = el('btn-run');
+  const log = el('ctrl-log');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ กำลังประมวลผล...'; }
+  if (log) log.textContent = 'กำลังเรียกใช้งาน run_pipeline.py...';
+  try {
+    const res = await fetch('../api/predict.php?action=run_pipeline');
+    const d = await res.json().catch(() => ({}));
+    if (log) log.textContent = res.ok ? (d.message || '✓ ประมวลผลโมเดลเสร็จสมบูรณ์!') : (d.message || '⚠ ประมวลผลล้มเหลว');
+    if (res.ok) {
+      showToast('ประมวลผลโมเดลเสร็จสมบูรณ์!');
+      fetchPipelineStatus();
+    }
+  } catch (e) {
+    if (log) log.textContent = '⚠ ' + e.message;
+  }
+  if (btn) { btn.disabled = false; btn.textContent = '⚡ สั่งประมวลผลโมเดล (Run Pipeline)'; }
+}
+
+async function fetchResult() {
+  const btn = el('btn-fetch');
+  const log = el('ctrl-log');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ กำลังดึงผลรางวัล...'; }
+  if (log) log.textContent = 'กำลังเรียกใช้งาน result_fetcher...';
+  try {
+    const res = await fetch('../api/predict.php?action=fetch_result');
+    const d = await res.json().catch(() => ({}));
+    if (log) log.textContent = res.ok ? (d.message || '✓ ดึงผลรางวัลและอัปเดตชุดข้อมูลสำเร็จ!') : (d.message || '⚠ ดึงผลรางวัลล้มเหลว');
+    if (res.ok) {
+      showToast('ดึงผลรางวัลและอัปเดตสำเร็จ!');
+      await initDataset();
+      applyFiltersAndRenderTable();
+    }
+  } catch (e) {
+    if (log) log.textContent = '⚠ ' + e.message;
+  }
+  if (btn) { btn.disabled = false; btn.textContent = '📥 ดึงผลงวดใหม่ (Fetch Result)'; }
+}
+
+async function fetchPipelineStatus() {
+  try {
+    const res = await fetch('../api/predict.php?ts=' + Date.now());
+    if (res.ok) {
+      const data = await res.json();
+      if (data.cache) {
+        el('s-cache-badge').textContent = `Cache: ${new Date(data.cache.cached_at).toLocaleTimeString('th-TH')}`;
+      }
+    }
+  } catch (e) {}
+}
+
+// ── 9. Language Switcher (TH / EN) ─────────────────────────
+const fullDict = [
+  // Navigation
+  ['🎯 คาดการณ์', '🎯 Predictions'],
+  ['🌡 Heatmap', '🌡 Heatmap'],
+  ['📊 สถิติ', '📊 Statistics'],
+  ['📜 คลังงวด', '📜 Archive'],
+  ['🖥 Manager', '🖥 Manager'],
+  ['📈 Performance', '📈 Performance'],
+  // Hero & Countdown
+  ['⏳ นับถอยหลังสู่งวดถัดไป', '⏳ Countdown to Next Draw'],
+  ['วิเคราะห์เจาะจง 19 ปี (Sep 16 Model)', '19-Year Analysis (Sep 16 Model)'],
+  ['วันและเวลาที่คาดการณ์ออกผล:', 'Target Draw Date & Time:'],
+  ['16 กันยายน 2569', '16 September 2026'],
+  ['(14:30 น.)', '(02:30 PM ICT)'],
+  ['งวดเป้าหมายหลัก', 'Primary Target'],
+  ['วัน (Days)', 'Days'],
+  ['ชั่วโมง (Hours)', 'Hours'],
+  ['นาที (Mins)', 'Minutes'],
+  ['วินาที (Secs)', 'Seconds'],
+  ['โมเดลวิเคราะห์ข้อมูลเจาะลึก 19 ปีเฉพาะงวด 16 กันยายน (2007-2025) ร่วมกับการถ่วงน้ำหนักความใหม่ (Recency Weighting) และ Markov Chains', 'Model analyzes 19-year Sep 16 specific history (2007-2025) combined with Recency Weighting & Markov Chains'],
+  // Latest Results
+  ['🏆 ผลรางวัลงวดล่าสุด (1 ก.ย. 2569)', '🏆 Latest Draw Result (1 Sep 2026)'],
+  ['ตรวจผลจริงจากกองสลาก', 'Official GLO Result'],
+  ['รางวัลที่ 1', 'First Prize'],
+  ['เลขท้าย 2 ตัวล่าง', 'Last 2 Digits'],
+  ['เลขหน้า 3 ตัว', 'Front 3 Digits'],
+  ['เลขท้าย 3 ตัว', 'Back 3 Digits'],
+  ['งวดล่าสุด:', 'Latest Draw:'],
+  ['งวดก่อนหน้า', 'Previous Draws'],
+  // Predictions
+  ['🔮 AI PREDICTIONS: งวด 16 กันยายน 2569', '🔮 AI PREDICTIONS: 16 September 2026 Draw'],
+  ['โมเดลคำนวณ Ensemble & Recency Weighting', 'Ensemble & Recency Weighting Model'],
+  ['ชุดเลขเด่น 6 ตัวตรง (Ensemble Direct Match)', 'Top 6-Digit Direct Combinations'],
+  ['คลิกที่การ์ดเพื่อคัดลอก', 'Click card to copy'],
+  ['2 ตัวบน (ท้ายรางวัลที่ 1)', 'Upper 2-Digit (Top 2)'],
+  ['2 ตัวล่าง (เลขท้าย 2 ตัว)', 'Lower 2-Digit (Last 2)'],
+  ['3 ตัวบน (ท้ายรางวัลที่ 1)', 'Top 3-Digit (Upper 3)'],
+  ['อันดับ', 'Rank'],
+  ['ออกซ้ำ', 'Past Hits'],
+  ['ค่าน้ำหนัก', 'Weight'],
+  ['ความน่าจะเป็น', 'Probability'],
+  // Heatmap
+  ['🔥 6x10 Positional Frequency Heatmap Matrix', '🔥 6x10 Positional Frequency Heatmap Matrix'],
+  ['ความถี่ตัวเลข 0-9 ในแต่ละหลัก (คลิกสลับโหมดเพื่อดูสถิติต่างมิติ)', 'Digit Frequency 0-9 per Position (Toggle modes to inspect dynamics)'],
+  ['โหมด 1: เฉพาะงวด 16 ก.ย. (19 ปี)', 'Mode 1: Sep 16 Specific (19 Yrs)'],
+  ['โหมด 2: ภาพรวมประวัติศาสตร์ 20 ปี (471 งวด)', 'Mode 2: 20-Year Global (471 Draws)'],
+  ['หลักแสน', 'Pos 1 (100k)'],
+  ['หลักหมื่น', 'Pos 2 (10k)'],
+  ['หลักพัน', 'Pos 3 (1k)'],
+  ['หลักร้อย', 'Pos 4 (100s)'],
+  ['หลักสิบ', 'Pos 5 (10s)'],
+  ['หลักหน่วย', 'Pos 6 (Units)'],
+  ['เด่น:', 'Hot:'],
+  ['เย็น:', 'Cold:'],
+  // Analytics
+  ['📊 Advanced Analytics Suite (วิเคราะห์พหุมิติ)', '📊 Advanced Analytics Suite (Multi-Dimensional)'],
+  ['สถิติ 20 ปีย้อนหลังเชื่อมโยงกับงวด 16 กันยายน', '20-Year Statistics Correlated with Sep 16 Draw'],
+  ['ความถี่รายเดือน (12 เดือน)', 'Monthly Draw Frequency (12 Months)'],
+  ['การกระจายตามวันในสัปดาห์', 'Day of Week Distribution'],
+  ['เปรียบเทียบ 2 ตัวบน vs 2 ตัวล่าง (16 ก.ย.)', 'Upper 2D vs Lower 2D (Sep 16 Specific)'],
+  ['เรดาร์วิเคราะห์ความถี่เทียบค่าเฉลี่ย 20 ปี', 'Positional Resonance Radar vs 20-Year Baseline'],
+  // History Explorer
+  ['📜 20-Year Historical Draw Explorer (คลังสถิติย้อนหลัง 471 งวด)', '📜 20-Year Historical Draw Explorer (471 Draws Archive)'],
+  ['ฐานข้อมูลสลากกินแบ่งรัฐบาล ครอบคลุม พ.ศ. 2550 - 2569 พร้อมระบบค้นหาอัจฉริยะ', 'GLO Lottery Database spanning 2007 - 2026 with Intelligent Search'],
+  ['ทั้งหมด (471)', 'All (471)'],
+  ['เฉพาะ 16 ก.ย. (19)', 'Sep 16 Only (19)'],
+  ['งวดกันยายน (38)', 'All Sep (38)'],
+  ['2 ปีล่าสุด (2025-2026)', 'Past 2 Yrs (2025-2026)'],
+  ['เลขเบิ้ล (Doubles)', 'Doubles'],
+  ['ทุกปี (2007-2026)', 'All Years (2007-2026)'],
+  ['วันที่ออก', 'Draw Date'],
+  ['หน้า 3', 'Front 3'],
+  ['ท้าย 3', 'Back 3'],
+  ['หน้า', 'Page'],
+  ['จาก', 'of'],
+  ['งวด', 'draws'],
+  ['ก่อนหน้า', 'Prev'],
+  ['ถัดไป', 'Next'],
+  // XAI & System
+  ['🧠 Explainable AI (XAI) & Methodology', '🧠 Explainable AI (XAI) & Methodology'],
+  ['ทำไม AI ถึงเลือกตัวเลขเหล่านี้?', 'Why Did AI Select These Numbers?'],
+  ['สัดส่วนการถ่วงน้ำหนักโมเดล', 'Model Weight Allocation'],
+  ['ควบคุมระบบ', 'System Controls'],
+  ['ประมวลผลใหม่', 'Run Pipeline'],
+  ['ดึงผลสลากล่าสุด', 'Fetch Latest Result'],
+  ['รีเฟรชหน้าเว็บ', 'Refresh Page'],
+  ['สถิติความถี่รายตำแหน่ง (หลักแสน ถึง หลักหน่วย)', 'Positional Frequency Statistics (100k to Units)']
+];
+
+function toggleLanguage() {
+  isEnglish = !isEnglish;
+  
+  // Update button label
+  const btn = document.getElementById('lang-btn');
+  if (btn) btn.innerHTML = isEnglish ? '🌐 EN (Switch TH)' : '🌐 TH / EN';
+
+  // Translate all text nodes
+  function walk(node) {
+    if (node.nodeType === 3) {
+      let val = node.nodeValue;
+      for (const [th, en] of fullDict) {
+        if (isEnglish && val.includes(th)) {
+          val = val.replaceAll(th, en);
+        } else if (!isEnglish && val.includes(en)) {
+          val = val.replaceAll(en, th);
+        }
+      }
+      node.nodeValue = val;
+    } else if (node.nodeType === 1 && !['SCRIPT', 'STYLE'].includes(node.nodeName)) {
+      // Also translate placeholders
+      if (node.tagName === 'INPUT' && node.placeholder) {
+        let ph = node.placeholder;
+        if (isEnglish && ph.includes('ค้นหา')) {
+          node.placeholder = 'Search 6-digit, 2-digit, date...';
+        } else if (!isEnglish && ph.includes('Search')) {
+          node.placeholder = 'ค้นหาเลข 6 ตัว, 2 ตัว, วันที่...';
+        }
+      }
+      node.childNodes.forEach(walk);
+    }
+  }
+  walk(document.body);
+  showToast(isEnglish ? 'Switched to English (All Elements)' : 'เปลี่ยนเป็นภาษาไทย (ทุกองค์ประกอบ)');
+}
+</script>
+
+</body>
+</html>
