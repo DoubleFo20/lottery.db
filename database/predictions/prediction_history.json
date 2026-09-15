@@ -71,55 +71,55 @@
         "confidence": 93.02
       }
     ],
-    "actual_result": "123456",
+    "actual_result": "292514",
     "accuracy": {
       "per_candidate": [
         {
           "exact_match": false,
-          "positional_hits": 0,
-          "digit_hits": 4,
+          "positional_hits": 1,
+          "digit_hits": 3,
           "candidate": "219367",
           "confidence": 100.0
         },
         {
           "exact_match": false,
           "positional_hits": 0,
-          "digit_hits": 4,
+          "digit_hits": 3,
           "candidate": "519367",
           "confidence": 98.73
         },
         {
           "exact_match": false,
-          "positional_hits": 0,
-          "digit_hits": 4,
+          "positional_hits": 1,
+          "digit_hits": 3,
           "candidate": "219363",
           "confidence": 95.54
         },
         {
           "exact_match": false,
           "positional_hits": 0,
-          "digit_hits": 4,
+          "digit_hits": 3,
           "candidate": "519363",
           "confidence": 94.33
         },
         {
           "exact_match": false,
           "positional_hits": 0,
-          "digit_hits": 3,
+          "digit_hits": 2,
           "candidate": "819367",
           "confidence": 93.02
         }
       ],
       "best": {
         "exact_match": false,
-        "positional_hits": 0,
-        "digit_hits": 4,
+        "positional_hits": 1,
+        "digit_hits": 3,
         "candidate": "219367",
         "confidence": 100.0
       },
       "any_exact_match": false,
-      "avg_positional_hits": 0.0,
-      "avg_digit_hits": 3.8
+      "avg_positional_hits": 0.4,
+      "avg_digit_hits": 2.8
     },
     "note": ""
   },
@@ -195,55 +195,55 @@
         "confidence": 93.02
       }
     ],
-    "actual_result": "123456",
+    "actual_result": "292514",
     "accuracy": {
       "per_candidate": [
         {
           "exact_match": false,
-          "positional_hits": 0,
-          "digit_hits": 4,
+          "positional_hits": 1,
+          "digit_hits": 3,
           "candidate": "219367",
           "confidence": 100.0
         },
         {
           "exact_match": false,
           "positional_hits": 0,
-          "digit_hits": 4,
+          "digit_hits": 3,
           "candidate": "519367",
           "confidence": 98.73
         },
         {
           "exact_match": false,
-          "positional_hits": 0,
-          "digit_hits": 4,
+          "positional_hits": 1,
+          "digit_hits": 3,
           "candidate": "219363",
           "confidence": 95.54
         },
         {
           "exact_match": false,
           "positional_hits": 0,
-          "digit_hits": 4,
+          "digit_hits": 3,
           "candidate": "519363",
           "confidence": 94.33
         },
         {
           "exact_match": false,
           "positional_hits": 0,
-          "digit_hits": 3,
+          "digit_hits": 2,
           "candidate": "819367",
           "confidence": 93.02
         }
       ],
       "best": {
         "exact_match": false,
-        "positional_hits": 0,
-        "digit_hits": 4,
+        "positional_hits": 1,
+        "digit_hits": 3,
         "candidate": "219367",
         "confidence": 100.0
       },
       "any_exact_match": false,
-      "avg_positional_hits": 0.0,
-      "avg_digit_hits": 3.8
+      "avg_positional_hits": 0.4,
+      "avg_digit_hits": 2.8
     },
     "note": ""
   }

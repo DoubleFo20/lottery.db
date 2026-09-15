@@ -1,0 +1,17 @@
+{
+  "name": "Lottery Strategy & Deep Analytics",
+  "short_name": "LotteryAI",
+  "description": "AI-Powered Thai Lottery Strategy, Deep Analytics & 20-Year Historical Explorer",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#070b14",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

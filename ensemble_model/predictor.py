@@ -47,8 +47,8 @@ CSV_PATH    = BASE_DIR / "database" / "dataset" / "lottery_history.csv"
 DIGIT_COLS  = ["digit1", "digit2", "digit3", "digit4", "digit5", "digit6"]
 ALL_DIGITS  = list(range(10))
 
-# Ensemble weights — tuned to balance recency vs history
-WEIGHTS = {
+WEIGHT_FILE = BASE_DIR / "database" / "predictions" / "ensemble_weights.json"
+WEIGHTS_DEFAULT = {
     "positional_freq":      0.20,   # historical base rate
     "rolling_heat":         0.20,   # recent hot/cold
     "conditional":          0.15,   # conditional P from previous position
@@ -58,6 +58,19 @@ WEIGHTS = {
     "gap_overdue":          0.08,   # cold/overdue reversion
     "temporal_trend":       0.07,   # era-specific trends
 }
+
+def load_ensemble_weights() -> dict:
+    if WEIGHT_FILE.exists():
+        try:
+            with open(WEIGHT_FILE, "r", encoding="utf-8") as f:
+                loaded = json.load(f)
+            if isinstance(loaded, dict) and all(k in loaded for k in WEIGHTS_DEFAULT):
+                return {k: float(loaded.get(k, WEIGHTS_DEFAULT[k])) for k in WEIGHTS_DEFAULT}
+        except Exception:
+            pass
+    return dict(WEIGHTS_DEFAULT)
+
+WEIGHTS = load_ensemble_weights()
 
 
 # ═══════════════════════════════════════════════════════════════════════════

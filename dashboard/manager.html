@@ -268,6 +268,111 @@ body {
     padding: 12px 14px 30px;
   }
 }
+
+/* Hamburger & Mobile Drawer Navigation */
+.hamburger-btn {
+  display: none;
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid var(--border);
+  color: #fff;
+  font-size: 1.35rem;
+  border-radius: 10px;
+  padding: 0.45rem 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.hamburger-btn:hover {
+  background: rgba(56, 139, 255, 0.18);
+  border-color: var(--accent);
+}
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.drawer-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: -290px;
+  width: 270px;
+  height: 100vh;
+  background: rgba(10, 15, 29, 0.96);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(56, 139, 255, 0.3);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.2rem;
+  gap: 0.65rem;
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+}
+.mobile-drawer.open {
+  left: 0;
+}
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.drawer-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--accent2);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.drawer-close {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.3rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.drawer-close:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+.mobile-drawer .nav-btn {
+  width: 100%;
+  text-align: left;
+  padding: 0.65rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1rem;
+  }
+  .header-nav {
+    display: none;
+  }
+  .hamburger-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
 @media (max-width: 700px) {
   .row-4 { grid-template-columns: 1fr; }
   .row-2 { grid-template-columns: 1fr; }
@@ -440,7 +545,21 @@ footer {
 }
 </style>
 </head>
-<body>
+<!-- Mobile Drawer & Overlay -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+<nav class="mobile-drawer" id="mobile-drawer">
+  <div class="drawer-header">
+    <div class="drawer-title">🧠 Manager Nav</div>
+    <button class="drawer-close" onclick="closeDrawer()" aria-label="Close menu">✕</button>
+  </div>
+  <a class="nav-btn" href="strategy.html" onclick="closeDrawer()">📊 Strategy</a>
+  <a class="nav-btn active" href="manager.html" onclick="closeDrawer()">🖥 Manager</a>
+  <a class="nav-btn" href="performance.html" onclick="closeDrawer()">📈 Performance</a>
+  <hr style="border:0; border-top:1px solid rgba(255,255,255,0.08); margin:0.3rem 0;">
+  <button class="nav-btn btn-action" onclick="triggerAction('pipeline'); closeDrawer();">⚡ Run Pipeline</button>
+  <button class="nav-btn btn-action" onclick="triggerAction('fetch'); closeDrawer();">📡 Fetch Result</button>
+  <button class="nav-btn btn-action" onclick="loadAll(); closeDrawer();">⟳ Refresh</button>
+</nav>
 
 <!-- ══ HEADER ══ -->
 <header class="header">
@@ -464,6 +583,7 @@ footer {
     <button class="nav-btn btn-action" onclick="loadAll()">⟳ Refresh</button>
     <span class="status-chip" id="last-refresh">Loading…</span>
   </nav>
+  <button class="hamburger-btn" onclick="toggleDrawer()" aria-label="Open Menu">☰</button>
 </header>
 
 <!-- ══ LOADER ══ -->
@@ -1127,6 +1247,35 @@ async function triggerAction(type) {
   }
   document.body.appendChild(langBtn);
 })();
+
+function toggleDrawer() {
+  const drawer = document.getElementById('mobile-drawer');
+  const overlay = document.getElementById('drawer-overlay');
+  if (drawer && overlay) {
+    const isOpen = drawer.classList.contains('open');
+    if (isOpen) {
+      closeDrawer();
+    } else {
+      drawer.classList.add('open');
+      overlay.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+}
+
+function closeDrawer() {
+  const drawer = document.getElementById('mobile-drawer');
+  const overlay = document.getElementById('drawer-overlay');
+  if (drawer) drawer.classList.remove('open');
+  if (overlay) overlay.classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
 </script>
 </body>
 </html>
