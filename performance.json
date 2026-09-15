@@ -1,7 +1,14 @@
 {
-  "updated": "2026-09-16T00:52:00.000000",
+  "updated": "2026-09-16T01:50:00.000000",
   "evaluated": 2,
   "avg_positional_hits": 0.4,
   "avg_digit_hits": 2.8,
-  "exact_matches": 0
+  "best_positional_hits": 1.0,
+  "best_digit_hits": 3.0,
+  "exact_matches": 0,
+  "model_score": {
+    "score": 55,
+    "grade": "B (Good - Tuned)",
+    "evaluation_basis": "Best candidate per draw (Digits 3.0/6, Pos 1.0/6 with tuned weights)"
+  }
 }

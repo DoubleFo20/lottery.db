@@ -860,9 +860,9 @@ function renderKPIs(analytics, predict) {
     .then(r => r && r.ok ? r.json() : null)
     .then(perf => {
       if (!perf) return;
-      const avgDig = perf.avg_dig ?? perf.avg_digit_hits ?? 0;
-      const avgPos = perf.avg_pos ?? perf.avg_positional_hits ?? 0;
-      const score = Math.round(((avgDig / 6) * 0.7 + (avgPos / 6) * 0.3) * 100);
+      const avgDig = perf.best_digit_hits ?? perf.avg_dig ?? perf.avg_digit_hits ?? 0;
+      const avgPos = perf.best_positional_hits ?? perf.avg_pos ?? perf.avg_positional_hits ?? 0;
+      const score = perf?.model_score?.score ?? Math.round(((avgDig / 6) * 0.7 + (avgPos / 6) * 0.3) * 100);
       
       const elSc = document.getElementById('kpi-score');
       if(elSc) {
@@ -874,7 +874,8 @@ function renderKPIs(analytics, predict) {
       
       const badge = document.getElementById('kpi-grade-badge');
       if(badge) {
-          badge.textContent = score > 70 ? 'Excellent' : score >= 40 ? 'Fair' : 'Needs tuning';
+          const gradeText = perf?.model_score?.grade ?? (score > 70 ? 'Excellent' : score >= 40 ? 'Fair' : 'Needs tuning');
+          badge.textContent = gradeText;
           badge.className = 'grade-badge ' + (score > 70 ? 'badge-good' : score >= 40 ? 'badge-warn' : 'badge-bad');
       }
     }).catch(() => {});
