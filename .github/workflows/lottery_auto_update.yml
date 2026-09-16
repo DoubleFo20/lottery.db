@@ -2,12 +2,21 @@ name: Continuous Lottery Auto-Update
 
 on:
   schedule:
-    # 1st and 16th of each month at 16:00 ICT (09:00 UTC) and 16:30 ICT (09:30 UTC)
-    - cron: '0,30 9 1,16 * *'
+    # 1st and 16th of each month every 15 mins during Thai draw windows (14:30–16:30 ICT = 07:30–09:30 UTC):
+    # Window 1: 14:30, 14:45 ICT
+    - cron: '30,45 7 1,16 * *'
+    # Window 2: 15:00, 15:15, 15:30, 15:45 ICT
+    - cron: '0,15,30,45 8 1,16 * *'
+    # Window 3: 16:00, 16:15, 16:30 ICT
+    - cron: '0,15,30 9 1,16 * *'
   workflow_dispatch: # Allows manual trigger from GitHub Actions tab
 
 permissions:
   contents: write
+
+concurrency:
+  group: lottery-auto-update
+  cancel-in-progress: false
 
 jobs:
   auto-update:
@@ -60,5 +69,6 @@ jobs:
             echo "No changes detected. Dataset is already up to date."
           else
             git commit -m "chore(auto): update draw results, refresh predictions, build 3D assets and sync dashboard [skip ci]"
+            git pull --rebase origin main || true
             git push
           fi
