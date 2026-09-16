@@ -56,7 +56,41 @@ def fetch_thairath() -> dict | None:
 def fetch_sanook() -> dict | None:
     try:
         res = requests.get("https://news.sanook.com/lotto/", headers={"User-Agent": "Mozilla/5.0"}, timeout=15)
+        res.encoding = "utf-8"
         soup = BeautifulSoup(res.text, "html.parser")
+        hl = soup.find("div", class_="lotto-highlight")
+        if not hl:
+            return _extract_generic(soup.get_text(separator=" ", strip=True), "sanook")
+
+        txt = hl.get_text()
+        date_str = ""
+        m_date = re.search(r'(\d{1,2})\s+([ก-๙\.]+)\s+(\d{4})', txt)
+        if m_date:
+            date_str = parse_thai_date(f"{m_date.group(1)} {m_date.group(2)} {m_date.group(3)}") or ""
+
+        first_el = hl.find("strong", class_=lambda c: c and "first" in c)
+        first_prize = first_el.get_text(strip=True) if first_el else ""
+
+        front3, back3, last2 = [], [], ""
+        for cell in hl.find_all("span", class_="lotto__cell"):
+            c_txt = cell.get_text(separator=" ", strip=True)
+            if "เลขหน้า" in c_txt or "หน้า 3" in c_txt:
+                front3 = re.findall(r'\b(\d{3})\b', c_txt)[:2]
+            elif "เลขท้าย 3" in c_txt or "ท้าย 3" in c_txt:
+                back3 = re.findall(r'\b(\d{3})\b', c_txt)[:2]
+            elif "เลขท้าย 2" in c_txt or "ท้าย 2" in c_txt:
+                m = re.search(r'\b(\d{2})\b', c_txt)
+                if m: last2 = m.group(1)
+
+        if first_prize and len(first_prize) == 6:
+            return {
+                "first_prize": first_prize,
+                "front3": front3 if len(front3) >= 2 else ["", ""],
+                "back3": back3 if len(back3) >= 2 else ["", ""],
+                "last2": last2,
+                "draw_date": date_str,
+                "source": "sanook"
+            }
         return _extract_generic(soup.get_text(separator=" ", strip=True), "sanook")
     except Exception as e:
         print(f"[WARN] fetch_sanook error: {e}")
@@ -67,6 +101,37 @@ def fetch_kapook() -> dict | None:
         res = requests.get("https://lottery.kapook.com/", headers={"User-Agent": "Mozilla/5.0"}, timeout=15)
         res.encoding = res.apparent_encoding
         soup = BeautifulSoup(res.text, "html.parser")
+        
+        date_str = ""
+        m_date = re.search(r'(\d{1,2})\s+([ก-๙\.]+)\s+(\d{4})', soup.get_text())
+        if m_date:
+            date_str = parse_thai_date(f"{m_date.group(1)} {m_date.group(2)} {m_date.group(3)}") or ""
+
+        first_prize, last2 = "", ""
+        front3, back3 = [], []
+
+        for div in soup.find_all("div", class_="prize"):
+            c_txt = div.get_text(separator=" ", strip=True)
+            if "รางวัลที่ 1" in c_txt or "รางวัลที่1" in c_txt:
+                m = re.search(r'\b(\d{6})\b', c_txt)
+                if m: first_prize = m.group(1)
+            elif "เลขท้าย 2 ตัว" in c_txt:
+                m = re.search(r'\b(\d{2})\b', c_txt)
+                if m: last2 = m.group(1)
+            elif "เลขหน้า 3 ตัว" in c_txt:
+                front3 = re.findall(r'\b(\d{3})\b', c_txt)[:2]
+            elif "เลขท้าย 3 ตัว" in c_txt:
+                back3 = re.findall(r'\b(\d{3})\b', c_txt)[:2]
+
+        if first_prize and len(first_prize) == 6:
+            return {
+                "first_prize": first_prize,
+                "front3": front3 if len(front3) >= 2 else ["", ""],
+                "back3": back3 if len(back3) >= 2 else ["", ""],
+                "last2": last2,
+                "draw_date": date_str,
+                "source": "kapook"
+            }
         return _extract_generic(soup.get_text(separator=" ", strip=True), "kapook")
     except Exception as e:
         print(f"[WARN] fetch_kapook error: {e}")

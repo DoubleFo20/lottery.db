@@ -1,0 +1,53 @@
+﻿name: Continuous Lottery Auto-Update
+
+on:
+  schedule:
+    # 1st and 16th of each month at 16:00 ICT (09:00 UTC) and 16:30 ICT (09:30 UTC)
+    - cron: '0,30 9 1,16 * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  auto-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4
+
+      - name: Fetch Draw Results & Retrain Pipeline
+        run: |
+          python analytics/result_fetcher.py
+
+      - name: Sync Dashboard Files
+        run: |
+          cp index.html strategy.html
+          mkdir -p dashboard
+          cp index.html dashboard/strategy.html
+          cp manager.html dashboard/manager.html
+          cp performance.html dashboard/performance.html
+
+      - name: Commit & Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes detected. Dataset is already up to date."
+          else
+            git commit -m "chore(auto): update draw results, refresh predictions, and sync dashboard [skip ci]"
+            git push
+          fi

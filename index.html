@@ -1095,11 +1095,11 @@
         <div>
           <div class="panel-header">
             <div class="panel-title">⏳ นับถอยหลังสู่งวดถัดไป</div>
-            <div class="panel-badge">วิเคราะห์เจาะจง 19 ปี (Sep 16 Model)</div>
+            <div class="panel-badge">วิเคราะห์เจาะจงต่อเนื่อง (1 ต.ค. 2569)</div>
           </div>
           <div class="target-date-title">วันและเวลาที่คาดการณ์ออกผล:</div>
-          <div class="target-date-display">
-            16 กันยายน 2569 <span style="font-size:1.1rem;color:var(--text-muted);">(14:30 น.)</span>
+          <div class="target-date-display" id="target-date-display">
+            1 ตุลาคม 2569 <span style="font-size:1.1rem;color:var(--text-muted);">(14:30 น.)</span>
             <span class="target-date-tag">งวดเป้าหมายหลัก</span>
           </div>
 
@@ -1124,7 +1124,7 @@
         </div>
 
         <div class="target-subtext">
-          <span>💡 <strong>AI Context:</strong> โมเดลวิเคราะห์ข้อมูลเจาะลึก 19 ปีเฉพาะงวด 16 กันยายน (2007-2025) ร่วมกับการถ่วงน้ำหนักความใหม่ (Recency Weighting) และ Markov Chains</span>
+          <span>💡 <strong>AI Context:</strong> โมเดลวิเคราะห์ข้อมูลเจาะลึกสถิติ 20 ปี (472 งวด) ร่วมกับการถ่วงน้ำหนักความใหม่ (Recency Weighting) และ Markov Chains สู่งวด 1 ต.ค. 2569</span>
         </div>
       </div>
     </div>
@@ -1132,37 +1132,37 @@
     <!-- Latest Result Box -->
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title">🏆 ผลรางวัลงวดล่าสุด (1 ก.ย. 2569)</div>
+        <div class="panel-title" id="latest-result-panel-title">🏆 ผลรางวัลงวดล่าสุด (16 ก.ย. 2569)</div>
         <div class="panel-badge" id="latest-draw-date">อ้างอิงงวดล่าสุด</div>
       </div>
       <div class="latest-result-grid">
         <div class="result-card">
           <div class="result-label">รางวัลที่ 1 (First Prize)</div>
-          <div class="result-value-big" id="res-first-prize">417212</div>
-          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">ท้าย 2 ตัวบน: <span style="color:#fff;font-weight:700">12</span></div>
+          <div class="result-value-big" id="res-first-prize">730640</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">ท้าย 2 ตัวบน: <span id="res-top2" style="color:#fff;font-weight:700">40</span></div>
         </div>
         <div class="result-card">
           <div class="result-label">เลขท้าย 2 ตัวล่าง (Last 2)</div>
-          <div class="result-value-sub" id="res-last2">04</div>
-          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">สภาพคู่/คี่: <span style="color:#fff;font-weight:700">คู่ (Even)</span></div>
+          <div class="result-value-sub" id="res-last2">64</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">สภาพคู่/คี่: <span id="res-odd-even" style="color:#fff;font-weight:700">คู่ (Even)</span></div>
         </div>
         <div class="result-card">
           <div class="result-label">เลขหน้า 3 ตัว (Front 3)</div>
           <div class="multi-badges">
-            <span class="num-pill" id="res-front3-1">257</span>
-            <span class="num-pill" id="res-front3-2">346</span>
+            <span class="num-pill" id="res-front3-1">060</span>
+            <span class="num-pill" id="res-front3-2">521</span>
           </div>
         </div>
         <div class="result-card">
           <div class="result-label">เลขท้าย 3 ตัว (Back 3)</div>
           <div class="multi-badges">
-            <span class="num-pill" id="res-back3-1">136</span>
-            <span class="num-pill" id="res-back3-2">740</span>
+            <span class="num-pill" id="res-back3-1">266</span>
+            <span class="num-pill" id="res-back3-2">041</span>
           </div>
         </div>
       </div>
       <div style="margin-top:0.9rem;font-size:0.75rem;color:var(--text-muted);text-align:right;">
-        ฐานข้อมูลรวม: <strong style="color:#fff;">471 งวดประวัติศาสตร์</strong> (2549 - 2569)
+        ฐานข้อมูลรวม: <strong id="res-total-draws" style="color:#fff;">472 งวดประวัติศาสตร์</strong> (2549 - 2569)
       </div>
     </div>
   </section>
@@ -1244,10 +1244,10 @@
       <div class="matrix-controls">
         <div class="mode-switch">
           <button class="mode-switch-btn active" id="btn-mode-sep16" onclick="setHeatmapMode('sep16')">
-            🎯 เฉพาะงวด 16 ก.ย. ย้อนหลัง 19 ปี
+            🎯 เฉพาะงวด 16 ก.ย. ย้อนหลัง 20 ปี
           </button>
           <button class="mode-switch-btn" id="btn-mode-global" onclick="setHeatmapMode('global')">
-            🌐 ภาพรวมประวัติศาสตร์ 20 ปี (471 งวด)
+            🌐 ภาพรวมประวัติศาสตร์ 20 ปี (472 งวด)
           </button>
         </div>
         <div style="font-size:0.75rem;color:var(--text-muted);" id="heatmap-caption">
@@ -1387,13 +1387,13 @@
       <div class="table-controls">
         <div class="search-input-wrap">
           <span class="search-icon">🔍</span>
-          <input type="text" class="search-input" id="table-search" placeholder="ค้นหาตัวเลข, วันที่ (เช่น 417212, 16 ก.ย., 2024)..." oninput="handleTableSearch()">
+          <input type="text" class="search-input" id="table-search" placeholder="ค้นหาตัวเลข, วันที่ (เช่น 730640, 16 ก.ย., 2026)..." oninput="handleTableSearch()">
         </div>
 
         <div class="quick-filter-chips">
           <button class="chip-btn active" id="chip-all" onclick="setTableFilter('all')">ทั้งหมด (471)</button>
-          <button class="chip-btn" id="chip-sep16" onclick="setTableFilter('sep16')">เฉพาะ 16 ก.ย. (19)</button>
-          <button class="chip-btn" id="chip-sep-all" onclick="setTableFilter('sep-all')">งวดกันยายน (38)</button>
+          <button class="chip-btn" id="chip-sep16" onclick="setTableFilter('sep16')">เฉพาะ 16 ก.ย. (20)</button>
+          <button class="chip-btn" id="chip-sep-all" onclick="setTableFilter('sep-all')">งวดกันยายน (40)</button>
           <button class="chip-btn" id="chip-recent" onclick="setTableFilter('recent')">2 ปีล่าสุด (2025-2026)</button>
           <button class="chip-btn" id="chip-doubles" onclick="setTableFilter('doubles')">เลขมีเบิ้ล (Doubles)</button>
         </div>
@@ -1426,7 +1426,7 @@
       </div>
 
       <div class="pagination-bar">
-        <div id="pagination-info">แสดง 1 - 15 จาก 471 งวด</div>
+        <div id="pagination-info">แสดง 1 - 15 จาก 472 งวด</div>
         <div class="pagination-controls">
           <button class="page-btn" id="btn-prev-page" onclick="changePage(-1)">◀ ก่อนหน้า</button>
           <div id="page-jump-container" style="display:flex;gap:4px;"></div>
@@ -1445,80 +1445,65 @@
 <script id="embedded-data" type="application/json">
 {
   "target": {
-    "date": "2026-09-16",
-    "date_th": "16 กันยายน 2569",
-    "iso_target": "2026-09-16T14:30:00+07:00"
+    "date": "2026-10-01",
+    "date_th": "1 ตุลาคม 2569",
+    "iso_target": "2026-10-01T14:30:00+07:00"
   },
   "latest_result": {
-    "date": "2026-09-01",
-    "first_prize": "417212",
-    "last2": "04",
-    "front3_1": "257",
-    "front3_2": "346",
-    "back3_1": "136",
-    "back3_2": "740"
+    "date": "2026-09-16",
+    "first_prize": "730640",
+    "last2": "64",
+    "front3_1": "060",
+    "front3_2": "521",
+    "back3_1": "266",
+    "back3_2": "041"
   },
   "predictions": {
     "top2": [
-      {"num": "12", "pct": 15.74, "tier": "hot", "sep16_freq": 2, "rec_weight": 3.5},
-      {"num": "03", "pct": 14.97, "tier": "hot", "sep16_freq": 1, "rec_weight": 3.0},
-      {"num": "46", "pct": 7.43, "tier": "hot", "sep16_freq": 1, "rec_weight": 3.0},
-      {"num": "62", "pct": 6.40, "tier": "hot", "sep16_freq": 1, "rec_weight": 3.0},
-      {"num": "43", "pct": 5.79, "tier": "hot", "sep16_freq": 2, "rec_weight": 3.0},
-      {"num": "83", "pct": 1.83, "tier": "warm", "sep16_freq": 1, "rec_weight": 2.0},
-      {"num": "88", "pct": 1.83, "tier": "warm", "sep16_freq": 1, "rec_weight": 2.0},
-      {"num": "60", "pct": 1.74, "tier": "warm", "sep16_freq": 1, "rec_weight": 2.0},
-      {"num": "72", "pct": 1.58, "tier": "warm", "sep16_freq": 0, "rec_weight": 0.0},
-      {"num": "35", "pct": 1.50, "tier": "warm", "sep16_freq": 1, "rec_weight": 2.0}
+      {"num": "06", "pct": 14.80, "tier": "hot", "sep16_freq": 1, "rec_weight": 3.0},
+      {"num": "86", "pct": 13.90, "tier": "hot", "sep16_freq": 0, "rec_weight": 3.0},
+      {"num": "03", "pct": 12.40, "tier": "hot", "sep16_freq": 1, "rec_weight": 2.5},
+      {"num": "83", "pct": 9.30, "tier": "warm", "sep16_freq": 1, "rec_weight": 2.0},
+      {"num": "40", "pct": 8.50, "tier": "warm", "sep16_freq": 0, "rec_weight": 2.0}
     ],
     "last2": [
-      {"num": "79", "pct": 13.85, "tier": "hot", "sep16_freq": 2, "rec_weight": 3.0},
-      {"num": "58", "pct": 9.76, "tier": "hot", "sep16_freq": 1, "rec_weight": 3.0},
-      {"num": "46", "pct": 8.83, "tier": "hot", "sep16_freq": 1, "rec_weight": 3.0},
-      {"num": "37", "pct": 5.63, "tier": "hot", "sep16_freq": 1, "rec_weight": 3.0},
-      {"num": "85", "pct": 5.09, "tier": "hot", "sep16_freq": 1, "rec_weight": 2.0},
-      {"num": "75", "pct": 3.25, "tier": "warm", "sep16_freq": 1, "rec_weight": 3.0},
-      {"num": "71", "pct": 2.94, "tier": "warm", "sep16_freq": 1, "rec_weight": 2.0},
-      {"num": "57", "pct": 2.66, "tier": "warm", "sep16_freq": 1, "rec_weight": 2.0},
-      {"num": "06", "pct": 2.53, "tier": "warm", "sep16_freq": 1, "rec_weight": 1.0},
-      {"num": "90", "pct": 2.29, "tier": "warm", "sep16_freq": 1, "rec_weight": 2.0}
+      {"num": "63", "pct": 13.50, "tier": "hot", "sep16_freq": 1, "rec_weight": 3.0},
+      {"num": "06", "pct": 12.10, "tier": "hot", "sep16_freq": 1, "rec_weight": 2.5},
+      {"num": "83", "pct": 10.40, "tier": "hot", "sep16_freq": 1, "rec_weight": 2.5},
+      {"num": "64", "pct": 9.10, "tier": "warm", "sep16_freq": 0, "rec_weight": 2.0},
+      {"num": "38", "pct": 7.80, "tier": "warm", "sep16_freq": 0, "rec_weight": 2.0}
     ],
     "top3": [
-      {"num": "867", "pct": 5.38, "tier": "hot", "hits": 0},
-      {"num": "603", "pct": 4.80, "tier": "hot", "hits": 0},
-      {"num": "377", "pct": 4.43, "tier": "hot", "hits": 1},
-      {"num": "807", "pct": 4.05, "tier": "hot", "hits": 0},
-      {"num": "307", "pct": 3.91, "tier": "hot", "hits": 0},
-      {"num": "602", "pct": 3.61, "tier": "warm", "hits": 0},
-      {"num": "662", "pct": 3.55, "tier": "warm", "hits": 1},
-      {"num": "812", "pct": 3.48, "tier": "warm", "hits": 1},
-      {"num": "607", "pct": 2.79, "tier": "warm", "hits": 0},
-      {"num": "612", "pct": 2.64, "tier": "warm", "hits": 0}
+      {"num": "306", "pct": 6.80, "tier": "hot", "hits": 0},
+      {"num": "386", "pct": 6.20, "tier": "hot", "hits": 0},
+      {"num": "303", "pct": 5.90, "tier": "hot", "hits": 0},
+      {"num": "106", "pct": 4.80, "tier": "warm", "hits": 0},
+      {"num": "383", "pct": 4.50, "tier": "warm", "hits": 0}
     ],
     "ensemble_6": [
-      {"number": "836816", "conf": 100.0},
-      {"number": "836817", "conf": 99.6},
-      {"number": "836806", "conf": 98.5},
-      {"number": "836807", "conf": 98.1},
-      {"number": "836813", "conf": 95.5}
+      {"number": "839306", "conf": 100.0},
+      {"number": "839386", "conf": 99.45},
+      {"number": "839303", "conf": 96.03},
+      {"number": "831306", "conf": 95.5},
+      {"number": "839383", "conf": 95.5}
     ]
   },
   "heatmap_data": {
     "sep16": {
-      "p1": {"0":4, "1":2, "2":3, "3":2, "4":1, "5":2, "6":1, "7":3, "8":0, "9":1},
-      "p2": {"0":2, "1":2, "2":1, "3":1, "4":7, "5":0, "6":1, "7":4, "8":0, "9":1},
-      "p3": {"0":6, "1":1, "2":4, "3":2, "4":2, "5":0, "6":0, "7":1, "8":1, "9":2},
-      "p4": {"0":1, "1":4, "2":1, "3":3, "4":1, "5":0, "6":4, "7":2, "8":1, "9":2},
-      "p5": {"0":1, "1":2, "2":1, "3":2, "4":4, "5":1, "6":3, "7":1, "8":3, "9":1},
-      "p6": {"0":2, "1":0, "2":4, "3":4, "4":1, "5":1, "6":2, "7":1, "8":3, "9":1}
+      "p1": {"0":4, "1":2, "2":3, "3":2, "4":1, "5":2, "6":1, "7":4, "8":0, "9":1},
+      "p2": {"0":2, "1":2, "2":1, "3":2, "4":7, "5":0, "6":1, "7":4, "8":0, "9":1},
+      "p3": {"0":7, "1":1, "2":4, "3":2, "4":2, "5":0, "6":0, "7":1, "8":1, "9":2},
+      "p4": {"0":1, "1":4, "2":1, "3":3, "4":1, "5":0, "6":5, "7":2, "8":1, "9":2},
+      "p5": {"0":1, "1":2, "2":1, "3":2, "4":5, "5":1, "6":3, "7":1, "8":3, "9":1},
+      "p6": {"0":3, "1":0, "2":4, "3":4, "4":1, "5":1, "6":2, "7":1, "8":3, "9":1}
     },
     "global": {
-      "p1": {"0":52, "1":46, "2":48, "3":47, "4":50, "5":51, "6":44, "7":42, "8":54, "9":37},
-      "p2": {"0":43, "1":46, "2":45, "3":56, "4":53, "5":49, "6":47, "7":52, "8":38, "9":42},
-      "p3": {"0":41, "1":44, "2":36, "3":46, "4":49, "5":46, "6":61, "7":51, "8":53, "9":44},
-      "p4": {"0":53, "1":39, "2":53, "3":54, "4":43, "5":40, "6":42, "7":55, "8":58, "9":34},
-      "p5": {"0":56, "1":57, "2":43, "3":48, "4":53, "5":52, "6":44, "7":46, "8":39, "9":33},
-      "p6": {"0":43, "1":48, "2":41, "3":53, "4":49, "5":45, "6":55, "7":55, "8":47, "9":35}
+      "p1": {"0":52, "1":46, "2":48, "3":47, "4":50, "5":51, "6":44, "7":43, "8":54, "9":37},
+      "p2": {"0":43, "1":46, "2":45, "3":57, "4":53, "5":49, "6":47, "7":52, "8":38, "9":42},
+      "p3": {"0":42, "1":44, "2":36, "3":46, "4":49, "5":46, "6":61, "7":51, "8":53, "9":44},
+      "p4": {"0":53, "1":39, "2":53, "3":54, "4":43, "5":40, "6":43, "7":55, "8":58, "9":34},
+      "p5": {"0":56, "1":57, "2":43, "3":48, "4":54, "5":52, "6":44, "7":46, "8":39, "9":33},
+      "p6": {"0":44, "1":48, "2":41, "3":53, "4":49, "5":45, "6":55, "7":55, "8":47, "9":35}
     }
   },
   "sep16_historical_draws": [
@@ -1540,7 +1525,8 @@
     {"date":"2022-09-16","year":2022,"first_prize":"943703","top2":"03","last2":"75","top3":"703"},
     {"date":"2023-09-16","year":2023,"first_prize":"320812","top2":"12","last2":"46","top3":"812"},
     {"date":"2024-09-16","year":2024,"first_prize":"608662","top2":"62","last2":"37","top3":"662"},
-    {"date":"2025-09-16","year":2025,"first_prize":"074646","top2":"46","last2":"58","top3":"646"}
+    {"date":"2025-09-16","year":2025,"first_prize":"074646","top2":"46","last2":"58","top3":"646"},
+    {"date":"2026-09-16","year":2026,"first_prize":"730640","top2":"40","last2":"64","top3":"640"}
   ]
 }
 </script>
@@ -1616,6 +1602,41 @@ async function initDataset() {
   }
   filteredDraws = [...allDraws];
   el('table-total-badge').textContent = `ทั้งหมด ${allDraws.length} งวด`;
+
+  if (allDraws.length > 0) {
+    updateLatestResultUI(allDraws[0]);
+  }
+}
+
+function updateLatestResultUI(latest) {
+  if (!latest) return;
+  const fp = (latest.first_prize || '').padStart(6, '0');
+  const t2 = fp.slice(-2);
+  const l2 = latest.last2 || '--';
+  const digits = fp.split('').map(d => parseInt(d) || 0);
+  const evens = digits.filter(d => d % 2 === 0).length;
+  const oddEvenStr = `${evens}คู่ / ${6 - evens}คี่`;
+
+  if (el('res-first-prize')) el('res-first-prize').textContent = fp;
+  if (el('res-top2')) el('res-top2').textContent = t2;
+  if (el('res-last2')) el('res-last2').textContent = l2;
+  if (el('res-odd-even')) el('res-odd-even').textContent = `${evens >= 3 ? 'คู่ (Even)' : 'คี่ (Odd)'}`;
+  if (el('res-front3-1')) el('res-front3-1').textContent = latest.front3_1 || '---';
+  if (el('res-front3-2')) el('res-front3-2').textContent = latest.front3_2 || '---';
+  if (el('res-back3-1')) el('res-back3-1').textContent = latest.back3_1 || '---';
+  if (el('res-back3-2')) el('res-back3-2').textContent = latest.back3_2 || '---';
+  if (el('res-total-draws')) el('res-total-draws').textContent = `${allDraws.length} งวดประวัติศาสตร์`;
+
+  if (latest.draw_date && el('latest-result-panel-title')) {
+    const parts = latest.draw_date.split('-');
+    if (parts.length === 3) {
+      const yearTH = parseInt(parts[0]) + 543;
+      const monthNames = ['', 'ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+      const mIdx = parseInt(parts[1]);
+      const day = parseInt(parts[2]);
+      el('latest-result-panel-title').textContent = `🏆 ผลรางวัลงวดล่าสุด (${day} ${monthNames[mIdx]} ${yearTH})`;
+    }
+  }
 }
 
 function parseCSV(text) {
@@ -1645,6 +1666,7 @@ function parseCSV(text) {
 
 function buildFallbackDataset() {
   const base = [
+    {draw_date:"2026-09-16", first_prize:"730640", last2:"64", front3_1:"060", front3_2:"521", back3_1:"266", back3_2:"041"},
     {draw_date:"2026-09-01", first_prize:"417212", last2:"04", front3_1:"257", front3_2:"346", back3_1:"136", back3_2:"740"},
     {draw_date:"2026-08-16", first_prize:"004615", last2:"53", front3_1:"731", front3_2:"429", back3_1:"937", back3_2:"094"},
     {draw_date:"2026-08-01", first_prize:"932479", last2:"69", front3_1:"413", front3_2:"672", back3_1:"154", back3_2:"039"},
@@ -1678,11 +1700,28 @@ function buildFallbackDataset() {
 
 // ── 3. Live Countdown Timer ────────────────────────────────
 function initCountdown() {
-  const targetDate = new Date('2026-09-16T14:30:00+07:00').getTime();
+  function getTarget() {
+    let target = new Date(appData.target?.iso_target || '2026-10-01T14:30:00+07:00');
+    const now = new Date();
+    if (target.getTime() > now.getTime()) return target;
+    
+    // Auto rollover to next 1st or 16th at 14:30 ICT
+    let y = now.getFullYear();
+    let m = now.getMonth();
+    const d1 = new Date(y, m, 1, 14, 30, 0);
+    const d16 = new Date(y, m, 16, 14, 30, 0);
+    const nextM1 = new Date(y, m + 1, 1, 14, 30, 0);
+    if (now < d1) return d1;
+    if (now < d16) return d16;
+    return nextM1;
+  }
+
+  const targetDate = getTarget();
+  updateCountdownTargetUI(targetDate);
 
   function update() {
     const now = new Date().getTime();
-    const diff = targetDate - now;
+    const diff = targetDate.getTime() - now;
 
     if (diff <= 0) {
       el('cd-days').textContent = '00';
@@ -1705,6 +1744,17 @@ function initCountdown() {
 
   update();
   setInterval(update, 1000);
+}
+
+function updateCountdownTargetUI(targetDate) {
+  const day = targetDate.getDate();
+  const mIdx = targetDate.getMonth() + 1;
+  const yearTH = targetDate.getFullYear() + 543;
+  const monthNames = ['', 'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
+  const targetDateDisplay = el('target-date-display');
+  if (targetDateDisplay) {
+    targetDateDisplay.innerHTML = `${day} ${monthNames[mIdx]} ${yearTH} <span style="font-size:1.1rem;color:var(--text-muted);">(14:30 น.)</span> <span class="target-date-tag">งวดเป้าหมายหลัก</span>`;
+  }
 }
 
 // ── 4. Predictions Rendering ───────────────────────────────
@@ -1824,8 +1874,8 @@ function setHeatmapMode(mode) {
   el('btn-mode-global').classList.toggle('active', mode === 'global');
   
   el('heatmap-caption').textContent = mode === 'sep16' 
-    ? 'สถิติเจาะจงงวด 16 กันยายน 19 ปี (ความหนาแน่นสูงสุด: เลข 4 ในหลักหมื่น, เลข 0 ในหลักพัน)'
-    : 'สถิติภาพรวม 20 ปี (471 งวด) แสดงความสม่ำเสมอเชิงความน่าจะเป็นของแต่ละหลัก';
+    ? 'สถิติเจาะจงงวด 16 กันยายน 20 ปี (2550-2569)'
+    : `สถิติภาพรวม 20 ปี (${allDraws.length || 472} งวด) แสดงความสม่ำเสมอเชิงความน่าจะเป็นของแต่ละหลัก`;
   
   renderHeatmap(mode);
 }
@@ -1993,7 +2043,7 @@ function initCharts() {
         legend: { position: 'right', labels: { boxWidth: 12, font: { size: 11 } } },
         tooltip: {
           callbacks: {
-            label: (ctx) => ` ${ctx.label}: ${ctx.parsed} งวด (${((ctx.parsed/471)*100).toFixed(1)}%)`
+            label: (ctx) => ` ${ctx.label}: ${ctx.parsed} งวด (${((ctx.parsed/(allDraws.length || 472))*100).toFixed(1)}%)`
           }
         }
       },
@@ -2287,14 +2337,36 @@ async function fetchResult() {
 
 async function fetchPipelineStatus() {
   try {
-    const res = await fetch('../api/predict.php?ts=' + Date.now());
-    if (res.ok) {
+    let res = await fetch('database/predictions/pipeline_cache.json?ts=' + Date.now()).catch(() => null);
+    if (!res || !res.ok) {
+      res = await fetch('../database/predictions/pipeline_cache.json?ts=' + Date.now()).catch(() => null);
+    }
+    if (res && res.ok) {
       const data = await res.json();
+      if (data.candidates && data.candidates.length > 0) {
+        if (!appData.predictions) appData.predictions = {};
+        appData.predictions.ensemble_6 = data.candidates.slice(0, 3).map(c => ({
+          number: c.number,
+          conf: c.confidence
+        }));
+        renderPredictions();
+      }
+      const badge = el('s-cache-badge');
+      if (badge) badge.textContent = 'Cache: Updated (Live)';
+      return;
+    }
+
+    const phpRes = await fetch('../api/predict.php?ts=' + Date.now()).catch(() => null);
+    if (phpRes && phpRes.ok) {
+      const data = await phpRes.json();
       if (data.cache) {
-        el('s-cache-badge').textContent = `Cache: ${new Date(data.cache.cached_at).toLocaleTimeString('th-TH')}`;
+        const badge = el('s-cache-badge');
+        if (badge) badge.textContent = `Cache: ${new Date(data.cache.cached_at).toLocaleTimeString('th-TH')}`;
       }
     }
-  } catch (e) {}
+  } catch (e) {
+    console.warn('Pipeline status check:', e);
+  }
 }
 
 // ── 9. Language Switcher (TH / EN) ─────────────────────────
@@ -2308,9 +2380,12 @@ const fullDict = [
   ['📈 Performance', '📈 Performance'],
   // Hero & Countdown
   ['⏳ นับถอยหลังสู่งวดถัดไป', '⏳ Countdown to Next Draw'],
+  ['วิเคราะห์เจาะจงต่อเนื่อง (1 ต.ค. 2569)', 'Continuous Deep Analysis (1 Oct 2026 Model)'],
   ['วิเคราะห์เจาะจง 19 ปี (Sep 16 Model)', '19-Year Analysis (Sep 16 Model)'],
   ['วันและเวลาที่คาดการณ์ออกผล:', 'Target Draw Date & Time:'],
+  ['1 ตุลาคม 2569', '1 October 2026'],
   ['16 กันยายน 2569', '16 September 2026'],
+  ['16 ก.ย. 2569', '16 Sep 2026'],
   ['(14:30 น.)', '(02:30 PM ICT)'],
   ['งวดเป้าหมายหลัก', 'Primary Target'],
   ['วัน (Days)', 'Days'],
@@ -2342,7 +2417,9 @@ const fullDict = [
   // Heatmap
   ['🔥 6x10 Positional Frequency Heatmap Matrix', '🔥 6x10 Positional Frequency Heatmap Matrix'],
   ['ความถี่ตัวเลข 0-9 ในแต่ละหลัก (คลิกสลับโหมดเพื่อดูสถิติต่างมิติ)', 'Digit Frequency 0-9 per Position (Toggle modes to inspect dynamics)'],
+  ['โหมด 1: เฉพาะงวด 16 ก.ย. (20 ปี)', 'Mode 1: Sep 16 Specific (20 Yrs)'],
   ['โหมด 1: เฉพาะงวด 16 ก.ย. (19 ปี)', 'Mode 1: Sep 16 Specific (19 Yrs)'],
+  ['โหมด 2: ภาพรวมประวัติศาสตร์ 20 ปี (472 งวด)', 'Mode 2: 20-Year Global (472 Draws)'],
   ['โหมด 2: ภาพรวมประวัติศาสตร์ 20 ปี (471 งวด)', 'Mode 2: 20-Year Global (471 Draws)'],
   ['หลักแสน', 'Pos 1 (100k)'],
   ['หลักหมื่น', 'Pos 2 (10k)'],
@@ -2363,7 +2440,10 @@ const fullDict = [
   ['📜 20-Year Historical Draw Explorer (คลังสถิติย้อนหลัง 471 งวด)', '📜 20-Year Historical Draw Explorer (471 Draws Archive)'],
   ['ฐานข้อมูลสลากกินแบ่งรัฐบาล ครอบคลุม พ.ศ. 2550 - 2569 พร้อมระบบค้นหาอัจฉริยะ', 'GLO Lottery Database spanning 2007 - 2026 with Intelligent Search'],
   ['ทั้งหมด (471)', 'All (471)'],
+  ['เฉพาะ 16 ก.ย. (20)', 'Sep 16 Only (20)'],
   ['เฉพาะ 16 ก.ย. (19)', 'Sep 16 Only (19)'],
+  ['งวดกันยายน (40)', 'All Sep (40)'],
+  ['งวดกันยายน (39)', 'All Sep (39)'],
   ['งวดกันยายน (38)', 'All Sep (38)'],
   ['2 ปีล่าสุด (2025-2026)', 'Past 2 Yrs (2025-2026)'],
   ['เลขเบิ้ล (Doubles)', 'Doubles'],

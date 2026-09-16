@@ -1,14 +1,162 @@
 {
-  "updated": "2026-09-16T01:50:00.000000",
-  "evaluated": 2,
-  "avg_positional_hits": 0.4,
-  "avg_digit_hits": 2.8,
-  "best_positional_hits": 1.0,
-  "best_digit_hits": 3.0,
+  "updated": "2026-09-16T18:09:11.213734",
+  "evaluated": 3,
+  "avg_positional_hits": 1.0,
+  "avg_digit_hits": 3.333,
   "exact_matches": 0,
   "model_score": {
-    "score": 55,
-    "grade": "B (Good - Tuned)",
-    "evaluation_basis": "Best candidate per draw (Digits 3.0/6, Pos 1.0/6 with tuned weights)"
+    "score": 43.4,
+    "grade": "C  ⚠️",
+    "detail": {
+      "avg_positional_hits": 1.0,
+      "avg_digit_hits": 3.33,
+      "consistency": 1.0,
+      "calibration": 0.173,
+      "exact_match_rate": 0.0,
+      "sigma_pos_hits": 0.0
+    }
+  },
+  "hit_rate": {
+    "total_evaluated": 3,
+    "exact_match_count": 0,
+    "exact_match_rate": 0.0,
+    "positional_thresholds": {
+      "pos_ge_1": {
+        "count": 3,
+        "rate": 100.0
+      },
+      "pos_ge_2": {
+        "count": 0,
+        "rate": 0.0
+      },
+      "pos_ge_3": {
+        "count": 0,
+        "rate": 0.0
+      },
+      "pos_ge_4": {
+        "count": 0,
+        "rate": 0.0
+      },
+      "pos_ge_5": {
+        "count": 0,
+        "rate": 0.0
+      },
+      "pos_ge_6": {
+        "count": 0,
+        "rate": 0.0
+      }
+    },
+    "digit_thresholds": {
+      "dig_ge_1": {
+        "count": 3,
+        "rate": 100.0
+      },
+      "dig_ge_2": {
+        "count": 3,
+        "rate": 100.0
+      },
+      "dig_ge_3": {
+        "count": 3,
+        "rate": 100.0
+      },
+      "dig_ge_4": {
+        "count": 1,
+        "rate": 33.33
+      },
+      "dig_ge_5": {
+        "count": 0,
+        "rate": 0.0
+      },
+      "dig_ge_6": {
+        "count": 0,
+        "rate": 0.0
+      }
+    }
+  },
+  "digit_accuracy": {
+    "position_accuracy": {
+      "digit1": {
+        "correct": 2,
+        "total": 3,
+        "rate": 66.67
+      },
+      "digit2": {
+        "correct": 1,
+        "total": 3,
+        "rate": 33.33
+      },
+      "digit3": {
+        "correct": 0,
+        "total": 3,
+        "rate": 0.0
+      },
+      "digit4": {
+        "correct": 0,
+        "total": 3,
+        "rate": 0.0
+      },
+      "digit5": {
+        "correct": 0,
+        "total": 3,
+        "rate": 0.0
+      },
+      "digit6": {
+        "correct": 0,
+        "total": 3,
+        "rate": 0.0
+      }
+    },
+    "digit_accuracy": {
+      "0": {
+        "correct": 0,
+        "total": 1,
+        "rate": 0.0
+      },
+      "1": {
+        "correct": 0,
+        "total": 2,
+        "rate": 0.0
+      },
+      "2": {
+        "correct": 2,
+        "total": 2,
+        "rate": 100.0
+      },
+      "3": {
+        "correct": 1,
+        "total": 3,
+        "rate": 33.33
+      },
+      "4": {
+        "correct": 0,
+        "total": 0,
+        "rate": 0
+      },
+      "5": {
+        "correct": 0,
+        "total": 0,
+        "rate": 0
+      },
+      "6": {
+        "correct": 0,
+        "total": 3,
+        "rate": 0.0
+      },
+      "7": {
+        "correct": 0,
+        "total": 3,
+        "rate": 0.0
+      },
+      "8": {
+        "correct": 0,
+        "total": 2,
+        "rate": 0.0
+      },
+      "9": {
+        "correct": 0,
+        "total": 2,
+        "rate": 0.0
+      }
+    }
   }
 }
