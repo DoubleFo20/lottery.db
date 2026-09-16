@@ -1,21 +1,4 @@
 {
-  "updated": "2026-09-16T18:09:11.213734",
-  "evaluated": 3,
-  "avg_positional_hits": 1.0,
-  "avg_digit_hits": 3.333,
-  "exact_matches": 0,
-  "model_score": {
-    "score": 43.4,
-    "grade": "C  ⚠️",
-    "detail": {
-      "avg_positional_hits": 1.0,
-      "avg_digit_hits": 3.33,
-      "consistency": 1.0,
-      "calibration": 0.173,
-      "exact_match_rate": 0.0,
-      "sigma_pos_hits": 0.0
-    }
-  },
   "hit_rate": {
     "total_evaluated": 3,
     "exact_match_count": 0,
@@ -158,5 +141,20 @@
         "rate": 0.0
       }
     }
+  },
+  "model_score": {
+    "score": 17.2,
+    "grade": "F  ❌ (Uncalibrated)",
+    "detail": {
+      "avg_positional_hits": 1.0,
+      "avg_digit_hits": 3.33,
+      "top2_match_rate": 0.0,
+      "top3_box_match_rate": 0.0,
+      "exact_match_rate": 0.0
+    }
+  },
+  "meta": {
+    "evaluated": 3,
+    "analyzed_at": "2026-09-16T18:27:19.746603"
   }
 }

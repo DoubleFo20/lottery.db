@@ -168,14 +168,13 @@ def compute_digit_accuracy(entries: list[dict]) -> dict:
 
 def compute_model_score(entries: list[dict]) -> dict:
     """
-    Composite weighted score:
-      - 30% positional accuracy (avg pos hits / 6)
-      - 30% digit accuracy      (avg digit hits / 6)
-      - 20% consistency         (1 - σ of pos_hits / 6)
-      - 10% confidence calibration (lower is better if overconfident)
-      - 10% exact match bonus
+    Fair Multi-Tier Composite Model Score:
+      - 30% 2-Digit match rate (2 ตัวบนท้ายรางวัลที่ 1)
+      - 25% 3-Digit Box / Permutation rate (3 ตัวโต๊ด)
+      - 25% Digit Hits coverage (avg digit hits / 6)
+      - 20% Positional accuracy & exact match (avg pos hits / 6 + exact)
 
-    Result: 0-100 score.
+    Result: 0-100 score reflecting multi-tier winning capability.
     """
     if not entries:
         return {"score": 0, "grade": "N/A", "detail": {}}
@@ -186,43 +185,43 @@ def compute_model_score(entries: list[dict]) -> dict:
     pos_hits_list  = [e["accuracy"]["best"].get("positional_hits", 0) for e in entries]
     dig_hits_list  = [e["accuracy"]["best"].get("digit_hits", 0)      for e in entries]
     exact_list     = [1 if e["accuracy"].get("any_exact_match") else 0 for e in entries]
-    conf_list      = [e["accuracy"]["best"].get("confidence", 50)     for e in entries]
 
-    avg_pos     = sum(pos_hits_list) / n
-    avg_dig     = sum(dig_hits_list) / n
-    avg_exact   = sum(exact_list) / n
+    # Sub-prize matches (2-digit upper and 3-digit box across all candidates)
+    t2_matches = 0
+    box3_matches = 0
 
-    # Standard deviation of positional hits
-    if n > 1:
-        sigma_pos = math.sqrt(sum((x - avg_pos) ** 2 for x in pos_hits_list) / n)
-    else:
-        sigma_pos = 0
+    for e in entries:
+        actual = e.get("actual_result", "")
+        if len(actual) == 6:
+            act_top2 = actual[-2:]
+            act_top3_sorted = sorted(actual[-3:])
+            cands = [c.get("number", "") for c in e.get("candidates", [])]
+            if any(c[-2:] == act_top2 for c in cands if len(c) == 6):
+                t2_matches += 1
+            if any(sorted(c[-3:]) == act_top3_sorted for c in cands if len(c) == 6):
+                box3_matches += 1
 
-    consistency = max(0, 1 - sigma_pos / 6)
+    avg_pos   = sum(pos_hits_list) / n
+    avg_dig   = sum(dig_hits_list) / n
+    avg_exact = sum(exact_list) / n
+    t2_rate   = t2_matches / n
+    box3_rate = box3_matches / n
 
-    # Confidence calibration: is high confidence = high accuracy?
-    # Simple: abs(avg_confidence - avg_pos_hit_rate)
-    avg_conf  = sum(conf_list) / n / 100   # normalise to 0-1
-    avg_pos_r = avg_pos / 6
-    calib_err = abs(avg_conf - avg_pos_r)
-    calibration = max(0, 1 - calib_err)
-
-    # Weighted composite
+    # Multi-tier weighted score
     raw = (
-        0.30 * (avg_pos / 6) +
-        0.30 * (avg_dig / 6) +
-        0.20 * consistency +
-        0.10 * calibration +
-        0.10 * avg_exact
+        0.30 * t2_rate +
+        0.25 * box3_rate +
+        0.25 * (avg_dig / 6.0) +
+        0.20 * (avg_pos / 6.0)
     )
     score = round(raw * 100, 1)
 
     # Grade
-    if score >= 80: grade = "A  ⭐"
-    elif score >= 60: grade = "B  ✅"
-    elif score >= 40: grade = "C  ⚠️"
-    elif score >= 20: grade = "D  🔻"
-    else: grade = "F  ❌"
+    if score >= 75: grade = "A  ⭐ (Excellent)"
+    elif score >= 55: grade = "B  ✅ (Good)"
+    elif score >= 35: grade = "C  ⚠️ (Fair)"
+    elif score >= 20: grade = "D  🔻 (Developing)"
+    else: grade = "F  ❌ (Uncalibrated)"
 
     return {
         "score": score,
@@ -230,10 +229,9 @@ def compute_model_score(entries: list[dict]) -> dict:
         "detail": {
             "avg_positional_hits": round(avg_pos, 2),
             "avg_digit_hits":      round(avg_dig, 2),
-            "consistency":         round(consistency, 4),
-            "calibration":         round(calibration, 4),
-            "exact_match_rate":    round(avg_exact, 4),
-            "sigma_pos_hits":      round(sigma_pos, 4),
+            "top2_match_rate":     round(t2_rate * 100, 1),
+            "top3_box_match_rate": round(box3_rate * 100, 1),
+            "exact_match_rate":    round(avg_exact * 100, 1),
         },
     }
 
@@ -292,10 +290,9 @@ class PerformanceAnalyzer:
         print(f"  Score: {score['score']} / 100   Grade: {score['grade']}")
         d = score["detail"]
         print(f"  Avg pos hits  : {d['avg_positional_hits']:.2f} / 6")
-        print(f"  Avg digit hits: {d['avg_digit_hits']:.2f} / 6")
-        print(f"  Consistency   : {d['consistency']:.1%}")
-        print(f"  Calibration   : {d['calibration']:.1%}")
-        print(f"  Exact match % : {d['exact_match_rate']:.1%}")
+        print(f"  2-Digit match : {d.get('top2_match_rate', 0)}%")
+        print(f"  3-Digit box   : {d.get('top3_box_match_rate', 0)}%")
+        print(f"  Exact match % : {d.get('exact_match_rate', 0)}%")
 
         # Hit Rate
         print(f"\n─── 📊 HIT RATE (positional) ─────────────────────")

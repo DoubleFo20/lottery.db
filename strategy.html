@@ -1167,63 +1167,99 @@
     </div>
   </section>
 
-  <!-- ═════ 3. TOP PREDICTIONS SECTION ═════ -->
+  <!-- ═════ 3. TOP PREDICTIONS SECTION (DUAL-MODE) ═════ -->
   <section id="sec-predictions" style="margin-bottom:1.8rem;">
-    <!-- Ensemble 6-digit bar -->
-    <div class="ensemble-banner">
-      <div>
-        <div class="ensemble-title">🤖 ผลรวมทำนาย 6 ตัวตรง (Ensemble Model Predictions)</div>
-        <div style="font-size:0.78rem;color:var(--text-muted);margin-top:2px;">
-          คำนวณผ่าน 8 สัญญาณควบรวม (Statistical Probability + Positional Heatmap + Markov Transition)
+    <!-- Dual-Mode Switcher Header -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:0.8rem;">
+      <div style="font-family:var(--font-display);font-size:1.15rem;font-weight:700;display:flex;align-items:center;gap:8px;">
+        <span>🔮</span> ระบบคาดการณ์พหุรางวัล (Multi-Tier Predictions)
+      </div>
+      <div class="mode-switch">
+        <button class="mode-switch-btn active" id="btn-pred-jackpot" onclick="switchPredictionMode('jackpot')">
+          🎯 โหมดล่ารางวัลที่ 1 (Jackpot Hunter)
+        </button>
+        <button class="mode-switch-btn" id="btn-pred-subprize" onclick="switchPredictionMode('subprize')">
+          📈 โหมดเก็งกำไรระยะยาว (High-Probability Sub-Prizes)
+        </button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: JACKPOT HUNTER MODE -->
+    <div id="view-jackpot-mode">
+      <div class="ensemble-banner">
+        <div>
+          <div class="ensemble-title">🎯 ชุดเด่น 6 ตัวตรงข้ามคลัสเตอร์ (Diverse Prefix 6-Digit Portfolio)</div>
+          <div style="font-size:0.78rem;color:var(--text-muted);margin-top:2px;">
+            กรองด้วยสถิติผลรวม (18-38), สมดุลคู่-คี่ และกระจายคลัสเตอร์เพื่อป้องกันเลขกระจุกตัว
+          </div>
+        </div>
+        <div class="ensemble-numbers" id="ensemble-container">
+          <!-- populated by JS -->
         </div>
       </div>
-      <div class="ensemble-numbers" id="ensemble-container">
+
+      <!-- Neighbor & Cluster Detail Cards -->
+      <div id="jackpot-details-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:1rem;">
         <!-- populated by JS -->
       </div>
     </div>
 
-    <!-- Category Columns: 2 ตัวบน, 2 ตัวล่าง, 3 ตัวบน -->
-    <div class="prediction-columns">
-      
-      <!-- Column 1: 2 ตัวบน -->
-      <div class="panel">
-        <div class="cand-category-header">
-          <div class="category-tag">
-            <span style="color:#38bdf8">🎯</span> 2 ตัวบน (Upper 2-Digit)
+    <!-- VIEW 2: SUB-PRIZES MODE (HIGH PROBABILITY) -->
+    <div id="view-subprize-mode" style="display:none;">
+      <!-- Banker Digits Banner (เลขวิ่ง/รูด) -->
+      <div class="ensemble-banner" style="background:linear-gradient(135deg,rgba(52,211,153,0.15),rgba(56,189,248,0.1));border-color:rgba(52,211,153,0.3);margin-bottom:1rem;">
+        <div>
+          <div class="ensemble-title" style="color:#34d399">🎲 เลขเด่นวิ่ง/รูดประจำงวด (Banker Digits)</div>
+          <div style="font-size:0.78rem;color:var(--text-muted);margin-top:2px;">
+            ตัวเลขที่มีค่าความเชื่อมั่นรวมสูงสุดทุกหลัก — เหมาะสำหรับกลยุทธ์วิ่งบน/ล่าง และรูด 19 ประตู
           </div>
-          <span class="panel-badge">ท้ายรางวัลที่ 1</span>
         </div>
-        <div class="cand-list" id="cand-list-top2">
-          <!-- Populated by JS -->
+        <div class="ensemble-numbers" id="banker-container">
+          <!-- populated by JS -->
         </div>
       </div>
 
-      <!-- Column 2: 2 ตัวล่าง -->
-      <div class="panel">
-        <div class="cand-category-header">
-          <div class="category-tag">
-            <span style="color:#34d399">🎲</span> 2 ตัวล่าง (Lower 2-Digit)
+      <!-- Category Columns: 2 ตัวบนตรง-กลับ, 2 ตัวล่างตรง-กลับ, 3 ตัวบนเต็ง-โต๊ด 6 ประตู -->
+      <div class="prediction-columns">
+        <!-- Column 1: 2 ตัวบน -->
+        <div class="panel">
+          <div class="cand-category-header">
+            <div class="category-tag">
+              <span style="color:#38bdf8">🎯</span> 2 ตัวบน (ตรง + กลับ)
+            </div>
+            <span class="panel-badge">ท้ายรางวัลที่ 1</span>
           </div>
-          <span class="panel-badge">รางวัลเลขท้าย 2 ตัว</span>
+          <div class="cand-list" id="cand-list-top2">
+            <!-- Populated by JS -->
+          </div>
         </div>
-        <div class="cand-list" id="cand-list-last2">
-          <!-- Populated by JS -->
+
+        <!-- Column 2: 2 ตัวล่าง -->
+        <div class="panel">
+          <div class="cand-category-header">
+            <div class="category-tag">
+              <span style="color:#34d399">🎲</span> 2 ตัวล่าง (ตรง + กลับ)
+            </div>
+            <span class="panel-badge">รางวัลเลขท้าย 2 ตัว</span>
+          </div>
+          <div class="cand-list" id="cand-list-last2">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Column 3: 3 ตัวบน เต็ง + โต๊ด -->
+        <div class="panel">
+          <div class="cand-category-header">
+            <div class="category-tag">
+              <span style="color:#fbbf24">👑</span> 3 ตัวบน (เต็ง + โต๊ด 6 ประตู)
+            </div>
+            <span class="panel-badge">3 ตัวท้ายรางวัลที่ 1</span>
+          </div>
+          <div class="cand-list" id="cand-list-top3">
+            <!-- Populated by JS -->
+          </div>
         </div>
       </div>
-
-      <!-- Column 3: 3 ตัวบน -->
-      <div class="panel">
-        <div class="cand-category-header">
-          <div class="category-tag">
-            <span style="color:#fbbf24">👑</span> 3 ตัวบน (Top 3-Digit)
-          </div>
-          <span class="panel-badge">3 ตัวท้ายรางวัลที่ 1</span>
-        </div>
-        <div class="cand-list" id="cand-list-top3">
-          <!-- Populated by JS -->
-        </div>
-      </div>
-
     </div>
   </section>
 
@@ -1481,12 +1517,31 @@
       {"num": "383", "pct": 4.50, "tier": "warm", "hits": 0}
     ],
     "ensemble_6": [
-      {"number": "839306", "conf": 100.0},
-      {"number": "839386", "conf": 99.45},
-      {"number": "839303", "conf": 96.03},
-      {"number": "831306", "conf": 95.5},
-      {"number": "839383", "conf": 95.5}
-    ]
+      {"number": "839386", "conf": 100.0},
+      {"number": "539386", "conf": 87.15},
+      {"number": "339386", "conf": 85.46}
+    ],
+    "full_spectrum": {
+      "jackpot_6": [
+        {"number": "839386", "confidence": 100.0, "sum": 37, "even_odd": "3คู่ / 3คี่", "neighbors": ["839385", "839387"]},
+        {"number": "539386", "confidence": 87.15, "sum": 34, "even_odd": "2คู่ / 4คี่", "neighbors": ["539385", "539387"]},
+        {"number": "339386", "confidence": 85.46, "sum": 32, "even_odd": "2คู่ / 4คี่", "neighbors": ["339385", "339387"]}
+      ],
+      "box_3": [
+        {"direct": "386", "score": 0.00285, "permutations": ["368", "386", "638", "683", "836", "863"], "perm_count": 6},
+        {"direct": "306", "score": 0.002831, "permutations": ["036", "063", "306", "360", "603", "630"], "perm_count": 6},
+        {"direct": "383", "score": 0.002695, "permutations": ["338", "383", "833"], "perm_count": 3}
+      ],
+      "top2_pairs": [
+        {"direct": "86", "reverse": "68", "pair_set": ["86", "68"]},
+        {"direct": "06", "reverse": "60", "pair_set": ["06", "60"]},
+        {"direct": "83", "reverse": "38", "pair_set": ["83", "38"]}
+      ],
+      "banker_digits": [
+        {"digit": "3", "strength": 0.703},
+        {"digit": "8", "strength": 0.697}
+      ]
+    }
   },
   "heatmap_data": {
     "sep16": {
@@ -1757,11 +1812,27 @@ function updateCountdownTargetUI(targetDate) {
   }
 }
 
-// ── 4. Predictions Rendering ───────────────────────────────
+// ── 4. Predictions Rendering (Dual-Mode & Full Spectrum) ──
+let currentPredictionMode = 'jackpot';
+
+function switchPredictionMode(mode) {
+  currentPredictionMode = mode;
+  const btnJackpot = el('btn-pred-jackpot');
+  const btnSubprize = el('btn-pred-subprize');
+  const viewJackpot = el('view-jackpot-mode');
+  const viewSubprize = el('view-subprize-mode');
+
+  if (btnJackpot) btnJackpot.classList.toggle('active', mode === 'jackpot');
+  if (btnSubprize) btnSubprize.classList.toggle('active', mode === 'subprize');
+  if (viewJackpot) viewJackpot.style.display = mode === 'jackpot' ? 'block' : 'none';
+  if (viewSubprize) viewSubprize.style.display = mode === 'subprize' ? 'block' : 'none';
+}
+
 function renderPredictions() {
   const p = appData.predictions;
   if (!p) return;
 
+  // 1. Jackpot Hunter Mode - 6-digit Ensemble Chips
   const ensCont = el('ensemble-container');
   if (ensCont && p.ensemble_6) {
     ensCont.innerHTML = p.ensemble_6.slice(0, 3).map((item, idx) => `
@@ -1773,44 +1844,138 @@ function renderPredictions() {
     `).join('');
   }
 
-  const t2Cont = el('cand-list-top2');
-  if (t2Cont && p.top2) {
-    const maxP = Math.max(...p.top2.map(x => x.pct));
-    t2Cont.innerHTML = p.top2.slice(0, 3).map((item, i) => `
-      <div class="cand-card ${item.tier}-tier" onclick="copyNum('${item.num}')">
-        <div class="cand-card-left">
-          <span class="cand-rank">#${i+1}</span>
-          <div>
-            <div class="cand-num" style="color:#38bdf8">${item.num}</div>
-            <div class="cand-meta">
-              <span data-i18n-th="ออก 16 ก.ย.: ${item.sep16_freq} ครั้ง (ถ่วงน้ำหนัก ${item.rec_weight})" data-i18n-en="Sep 16 Hits: ${item.sep16_freq} (Weight ${item.rec_weight})">${isEnglish ? `Sep 16 Hits: ${item.sep16_freq} (Weight ${item.rec_weight})` : `ออก 16 ก.ย.: ${item.sep16_freq} ครั้ง (ถ่วงน้ำหนัก ${item.rec_weight})`}</span>
+  // 2. Jackpot Details Grid (Sum, Even/Odd, Neighbors +-1)
+  const gridCont = el('jackpot-details-grid');
+  if (gridCont) {
+    const jList = (p.full_spectrum && p.full_spectrum.jackpot_6) ? p.full_spectrum.jackpot_6 : (p.ensemble_6 || []).map(e => {
+      const n = parseInt(e.number);
+      const digits = e.number.split('').map(d => parseInt(d) || 0);
+      const ev = digits.filter(d => d % 2 === 0).length;
+      return {
+        number: e.number,
+        confidence: e.conf,
+        sum: digits.reduce((a, b) => a + b, 0),
+        even_odd: `${ev}คู่ / ${6 - ev}คี่`,
+        neighbors: [
+          String((n - 1 + 1000000) % 1000000).padStart(6, '0'),
+          String((n + 1) % 1000000).padStart(6, '0')
+        ]
+      };
+    });
+
+    gridCont.innerHTML = jList.slice(0, 3).map((item, idx) => {
+      const neighborsHtml = (item.neighbors || []).map(n => 
+        `<span class="num-pill" style="cursor:pointer;font-size:0.8rem;padding:3px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:6px;" onclick="copyNum('${n}')" title="คลิกเพื่อคัดลอก / Click to copy">${n}</span>`
+      ).join(' ');
+
+      return `
+        <div class="panel" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.1rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span style="font-size:0.82rem;font-weight:700;color:var(--accent);">ชุดกลยุทธ์ #${idx+1}</span>
+            <span class="tier-badge hot">${item.confidence.toFixed(1)}%</span>
+          </div>
+          <div style="font-family:var(--font-mono);font-size:1.65rem;font-weight:800;letter-spacing:2px;color:#38bdf8;cursor:pointer;margin-bottom:6px;" onclick="copyNum('${item.number}')" title="คลิกเพื่อคัดลอก / Click to copy">
+            ${item.number}
+          </div>
+          <div style="display:flex;gap:8px;font-size:0.75rem;color:var(--text-muted);align-items:center;">
+            <span>ผลรวม: <strong style="color:#fff;">${item.sum}</strong></span>
+            <span>•</span>
+            <span>สมดุล: <strong style="color:#fff;">${item.even_odd}</strong></span>
+          </div>
+          <div style="margin-top:10px;padding-top:8px;border-top:1px dashed rgba(255,255,255,0.1);">
+            <div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:5px;">🎯 เลขเคียงดักรางวัล (±1 Neighbor Hedging):</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+              ${neighborsHtml}
             </div>
           </div>
         </div>
-        <div class="cand-card-right">
-          <div style="display:flex;align-items:center;gap:6px">
-            <span class="cand-pct">${item.pct.toFixed(2)}%</span>
-            <span class="tier-badge ${item.tier}">${item.tier}</span>
-          </div>
-          <div class="prob-bar-bg">
-            <div class="prob-bar-fill" style="width:${(item.pct/maxP*100).toFixed(1)}%"></div>
-          </div>
-        </div>
+      `;
+    }).join('');
+  }
+
+  // 3. Sub-Prizes Mode: Banker Digits (เลขเด่นวิ่ง/รูด)
+  const bCont = el('banker-container');
+  if (bCont && p.full_spectrum && p.full_spectrum.banker_digits) {
+    bCont.innerHTML = p.full_spectrum.banker_digits.map(item => `
+      <div class="ensemble-chip" style="background:linear-gradient(135deg,rgba(52,211,153,0.2),rgba(56,189,248,0.15));border-color:rgba(52,211,153,0.4);" onclick="copyNum('${item.digit}')" title="คลิกเพื่อคัดลอก / Click to copy">
+        <span style="font-size:0.75rem;color:#34d399">เด่นวิ่ง</span>
+        <span class="ensemble-digit" style="color:#34d399">${item.digit}</span>
+        <span class="ensemble-conf" style="color:var(--text-muted)">คะแนน ${(item.strength * 100).toFixed(0)}</span>
       </div>
     `).join('');
   }
 
+  // 4. Sub-Prizes Mode: 2 ตัวบน (ตรง + กลับ)
+  const t2Cont = el('cand-list-top2');
+  if (t2Cont) {
+    if (p.full_spectrum && p.full_spectrum.top2_pairs) {
+      t2Cont.innerHTML = p.full_spectrum.top2_pairs.map((pair, i) => `
+        <div class="cand-card hot-tier">
+          <div class="cand-card-left">
+            <span class="cand-rank">#${i+1}</span>
+            <div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span class="cand-num" style="color:#38bdf8;cursor:pointer;" onclick="copyNum('${pair.direct}')" title="เลขตรง">${pair.direct}</span>
+                <span style="color:var(--text-muted);font-size:0.8rem;">/</span>
+                <span class="cand-num" style="color:#a78bfa;cursor:pointer;" onclick="copyNum('${pair.reverse}')" title="เลขกลับ">${pair.reverse}</span>
+              </div>
+              <div class="cand-meta">
+                <span>ชุดตรง + กลับ (Hedging Pair)</span>
+              </div>
+            </div>
+          </div>
+          <div class="cand-card-right">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span class="tier-badge hot">คู่เด่น</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    } else if (p.top2) {
+      const maxP = Math.max(...p.top2.map(x => x.pct));
+      t2Cont.innerHTML = p.top2.slice(0, 3).map((item, i) => `
+        <div class="cand-card ${item.tier}-tier" onclick="copyNum('${item.num}')">
+          <div class="cand-card-left">
+            <span class="cand-rank">#${i+1}</span>
+            <div>
+              <div class="cand-num" style="color:#38bdf8">${item.num}</div>
+              <div class="cand-meta">
+                <span data-i18n-th="ออก 16 ก.ย.: ${item.sep16_freq} ครั้ง (ถ่วงน้ำหนัก ${item.rec_weight})" data-i18n-en="Sep 16 Hits: ${item.sep16_freq} (Weight ${item.rec_weight})">${isEnglish ? `Sep 16 Hits: ${item.sep16_freq} (Weight ${item.rec_weight})` : `ออก 16 ก.ย.: ${item.sep16_freq} ครั้ง (ถ่วงน้ำหนัก ${item.rec_weight})`}</span>
+              </div>
+            </div>
+          </div>
+          <div class="cand-card-right">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span class="cand-pct">${item.pct.toFixed(2)}%</span>
+              <span class="tier-badge ${item.tier}">${item.tier}</span>
+            </div>
+            <div class="prob-bar-bg">
+              <div class="prob-bar-fill" style="width:${(item.pct/maxP*100).toFixed(1)}%"></div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+
+  // 5. Sub-Prizes Mode: 2 ตัวล่าง (ตรง + กลับ)
   const l2Cont = el('cand-list-last2');
   if (l2Cont && p.last2) {
     const maxP = Math.max(...p.last2.map(x => x.pct));
-    l2Cont.innerHTML = p.last2.slice(0, 3).map((item, i) => `
-      <div class="cand-card ${item.tier}-tier" onclick="copyNum('${item.num}')">
+    l2Cont.innerHTML = p.last2.slice(0, 3).map((item, i) => {
+      const rev = item.num.split('').reverse().join('');
+      const hasRev = rev !== item.num;
+      return `
+      <div class="cand-card ${item.tier}-tier">
         <div class="cand-card-left">
           <span class="cand-rank">#${i+1}</span>
           <div>
-            <div class="cand-num" style="color:#34d399">${item.num}</div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span class="cand-num" style="color:#34d399;cursor:pointer;" onclick="copyNum('${item.num}')" title="ตรง">${item.num}</span>
+              ${hasRev ? `<span style="color:var(--text-muted);font-size:0.8rem;">/</span><span class="cand-num" style="color:#6ee7b7;font-size:1.05rem;cursor:pointer;" onclick="copyNum('${rev}')" title="กลับ">${rev}</span>` : ''}
+            </div>
             <div class="cand-meta">
-              <span data-i18n-th="ออก 16 ก.ย.: ${item.sep16_freq} ครั้ง (ถ่วงน้ำหนัก ${item.rec_weight})" data-i18n-en="Sep 16 Hits: ${item.sep16_freq} (Weight ${item.rec_weight})">${isEnglish ? `Sep 16 Hits: ${item.sep16_freq} (Weight ${item.rec_weight})` : `ออก 16 ก.ย.: ${item.sep16_freq} ครั้ง (ถ่วงน้ำหนัก ${item.rec_weight})`}</span>
+              <span>ออก 16 ก.ย.: ${item.sep16_freq} ครั้ง ${hasRev ? `(กลับ: ${rev})` : ''}</span>
             </div>
           </div>
         </div>
@@ -1824,38 +1989,63 @@ function renderPredictions() {
           </div>
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
   }
 
+  // 6. Sub-Prizes Mode: 3 ตัวบน (เต็ง + โต๊ด 6 ประตู)
   const t3Cont = el('cand-list-top3');
-  if (t3Cont && p.top3) {
-    const maxP = Math.max(...p.top3.map(x => x.pct));
-    t3Cont.innerHTML = p.top3.slice(0, 3).map((item, i) => {
-      const thMeta = item.hits > 0 ? `ประวัติ 16 ก.ย.: เคยออก ${item.hits} ครั้ง` : 'ประวัติ 16 ก.ย.: คลัสเตอร์ใหม่';
-      const enMeta = item.hits > 0 ? `Sep 16 History: Appeared ${item.hits} times` : 'Sep 16 History: New cluster';
-      return `
-      <div class="cand-card ${item.tier}-tier" onclick="copyNum('${item.num}')">
-        <div class="cand-card-left">
-          <span class="cand-rank">#${i+1}</span>
-          <div>
-            <div class="cand-num" style="color:#fbbf24">${item.num}</div>
-            <div class="cand-meta">
-              <span data-i18n-th="${thMeta}" data-i18n-en="${enMeta}">${isEnglish ? enMeta : thMeta}</span>
+  if (t3Cont) {
+    if (p.full_spectrum && p.full_spectrum.box_3) {
+      t3Cont.innerHTML = p.full_spectrum.box_3.map((b, i) => {
+        const permsHtml = b.permutations.map(pm => 
+          `<span class="num-pill" style="cursor:pointer;font-size:0.75rem;padding:2px 6px;background:rgba(251,191,36,0.1);color:#fbbf24;border:1px solid rgba(251,191,36,0.25);border-radius:4px;" onclick="copyNum('${pm}')" title="คลิกคัดลอก / Click to copy">${pm}</span>`
+        ).join(' ');
+        return `
+          <div class="cand-card warm-tier" style="flex-direction:column;align-items:stretch;gap:8px;padding:0.75rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span class="cand-rank">#${i+1}</span>
+                <span class="cand-num" style="color:#fbbf24;font-size:1.35rem;cursor:pointer;" onclick="copyNum('${b.direct}')" title="เต็งตรง">${b.direct}</span>
+                <span class="tier-badge warm">เต็งตรง</span>
+              </div>
+              <span style="font-size:0.75rem;color:var(--text-muted);">${b.perm_count} ประตู</span>
+            </div>
+            <div style="font-size:0.72rem;color:var(--text-muted);display:flex;align-items:center;gap:4px;flex-wrap:wrap;">
+              <span>โต๊ด:</span> ${permsHtml}
+            </div>
+          </div>
+        `;
+      }).join('');
+    } else if (p.top3) {
+      const maxP = Math.max(...p.top3.map(x => x.pct));
+      t3Cont.innerHTML = p.top3.slice(0, 3).map((item, i) => {
+        const thMeta = item.hits > 0 ? `ประวัติ 16 ก.ย.: เคยออก ${item.hits} ครั้ง` : 'ประวัติ 16 ก.ย.: คลัสเตอร์ใหม่';
+        const enMeta = item.hits > 0 ? `Sep 16 History: Appeared ${item.hits} times` : 'Sep 16 History: New cluster';
+        return `
+        <div class="cand-card ${item.tier}-tier" onclick="copyNum('${item.num}')">
+          <div class="cand-card-left">
+            <span class="cand-rank">#${i+1}</span>
+            <div>
+              <div class="cand-num" style="color:#fbbf24">${item.num}</div>
+              <div class="cand-meta">
+                <span data-i18n-th="${thMeta}" data-i18n-en="${enMeta}">${isEnglish ? enMeta : thMeta}</span>
+              </div>
+            </div>
+          </div>
+          <div class="cand-card-right">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span class="cand-pct">${item.pct.toFixed(2)}%</span>
+              <span class="tier-badge ${item.tier}">${item.tier}</span>
+            </div>
+            <div class="prob-bar-bg">
+              <div class="prob-bar-fill" style="width:${(item.pct/maxP*100).toFixed(1)}%;background:linear-gradient(90deg,var(--amber),#ef4444)"></div>
             </div>
           </div>
         </div>
-        <div class="cand-card-right">
-          <div style="display:flex;align-items:center;gap:6px">
-            <span class="cand-pct">${item.pct.toFixed(2)}%</span>
-            <span class="tier-badge ${item.tier}">${item.tier}</span>
-          </div>
-          <div class="prob-bar-bg">
-            <div class="prob-bar-fill" style="width:${(item.pct/maxP*100).toFixed(1)}%;background:linear-gradient(90deg,var(--amber),#ef4444)"></div>
-          </div>
-        </div>
-      </div>
-    `;
-    }).join('');
+      `;
+      }).join('');
+    }
   }
 }
 
@@ -2349,6 +2539,9 @@ async function fetchPipelineStatus() {
           number: c.number,
           conf: c.confidence
         }));
+        if (data.full_spectrum) {
+          appData.predictions.full_spectrum = data.full_spectrum;
+        }
         renderPredictions();
       }
       const badge = el('s-cache-badge');

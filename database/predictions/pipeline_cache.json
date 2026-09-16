@@ -2,154 +2,272 @@
   "status": "ok",
   "candidates": [
     {
-      "number": "839306",
-      "score": 5.56e-06,
+      "number": "839386",
+      "score": 7.68e-06,
       "digits": [
         "8",
         "3",
         "9",
         "3",
-        "0",
+        "8",
         "6"
       ],
+      "sum": 37,
+      "even_odd": "3คู่ / 3คี่",
       "confidence": 100.0
     },
     {
-      "number": "839386",
-      "score": 5.53e-06,
+      "number": "539386",
+      "score": 6.69e-06,
       "digits": [
-        "8",
+        "5",
         "3",
         "9",
         "3",
         "8",
         "6"
       ],
-      "confidence": 99.45
+      "sum": 34,
+      "even_odd": "2คู่ / 4คี่",
+      "confidence": 87.15
     },
     {
-      "number": "839303",
-      "score": 5.34e-06,
+      "number": "339386",
+      "score": 6.56e-06,
       "digits": [
-        "8",
+        "3",
         "3",
         "9",
         "3",
-        "0",
-        "3"
+        "8",
+        "6"
       ],
-      "confidence": 96.03
+      "sum": 32,
+      "even_odd": "2คู่ / 4คี่",
+      "confidence": 85.46
     },
     {
-      "number": "831306",
-      "score": 5.31e-06,
+      "number": "859306",
+      "score": 5.75e-06,
       "digits": [
         "8",
-        "3",
-        "1",
+        "5",
+        "9",
         "3",
         "0",
         "6"
       ],
-      "confidence": 95.5
+      "sum": 31,
+      "even_odd": "3คู่ / 3คี่",
+      "confidence": 74.9
     },
     {
-      "number": "839383",
-      "score": 5.31e-06,
+      "number": "879306",
+      "score": 5.71e-06,
       "digits": [
         "8",
-        "3",
+        "7",
         "9",
         "3",
-        "8",
-        "3"
+        "0",
+        "6"
       ],
-      "confidence": 95.5
+      "sum": 33,
+      "even_odd": "3คู่ / 3คี่",
+      "confidence": 74.29
     }
   ],
+  "full_spectrum": {
+    "jackpot_6": [
+      {
+        "number": "839386",
+        "confidence": 100.0,
+        "sum": 37,
+        "even_odd": "3คู่ / 3คี่",
+        "neighbors": [
+          "839385",
+          "839387"
+        ]
+      },
+      {
+        "number": "539386",
+        "confidence": 87.15,
+        "sum": 34,
+        "even_odd": "2คู่ / 4คี่",
+        "neighbors": [
+          "539385",
+          "539387"
+        ]
+      },
+      {
+        "number": "339386",
+        "confidence": 85.46,
+        "sum": 32,
+        "even_odd": "2คู่ / 4คี่",
+        "neighbors": [
+          "339385",
+          "339387"
+        ]
+      }
+    ],
+    "box_3": [
+      {
+        "direct": "386",
+        "score": 0.00285,
+        "permutations": [
+          "368",
+          "386",
+          "638",
+          "683",
+          "836",
+          "863"
+        ],
+        "perm_count": 6
+      },
+      {
+        "direct": "306",
+        "score": 0.002831,
+        "permutations": [
+          "036",
+          "063",
+          "306",
+          "360",
+          "603",
+          "630"
+        ],
+        "perm_count": 6
+      },
+      {
+        "direct": "383",
+        "score": 0.002695,
+        "permutations": [
+          "338",
+          "383",
+          "833"
+        ],
+        "perm_count": 3
+      }
+    ],
+    "top2_pairs": [
+      {
+        "direct": "86",
+        "reverse": "68",
+        "pair_set": [
+          "86",
+          "68"
+        ]
+      },
+      {
+        "direct": "06",
+        "reverse": "60",
+        "pair_set": [
+          "06",
+          "60"
+        ]
+      },
+      {
+        "direct": "83",
+        "reverse": "38",
+        "pair_set": [
+          "83",
+          "38"
+        ]
+      }
+    ],
+    "banker_digits": [
+      {
+        "digit": "3",
+        "strength": 0.703
+      },
+      {
+        "digit": "6",
+        "strength": 0.634
+      }
+    ]
+  },
   "position_scores": {
     "digit1": {
-      "8": 0.12692,
-      "5": 0.12018,
-      "3": 0.1111,
-      "2": 0.10888,
-      "0": 0.0975,
-      "1": 0.09555,
-      "9": 0.08987,
-      "4": 0.08916,
-      "6": 0.08391,
-      "7": 0.07694
+      "8": 0.13802,
+      "5": 0.12028,
+      "3": 0.11794,
+      "2": 0.10819,
+      "0": 0.09981,
+      "4": 0.0931,
+      "1": 0.08346,
+      "6": 0.08235,
+      "7": 0.07868,
+      "9": 0.07817
     },
     "digit2": {
-      "3": 0.14567,
-      "7": 0.11445,
-      "5": 0.1143,
-      "4": 0.1037,
-      "2": 0.10002,
-      "6": 0.09207,
-      "8": 0.08657,
-      "1": 0.08584,
-      "0": 0.08292,
-      "9": 0.07445
+      "3": 0.15433,
+      "5": 0.11635,
+      "7": 0.1154,
+      "4": 0.10319,
+      "2": 0.1001,
+      "6": 0.08956,
+      "1": 0.08651,
+      "8": 0.08484,
+      "0": 0.07947,
+      "9": 0.07027
     },
     "digit3": {
-      "9": 0.11905,
-      "1": 0.11369,
-      "0": 0.11063,
-      "6": 0.10713,
-      "7": 0.09839,
-      "2": 0.09573,
-      "5": 0.09239,
-      "4": 0.09167,
-      "3": 0.08623,
-      "8": 0.0851
+      "9": 0.12653,
+      "0": 0.11544,
+      "1": 0.11326,
+      "7": 0.1044,
+      "6": 0.10342,
+      "2": 0.09567,
+      "5": 0.09039,
+      "4": 0.08911,
+      "8": 0.081,
+      "3": 0.08079
     },
     "digit4": {
-      "3": 0.14086,
-      "4": 0.1168,
-      "1": 0.11369,
-      "6": 0.10347,
-      "2": 0.0999,
-      "8": 0.09479,
-      "5": 0.09071,
-      "0": 0.08543,
-      "9": 0.08314,
-      "7": 0.07119
+      "3": 0.14774,
+      "4": 0.11914,
+      "1": 0.11388,
+      "6": 0.10568,
+      "2": 0.09864,
+      "8": 0.0959,
+      "0": 0.08615,
+      "5": 0.08611,
+      "9": 0.07863,
+      "7": 0.06811
     },
     "digit5": {
-      "0": 0.12749,
-      "8": 0.12678,
-      "5": 0.1138,
-      "6": 0.11104,
-      "2": 0.10809,
-      "1": 0.08923,
-      "4": 0.08712,
-      "7": 0.08559,
-      "9": 0.08155,
-      "3": 0.06931
+      "8": 0.13237,
+      "0": 0.13151,
+      "5": 0.11768,
+      "2": 0.10775,
+      "6": 0.10761,
+      "1": 0.08765,
+      "4": 0.08466,
+      "9": 0.08344,
+      "7": 0.08294,
+      "3": 0.0644
     },
     "digit6": {
-      "6": 0.14065,
-      "3": 0.13507,
-      "2": 0.11081,
-      "1": 0.10433,
-      "0": 0.09708,
-      "7": 0.09276,
-      "9": 0.08454,
-      "5": 0.08334,
-      "4": 0.07667,
-      "8": 0.07474
+      "6": 0.14573,
+      "3": 0.1378,
+      "2": 0.11446,
+      "1": 0.10403,
+      "0": 0.09634,
+      "7": 0.09154,
+      "9": 0.08306,
+      "5": 0.08165,
+      "4": 0.07419,
+      "8": 0.0712
     }
   },
   "ensemble_weights": {
-    "positional_freq": 0.3,
+    "positional_freq": 0.15,
     "rolling_heat": 0.15,
-    "conditional": 0.2,
-    "transition": 0.1,
+    "conditional": 0.25,
+    "transition": 0.2,
     "pair_lift": 0.1,
-    "pattern_hot": 0.1,
+    "pattern_hot": 0.05,
     "gap_overdue": 0.05,
-    "temporal_trend": 0.0
+    "temporal_trend": 0.05
   },
   "last_draw": {
     "date": "2026-09-16",
@@ -337,7 +455,7 @@
         "surge_ratio": 3.22
       },
       {
-        "sequence": "46",
+        "sequence": "30",
         "recent_count": 3,
         "recent_freq": 0.03,
         "baseline_freq": 0.0098,
@@ -351,24 +469,24 @@
         "surge_ratio": 3.07
       },
       {
-        "sequence": "30",
+        "sequence": "46",
         "recent_count": 3,
         "recent_freq": 0.03,
         "baseline_freq": 0.0098,
         "surge_ratio": 3.07
       },
       {
-        "sequence": "17",
-        "recent_count": 3,
-        "recent_freq": 0.03,
-        "baseline_freq": 0.0106,
-        "surge_ratio": 2.82
-      },
-      {
         "sequence": "89",
         "recent_count": 2,
         "recent_freq": 0.02,
         "baseline_freq": 0.0071,
+        "surge_ratio": 2.82
+      },
+      {
+        "sequence": "17",
+        "recent_count": 3,
+        "recent_freq": 0.03,
+        "baseline_freq": 0.0106,
         "surge_ratio": 2.82
       },
       {
@@ -381,14 +499,14 @@
     ],
     "surging_3digit": [
       {
-        "sequence": "878",
+        "sequence": "107",
         "recent_count": 1,
         "recent_freq": 0.0125,
         "baseline_freq": 0.0006,
         "surge_ratio": 22.55
       },
       {
-        "sequence": "638",
+        "sequence": "004",
         "recent_count": 1,
         "recent_freq": 0.0125,
         "baseline_freq": 0.0006,
@@ -402,14 +520,14 @@
         "surge_ratio": 22.55
       },
       {
-        "sequence": "172",
+        "sequence": "615",
         "recent_count": 1,
         "recent_freq": 0.0125,
         "baseline_freq": 0.0006,
         "surge_ratio": 22.55
       },
       {
-        "sequence": "208",
+        "sequence": "897",
         "recent_count": 1,
         "recent_freq": 0.0125,
         "baseline_freq": 0.0006,
@@ -423,14 +541,14 @@
         "surge_ratio": 22.55
       },
       {
-        "sequence": "514",
+        "sequence": "461",
         "recent_count": 2,
         "recent_freq": 0.025,
         "baseline_freq": 0.0011,
         "surge_ratio": 22.55
       },
       {
-        "sequence": "718",
+        "sequence": "173",
         "recent_count": 1,
         "recent_freq": 0.0125,
         "baseline_freq": 0.0006,
@@ -1045,17 +1163,17 @@
     }
   },
   "explanation": {
-    "number": "839306",
+    "number": "839386",
     "overall_factor_scores": {
-      "pattern_score": 0.20989,
-      "probability_score": 0.59807,
-      "heatmap_score": 0.25233,
-      "grand_total": 1.06029
+      "pattern_score": 0.20132,
+      "probability_score": 0.64077,
+      "heatmap_score": 0.24267,
+      "grand_total": 1.08476
     },
     "overall_factor_pct": {
-      "pattern_pct": 19.8,
-      "probability_pct": 56.4,
-      "heatmap_pct": 23.8
+      "pattern_pct": 18.6,
+      "probability_pct": 59.1,
+      "heatmap_pct": 22.4
     },
     "positions": [
       {
@@ -1210,38 +1328,38 @@
       },
       {
         "position": "digit5",
-        "digit": 0,
+        "digit": 8,
         "raw_signals": {
-          "positional_freq": 0.12951,
-          "rolling_heat": 0.12,
-          "gap_overdue": 0.41659,
-          "pattern_hot": 0.10085,
-          "conditional": 0.08929,
-          "pair_lift": 0.3447,
-          "transition": 0.17073,
-          "temporal_trend": 0.11905
+          "positional_freq": 0.0913,
+          "rolling_heat": 0.08,
+          "gap_overdue": 0.31605,
+          "pattern_hot": 0.09554,
+          "conditional": 0.14286,
+          "pair_lift": 0.78239,
+          "transition": 0.14634,
+          "temporal_trend": 0.09524
         },
         "factor_scores": {
-          "pattern_score": 0.04341,
-          "probability_score": 0.09084,
-          "heatmap_score": 0.03233,
-          "total": 0.16658
+          "pattern_score": 0.03484,
+          "probability_score": 0.13256,
+          "heatmap_score": 0.02267,
+          "total": 0.19007
         },
         "factor_contribution": {
-          "pattern_pct": 26.1,
-          "probability_pct": 54.5,
-          "heatmap_pct": 19.4
+          "pattern_pct": 18.3,
+          "probability_pct": 69.7,
+          "heatmap_pct": 11.9
         },
         "reasons": {
           "th": [
-            "ตัวเลข 0 ออกบ่อยกว่าค่าเฉลี่ยที่ตำแหน่งนี้ (13.0% vs 10%)",
-            "จากงวดก่อน ตำแหน่งนี้มักจะเปลี่ยนมาเป็น 0 (17.1%)",
-            "ตัวเลข 0 ไม่ได้ออกมาสักพักที่ตำแหน่งนี้ (gap score=0.42)"
+            "เมื่อตำแหน่งก่อนออก 3 มีโอกาส 14.3% ที่ตำแหน่งนี้จะออก 8",
+            "จากงวดก่อน ตำแหน่งนี้มักจะเปลี่ยนมาเป็น 8 (14.6%)",
+            "คู่ 38 มี lift สูง — ออกร่วมกันบ่อยกว่าที่ควรจะเป็น"
           ],
           "en": [
-            "Digit 0 appears more frequently than average here (13.0% vs 10%)",
-            "From last draw, this position frequently transitions to 0 (17.1%)",
-            "Digit 0 hasn't appeared recently in this position (gap score=0.42)"
+            "When previous digit is 3, there's a 14.3% chance this digit is 8",
+            "From last draw, this position frequently transitions to 8 (14.6%)",
+            "Pair 38 has high lift — appears together more often than expected"
           ]
         }
       },
@@ -1253,21 +1371,21 @@
           "rolling_heat": 0.14,
           "gap_overdue": 0.42863,
           "pattern_hot": 0.09802,
-          "conditional": 0.11475,
-          "pair_lift": 0.56301,
+          "conditional": 0.11628,
+          "pair_lift": 0.57049,
           "transition": 0.12195,
           "temporal_trend": 0.14286
         },
         "factor_scores": {
           "pattern_score": 0.04409,
-          "probability_score": 0.10609,
+          "probability_score": 0.10707,
           "heatmap_score": 0.038,
-          "total": 0.18818
+          "total": 0.18916
         },
         "factor_contribution": {
-          "pattern_pct": 23.4,
-          "probability_pct": 56.4,
-          "heatmap_pct": 20.2
+          "pattern_pct": 23.3,
+          "probability_pct": 56.6,
+          "heatmap_pct": 20.1
         },
         "reasons": {
           "th": [
@@ -1281,7 +1399,7 @@
         }
       }
     ],
-    "explained_at": "2026-09-16T18:09:11.463155",
+    "explained_at": "2026-09-16T18:35:47.118832",
     "ensemble_confidence": 100.0
   },
   "meta": {
@@ -1297,7 +1415,7 @@
       "beam": 3,
       "window": 50
     },
-    "processing_at": "2026-09-16T18:09:11.467154",
+    "processing_at": "2026-09-16T18:35:47.120841",
     "api_version": "1.0"
   }
 }

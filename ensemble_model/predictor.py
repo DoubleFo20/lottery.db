@@ -356,12 +356,16 @@ class EnsemblePredictor:
 
         return self
 
-    def generate_candidates(self, top_k: int = 5, beam_width: int = 3) -> list[dict]:
+    def generate_candidates(self, top_k: int = 5, beam_width: int = 4) -> list[dict]:
         """
-        Generate top-K candidate 6-digit numbers using beam search.
+        Generate top-K candidate 6-digit numbers using diverse beam search + statistical filters.
 
-        beam_width = how many top digits to keep per position.
-        Candidates are scored as the product of per-position scores.
+        Filters:
+          1. Sum of digits: 18 - 38 (standard lottery distribution)
+          2. Odd/Even balance: 2, 3, or 4 evens (no 6-even or 6-odd extremes)
+          3. Consecutive repetition: avoid 4 identical or 4 sequential digits
+          4. Prefix Diversity: top candidates are picked from distinct 2-digit prefixes (clusters)
+             to avoid prefix clumping (e.g. all starting with '8368--').
         """
         if not self.position_scores:
             return []
@@ -373,10 +377,26 @@ class EnsemblePredictor:
                             key=lambda x: x[1], reverse=True)
             top_per_pos.append(ranked[:beam_width])
 
-        # Generate all combinations from beam
+        # Generate combinations with statistical filtering
         raw_candidates = []
         for combo in product(*top_per_pos):
             digits = [str(d) for d, _ in combo]
+            int_digits = [int(d) for d in digits]
+
+            # Filter 1: Sum constraint (18 to 38)
+            sum_val = sum(int_digits)
+            if sum_val < 18 or sum_val > 38:
+                continue
+
+            # Filter 2: Odd/Even balance (2 to 4 evens)
+            even_cnt = sum(1 for d in int_digits if d % 2 == 0)
+            if even_cnt < 2 or even_cnt > 4:
+                continue
+
+            # Filter 3: No 4 consecutive identical digits
+            if any(digits[i] == digits[i+1] == digits[i+2] == digits[i+3] for i in range(3)):
+                continue
+
             score = 1.0
             for d, s in combo:
                 score *= s
@@ -385,11 +405,34 @@ class EnsemblePredictor:
                 "number": number,
                 "score": score,
                 "digits": digits,
+                "sum": sum_val,
+                "even_odd": f"{even_cnt}คู่ / {6-even_cnt}คี่",
             })
 
-        # Sort and take top-K
+        # Sort all valid candidates by probability score
         raw_candidates.sort(key=lambda x: x["score"], reverse=True)
-        self.candidates = raw_candidates[:top_k]
+
+        # Cluster Diversity: Pick candidates with distinct 2-digit prefixes
+        diverse_candidates = []
+        seen_prefixes = set()
+
+        for cand in raw_candidates:
+            prefix = cand["number"][:2]
+            if prefix not in seen_prefixes:
+                diverse_candidates.append(cand)
+                seen_prefixes.add(prefix)
+                if len(diverse_candidates) >= top_k:
+                    break
+
+        # Fallback if diversity didn't fill top_k
+        if len(diverse_candidates) < top_k:
+            for cand in raw_candidates:
+                if cand not in diverse_candidates:
+                    diverse_candidates.append(cand)
+                    if len(diverse_candidates) >= top_k:
+                        break
+
+        self.candidates = diverse_candidates if diverse_candidates else raw_candidates[:top_k]
 
         # Normalise scores to relative confidence %
         if self.candidates:
@@ -400,7 +443,100 @@ class EnsemblePredictor:
 
         return self.candidates
 
-    def run(self, top_k: int = 5, beam_width: int = 3) -> list[dict]:
+    def generate_full_spectrum(self) -> dict:
+        """
+        Generate full-spectrum multi-tier prize recommendations:
+          1. jackpot_6: diverse 6-digit candidates + neighbor numbers (+-1)
+          2. box_3: top 3-digit combinations with their 6-way permutations (โต๊ด 6 ประตู)
+          3. pairs_2: top 2-digit upper with direct + reverse pairs
+          4. banker_digits: top single digits (เลขวิ่ง)
+        """
+        if not self.position_scores:
+            return {}
+
+        # 1. Jackpot 6-digit with neighbors
+        jackpot = []
+        for c in self.candidates[:3]:
+            n_int = int(c["number"])
+            jackpot.append({
+                "number": c["number"],
+                "confidence": c.get("confidence", 100.0),
+                "sum": c.get("sum", sum(int(d) for d in c["number"])),
+                "even_odd": c.get("even_odd", "3คู่ / 3คี่"),
+                "neighbors": [
+                    str((n_int - 1) % 1000000).zfill(6),
+                    str((n_int + 1) % 1000000).zfill(6)
+                ]
+            })
+
+        # 2. Top 3-digit + 6-way permutations (โต๊ด)
+        pos4 = sorted(self.position_scores["digit4"].items(), key=lambda x: x[1], reverse=True)[:3]
+        pos5 = sorted(self.position_scores["digit5"].items(), key=lambda x: x[1], reverse=True)[:3]
+        pos6 = sorted(self.position_scores["digit6"].items(), key=lambda x: x[1], reverse=True)[:3]
+
+        raw_t3 = []
+        for d4, s4 in pos4:
+            for d5, s5 in pos5:
+                for d6, s6 in pos6:
+                    combo_str = f"{d4}{d5}{d6}"
+                    p_score = s4 * s5 * s6
+                    raw_t3.append((combo_str, p_score))
+        raw_t3.sort(key=lambda x: x[1], reverse=True)
+
+        box_3 = []
+        seen_t3_roots = set()
+        for num_str, score in raw_t3:
+            root = "".join(sorted(num_str))
+            if root not in seen_t3_roots:
+                perms = sorted(list(set("".join(p) for p in product(num_str, repeat=3) if sorted(p) == sorted(num_str))))
+                box_3.append({
+                    "direct": num_str,
+                    "score": round(score, 6),
+                    "permutations": perms,
+                    "perm_count": len(perms)
+                })
+                if len(box_3) >= 3:
+                    break
+
+        # 3. Pairs 2-digit Upper with Reverse
+        raw_t2 = []
+        for d5, s5 in pos5:
+            for d6, s6 in pos6:
+                pair_str = f"{d5}{d6}"
+                raw_t2.append((pair_str, s5 * s6))
+        raw_t2.sort(key=lambda x: x[1], reverse=True)
+
+        top2_list = []
+        seen_t2_roots = set()
+        for p_str, score in raw_t2:
+            root = "".join(sorted(p_str))
+            if root not in seen_t2_roots:
+                seen_t2_roots.add(root)
+                rev = p_str[::-1]
+                top2_list.append({
+                    "direct": p_str,
+                    "reverse": rev,
+                    "pair_set": [p_str] if p_str == rev else [p_str, rev]
+                })
+                if len(top2_list) >= 3:
+                    break
+
+        # 4. Banker Single Digits (เลขวิ่ง)
+        digit_sums = defaultdict(float)
+        for col in DIGIT_COLS:
+            for d, s in self.position_scores[col].items():
+                digit_sums[d] += s
+        ranked_bankers = sorted(digit_sums.items(), key=lambda x: x[1], reverse=True)
+        bankers = [{"digit": str(d), "strength": round(s, 3)} for d, s in ranked_bankers[:2]]
+
+        return {
+            "jackpot_6": jackpot,
+            "box_3": box_3,
+            "top2_pairs": top2_list,
+            "banker_digits": bankers
+        }
+
+    def run(self, top_k: int = 5, beam_width: int = 4) -> list[dict]:
         """Full pipeline: load → extract → score → generate."""
         self.load()
         self.extract_signals()
@@ -409,8 +545,10 @@ class EnsemblePredictor:
 
     def get_results(self) -> dict:
         last_draw = self.rows[0] if self.rows else {}
+        spectrum = self.generate_full_spectrum()
         return {
             "candidates": self.candidates,
+            "full_spectrum": spectrum,
             "position_scores": {
                 col: {str(d): round(s, 5) for d, s in
                       sorted(scores.items(), key=lambda x: x[1], reverse=True)}

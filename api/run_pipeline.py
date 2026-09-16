@@ -63,6 +63,7 @@ def run_pipeline(top_k=5, beam=3, window=50):
     pred_data = pred.get_results()
 
     result["candidates"]       = pred_data.get("candidates", [])
+    result["full_spectrum"]    = pred_data.get("full_spectrum", {})
     result["position_scores"]  = pred_data.get("position_scores", {})
     result["ensemble_weights"] = pred_data.get("ensemble_weights", {})
     result["last_draw"]        = pred_data.get("last_draw", {})
