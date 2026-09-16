@@ -1,8 +1,21 @@
 {
   "name": "lottery-ai-dashboard",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
+  "description": "Multi-tier Thai Lottery Prediction & 3D Interactive Visualization Dashboard",
   "scripts": {
-    "build": "echo 'Build complete'"
-  }
+    "build": "npm run prep:3d && npm run build:3d",
+    "prep:3d": "node scripts/prep-3d-data.js",
+    "build:3d": "node scripts/build-3d.js",
+    "test": "node scripts/prep-3d-data.js"
+  },
+  "keywords": [
+    "lottery",
+    "threejs",
+    "webgl",
+    "predictive-analytics",
+    "github-pages"
+  ],
+  "author": "DoubleFo20",
+  "license": "MIT"
 }

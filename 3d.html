@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>🔮 3D Lucky Draw Hopper — ระบบจำลองโหลแก้วสุ่มลูกบอล 3 มิติ | Lottery.db</title>
+  <meta name="description" content="สัมผัสประสบการณ์ 3 มิติ โหลแก้วสุ่มลูกบอลตัวเลข Three.js WebGL Interactive พร้อมไฮไลต์เลขเด่น AI ประจำงวด">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-base: #060913;
+      --panel-bg: rgba(15, 23, 42, 0.75);
+      --panel-border: rgba(56, 189, 248, 0.2);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --gold: #f59e0b;
+      --emerald: #10b981;
+      --purple: #a855f7;
+      --font-main: 'Prompt', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Chakra Petch', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text);
+      font-family: var(--font-main);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+    }
+
+    /* Top Navigation Bar */
+    .nav-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.2rem;
+      background: linear-gradient(180deg, rgba(6, 9, 19, 0.85) 0%, rgba(6, 9, 19, 0) 100%);
+      z-index: 50;
+      backdrop-filter: blur(8px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .brand-icon {
+      font-size: 1.4rem;
+      filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.6));
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.5px;
+      background: linear-gradient(135deg, #fff 30%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .nav-btn {
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(15, 23, 42, 0.6);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-btn:hover, .nav-btn.active {
+      color: #fff;
+      border-color: var(--accent);
+      background: rgba(56, 189, 248, 0.15);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+    }
+
+    .hamburger-btn {
+      display: none;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--panel-border);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    /* 3D WebGL Canvas Container */
+    #canvas-container {
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    /* Bottom Control Overlay (Glassmorphism HUD) */
+    .hud-overlay {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 40;
+      width: 92%;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      pointer-events: none;
+    }
+
+    .hud-panel {
+      pointer-events: auto;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      backdrop-filter: blur(16px);
+      border-radius: 16px;
+      padding: 0.9rem 1.2rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.15);
+    }
+
+    .filter-pills {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pill-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-muted);
+      padding: 0.4rem 0.9rem;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .pill-btn:hover, .pill-btn.active {
+      color: #fff;
+      border-color: var(--accent);
+      background: rgba(56, 189, 248, 0.2);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+    }
+
+    /* Ball Inspection Card */
+    #inspect-card {
+      display: none;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .inspect-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .inspect-num {
+      font-family: var(--font-mono);
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1;
+      text-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+    }
+
+    /* Touch Guidance Pill */
+    .touch-hint {
+      position: absolute;
+      top: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      animation: pulse 2.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.9; }
+      50% { opacity: 0.4; }
+    }
+
+    /* WebGL Fallback */
+    #webgl-fallback {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 100;
+      width: 90%;
+      max-width: 440px;
+      text-align: center;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      padding: 2rem;
+      border-radius: 16px;
+    }
+
+    /* Mobile Drawer Overlay */
+    .drawer-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 998;
+      display: none;
+      backdrop-filter: blur(4px);
+    }
+    .drawer-overlay.show { display: block; }
+
+    .mobile-drawer {
+      position: fixed;
+      top: 0; right: -280px; width: 280px; height: 100%;
+      background: #0f172a;
+      border-left: 1px solid var(--panel-border);
+      z-index: 999;
+      padding: 1.5rem;
+      transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .mobile-drawer.open { right: 0; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger-btn { display: block; }
+      .hud-overlay { bottom: 1rem; }
+    }
+  </style>
+
+  <!-- Importmap: Local Fallback to CDN for Three.js & OrbitControls -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./assets/three.module.min.js",
+      "three/addons/": "./assets/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="nav-bar">
+    <a href="index.html" class="brand">
+      <span class="brand-icon">🔮</span>
+      <div>
+        <div class="brand-title">LOTTERY 3D HOPPER</div>
+        <div style="font-size:0.65rem;color:var(--text-muted);margin-top:-2px;">Interactive Lucky Sphere</div>
+      </div>
+    </a>
+
+    <nav class="nav-links">
+      <a href="index.html" class="nav-btn">🎯 หน้าหลัก (Dashboard)</a>
+      <a href="index.html#sec-predictions" class="nav-btn">🔮 พยากรณ์</a>
+      <a href="3d.html" class="nav-btn active">🔮 3D Hopper</a>
+      <a href="manager.html" class="nav-btn">🖥 จัดการข้อมูล</a>
+      <a href="performance.html" class="nav-btn">📈 ความแม่นยำ</a>
+    </nav>
+
+    <button class="hamburger-btn" onclick="toggleDrawer()" aria-label="Open Menu">☰</button>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+  <aside class="mobile-drawer" id="mobile-drawer">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,0.1)">
+      <span style="font-family:var(--font-display);font-weight:700;color:var(--accent);">🔮 เมนู 3D HOPPER</span>
+      <button onclick="closeDrawer()" style="background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;">✕</button>
+    </div>
+    <a href="index.html" class="nav-btn" style="width:100%">🏠 กลับหน้าหลัก Dashboard</a>
+    <a href="index.html#sec-predictions" class="nav-btn" style="width:100%">🎯 สรุปผลการพยากรณ์ AI</a>
+    <a href="3d.html" class="nav-btn active" style="width:100%">🔮 3D Lucky Draw Hopper</a>
+    <a href="manager.html" class="nav-btn" style="width:100%">🖥 ระบบจัดการฐานข้อมูล</a>
+    <a href="performance.html" class="nav-btn" style="width:100%">📈 ตรวจสอบผลงานย้อนหลัง</a>
+  </aside>
+
+  <!-- Touch Hint -->
+  <div class="touch-hint">
+    <span>👆</span> แตะหรือลากเพื่อหมุนโหลแก้ว 360° | จิ้มลูกบอลเพื่อดูข้อมูล
+  </div>
+
+  <!-- 3D Canvas Host -->
+  <div id="canvas-container"></div>
+
+  <!-- WebGL Unavailable Fallback -->
+  <div id="webgl-fallback">
+    <div style="font-size:2.5rem;margin-bottom:0.5rem">⚠️</div>
+    <h3 style="margin-bottom:0.5rem">เบราว์เซอร์ไม่รองรับ WebGL</h3>
+    <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1.2rem">
+      อุปกรณ์หรือการตั้งค่าของท่านปิดการทำงานของ WebGL กรุณาเปิดใช้งาน Hardware Acceleration หรือกลับสู่หน้าหลัก 2D
+    </p>
+    <a href="index.html" class="nav-btn" style="display:inline-block">← กลับสู่หน้าหลัก 2D Dashboard</a>
+  </div>
+
+  <!-- Bottom Glassmorphism HUD -->
+  <div class="hud-overlay">
+    
+    <!-- Ball Details Inspection Card -->
+    <div class="hud-panel" id="inspect-card">
+      <div class="inspect-header">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="inspect-num" id="ins-digit" style="color:var(--accent)">8</div>
+          <div>
+            <div style="font-size:0.85rem;font-weight:700" id="ins-title">ลูกบอลหมายเลข 8</div>
+            <div style="font-size:0.75rem;color:var(--text-muted)" id="ins-desc">เลขเด่นวิ่ง/รูด 19 ประตูประจำงวด</div>
+          </div>
+        </div>
+        <button onclick="dismissInspect()" style="background:rgba(255,255,255,0.1);border:none;color:#fff;border-radius:50%;width:26px;height:26px;cursor:pointer;">✕</button>
+      </div>
+      <div style="display:flex;gap:12px;font-size:0.75rem;margin-top:6px;border-top:1px dashed rgba(255,255,255,0.1);padding-top:6px;">
+        <span>สถานะ: <strong id="ins-tier" style="color:var(--emerald)">เด่นวิ่ง (Banker)</strong></span>
+        <span>•</span>
+        <span>โอกาสออกซ้ำ: <strong id="ins-prob" style="color:#fff">สูง (70.3%)</strong></span>
+      </div>
+    </div>
+
+    <!-- Cluster Highlight Filter -->
+    <div class="hud-panel">
+      <div style="font-size:0.75rem;color:var(--text-muted);text-align:center;margin-bottom:6px;">
+        🎯 กรองและไฮไลต์ลูกบอลตัวเลขเด่นในโหลแก้ว 3D
+      </div>
+      <div class="filter-pills">
+        <button class="pill-btn active" id="flt-all" onclick="filterBalls('all')">🌟 ทุกลูก (40 ใบ)</button>
+        <button class="pill-btn" id="flt-jackpot" onclick="filterBalls('jackpot')">👑 รางวัลที่ 1 (8, 3, 9, 6)</button>
+        <button class="pill-btn" id="flt-banker" onclick="filterBalls('banker')">⚡ เลขเด่นวิ่ง (3, 8)</button>
+        <button class="pill-btn" id="flt-even" onclick="filterBalls('even')">🔵 เลขคู่</button>
+        <button class="pill-btn" id="flt-odd" onclick="filterBalls('odd')">⚪ เลขคี่</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Three.js Scene Controller -->
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/OrbitControls.js';
+
+    // State & Config
+    let scene, camera, renderer, controls;
+    let chamberMesh, accentRings = [];
+    let ballsData = [];
+    let ballMeshes = [];
+    let raycaster, mouse;
+    let currentFilter = 'all';
+    const CHAMBER_RADIUS = 12.0;
+    const BALL_RADIUS = 1.35;
+
+    // Mobile Drawer Controls
+    window.toggleDrawer = () => {
+      document.getElementById('mobile-drawer').classList.toggle('open');
+      document.getElementById('drawer-overlay').classList.toggle('show');
+    };
+    window.closeDrawer = () => {
+      document.getElementById('mobile-drawer').classList.remove('open');
+      document.getElementById('drawer-overlay').classList.remove('show');
+    };
+
+    // Check WebGL Support
+    function isWebGLAvailable() {
+      try {
+        const canvas = document.createElement('canvas');
+        return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+      } catch (e) {
+        return false;
+      }
+    }
+
+    if (!isWebGLAvailable()) {
+      document.getElementById('webgl-fallback').style.display = 'block';
+      throw new Error('WebGL not supported');
+    }
+
+    // Dynamic Canvas Texture for Lottery Balls
+    const textureCache = {};
+    function createBallTexture(digit, bgColor, textColor = '#ffffff') {
+      const key = `${digit}_${bgColor}_${textColor}`;
+      if (textureCache[key]) return textureCache[key];
+
+      const canvas = document.createElement('canvas');
+      canvas.width = 256;
+      canvas.height = 128;
+      const ctx = canvas.getContext('2d');
+
+      // Base background
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(0, 0, 256, 128);
+
+      // Gradient shading
+      const grad = ctx.createLinearGradient(0, 0, 256, 128);
+      grad.addColorStop(0, 'rgba(255,255,255,0.3)');
+      grad.addColorStop(0.5, 'rgba(0,0,0,0)');
+      grad.addColorStop(1, 'rgba(0,0,0,0.4)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 256, 128);
+
+      // Two number stamps (front and back of sphere)
+      [64, 192].forEach(cx => {
+        // White circular badge
+        ctx.beginPath();
+        ctx.arc(cx, 64, 38, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffffff';
+        ctx.fill();
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = '#0f172a';
+        ctx.stroke();
+
+        // Digit text
+        ctx.font = 'bold 44px "JetBrains Mono", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#0f172a';
+        ctx.fillText(String(digit), cx, 64);
+
+        // Underline digit 6 and 9 for orientation
+        if (digit === 6 || digit === 9) {
+          ctx.beginPath();
+          ctx.arc(cx, 88, 14, 0, Math.PI);
+          ctx.lineWidth = 3;
+          ctx.strokeStyle = '#ef4444';
+          ctx.stroke();
+        }
+      });
+
+      const tex = new THREE.CanvasTexture(canvas);
+      tex.needsUpdate = true;
+      textureCache[key] = tex;
+      return tex;
+    }
+
+    async function init() {
+      const container = document.getElementById('canvas-container');
+
+      // 1. Scene
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x060913);
+      scene.fog = new THREE.FogExp2(0x060913, 0.015);
+
+      // 2. Camera
+      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.set(0, 8, 38);
+
+      // 3. Renderer
+      renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2.0));
+      renderer.shadowMap.enabled = true;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.2;
+      container.appendChild(renderer.domElement);
+
+      // 4. OrbitControls
+      controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.maxDistance = 55;
+      controls.minDistance = 18;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.6;
+
+      // 5. Lights
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+      scene.add(ambientLight);
+
+      const centerLight = new THREE.PointLight(0x38bdf8, 3.5, 30);
+      centerLight.position.set(0, 0, 0);
+      scene.add(centerLight);
+
+      const topLight = new THREE.DirectionalLight(0xffffff, 1.8);
+      topLight.position.set(10, 25, 15);
+      scene.add(topLight);
+
+      const purpleLight = new THREE.PointLight(0xa855f7, 2.0, 40);
+      purpleLight.position.set(-15, -10, -10);
+      scene.add(purpleLight);
+
+      // 6. Transparent Glass Chamber
+      const chamberGeo = new THREE.SphereGeometry(CHAMBER_RADIUS, 48, 48);
+      const chamberMat = new THREE.MeshPhysicalMaterial({
+        color: 0x38bdf8,
+        transparent: true,
+        opacity: 0.18,
+        roughness: 0.08,
+        transmission: 0.9,
+        thickness: 0.6,
+        side: THREE.DoubleSide
+      });
+      chamberMesh = new THREE.Mesh(chamberGeo, chamberMat);
+      scene.add(chamberMesh);
+
+      // 7. Metallic Gimbal Rings
+      const ringMat = new THREE.MeshStandardMaterial({
+        color: 0x0284c7,
+        metalness: 0.85,
+        roughness: 0.2,
+        wireframe: false
+      });
+      const ring1 = new THREE.Mesh(new THREE.TorusGeometry(CHAMBER_RADIUS + 0.3, 0.12, 16, 100), ringMat);
+      const ring2 = new THREE.Mesh(new THREE.TorusGeometry(CHAMBER_RADIUS + 0.5, 0.08, 16, 100), ringMat);
+      ring1.rotation.x = Math.PI / 2;
+      ring2.rotation.y = Math.PI / 4;
+      scene.add(ring1);
+      scene.add(ring2);
+      accentRings = [ring1, ring2];
+
+      // 8. Load 3D Config & Populate Balls
+      await loadHopperData();
+
+      // 9. Raycasting (Touch / Click)
+      raycaster = new THREE.Raycaster();
+      mouse = new THREE.Vector2();
+      window.addEventListener('click', onPointerClick);
+      window.addEventListener('resize', onWindowResize);
+
+      // 10. Start Animation Loop
+      animate();
+    }
+
+    async function loadHopperData() {
+      let data = null;
+      try {
+        let res = await fetch('database/predictions/hopper_3d_data.json?ts=' + Date.now()).catch(() => null);
+        if (!res || !res.ok) {
+          res = await fetch('../database/predictions/hopper_3d_data.json?ts=' + Date.now()).catch(() => null);
+        }
+        if (!res || !res.ok) {
+          res = await fetch('hopper_3d_data.json?ts=' + Date.now()).catch(() => null);
+        }
+        if (res && res.ok) data = await res.json();
+      } catch (e) {}
+
+      // Fallback if file not yet generated
+      if (!data || !data.balls) {
+        data = {
+          balls: []
+        };
+        for (let d = 0; d <= 9; d++) {
+          for (let c = 0; c < 4; c++) {
+            const isBanker = d === 3 || d === 8;
+            const isJackpot = [8, 3, 9, 6].includes(d);
+            data.balls.push({
+              id: `ball-${d}-${c}`,
+              digit: d,
+              tier: isBanker ? 'banker' : (isJackpot ? 'jackpot' : 'standard'),
+              color: isBanker ? '#10b981' : (isJackpot ? '#f59e0b' : '#3b82f6')
+            });
+          }
+        }
+      }
+
+      ballsData = data.balls;
+      createBalls();
+    }
+
+    function createBalls() {
+      const ballGeo = new THREE.SphereGeometry(BALL_RADIUS, 32, 32);
+
+      ballsData.forEach((bData, idx) => {
+        const texture = createBallTexture(bData.digit, bData.color);
+        const mat = new THREE.MeshStandardMaterial({
+          map: texture,
+          roughness: 0.25,
+          metalness: 0.15
+        });
+
+        const mesh = new THREE.Mesh(ballGeo, mat);
+        
+        // Random initial position inside chamber
+        const r = (CHAMBER_RADIUS - BALL_RADIUS - 1.5) * Math.cbrt(Math.random());
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos((Math.random() * 2) - 1);
+
+        mesh.position.set(
+          r * Math.sin(phi) * Math.cos(theta),
+          r * Math.sin(phi) * Math.sin(theta),
+          r * Math.cos(phi)
+        );
+
+        // Velocity vector for physics
+        mesh.userData = {
+          ...bData,
+          baseColor: bData.color,
+          velocity: new THREE.Vector3(
+            (Math.random() - 0.5) * 0.18,
+            (Math.random() - 0.5) * 0.18,
+            (Math.random() - 0.5) * 0.18
+          ),
+          rotationSpeed: new THREE.Vector3(
+            (Math.random() - 0.5) * 0.05,
+            (Math.random() - 0.5) * 0.05,
+            (Math.random() - 0.5) * 0.05
+          )
+        };
+
+        scene.add(mesh);
+        ballMeshes.push(mesh);
+      });
+    }
+
+    // Physics Simulation Loop
+    function updatePhysics() {
+      const maxDist = CHAMBER_RADIUS - BALL_RADIUS - 0.1;
+
+      ballMeshes.forEach(mesh => {
+        const data = mesh.userData;
+        mesh.position.add(data.velocity);
+        mesh.rotation.x += data.rotationSpeed.x;
+        mesh.rotation.y += data.rotationSpeed.y;
+        mesh.rotation.z += data.rotationSpeed.z;
+
+        // Swirling force towards center
+        const dist = mesh.position.length();
+        if (dist > maxDist) {
+          // Bounce off glass sphere wall
+          const normal = mesh.position.clone().normalize();
+          mesh.position.copy(normal.multiplyScalar(maxDist));
+          data.velocity.reflect(normal).multiplyScalar(0.92);
+          // Add a little turbulence swirl
+          data.velocity.x += (Math.random() - 0.5) * 0.04;
+          data.velocity.y += (Math.random() - 0.5) * 0.04;
+          data.velocity.z += (Math.random() - 0.5) * 0.04;
+        }
+
+        // Center suction to keep motion dynamic
+        mesh.position.applyAxisAngle(new THREE.Vector3(0, 1, 0), 0.008);
+      });
+    }
+
+    // Inspection & Raycasting
+    function onPointerClick(e) {
+      if (e.target.closest('.hud-overlay') || e.target.closest('.nav-bar')) return;
+
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(ballMeshes);
+
+      if (intersects.length > 0) {
+        const hit = intersects[0].object;
+        showInspectCard(hit.userData);
+        
+        // Visual bounce feedback on click
+        hit.scale.set(1.4, 1.4, 1.4);
+        setTimeout(() => hit.scale.set(1, 1, 1), 300);
+      }
+    }
+
+    function showInspectCard(data) {
+      const card = document.getElementById('inspect-card');
+      const insDigit = document.getElementById('ins-digit');
+      const insTitle = document.getElementById('ins-title');
+      const insDesc = document.getElementById('ins-desc');
+      const insTier = document.getElementById('ins-tier');
+      const insProb = document.getElementById('ins-prob');
+
+      insDigit.textContent = data.digit;
+      insDigit.style.color = data.baseColor || '#38bdf8';
+      insTitle.textContent = `ลูกบอลหมายเลข ${data.digit}`;
+
+      if (data.tier === 'banker') {
+        insDesc.textContent = '🔥 เลขเด่นวิ่ง/รูด 19 ประตูประจำงวด (Banker)';
+        insTier.textContent = 'เด่นวิ่งบน/ล่าง';
+        insTier.style.color = 'var(--emerald)';
+        insProb.textContent = 'สูงมาก (~70%)';
+      } else if (data.tier === 'jackpot') {
+        insDesc.textContent = '👑 ส่วนประกอบในชุดรางวัลที่ 1 (Top Candidate)';
+        insTier.textContent = 'เด่น 6 หลัก';
+        insTier.style.color = 'var(--gold)';
+        insProb.textContent = 'โดดเด่น (~85%)';
+      } else {
+        insDesc.textContent = '🎲 ตัวเลขมาตรฐานในวงล้อหมุนออกสลาก';
+        insTier.textContent = 'ปกติ';
+        insTier.style.color = 'var(--text-muted)';
+        insProb.textContent = 'มาตรฐาน (10%)';
+      }
+
+      card.style.display = 'block';
+    }
+
+    window.dismissInspect = () => {
+      document.getElementById('inspect-card').style.display = 'none';
+    };
+
+    // Filter Buttons
+    window.filterBalls = (filter) => {
+      currentFilter = filter;
+      document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+      const activeBtn = document.getElementById(`flt-${filter}`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      ballMeshes.forEach(m => {
+        const d = m.userData.digit;
+        const tier = m.userData.tier;
+        let isMatch = false;
+
+        if (filter === 'all') isMatch = true;
+        else if (filter === 'jackpot') isMatch = [8, 3, 9, 6].includes(d);
+        else if (filter === 'banker') isMatch = tier === 'banker';
+        else if (filter === 'even') isMatch = d % 2 === 0;
+        else if (filter === 'odd') isMatch = d % 2 !== 0;
+
+        m.material.opacity = isMatch ? 1.0 : 0.2;
+        m.material.transparent = !isMatch;
+        m.scale.setScalar(isMatch ? (filter === 'all' ? 1.0 : 1.25) : 0.7);
+      });
+    };
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      updatePhysics();
+      controls.update();
+
+      // Rotate decorative gimbal rings
+      if (accentRings[0]) accentRings[0].rotation.z += 0.003;
+      if (accentRings[1]) accentRings[1].rotation.x += 0.002;
+
+      renderer.render(scene, camera);
+    }
+
+    // Initialize when DOM is ready
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
