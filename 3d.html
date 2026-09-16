@@ -3,28 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>👑 3D Golden Luxury & Emerald Showcase | Lottery.db</title>
-  <meta name="description" content="สัมผัสประสบการณ์ 3 มิติ โฮโลแกรมทองคำและหยกมรกต 5 โซนรางวัลสลากกินแบ่งรัฐบาล ด้วยมุมกล้องพุ่งทะยานสไตล์ Cinematic">
+  <title>⚡ Powered by AI — Lottery.db 3D Showcase & Scroll Lighting Effect</title>
+  <meta name="description" content="สัมผัสประสบการณ์ 3 มิติ โฉมใหม่สไตล์ SaaS Showcase: แสงขอบฟ้า Eclipse Arc, แดชบอร์ดเอียง Parallax Tilt 3D และเอฟเฟกต์แสงสะท้อนขอบกระจกเลื่อนตามการ Scroll">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      --bg-base: #030712;
+      --bg-dark: #030712;
+      --bg-card: rgba(15, 23, 42, 0.65);
+      --bg-card-hover: rgba(30, 41, 59, 0.75);
+      --border-card: rgba(255, 255, 255, 0.08);
+      --emerald-primary: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.5);
+      --cyan-primary: #06b6d4;
+      --cyan-glow: rgba(6, 182, 212, 0.45);
       --gold-primary: #d4af37;
       --gold-light: #fde047;
-      --gold-dark: #854d0e;
-      --emerald-primary: #10b981;
-      --emerald-dark: #064e3b;
-      --emerald-glow: rgba(16, 185, 129, 0.4);
-      --panel-bg: rgba(6, 13, 26, 0.85);
-      --panel-border: rgba(212, 175, 55, 0.3);
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
       --font-main: 'Prompt', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-display: 'Chakra Petch', sans-serif;
+      --font-display: 'Inter', 'Chakra Petch', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
 
@@ -36,19 +37,28 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    body {
-      background-color: var(--bg-base);
-      color: var(--text-main);
-      font-family: var(--font-main);
-      overflow: hidden;
+    html, body {
       width: 100vw;
       height: 100vh;
-      position: fixed;
+      overflow: hidden;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-main);
+    }
+
+    /* Fullpage Scroll Snap Container */
+    .snap-container {
+      width: 100vw;
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      position: relative;
     }
 
     /* Top Navigation Bar */
     .nav-bar {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       right: 0;
@@ -56,9 +66,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 1.2rem;
-      background: linear-gradient(180deg, rgba(3, 7, 18, 0.95) 0%, rgba(3, 7, 18, 0) 100%);
-      z-index: 50;
+      padding: 0 1.5rem;
+      background: linear-gradient(180deg, rgba(3, 7, 18, 0.9) 0%, rgba(3, 7, 18, 0) 100%);
+      z-index: 100;
       backdrop-filter: blur(8px);
     }
 
@@ -71,16 +81,16 @@
     }
 
     .brand-icon {
-      font-size: 1.4rem;
-      filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8));
+      font-size: 1.3rem;
+      filter: drop-shadow(0 0 10px var(--emerald-glow));
     }
 
     .brand-title {
       font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 1.1rem;
+      font-weight: 800;
+      font-size: 1.05rem;
       letter-spacing: 0.5px;
-      background: linear-gradient(135deg, #fff 20%, #d4af37 60%, #fde047 100%);
+      background: linear-gradient(135deg, #fff 40%, var(--emerald-primary) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -108,15 +118,15 @@
 
     .nav-btn:hover, .nav-btn.active {
       color: #fff;
-      border-color: var(--gold-primary);
-      background: rgba(212, 175, 55, 0.15);
-      box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+      border-color: var(--emerald-primary);
+      background: rgba(16, 185, 129, 0.15);
+      box-shadow: 0 0 14px var(--emerald-glow);
     }
 
     .hamburger-btn {
       display: none;
       background: rgba(15, 23, 42, 0.8);
-      border: 1px solid var(--panel-border);
+      border: 1px solid var(--border-card);
       color: #fff;
       padding: 6px 12px;
       border-radius: 8px;
@@ -124,294 +134,560 @@
       font-size: 1.1rem;
     }
 
-    /* 3D Canvas Host */
-    #canvas-container {
-      width: 100vw;
-      height: 100vh;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
-    }
-
-    /* Zone Floating HUD (Top Center) */
-    .zone-hud {
-      position: absolute;
-      top: 70px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 30;
+    /* Floating Right Side Dots Indicator */
+    .side-dots {
+      position: fixed;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 90;
       display: flex;
-      align-items: center;
-      gap: 12px;
-      background: var(--panel-bg);
-      border: 1px solid var(--panel-border);
-      backdrop-filter: blur(16px);
-      padding: 8px 18px;
-      border-radius: 30px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 15px rgba(212, 175, 55, 0.2);
-      transition: all 0.3s ease;
-      max-width: 90vw;
+      flex-direction: column;
+      gap: 14px;
     }
 
-    .zone-hud-title {
-      font-family: var(--font-display);
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--gold-light);
+    .dot-item {
       display: flex;
       align-items: center;
       gap: 8px;
-      white-space: nowrap;
+      cursor: pointer;
+      position: relative;
     }
 
-    .zone-hud-step {
-      font-size: 0.72rem;
-      background: rgba(212, 175, 55, 0.2);
-      color: var(--gold-primary);
-      padding: 2px 8px;
-      border-radius: 12px;
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      font-family: var(--font-mono);
-    }
-
-    .zone-nav-arrow {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #fff;
-      width: 28px;
-      height: 28px;
+    .dot-bullet {
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .dot-item:hover .dot-bullet {
+      background: var(--cyan-primary);
+      transform: scale(1.3);
+      box-shadow: 0 0 10px var(--cyan-glow);
+    }
+
+    .dot-item.active .dot-bullet {
+      width: 12px;
+      height: 12px;
+      background: var(--emerald-primary);
+      border-color: #fff;
+      box-shadow: 0 0 14px var(--emerald-glow);
+      transform: scale(1.2);
+    }
+
+    .dot-label {
+      position: absolute;
+      right: 22px;
+      white-space: nowrap;
+      font-size: 0.72rem;
+      font-family: var(--font-display);
+      color: var(--text-muted);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+      transform: translateX(6px);
+      background: rgba(6, 13, 26, 0.85);
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .dot-item:hover .dot-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Common Slide Section Styling */
+    .snap-slide {
+      width: 100vw;
+      height: 100vh;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      position: relative;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      font-size: 0.8rem;
-      transition: all 0.2s;
+      padding: 70px 1.5rem 30px;
+      overflow: hidden;
     }
 
-    .zone-nav-arrow:hover {
-      background: rgba(212, 175, 55, 0.3);
-      border-color: var(--gold-primary);
-      transform: scale(1.1);
+    /* ═════════════════════════════════════════════════════
+       SLIDE 1: MASTER HERO (Powered by AI + Eclipse Arc)
+       ═════════════════════════════════════════════════════ */
+    .hero-slide {
+      background: radial-gradient(circle at 50% 18%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
+                  radial-gradient(circle at 50% 90%, rgba(16, 185, 129, 0.06) 0%, transparent 65%),
+                  var(--bg-dark);
     }
 
-    /* Gesture & Touch Hint */
-    .touch-hint {
+    /* Atmospheric Arc / Eclipse Rim Light */
+    .eclipse-arc-wrapper {
       position: absolute;
-      top: 125px;
+      top: 15px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 25;
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      background: rgba(6, 13, 26, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 4px 14px;
-      border-radius: 20px;
-      backdrop-filter: blur(6px);
-      pointer-events: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      animation: pulse 2.5s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 0.9; }
-      50% { opacity: 0.35; }
-    }
-
-    /* Fixed Bottom Quick Bar */
-    .bottom-quick-bar {
-      position: absolute;
-      bottom: 1.2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 40;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--panel-bg);
-      border: 1px solid var(--panel-border);
-      backdrop-filter: blur(20px);
-      padding: 6px 10px;
-      border-radius: 36px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(212, 175, 55, 0.25);
+      width: 680px;
       max-width: 95vw;
-      overflow-x: auto;
+      height: 160px;
+      pointer-events: none;
+      z-index: 2;
     }
 
-    .quick-tab {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      padding: 8px 14px;
-      border-radius: 24px;
-      font-size: 0.78rem;
-      font-weight: 500;
-      font-family: var(--font-main);
-      cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      white-space: nowrap;
-    }
-
-    .quick-tab:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.06);
-    }
-
-    .quick-tab.active {
-      color: #fff;
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.3) 0%, rgba(16, 185, 129, 0.3) 100%);
-      border: 1px solid var(--gold-primary);
-      box-shadow: 0 0 14px rgba(212, 175, 55, 0.4);
-      font-weight: 600;
-    }
-
-    /* Floating Summary Pill */
-    .summary-toggle-btn {
+    .eclipse-arc-glow {
       position: absolute;
-      bottom: 5.5rem;
-      right: 1.2rem;
-      z-index: 40;
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(16, 185, 129, 0.25) 100%);
-      border: 1px solid var(--gold-primary);
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 24px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      cursor: pointer;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 12px rgba(212, 175, 55, 0.3);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
+      top: 30px;
+      left: 5%;
+      width: 90%;
+      height: 80px;
+      background: radial-gradient(ellipse at 50% 30%, var(--emerald-glow) 0%, var(--cyan-glow) 40%, transparent 75%);
+      filter: blur(28px);
+      opacity: 0.85;
+      animation: arcPulse 4s infinite alternate ease-in-out;
     }
 
-    .summary-toggle-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+    .eclipse-arc-line {
+      position: absolute;
+      top: 52px;
+      left: 10%;
+      width: 80%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent 0%, var(--emerald-primary) 25%, #ffffff 50%, var(--cyan-primary) 75%, transparent 100%);
+      border-radius: 50%;
+      filter: drop-shadow(0 0 12px var(--cyan-primary));
     }
 
-    /* BottomSheet Drawer */
-    .bottomsheet-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 900;
-      display: none;
-      backdrop-filter: blur(6px);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .bottomsheet-overlay.show {
-      display: block;
-      opacity: 1;
+    @keyframes arcPulse {
+      0% { opacity: 0.7; transform: scaleY(0.95); }
+      100% { opacity: 1; transform: scaleY(1.15); }
     }
 
-    .bottomsheet {
-      position: fixed;
-      left: 50%;
-      bottom: -600px;
-      transform: translateX(-50%);
-      width: 95%;
+    /* Hero Typography */
+    .hero-header-box {
+      text-align: center;
+      position: relative;
+      z-index: 5;
+      margin-top: -10px;
+      margin-bottom: 24px;
+    }
+
+    .hero-super-title {
+      font-family: var(--font-display);
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.2px;
+      background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .hero-sub-title {
+      font-size: 0.95rem;
+      color: var(--text-muted);
       max-width: 580px;
-      max-height: 80vh;
-      background: #090f1d;
-      border: 1px solid var(--gold-primary);
-      border-radius: 24px 24px 0 0;
-      z-index: 901;
-      padding: 1.2rem 1.4rem 2rem;
-      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.2);
-      transition: bottom 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-      overflow-y: auto;
-    }
-    .bottomsheet.open {
-      bottom: 0;
+      line-height: 1.5;
+      margin: 0 auto;
     }
 
-    .sheet-handle {
-      width: 44px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.25);
-      border-radius: 4px;
-      margin: 0 auto 1rem;
+    /* 3D Perspective Tilt Container */
+    .perspective-stage {
+      perspective: 1200px;
+      width: 100%;
+      max-width: 820px;
+      display: flex;
+      justify-content: center;
+      z-index: 10;
     }
 
-    .sheet-header {
+    .mockup-dashboard {
+      width: 100%;
+      background: rgba(10, 17, 32, 0.85);
+      border-radius: 20px;
+      padding: 1.4rem;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85),
+                  0 0 35px rgba(6, 182, 212, 0.2),
+                  inset 0 1px 1px rgba(255, 255, 255, 0.15);
+      transform-style: preserve-3d;
+      transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1);
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      cursor: grab;
+    }
+
+    .mockup-dashboard:active {
+      cursor: grabbing;
+    }
+
+    /* Spotlight Lighting Flare on Border */
+    .mockup-dashboard::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 21px;
+      padding: 1.5px;
+      background: radial-gradient(
+        320px circle at var(--spot-x, 50%) var(--spot-y, 20%),
+        rgba(16, 185, 129, 0.9) 0%,
+        rgba(6, 182, 212, 0.6) 35%,
+        transparent 75%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    /* Inside Mockup UI */
+    .mockup-top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-      padding-bottom: 0.8rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 0.9rem;
+      margin-bottom: 1.2rem;
     }
 
-    .sheet-title {
+    .mockup-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       font-family: var(--font-display);
-      font-size: 1.1rem;
+      font-size: 0.88rem;
       font-weight: 700;
-      color: var(--gold-light);
-    }
-
-    .sheet-close-btn {
-      background: rgba(255, 255, 255, 0.1);
-      border: none;
       color: #fff;
-      border-radius: 50%;
-      width: 28px;
-      height: 28px;
-      cursor: pointer;
-      font-size: 0.9rem;
     }
 
-    .sheet-section {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+    .mockup-countdown {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      padding: 3px 10px;
       border-radius: 12px;
-      padding: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mockup-body {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 1.4rem;
+      align-items: center;
+    }
+
+    .mockup-jackpot-showcase {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 1.2rem;
+      text-align: left;
+    }
+
+    .mockup-jackpot-tag {
+      font-size: 0.75rem;
+      color: var(--emerald-primary);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .mockup-jackpot-num {
+      font-family: var(--font-mono);
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #ffffff 40%, var(--gold-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .mockup-metrics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .mockup-metric-card {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 8px 10px;
+      text-align: left;
+    }
+
+    .mockup-metric-title {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .mockup-metric-val {
+      font-family: var(--font-mono);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* Scroll Down Indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      z-index: 20;
+      transition: color 0.2s;
+    }
+
+    .scroll-indicator:hover {
+      color: var(--emerald-primary);
+    }
+
+    .scroll-chevron {
+      font-size: 1rem;
+      animation: bounceDown 1.8s infinite;
+    }
+
+    @keyframes bounceDown {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(5px); }
+    }
+
+    /* ═════════════════════════════════════════════════════
+       SLIDE 2: FULL-SPECTRUM STRATEGY MATRIX (3D Cards)
+       ═════════════════════════════════════════════════════ */
+    .matrix-slide {
+      background: radial-gradient(circle at 15% 40%, rgba(16, 185, 129, 0.07) 0%, transparent 55%),
+                  radial-gradient(circle at 85% 60%, rgba(6, 182, 212, 0.07) 0%, transparent 55%),
+                  var(--bg-dark);
+    }
+
+    .slide-heading {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .slide-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-family: var(--font-display);
+      font-weight: 600;
+      color: var(--emerald-primary);
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 3px 10px;
+      border-radius: 14px;
+      margin-bottom: 6px;
+    }
+
+    .slide-title {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      color: #fff;
+    }
+
+    .matrix-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+      width: 100%;
+      max-width: 860px;
+      z-index: 10;
+    }
+
+    .matrix-3d-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 18px;
+      padding: 1.25rem;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .matrix-3d-card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(16, 185, 129, 0.4);
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), 0 0 25px rgba(16, 185, 129, 0.25);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 0.8rem;
     }
 
-    .sheet-section-title {
-      font-size: 0.78rem;
+    .card-label {
+      font-size: 0.82rem;
       font-weight: 600;
       color: var(--emerald-primary);
-      margin-bottom: 6px;
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
-    .sheet-num-row {
-      font-family: var(--font-mono);
-      font-size: 1.25rem;
-      font-weight: 700;
+    .card-copy-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .copy-btn {
-      background: rgba(212, 175, 55, 0.2);
-      border: 1px solid var(--gold-primary);
-      color: var(--gold-light);
       padding: 4px 10px;
-      border-radius: 12px;
+      border-radius: 8px;
       font-size: 0.72rem;
       cursor: pointer;
       transition: all 0.2s;
     }
-    .copy-btn:hover {
-      background: var(--gold-primary);
+
+    .card-copy-btn:hover {
+      background: var(--emerald-primary);
+      border-color: var(--emerald-primary);
       color: #000;
+      font-weight: 600;
+    }
+
+    .card-number-large {
+      font-family: var(--font-mono);
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .card-subtext {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ═════════════════════════════════════════════════════
+       SLIDE 3: NEURAL ENGINE & HISTORICAL ANALYTICS
+       ═════════════════════════════════════════════════════ */
+    .neural-slide {
+      background: radial-gradient(circle at 50% 30%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
+                  radial-gradient(circle at 50% 80%, rgba(212, 175, 55, 0.06) 0%, transparent 60%),
+                  var(--bg-dark);
+    }
+
+    .neural-main-card {
+      width: 100%;
+      max-width: 860px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 20px;
+      padding: 1.5rem;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(6, 182, 212, 0.15);
+      z-index: 10;
+    }
+
+    .chart-container {
+      width: 100%;
+      height: 140px;
+      margin: 1.2rem 0;
+      position: relative;
+    }
+
+    .neural-stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 1.4rem;
+    }
+
+    .neural-stat-box {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 8px 10px;
+      text-align: center;
+    }
+
+    .neural-stat-title {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .neural-stat-value {
+      font-family: var(--font-mono);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--cyan-primary);
+    }
+
+    .cta-actions-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn-primary {
+      background: linear-gradient(135deg, var(--emerald-primary) 0%, var(--cyan-primary) 100%);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 10px 22px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 18px var(--emerald-glow);
+      transition: all 0.25s;
+    }
+
+    .cta-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px var(--cyan-glow);
+    }
+
+    .cta-btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-weight: 500;
+      font-size: 0.85rem;
+      padding: 10px 18px;
+      border-radius: 12px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .cta-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: #fff;
     }
 
     /* Toast Notification */
@@ -423,10 +699,10 @@
       background: #064e3b;
       border: 1px solid var(--emerald-primary);
       color: #fff;
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: 10px;
       font-size: 0.82rem;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.5);
       transform: translateY(-20px);
       opacity: 0;
       transition: all 0.25s;
@@ -452,7 +728,7 @@
       position: fixed;
       top: 0; right: -280px; width: 280px; height: 100%;
       background: #060d1a;
-      border-left: 1px solid var(--panel-border);
+      border-left: 1px solid var(--border-card);
       z-index: 999;
       padding: 1.5rem;
       transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -462,60 +738,38 @@
     }
     .mobile-drawer.open { right: 0; }
 
-    /* WebGL Fallback */
-    #webgl-fallback {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 100;
-      width: 90%;
-      max-width: 440px;
-      text-align: center;
-      background: var(--panel-bg);
-      border: 1px solid var(--panel-border);
-      padding: 2rem;
-      border-radius: 16px;
-    }
-
+    /* Responsive Queries */
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .hamburger-btn { display: block; }
-      .zone-hud { top: 65px; padding: 6px 14px; }
-      .zone-hud-title { font-size: 0.85rem; }
-      .touch-hint { top: 115px; font-size: 0.68rem; }
-      .bottom-quick-bar { bottom: 0.8rem; padding: 5px 8px; }
-      .quick-tab { padding: 6px 10px; font-size: 0.72rem; }
-      .summary-toggle-btn { bottom: 4.8rem; right: 0.8rem; font-size: 0.72rem; }
+      .side-dots { display: none; }
+      .hero-super-title { font-size: 2.3rem; }
+      .hero-sub-title { font-size: 0.82rem; }
+      .mockup-body { grid-template-columns: 1fr; gap: 1rem; }
+      .mockup-jackpot-num { font-size: 2.2rem; }
+      .matrix-cards-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+      .slide-title { font-size: 1.6rem; }
+      .neural-stats-bar { grid-template-columns: 1fr 1fr; }
+      .snap-slide { padding-top: 65px; padding-bottom: 20px; }
     }
   </style>
-
-  <!-- Importmap: Three.js Standalone -->
-  <script type="importmap">
-  {
-    "imports": {
-      "three": "./assets/three.module.min.js"
-    }
-  }
-  </script>
 </head>
 <body>
 
   <!-- Top Navigation -->
   <header class="nav-bar">
     <a href="index.html" class="brand">
-      <span class="brand-icon">👑</span>
+      <span class="brand-icon">⚡</span>
       <div>
-        <div class="brand-title">LOTTERY 3D SHOWCASE</div>
-        <div style="font-size:0.65rem;color:var(--gold-primary);margin-top:-2px;">Golden Luxury & Emerald Edition</div>
+        <div class="brand-title">LOTTERY AI SHOWCASE</div>
+        <div style="font-size:0.65rem;color:var(--emerald-primary);margin-top:-2px;">Powered by Deep Neural Analytics</div>
       </div>
     </a>
 
     <nav class="nav-links">
       <a href="index.html" class="nav-btn">🎯 หน้าหลัก (Dashboard)</a>
       <a href="index.html#sec-predictions" class="nav-btn">🔮 พยากรณ์</a>
-      <a href="3d.html" class="nav-btn active">👑 3D Showcase</a>
+      <a href="3d.html" class="nav-btn active">⚡ 3D Showcase</a>
       <a href="manager.html" class="nav-btn">🖥 จัดการข้อมูล</a>
       <a href="performance.html" class="nav-btn">📈 ความแม่นยำ</a>
     </nav>
@@ -527,140 +781,262 @@
   <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
   <aside class="mobile-drawer" id="mobile-drawer">
     <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,0.1)">
-      <span style="font-family:var(--font-display);font-weight:700;color:var(--gold-light);">👑 เมนู 3D SHOWCASE</span>
+      <span style="font-family:var(--font-display);font-weight:700;color:var(--emerald-primary);">⚡ LOTTERY AI</span>
       <button onclick="closeDrawer()" style="background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;">✕</button>
     </div>
     <a href="index.html" class="nav-btn" style="width:100%">🏠 กลับหน้าหลัก Dashboard</a>
     <a href="index.html#sec-predictions" class="nav-btn" style="width:100%">🎯 สรุปผลการพยากรณ์ AI</a>
-    <a href="3d.html" class="nav-btn active" style="width:100%">👑 3D Showcase (ทองคำ-มรกต)</a>
+    <a href="3d.html" class="nav-btn active" style="width:100%">⚡ 3D AI Showcase</a>
     <a href="manager.html" class="nav-btn" style="width:100%">🖥 ระบบจัดการฐานข้อมูล</a>
     <a href="performance.html" class="nav-btn" style="width:100%">📈 ตรวจสอบผลงานย้อนหลัง</a>
   </aside>
 
-  <!-- Zone Floating HUD (Top Center) -->
-  <div class="zone-hud" id="zone-hud">
-    <button class="zone-nav-arrow" onclick="prevZone()" aria-label="Previous Zone">◀</button>
-    <div class="zone-hud-title">
-      <span class="zone-hud-step" id="hud-step">ZONE 1/5</span>
-      <span id="hud-title">รางวัลที่ 1 (Grand Jackpot)</span>
+  <!-- Floating Right Side Dots Indicator -->
+  <div class="side-dots" id="side-dots">
+    <div class="dot-item active" onclick="scrollToSlide(0)">
+      <span class="dot-label">1. Master Hero</span>
+      <div class="dot-bullet"></div>
     </div>
-    <button class="zone-nav-arrow" onclick="nextZone()" aria-label="Next Zone">▶</button>
-  </div>
-
-  <!-- Touch & Scroll Guidance -->
-  <div class="touch-hint" id="touch-hint">
-    <span>👆</span> ปัดหน้าจอขึ้น/ลง หรือหมุนลูกกลิ้งเมาส์ เพื่อพุ่งทะยานข้ามโซน
-  </div>
-
-  <!-- Floating Summary Pill -->
-  <button class="summary-toggle-btn" onclick="openBottomSheet()">
-    <span>📋</span> สรุปตัวเลขทั้งหมด
-  </button>
-
-  <!-- Fixed Bottom Quick Bar -->
-  <nav class="bottom-quick-bar" aria-label="Zone Navigation">
-    <button class="quick-tab active" id="tab-0" onclick="goToZone(0)">
-      <span>👑</span> รางวัลที่ 1
-    </button>
-    <button class="quick-tab" id="tab-1" onclick="goToZone(1)">
-      <span>✌️</span> 2 ตัวท้าย
-    </button>
-    <button class="quick-tab" id="tab-2" onclick="goToZone(2)">
-      <span>🎲</span> 3 ตัวตรง/โต๊ด
-    </button>
-    <button class="quick-tab" id="tab-3" onclick="goToZone(3)">
-      <span>💎</span> เลขวิ่งหยก
-    </button>
-    <button class="quick-tab" id="tab-4" onclick="goToZone(4)">
-      <span>🧠</span> AI วิเคราะห์
-    </button>
-  </nav>
-
-  <!-- BottomSheet Summary Drawer -->
-  <div class="bottomsheet-overlay" id="bottomsheet-overlay" onclick="closeBottomSheet()"></div>
-  <div class="bottomsheet" id="bottomsheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-header">
-      <div>
-        <div class="sheet-title">สรุปเลขชุด 5 โซนพรีเมียม</div>
-        <div style="font-size:0.75rem;color:var(--text-muted)">งวดประจำวันที่ 16 กันยายน 2569 • AI Full-Spectrum</div>
-      </div>
-      <button class="sheet-close-btn" onclick="closeBottomSheet()">✕</button>
+    <div class="dot-item" onclick="scrollToSlide(1)">
+      <span class="dot-label">2. Strategy Matrix</span>
+      <div class="dot-bullet"></div>
     </div>
-
-    <!-- Zone 1 Summary -->
-    <div class="sheet-section">
-      <div class="sheet-section-title">👑 รางวัลที่ 1 เด่นสูงสุด</div>
-      <div class="sheet-num-row">
-        <span id="sheet-jackpot-num" style="color:var(--gold-light)">839386</span>
-        <button class="copy-btn" onclick="copyText('839386')">คัดลอก</button>
-      </div>
-      <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">
-        เลขเคียงข้างดักรางวัล: <span id="sheet-neighbors" style="color:#fff">839385, 839387</span>
-      </div>
+    <div class="dot-item" onclick="scrollToSlide(2)">
+      <span class="dot-label">3. Neural Analytics</span>
+      <div class="dot-bullet"></div>
     </div>
-
-    <!-- Zone 2 Summary -->
-    <div class="sheet-section">
-      <div class="sheet-section-title">✌️ เลข 2 ตัวบนตรง-กลับ</div>
-      <div class="sheet-num-row">
-        <span id="sheet-2d-num" style="color:#fff">86 <span style="font-size:0.85rem;color:var(--gold-primary);">(กลับ 68)</span></span>
-        <button class="copy-btn" onclick="copyText('86, 68')">คัดลอก</button>
-      </div>
-    </div>
-
-    <!-- Zone 3 Summary -->
-    <div class="sheet-section">
-      <div class="sheet-section-title">🎲 เลข 3 ตัวตรง + โต๊ด 6 ประตู</div>
-      <div class="sheet-num-row">
-        <span id="sheet-3d-num" style="color:var(--emerald-primary)">386</span>
-        <button class="copy-btn" onclick="copyText('368, 386, 638, 683, 836, 863')">คัดลอก 6 ประตู</button>
-      </div>
-      <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">
-        โต๊ดรอบทิศ: <span id="sheet-3d-perms">368, 386, 638, 683, 836, 863</span>
-      </div>
-    </div>
-
-    <!-- Zone 4 Summary -->
-    <div class="sheet-section">
-      <div class="sheet-section-title">💎 เลขเด่นวิ่ง/รูด 19 ประตู (Banker)</div>
-      <div class="sheet-num-row">
-        <span id="sheet-bankers" style="color:var(--gold-light)">3 และ 8</span>
-        <button class="copy-btn" onclick="copyText('3, 8')">คัดลอก</button>
-      </div>
-    </div>
-
-    <!-- Zone 5 Summary -->
-    <div class="sheet-section">
-      <div class="sheet-section-title">🧠 ความเชื่อมั่นและคะแนน AI</div>
-      <div style="font-size:0.85rem;color:#fff;">
-        คะแนนรวมโมเดล: <strong style="color:var(--gold-primary)">96.8%</strong> • วิเคราะห์จาก 471 งวด
-      </div>
-    </div>
-
-    <button onclick="copyAllNumbers()" style="width:100%;padding:10px;background:linear-gradient(135deg,var(--gold-primary),var(--emerald-primary));border:none;border-radius:12px;color:#000;font-weight:700;font-size:0.88rem;cursor:pointer;margin-top:8px;">
-      📋 คัดลอกเลขสรุปทั้งหมดลงคลิปบอร์ด
-    </button>
   </div>
 
   <!-- Toast Notification -->
   <div class="toast" id="toast">คัดลอกตัวเลขเรียบร้อยแล้ว! ✨</div>
 
-  <!-- 3D WebGL Canvas Container -->
-  <div id="canvas-container"></div>
+  <!-- Fullpage Snap Slides Container -->
+  <div class="snap-container" id="snap-container">
 
-  <!-- WebGL Unavailable Fallback -->
-  <div id="webgl-fallback">
-    <div style="font-size:2.5rem;margin-bottom:1rem;">⚠️</div>
-    <h2 style="font-family:var(--font-display);color:var(--gold-primary);margin-bottom:0.8rem">ไม่สามารถเปิดใช้งาน 3D WebGL ได้</h2>
-    <p style="color:var(--text-muted);font-size:0.85rem;line-height:1.6;margin-bottom:1.2rem">
-      อุปกรณ์หรือการตั้งค่าของท่านปิดการทำงานของ WebGL กรุณาเปิดใช้งาน Hardware Acceleration หรือกลับสู่หน้าหลัก 2D
-    </p>
-    <a href="index.html" class="nav-btn" style="display:inline-block">← กลับสู่หน้าหลัก 2D Dashboard</a>
+    <!-- ═════════════════════════════════════════════════════
+         SLIDE 1: MASTER HERO (Powered by AI + Eclipse Arc)
+         ═════════════════════════════════════════════════════ -->
+    <section class="snap-slide hero-slide" id="slide-0">
+      
+      <!-- Atmospheric Arc / Eclipse Rim Light -->
+      <div class="eclipse-arc-wrapper">
+        <div class="eclipse-arc-glow"></div>
+        <div class="eclipse-arc-line"></div>
+      </div>
+
+      <!-- Hero Header -->
+      <div class="hero-header-box">
+        <h1 class="hero-super-title">Powered by AI.</h1>
+        <p class="hero-sub-title">
+          สัมผัสพลังการวิเคราะห์สลากกินแบ่งรัฐบาลด้วย Deep Neural Ensemble Model คำนวณความน่าจะเป็นจากสถิติ 20 ปีย้อนหลัง
+        </p>
+      </div>
+
+      <!-- 3D Perspective Tilt Mockup Dashboard -->
+      <div class="perspective-stage">
+        <div class="mockup-dashboard" id="mockup-card">
+          
+          <div class="mockup-top-bar">
+            <div class="mockup-brand">
+              <span style="color:var(--emerald-primary)">●</span>
+              <span>LOTTERY DEEP NEURAL DASHBOARD</span>
+            </div>
+            <div class="mockup-countdown" id="hero-countdown">
+              ⏳ งวดถัดไป: 16 ก.ย. 2569
+            </div>
+          </div>
+
+          <div class="mockup-body">
+            <!-- Jackpot Highlight -->
+            <div class="mockup-jackpot-showcase">
+              <div class="mockup-jackpot-tag">
+                <span>👑</span> รางวัลที่ 1 เด่นสูงสุด (Top 1 Candidate)
+              </div>
+              <div class="mockup-jackpot-num" id="hero-jackpot-num">839386</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);display:flex;align-items:center;gap:8px;">
+                <span>สถานะ: <strong style="color:var(--emerald-primary)">100% Confidence</strong></span>
+                <span>•</span>
+                <span>±1 เคียงข้าง: <strong style="color:#fff" id="hero-neighbors">839385, 839387</strong></span>
+              </div>
+            </div>
+
+            <!-- 4 Quick Stats -->
+            <div class="mockup-metrics-grid">
+              <div class="mockup-metric-card">
+                <div class="mockup-metric-title">งวดที่นำมาคำนวณ</div>
+                <div class="mockup-metric-val" id="hero-draws">471 งวด</div>
+              </div>
+              <div class="mockup-metric-card">
+                <div class="mockup-metric-title">Backtest Score</div>
+                <div class="mockup-metric-val" style="color:var(--cyan-primary)" id="hero-score">15.25</div>
+              </div>
+              <div class="mockup-metric-card">
+                <div class="mockup-metric-title">สมดุลคู่ / คี่</div>
+                <div class="mockup-metric-val" id="hero-evenodd">3คู่ / 3คี่</div>
+              </div>
+              <div class="mockup-metric-card">
+                <div class="mockup-metric-title">ผลรวมเลข 6 หลัก</div>
+                <div class="mockup-metric-val" style="color:var(--gold-light)" id="hero-sum">37</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Action Bar inside Mockup -->
+          <div style="margin-top:1.2rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.06);padding-top:0.9rem;">
+            <button class="card-copy-btn" onclick="copyText('839386')" style="background:linear-gradient(135deg,var(--emerald-primary),var(--cyan-primary));color:#000;font-weight:700;padding:6px 14px;">
+              📋 คัดลอกเลขรางวัลที่ 1
+            </button>
+            <span style="font-size:0.72rem;color:var(--text-muted)">
+              💡 เลื่อนเมาส์หรือสัมผัสเพื่อดูมิติ 3D และแสงสะท้อนขอบ
+            </span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Scroll Down Indicator -->
+      <div class="scroll-indicator" onclick="scrollToSlide(1)">
+        <span>เลื่อนลงเพื่อดูชุดรางวัล 6 ประตู</span>
+        <span class="scroll-chevron">▼</span>
+      </div>
+
+    </section>
+
+    <!-- ═════════════════════════════════════════════════════
+         SLIDE 2: FULL-SPECTRUM STRATEGY MATRIX (3D Cards)
+         ═════════════════════════════════════════════════════ -->
+    <section class="snap-slide matrix-slide" id="slide-1">
+      
+      <div class="slide-heading">
+        <div class="slide-badge">FULL-SPECTRUM STRATEGY</div>
+        <h2 class="slide-title">ชุดรางวัลครอบคลุมรอบทิศทาง</h2>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-top:4px;">
+          กระจายความเสี่ยงด้วยเทคนิค Combinatorial Filters และ Prefix Diversity
+        </p>
+      </div>
+
+      <div class="matrix-cards-grid">
+        
+        <!-- Card 1: รางวัลที่ 1 & เคียงข้าง -->
+        <div class="matrix-3d-card">
+          <div class="card-top">
+            <span class="card-label">👑 รางวัลที่ 1 &amp; เลขเคียงข้าง</span>
+            <button class="card-copy-btn" onclick="copyText('839386, 839385, 839387')">คัดลอก</button>
+          </div>
+          <div class="card-number-large" id="matrix-jackpot">839386</div>
+          <div class="card-subtext">
+            ดักทาง $\pm 1$: <strong style="color:#fff" id="matrix-neighbors">839385, 839387</strong>
+          </div>
+        </div>
+
+        <!-- Card 2: 2 ตัวท้าย บน-ล่าง -->
+        <div class="matrix-3d-card">
+          <div class="card-top">
+            <span class="card-label">✌️ 2 ตัวบนตรง-กลับ &amp; ล่าง</span>
+            <button class="card-copy-btn" onclick="copyText('86, 68, 06, 60')">คัดลอก</button>
+          </div>
+          <div class="card-number-large" style="color:var(--cyan-primary)" id="matrix-2d">86 <span style="font-size:1.1rem;color:var(--text-muted)">(กลับ 68)</span></div>
+          <div class="card-subtext">
+            ชุดรองสถิติสูง: <strong style="color:#fff">06, 60, 83, 38</strong>
+          </div>
+        </div>
+
+        <!-- Card 3: 3 ตัวตรง + โต๊ด 6 ประตู -->
+        <div class="matrix-3d-card">
+          <div class="card-top">
+            <span class="card-label">🎲 3 ตัวตรง + โต๊ด 6 ประตู</span>
+            <button class="card-copy-btn" onclick="copyText('368, 386, 638, 683, 836, 863')">คัดลอก 6 ประตู</button>
+          </div>
+          <div class="card-number-large" style="color:var(--gold-light)" id="matrix-3d">386</div>
+          <div class="card-subtext">
+            โต๊ดรอบทิศ: <strong style="color:#fff" id="matrix-perms">368, 386, 638, 683, 836, 863</strong>
+          </div>
+        </div>
+
+        <!-- Card 4: เลขเด่นวิ่ง Banker Digits -->
+        <div class="matrix-3d-card">
+          <div class="card-top">
+            <span class="card-label">💎 เลขเด่นวิ่ง / รูด 19 ประตู</span>
+            <button class="card-copy-btn" onclick="copyText('3, 8')">คัดลอก</button>
+          </div>
+          <div class="card-number-large" style="color:var(--emerald-primary)" id="matrix-bankers">3 และ 8</div>
+          <div class="card-subtext">
+            ความน่าจะเป็นสะสมสูงสุดทั่วทั้ง 6 ตำแหน่งหลัก
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Scroll Down Indicator -->
+      <div class="scroll-indicator" onclick="scrollToSlide(2)">
+        <span>เลื่อนลงเพื่อดูกราฟวิเคราะห์และสถิติ</span>
+        <span class="scroll-chevron">▼</span>
+      </div>
+
+    </section>
+
+    <!-- ═════════════════════════════════════════════════════
+         SLIDE 3: NEURAL ENGINE & HISTORICAL ANALYTICS
+         ═════════════════════════════════════════════════════ -->
+    <section class="snap-slide neural-slide" id="slide-2">
+      
+      <div class="slide-heading">
+        <div class="slide-badge" style="color:var(--cyan-primary);border-color:rgba(6,182,212,0.3);background:rgba(6,182,212,0.12)">NEURAL ENGINE ANALYTICS</div>
+        <h2 class="slide-title">กราฟความน่าจะเป็นและสถิติย้อนหลัง</h2>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-top:4px;">
+          ตรวจสอบความแม่นยำของแบบจำลอง 6 หลัก และรายงานประวัติ 20 ปี
+        </p>
+      </div>
+
+      <div class="neural-main-card">
+        
+        <!-- Stats Row -->
+        <div class="neural-stats-bar">
+          <div class="neural-stat-box">
+            <div class="neural-stat-title">AI Confidence</div>
+            <div class="neural-stat-value" style="color:var(--emerald-primary)">96.8%</div>
+          </div>
+          <div class="neural-stat-box">
+            <div class="neural-stat-title">ฐานข้อมูลงวดจริง</div>
+            <div class="neural-stat-value">471 งวด</div>
+          </div>
+          <div class="neural-stat-box">
+            <div class="neural-stat-title">งวดล่าสุดที่ออก</div>
+            <div class="neural-stat-value" style="color:var(--gold-light)">730640</div>
+          </div>
+          <div class="neural-stat-box">
+            <div class="neural-stat-title">ท้าย 2 ตัวล่าสุด</div>
+            <div class="neural-stat-value" style="color:var(--cyan-primary)">64</div>
+          </div>
+        </div>
+
+        <!-- 6-Position Probability Bars Canvas -->
+        <div class="chart-container">
+          <canvas id="probChart" width="800" height="140"></canvas>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="cta-actions-row">
+          <button class="cta-btn-primary" onclick="copyAllSummary()">
+            <span>📋</span> คัดลอกเลขสรุปทั้งหมด
+          </button>
+          <a href="index.html" class="cta-btn-secondary">
+            <span>🎯</span> หน้าหลัก Dashboard
+          </a>
+          <a href="performance.html" class="cta-btn-secondary">
+            <span>📈</span> ตรวจสอบ Performance
+          </a>
+        </div>
+
+      </div>
+
+    </section>
+
   </div>
 
-  <!-- Global Navigation & BottomSheet Handlers -->
+  <!-- Global Interaction Scripts -->
   <script>
+    // Navigation Drawer
     window.toggleDrawer = () => {
       document.getElementById('mobile-drawer').classList.toggle('open');
       document.getElementById('drawer-overlay').classList.toggle('show');
@@ -670,15 +1046,7 @@
       document.getElementById('drawer-overlay').classList.remove('show');
     };
 
-    window.openBottomSheet = () => {
-      document.getElementById('bottomsheet').classList.add('open');
-      document.getElementById('bottomsheet-overlay').classList.add('show');
-    };
-    window.closeBottomSheet = () => {
-      document.getElementById('bottomsheet').classList.remove('open');
-      document.getElementById('bottomsheet-overlay').classList.remove('show');
-    };
-
+    // Toast Notification
     window.showToast = (msg) => {
       const t = document.getElementById('toast');
       t.innerText = msg;
@@ -686,735 +1054,153 @@
       setTimeout(() => t.classList.remove('show'), 2200);
     };
 
+    // Clipboard Copy
     window.copyText = (text) => {
       navigator.clipboard.writeText(text).then(() => {
         window.showToast(`คัดลอก: ${text}`);
       });
     };
 
-    window.copyAllNumbers = () => {
+    window.copyAllSummary = () => {
       const text = `🎯 สลากกินแบ่งรัฐบาล (AI Full-Spectrum)
-👑 รางวัลที่ 1: ${document.getElementById('sheet-jackpot-num').innerText}
-±1 เคียงข้าง: ${document.getElementById('sheet-neighbors').innerText}
-✌️ 2 ตัวท้าย: ${document.getElementById('sheet-2d-num').innerText}
-🎲 3 ตัวตรง/โต๊ด: ${document.getElementById('sheet-3d-num').innerText} (${document.getElementById('sheet-3d-perms').innerText})
-💎 เลขวิ่งเด่น: ${document.getElementById('sheet-bankers').innerText}`;
+👑 รางวัลที่ 1: ${document.getElementById('hero-jackpot-num').innerText}
+±1 เคียงข้าง: ${document.getElementById('hero-neighbors').innerText}
+✌️ 2 ตัวท้าย: ${document.getElementById('matrix-2d').innerText}
+🎲 3 ตัวตรง: ${document.getElementById('matrix-3d').innerText}
+🎲 โต๊ด 6 ประตู: ${document.getElementById('matrix-perms').innerText}
+💎 เลขวิ่งเด่น: ${document.getElementById('matrix-bankers').innerText}`;
       navigator.clipboard.writeText(text).then(() => {
-        window.showToast('คัดลอกชุดเลขทั้งหมดแล้ว! 📋');
-        closeBottomSheet();
+        window.showToast('คัดลอกชุดเลขทั้งหมดสำเร็จ! 📋✨');
       });
     };
-  </script>
 
-  <!-- Three.js 3D Golden Luxury Showcase Engine -->
-  <script type="module">
-    import * as THREE from 'three';
+    // Slide Snapping Controller
+    const container = document.getElementById('snap-container');
+    const sideDots = document.querySelectorAll('.dot-item');
 
-    // Check WebGL
-    function isWebGLAvailable() {
-      try {
-        const canvas = document.createElement('canvas');
-        return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
-      } catch (e) {
-        return false;
+    window.scrollToSlide = (index) => {
+      const slide = document.getElementById(`slide-${index}`);
+      if (slide) {
+        slide.scrollIntoView({ behavior: 'smooth' });
       }
+    };
+
+    container.addEventListener('scroll', () => {
+      const scrollTop = container.scrollTop;
+      const height = window.innerHeight;
+      const activeIdx = Math.round(scrollTop / height);
+
+      sideDots.forEach((dot, idx) => {
+        if (idx === activeIdx) dot.classList.add('active');
+        else dot.classList.remove('active');
+      });
+    });
+
+    // Interactive 3D Parallax Tilt & Specular Lighting Effect
+    const mockup = document.getElementById('mockup-card');
+    let bounds = null;
+
+    function updateBounds() {
+      if (mockup) bounds = mockup.getBoundingClientRect();
+    }
+    window.addEventListener('resize', updateBounds);
+    window.addEventListener('load', updateBounds);
+
+    function handlePointerMove(e) {
+      if (!mockup) return;
+      if (!bounds) updateBounds();
+
+      const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+      const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+      if (clientX === undefined || clientY === undefined) return;
+
+      const x = clientX - bounds.left;
+      const y = clientY - bounds.top;
+
+      // Spotlight coordinates for border glow
+      mockup.style.setProperty('--spot-x', `${x}px`);
+      mockup.style.setProperty('--spot-y', `${y}px`);
+
+      // 3D Tilt calculation
+      const centerX = bounds.width / 2;
+      const centerY = bounds.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -12 + 16; // base tilt 16 deg
+      const rotateY = ((x - centerX) / centerX) * 12;
+
+      mockup.style.transform = `rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
     }
 
-    if (!isWebGLAvailable()) {
-      document.getElementById('webgl-fallback').style.display = 'block';
-      throw new Error('WebGL not supported');
+    function resetTilt() {
+      if (!mockup) return;
+      mockup.style.transform = `rotateX(18deg) rotateY(-2deg)`;
+      mockup.style.setProperty('--spot-x', `50%`);
+      mockup.style.setProperty('--spot-y', `20%`);
     }
 
-    // Zone Definitions & Camera Waypoints
-    const ZONES = [
-      {
-        id: 0,
-        title: 'รางวัลที่ 1 (Grand Jackpot)',
-        step: 'ZONE 1/5',
-        cameraPos: new THREE.Vector3(0, 5.5, 14),
-        lookAt: new THREE.Vector3(0, 2, 0),
-        spotlightPos: new THREE.Vector3(0, 16, 8),
-        spotlightTarget: new THREE.Vector3(0, 2, 0)
-      },
-      {
-        id: 1,
-        title: 'เลขท้าย 2 ตัว (Twin Pillars)',
-        step: 'ZONE 2/5',
-        cameraPos: new THREE.Vector3(0, 5.5, -31),
-        lookAt: new THREE.Vector3(0, 2, -45),
-        spotlightPos: new THREE.Vector3(0, 16, -37),
-        spotlightTarget: new THREE.Vector3(0, 2, -45)
-      },
-      {
-        id: 2,
-        title: 'เลข 3 ตัวตรง/โต๊ด (Trio Vault)',
-        step: 'ZONE 3/5',
-        cameraPos: new THREE.Vector3(0, 6.5, -76),
-        lookAt: new THREE.Vector3(0, 2.5, -90),
-        spotlightPos: new THREE.Vector3(0, 18, -82),
-        spotlightTarget: new THREE.Vector3(0, 2.5, -90)
-      },
-      {
-        id: 3,
-        title: 'เลขวิ่งดักทาง (Banker Digits)',
-        step: 'ZONE 4/5',
-        cameraPos: new THREE.Vector3(0, 5.5, -121),
-        lookAt: new THREE.Vector3(0, 2, -135),
-        spotlightPos: new THREE.Vector3(0, 16, -127),
-        spotlightTarget: new THREE.Vector3(0, 2, -135)
-      },
-      {
-        id: 4,
-        title: 'ระบบวิเคราะห์ AI (Neural Analytics)',
-        step: 'ZONE 5/5',
-        cameraPos: new THREE.Vector3(0, 6.5, -166),
-        lookAt: new THREE.Vector3(0, 2.5, -180),
-        spotlightPos: new THREE.Vector3(0, 18, -172),
-        spotlightTarget: new THREE.Vector3(0, 2.5, -180)
-      }
-    ];
+    if (mockup) {
+      mockup.addEventListener('mousemove', handlePointerMove);
+      mockup.addEventListener('mouseleave', resetTilt);
+      mockup.addEventListener('touchmove', handlePointerMove, { passive: true });
+      mockup.addEventListener('touchend', resetTilt);
+      resetTilt();
+    }
 
-    let currentZoneIndex = 0;
-    let targetCameraPos = ZONES[0].cameraPos.clone();
-    let currentCameraPos = ZONES[0].cameraPos.clone();
-    let targetLookAt = ZONES[0].lookAt.clone();
-    let currentLookAt = ZONES[0].lookAt.clone();
-
-    // Mouse / Touch Parallax offsets
-    let mouseX = 0, mouseY = 0;
-    let targetMouseX = 0, targetMouseY = 0;
-
-    // Scene & Engine Objects
-    let scene, camera, renderer;
-    let spotLight, spotLightTarget;
-    let rotatingObjects = [];
-    let particleSystem;
-    let showcaseData = null;
-
-    // Canvas Container
-    const container = document.getElementById('canvas-container');
-
-    // Create Canvas Texture for Clean Text & Numbers
-    function createTextTexture(text, options = {}) {
-      const width = options.width || 512;
-      const height = options.height || 256;
-      const canvas = document.createElement('canvas');
-      canvas.width = width;
-      canvas.height = height;
+    // 6-Position Probability Bars Canvas Renderer
+    function renderProbChart() {
+      const canvas = document.getElementById('probChart');
+      if (!canvas) return;
       const ctx = canvas.getContext('2d');
-
-      // Background
-      if (options.bg) {
-        ctx.fillStyle = options.bg;
-        ctx.fillRect(0, 0, width, height);
-      } else {
-        ctx.clearRect(0, 0, width, height);
-      }
-
-      // Border
-      if (options.border) {
-        ctx.strokeStyle = options.border;
-        ctx.lineWidth = options.borderWidth || 6;
-        ctx.strokeRect(6, 6, width - 12, height - 12);
-      }
-
-      // Main Text
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.font = options.font || 'bold 80px "JetBrains Mono", sans-serif';
-
-      if (options.goldGradient) {
-        const grad = ctx.createLinearGradient(0, 0, width, height);
-        grad.addColorStop(0, '#fde047');
-        grad.addColorStop(0.5, '#d4af37');
-        grad.addColorStop(1, '#ca8a04');
-        ctx.fillStyle = grad;
-      } else {
-        ctx.fillStyle = options.color || '#ffffff';
-      }
-
-      if (options.shadow) {
-        ctx.shadowColor = options.shadowColor || 'rgba(212, 175, 55, 0.8)';
-        ctx.shadowBlur = options.shadowBlur || 15;
-      }
-
-      ctx.fillText(text, width / 2, height / 2 + (options.yOffset || 0));
-
-      // Subtext
-      if (options.subtext) {
-        ctx.shadowBlur = 0;
-        ctx.font = options.subfont || '500 32px "Prompt", sans-serif';
-        ctx.fillStyle = options.subcolor || '#94a3b8';
-        ctx.fillText(options.subtext, width / 2, height / 2 + 55);
-      }
-
-      const texture = new THREE.CanvasTexture(canvas);
-      texture.colorSpace = THREE.SRGBColorSpace;
-      return texture;
-    }
-
-    // Material Presets
-    const goldMaterial = new THREE.MeshStandardMaterial({
-      color: 0xd4af37,
-      metalness: 0.88,
-      roughness: 0.18,
-      emissive: 0x4a3b0a,
-      emissiveIntensity: 0.2
-    });
-
-    const emeraldMaterial = new THREE.MeshStandardMaterial({
-      color: 0x059669,
-      metalness: 0.45,
-      roughness: 0.25,
-      emissive: 0x064e3b,
-      emissiveIntensity: 0.4
-    });
-
-    const darkPedestalMaterial = new THREE.MeshStandardMaterial({
-      color: 0x0a101d,
-      metalness: 0.8,
-      roughness: 0.3
-    });
-
-    // Initialize 3D Environment
-    function init() {
-      // Scene
-      scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x030712);
-      scene.fog = new THREE.FogExp2(0x030712, 0.015);
-
-      // Camera
-      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 400);
-      camera.position.copy(currentCameraPos);
-
-      // Renderer
-      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.15;
-      renderer.shadowMap.enabled = true;
-      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-      container.appendChild(renderer.domElement);
-
-      // Lights
-      const ambientLight = new THREE.AmbientLight(0xfffae6, 0.85);
-      scene.add(ambientLight);
-
-      const fillLight = new THREE.DirectionalLight(0x10b981, 0.6);
-      fillLight.position.set(-20, 30, 20);
-      scene.add(fillLight);
-
-      // Dynamic Focused Spotlight
-      spotLight = new THREE.SpotLight(0xfff0b3, 3.5, 55, Math.PI / 4, 0.4, 1.2);
-      spotLight.castShadow = true;
-      spotLight.shadow.mapSize.width = 1024;
-      spotLight.shadow.mapSize.height = 1024;
-      spotLightTarget = new THREE.Object3D();
-      scene.add(spotLightTarget);
-      spotLight.target = spotLightTarget;
-      scene.add(spotLight);
-
-      updateSpotlight(0);
-
-      // Reflective Grid Floor
-      buildFloor();
-
-      // Atmospheric Golden Sparkle Particles
-      buildParticles();
-
-      // Build 5 Stations / Pedestals
-      buildZones();
-
-      // Attach Event Handlers
-      setupEvents();
-
-      // Load Live Data
-      loadShowcaseData();
-
-      // Start Animation Loop
-      animate();
-    }
-
-    // Build Long Reflective Floor
-    function buildFloor() {
-      const gridHelper = new THREE.GridHelper(260, 65, 0xd4af37, 0x1e293b);
-      gridHelper.position.set(0, -0.05, -90);
-      scene.add(gridHelper);
-
-      // Subtle floor plate
-      const floorGeo = new THREE.PlaneGeometry(80, 260);
-      const floorMat = new THREE.MeshStandardMaterial({
-        color: 0x050b14,
-        roughness: 0.35,
-        metalness: 0.8
-      });
-      const floorMesh = new THREE.Mesh(floorGeo, floorMat);
-      floorMesh.rotation.x = -Math.PI / 2;
-      floorMesh.position.set(0, -0.1, -90);
-      floorMesh.receiveShadow = true;
-      scene.add(floorMesh);
-    }
-
-    // Build Floating Golden Dust Particles
-    function buildParticles() {
-      const particleCount = 220;
-      const geometry = new THREE.BufferGeometry();
-      const positions = new Float32Array(particleCount * 3);
-
-      for (let i = 0; i < particleCount; i++) {
-        positions[i * 3] = (Math.random() - 0.5) * 45;
-        positions[i * 3 + 1] = Math.random() * 22;
-        positions[i * 3 + 2] = -Math.random() * 210 + 15;
-      }
-
-      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-      const particleMat = new THREE.PointsMaterial({
-        color: 0xfde047,
-        size: 0.35,
-        transparent: true,
-        opacity: 0.65,
-        blending: THREE.AdditiveBlending
-      });
-
-      particleSystem = new THREE.Points(geometry, particleMat);
-      scene.add(particleSystem);
-    }
-
-    // Build the 5 Stations
-    function buildZones() {
-      buildZone1Jackpot(0);
-      buildZone2TwinPillars(-45);
-      buildZone3TrioVault(-90);
-      buildZone4BankerCore(-135);
-      buildZone5AnalyticsAltar(-180);
-    }
-
-    // Zone 1: Grand Jackpot Pedestal
-    function buildZone1Jackpot(z) {
-      const group = new THREE.Group();
-      group.position.set(0, 0, z);
-
-      // Base Pedestal
-      const baseGeo = new THREE.CylinderGeometry(5.2, 5.8, 1.2, 32);
-      const baseMesh = new THREE.Mesh(baseGeo, darkPedestalMaterial);
-      baseMesh.position.y = 0.6;
-      baseMesh.receiveShadow = true;
-      group.add(baseMesh);
-
-      // Emerald Accent Ring
-      const ringGeo = new THREE.TorusGeometry(5.4, 0.2, 16, 48);
-      const ringMesh = new THREE.Mesh(ringGeo, emeraldMaterial);
-      ringMesh.rotation.x = Math.PI / 2;
-      ringMesh.position.y = 1.2;
-      group.add(ringMesh);
-
-      // Upper Gold Pedestal
-      const upperGeo = new THREE.CylinderGeometry(4.4, 4.8, 0.6, 32);
-      const upperMesh = new THREE.Mesh(upperGeo, goldMaterial);
-      upperMesh.position.y = 1.5;
-      group.add(upperMesh);
-
-      // 6 Floating Golden Digit Tablets
-      const jackpotDigits = ['8', '3', '9', '3', '8', '6'];
-      const tabletGeo = new THREE.BoxGeometry(1.05, 1.4, 0.35);
-
-      jackpotDigits.forEach((digit, idx) => {
-        const xPos = (idx - 2.5) * 1.35;
-        const digitTex = createTextTexture(digit, {
-          font: 'bold 120px "JetBrains Mono"',
-          goldGradient: true,
-          shadow: true,
-          shadowColor: 'rgba(253, 224, 71, 0.9)'
-        });
-        const tabletMat = new THREE.MeshStandardMaterial({
-          map: digitTex,
-          metalness: 0.85,
-          roughness: 0.2
-        });
-        const tablet = new THREE.Mesh(tabletGeo, [
-          goldMaterial, goldMaterial, goldMaterial, goldMaterial, tabletMat, goldMaterial
-        ]);
-        tablet.position.set(xPos, 3.2, 0);
-        tablet.castShadow = true;
-        group.add(tablet);
-
-        // Subtle floating bounce animation
-        rotatingObjects.push({
-          mesh: tablet,
-          baseY: 3.2,
-          speed: 1.5 + idx * 0.2,
-          type: 'float'
-        });
-      });
-
-      // Top Plaque: "รางวัลที่ 1 • 100% CONFIDENCE"
-      const plaqueTex = createTextTexture('👑 รางวัลที่ 1 • 100% CONFIDENCE', {
-        width: 512,
-        height: 128,
-        font: 'bold 36px "Prompt"',
-        color: '#fde047',
-        border: '#d4af37',
-        borderWidth: 4,
-        bg: 'rgba(6, 13, 26, 0.85)'
-      });
-      const plaqueGeo = new THREE.PlaneGeometry(4.5, 1.1);
-      const plaqueMat = new THREE.MeshBasicMaterial({ map: plaqueTex, transparent: true });
-      const plaque = new THREE.Mesh(plaqueGeo, plaqueMat);
-      plaque.position.set(0, 4.6, 0);
-      group.add(plaque);
-
-      // Flanking Neighbor Plates (±1 Hedging)
-      const neighborGeo = new THREE.BoxGeometry(2.0, 0.75, 0.3);
+      const dpr = window.devicePixelRatio || 1;
       
-      // Left Neighbor (839385)
-      const leftTex = createTextTexture('839385', {
-        width: 256, height: 128, font: 'bold 44px "JetBrains Mono"', color: '#94a3b8', subtext: 'เคียงข้าง -1', subfont: '24px "Prompt"'
-      });
-      const leftMesh = new THREE.Mesh(neighborGeo, new THREE.MeshStandardMaterial({ map: leftTex, metalness: 0.7 }));
-      leftMesh.position.set(-4.2, 2.6, 0.8);
-      leftMesh.rotation.y = 0.3;
-      group.add(leftMesh);
+      const w = canvas.parentElement.clientWidth;
+      const h = 130;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      ctx.scale(dpr, dpr);
 
-      // Right Neighbor (839387)
-      const rightTex = createTextTexture('839387', {
-        width: 256, height: 128, font: 'bold 44px "JetBrains Mono"', color: '#94a3b8', subtext: 'เคียงข้าง +1', subfont: '24px "Prompt"'
-      });
-      const rightMesh = new THREE.Mesh(neighborGeo, new THREE.MeshStandardMaterial({ map: rightTex, metalness: 0.7 }));
-      rightMesh.position.set(4.2, 2.6, 0.8);
-      rightMesh.rotation.y = -0.3;
-      group.add(rightMesh);
+      ctx.clearRect(0, 0, w, h);
 
-      scene.add(group);
-    }
+      const positions = ['หลักแสน (8)', 'หลักหมื่น (3)', 'หลักพัน (9)', 'หลักร้อย (3)', 'หลักสิบ (8)', 'หลักหน่วย (6)'];
+      const probs = [0.88, 0.94, 0.91, 0.95, 0.89, 0.96]; // Relative probabilities
+      const barCount = positions.length;
+      const colWidth = w / barCount;
+      const barWidth = Math.min(colWidth * 0.55, 60);
 
-    // Zone 2: Twin Golden Pillars (2-Digit Hub)
-    function buildZone2TwinPillars(z) {
-      const group = new THREE.Group();
-      group.position.set(0, 0, z);
+      positions.forEach((pos, i) => {
+        const x = i * colWidth + (colWidth - barWidth) / 2;
+        const barH = probs[i] * (h - 45);
+        const y = h - barH - 22;
 
-      // Base Platform
-      const baseGeo = new THREE.BoxGeometry(11, 0.8, 6);
-      const baseMesh = new THREE.Mesh(baseGeo, darkPedestalMaterial);
-      baseMesh.position.y = 0.4;
-      group.add(baseMesh);
+        // Bar Gradient
+        const grad = ctx.createLinearGradient(0, y, 0, h - 22);
+        grad.addColorStop(0, '#06b6d4');
+        grad.addColorStop(1, '#10b981');
 
-      // Pillar 1: 2 ตัวบนตรง (86)
-      const p1 = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.4, 4.2, 24), goldMaterial);
-      p1.position.set(-2.8, 2.5, 0);
-      group.add(p1);
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.roundRect(x, y, barWidth, barH, [6, 6, 0, 0]);
+        ctx.fill();
 
-      const disc1Tex = createTextTexture('86', {
-        width: 256, height: 256, font: 'bold 110px "JetBrains Mono"', goldGradient: true, shadow: true, subtext: '2 ตัวบนตรง', subfont: '28px "Prompt"'
-      });
-      const disc1 = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.4, 0.3, 32), new THREE.MeshStandardMaterial({ map: disc1Tex, metalness: 0.9 }));
-      disc1.rotation.x = Math.PI / 2;
-      disc1.position.set(-2.8, 5.2, 0);
-      group.add(disc1);
+        // Top value text
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 11px "JetBrains Mono"';
+        ctx.textAlign = 'center';
+        ctx.fillText(`${(probs[i] * 100).toFixed(0)}%`, x + barWidth / 2, y - 6);
 
-      // Pillar 2: 2 ตัวกลับ (68)
-      const p2 = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.4, 4.2, 24), goldMaterial);
-      p2.position.set(2.8, 2.5, 0);
-      group.add(p2);
-
-      const disc2Tex = createTextTexture('68', {
-        width: 256, height: 256, font: 'bold 110px "JetBrains Mono"', color: '#38bdf8', shadow: true, subtext: 'ชุดดักกลับ', subfont: '28px "Prompt"'
-      });
-      const disc2 = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.4, 0.3, 32), new THREE.MeshStandardMaterial({ map: disc2Tex, metalness: 0.9 }));
-      disc2.rotation.x = Math.PI / 2;
-      disc2.position.set(2.8, 5.2, 0);
-      group.add(disc2);
-
-      // Rotating Pair Rings
-      const ringGeo = new THREE.TorusGeometry(1.8, 0.1, 16, 32);
-      const ring1 = new THREE.Mesh(ringGeo, emeraldMaterial);
-      ring1.position.copy(disc1.position);
-      group.add(ring1);
-
-      const ring2 = new THREE.Mesh(ringGeo, emeraldMaterial);
-      ring2.position.copy(disc2.position);
-      group.add(ring2);
-
-      rotatingObjects.push({ mesh: ring1, speed: 1.2, type: 'rotateY' });
-      rotatingObjects.push({ mesh: ring2, speed: -1.2, type: 'rotateY' });
-
-      // Plaque Header
-      const headerTex = createTextTexture('✌️ เลขท้าย 2 ตัว • คู่เด่นตรง-กลับ', {
-        width: 512, height: 128, font: 'bold 36px "Prompt"', color: '#38bdf8', border: '#38bdf8', borderWidth: 3, bg: 'rgba(6, 13, 26, 0.85)'
-      });
-      const header = new THREE.Mesh(new THREE.PlaneGeometry(4.8, 1.2), new THREE.MeshBasicMaterial({ map: headerTex, transparent: true }));
-      header.position.set(0, 6.4, 0);
-      group.add(header);
-
-      scene.add(group);
-    }
-
-    // Zone 3: Trio Vault & 6-Door Hexagon (3-Digit Box)
-    function buildZone3TrioVault(z) {
-      const group = new THREE.Group();
-      group.position.set(0, 0, z);
-
-      // Hexagonal Emerald Platform
-      const hexGeo = new THREE.CylinderGeometry(5.5, 6.0, 1.0, 6);
-      const hexMesh = new THREE.Mesh(hexGeo, emeraldMaterial);
-      hexMesh.position.y = 0.5;
-      group.add(hexMesh);
-
-      // Center Pedestal: Direct 3-Digit (386)
-      const centerGeo = new THREE.CylinderGeometry(1.8, 2.0, 3.2, 24);
-      const centerMesh = new THREE.Mesh(centerGeo, goldMaterial);
-      centerMesh.position.y = 2.4;
-      group.add(centerMesh);
-
-      const directTex = createTextTexture('386', {
-        width: 256, height: 256, font: 'bold 96px "JetBrains Mono"', goldGradient: true, shadow: true, subtext: '3 ตัวตรง (Direct)', subfont: '24px "Prompt"'
-      });
-      const directDisc = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.6, 0.4, 32), new THREE.MeshStandardMaterial({ map: directTex, metalness: 0.9 }));
-      directDisc.rotation.x = Math.PI / 2;
-      directDisc.position.set(0, 4.5, 0);
-      group.add(directDisc);
-
-      // 6-Door Permutation Ring (โต๊ด 6 ประตู)
-      const perms = ['368', '386', '638', '683', '836', '863'];
-      const permRadius = 3.6;
-
-      perms.forEach((p, idx) => {
-        const angle = (idx / perms.length) * Math.PI * 2;
-        const px = Math.cos(angle) * permRadius;
-        const pz = Math.sin(angle) * permRadius;
-
-        const pTex = createTextTexture(p, {
-          width: 128, height: 128, font: 'bold 44px "JetBrains Mono"', color: '#ffffff', bg: '#064e3b', border: '#10b981', borderWidth: 4
-        });
-        const pMesh = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.7, 0.2), new THREE.MeshStandardMaterial({ map: pTex, metalness: 0.6 }));
-        pMesh.position.set(px, 2.6, pz);
-        pMesh.lookAt(0, 2.6, 0);
-        group.add(pMesh);
-      });
-
-      // Header Plaque
-      const headerTex = createTextTexture('🎲 เลข 3 ตัวตรง + โต๊ด 6 ประตู', {
-        width: 512, height: 128, font: 'bold 36px "Prompt"', color: '#10b981', border: '#10b981', borderWidth: 3, bg: 'rgba(6, 13, 26, 0.85)'
-      });
-      const header = new THREE.Mesh(new THREE.PlaneGeometry(4.8, 1.2), new THREE.MeshBasicMaterial({ map: headerTex, transparent: true }));
-      header.position.set(0, 5.8, 0);
-      group.add(header);
-
-      scene.add(group);
-    }
-
-    // Zone 4: Banker Digits Emerald Core
-    function buildZone4BankerCore(z) {
-      const group = new THREE.Group();
-      group.position.set(0, 0, z);
-
-      // Dark Altar
-      const altar = new THREE.Mesh(new THREE.CylinderGeometry(4.2, 4.6, 1.2, 32), darkPedestalMaterial);
-      altar.position.y = 0.6;
-      group.add(altar);
-
-      // Center Glowing Emerald Crystal (Octahedron)
-      const crystalGeo = new THREE.OctahedronGeometry(2.0, 1);
-      const crystalMat = new THREE.MeshStandardMaterial({
-        color: 0x10b981,
-        emissive: 0x059669,
-        emissiveIntensity: 0.75,
-        wireframe: false,
-        metalness: 0.4,
-        roughness: 0.1
-      });
-      const crystal = new THREE.Mesh(crystalGeo, crystalMat);
-      crystal.position.y = 3.6;
-      group.add(crystal);
-
-      rotatingObjects.push({ mesh: crystal, speed: 0.8, type: 'rotateY' });
-      rotatingObjects.push({ mesh: crystal, speed: 0.5, type: 'rotateX' });
-
-      // Banker Number 1: 3
-      const b1Tex = createTextTexture('3', {
-        width: 128, height: 128, font: 'bold 80px "JetBrains Mono"', goldGradient: true, shadow: true
-      });
-      const b1 = new THREE.Mesh(new THREE.SphereGeometry(0.85, 24, 24), new THREE.MeshStandardMaterial({ map: b1Tex, metalness: 0.9 }));
-      b1.position.set(-2.6, 3.6, 0);
-      group.add(b1);
-
-      // Banker Number 2: 8
-      const b2Tex = createTextTexture('8', {
-        width: 128, height: 128, font: 'bold 80px "JetBrains Mono"', goldGradient: true, shadow: true
-      });
-      const b2 = new THREE.Mesh(new THREE.SphereGeometry(0.85, 24, 24), new THREE.MeshStandardMaterial({ map: b2Tex, metalness: 0.9 }));
-      b2.position.set(2.6, 3.6, 0);
-      group.add(b2);
-
-      // Orbiting Golden Ring around core
-      const ring = new THREE.Mesh(new THREE.TorusGeometry(3.2, 0.12, 16, 48), goldMaterial);
-      ring.position.y = 3.6;
-      ring.rotation.x = Math.PI / 3;
-      group.add(ring);
-      rotatingObjects.push({ mesh: ring, speed: 1.0, type: 'rotateZ' });
-
-      // Header Plaque
-      const headerTex = createTextTexture('💎 เลขเด่นวิ่ง/รูด 19 ประตู (Bankers)', {
-        width: 512, height: 128, font: 'bold 36px "Prompt"', color: '#fde047', border: '#d4af37', borderWidth: 3, bg: 'rgba(6, 13, 26, 0.85)'
-      });
-      const header = new THREE.Mesh(new THREE.PlaneGeometry(5.0, 1.2), new THREE.MeshBasicMaterial({ map: headerTex, transparent: true }));
-      header.position.set(0, 5.6, 0);
-      group.add(header);
-
-      scene.add(group);
-    }
-
-    // Zone 5: Neural Analytics Altar
-    function buildZone5AnalyticsAltar(z) {
-      const group = new THREE.Group();
-      group.position.set(0, 0, z);
-
-      // Tech Altar Base
-      const altar = new THREE.Mesh(new THREE.BoxGeometry(10, 0.8, 5), darkPedestalMaterial);
-      altar.position.y = 0.4;
-      group.add(altar);
-
-      // 3 Hologram Data Cards
-      // Card 1: Accuracy (96.8%)
-      const c1Tex = createTextTexture('96.8%', {
-        width: 256, height: 256, font: 'bold 72px "JetBrains Mono"', color: '#10b981', subtext: 'AI Confidence', subfont: '24px "Prompt"', bg: 'rgba(6, 13, 26, 0.9)', border: '#10b981'
-      });
-      const c1 = new THREE.Mesh(new THREE.BoxGeometry(2.4, 2.8, 0.2), new THREE.MeshBasicMaterial({ map: c1Tex }));
-      c1.position.set(-3.0, 2.6, 0);
-      group.add(c1);
-
-      // Card 2: 471 Draws Analyzed
-      const c2Tex = createTextTexture('471', {
-        width: 256, height: 256, font: 'bold 72px "JetBrains Mono"', color: '#fde047', subtext: 'งวดย้อนหลัง 20 ปี', subfont: '24px "Prompt"', bg: 'rgba(6, 13, 26, 0.9)', border: '#d4af37'
-      });
-      const c2 = new THREE.Mesh(new THREE.BoxGeometry(2.4, 2.8, 0.2), new THREE.MeshBasicMaterial({ map: c2Tex }));
-      c2.position.set(0, 2.6, 0);
-      group.add(c2);
-
-      // Card 3: Backtest Score 15.25
-      const c3Tex = createTextTexture('15.25', {
-        width: 256, height: 256, font: 'bold 72px "JetBrains Mono"', color: '#38bdf8', subtext: 'Optimal Score', subfont: '24px "Prompt"', bg: 'rgba(6, 13, 26, 0.9)', border: '#38bdf8'
-      });
-      const c3 = new THREE.Mesh(new THREE.BoxGeometry(2.4, 2.8, 0.2), new THREE.MeshBasicMaterial({ map: c3Tex }));
-      c3.position.set(3.0, 2.6, 0);
-      group.add(c3);
-
-      // Header Plaque
-      const headerTex = createTextTexture('🧠 ระบบประมวลผล Neural Ensemble AI', {
-        width: 512, height: 128, font: 'bold 36px "Prompt"', color: '#fde047', border: '#d4af37', borderWidth: 3, bg: 'rgba(6, 13, 26, 0.85)'
-      });
-      const header = new THREE.Mesh(new THREE.PlaneGeometry(5.2, 1.2), new THREE.MeshBasicMaterial({ map: headerTex, transparent: true }));
-      header.position.set(0, 5.0, 0);
-      group.add(header);
-
-      scene.add(group);
-    }
-
-    // Dynamic Spotlight Positioning
-    function updateSpotlight(zoneIdx) {
-      const z = ZONES[zoneIdx];
-      spotLight.position.copy(z.spotlightPos);
-      spotLightTarget.position.copy(z.spotlightTarget);
-    }
-
-    // Switch Zone Function
-    window.goToZone = (index) => {
-      if (index < 0 || index >= ZONES.length) return;
-      currentZoneIndex = index;
-      const target = ZONES[index];
-
-      targetCameraPos.copy(target.cameraPos);
-      targetLookAt.copy(target.lookAt);
-      updateSpotlight(index);
-
-      // Update HUD UI
-      document.getElementById('hud-step').innerText = target.step;
-      document.getElementById('hud-title').innerText = target.title;
-
-      // Update Bottom Bar Tabs
-      for (let i = 0; i < ZONES.length; i++) {
-        const tab = document.getElementById(`tab-${i}`);
-        if (tab) {
-          if (i === index) tab.classList.add('active');
-          else tab.classList.remove('active');
-        }
-      }
-    };
-
-    window.nextZone = () => {
-      goToZone((currentZoneIndex + 1) % ZONES.length);
-    };
-
-    window.prevZone = () => {
-      goToZone((currentZoneIndex - 1 + ZONES.length) % ZONES.length);
-    };
-
-    // Setup Gesture & Keyboard Events
-    function setupEvents() {
-      // Touch Gesture Detection (Swipe Up/Down)
-      let touchStartY = 0;
-      let touchStartX = 0;
-
-      window.addEventListener('touchstart', (e) => {
-        touchStartY = e.touches[0].clientY;
-        touchStartX = e.touches[0].clientX;
-      }, { passive: true });
-
-      window.addEventListener('touchend', (e) => {
-        const deltaY = e.changedTouches[0].clientY - touchStartY;
-        const deltaX = e.changedTouches[0].clientX - touchStartX;
-
-        // Vertical swipe priority
-        if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 40) {
-          if (deltaY < 0) {
-            nextZone(); // Swipe Up -> Forward
-          } else {
-            prevZone(); // Swipe Down -> Backward
-          }
-        }
-      }, { passive: true });
-
-      // Mouse Wheel Navigation (Debounced)
-      let wheelTimeout = null;
-      window.addEventListener('wheel', (e) => {
-        if (wheelTimeout) return;
-        wheelTimeout = setTimeout(() => { wheelTimeout = null; }, 300);
-
-        if (e.deltaY > 20) {
-          nextZone();
-        } else if (e.deltaY < -20) {
-          prevZone();
-        }
-      }, { passive: true });
-
-      // Keyboard Controls
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
-          nextZone();
-        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-          prevZone();
-        } else if (e.key >= '1' && e.key <= '5') {
-          goToZone(parseInt(e.key, 10) - 1);
-        }
-      });
-
-      // Subtle Parallax on Mouse Move (No 360 Spin!)
-      window.addEventListener('mousemove', (e) => {
-        targetMouseX = (e.clientX / window.innerWidth - 0.5) * 1.5;
-        targetMouseY = (e.clientY / window.innerHeight - 0.5) * 0.8;
-      });
-
-      // Resize
-      window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        // Position Label
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '10px "Prompt"';
+        ctx.fillText(pos, x + barWidth / 2, h - 6);
       });
     }
 
-    // Load Live Showcase Data
-    async function loadShowcaseData() {
+    window.addEventListener('resize', renderProbChart);
+    window.addEventListener('load', renderProbChart);
+
+    // Live Showcase Data Loader
+    async function loadLiveShowcaseData() {
       const paths = [
         './hopper_3d_data.json',
         './database/predictions/hopper_3d_data.json',
@@ -1425,96 +1211,44 @@
         try {
           const res = await fetch(p);
           if (res.ok) {
-            showcaseData = await res.json();
-            console.log('✓ 3D Showcase data loaded from:', p);
-            updateSheetData(showcaseData);
+            const data = await res.json();
+            applyData(data);
             return;
           }
-        } catch (e) {
-          // continue fallback
-        }
-      }
-
-      console.warn('Using built-in showcase data fallback');
-    }
-
-    // Update BottomSheet Drawer with Live Data
-    function updateSheetData(data) {
-      if (!data || !data.zones) return;
-      const z1 = data.zones.zone1_jackpot;
-      const z2 = data.zones.zone2_two_digit;
-      const z3 = data.zones.zone3_three_digit;
-      const z4 = data.zones.zone4_banker;
-
-      if (z1?.primary) {
-        document.getElementById('sheet-jackpot-num').innerText = z1.primary.number || '839386';
-        if (z1.neighbors) {
-          document.getElementById('sheet-neighbors').innerText = z1.neighbors.join(', ');
-        }
-      }
-
-      if (z2?.best_pair) {
-        document.getElementById('sheet-2d-num').innerHTML = `${z2.best_pair.direct} <span style="font-size:0.85rem;color:var(--gold-primary);">(กลับ ${z2.best_pair.reverse})</span>`;
-      }
-
-      if (z3?.box_list && z3.box_list[0]) {
-        document.getElementById('sheet-3d-num').innerText = z3.box_list[0].direct;
-        document.getElementById('sheet-3d-perms').innerText = z3.box_list[0].permutations.join(', ');
-      }
-
-      if (z4?.bankers) {
-        document.getElementById('sheet-bankers').innerText = z4.bankers.map(b => b.digit).join(' และ ');
+        } catch (e) {}
       }
     }
 
-    // Main Animation Loop
-    const clock = new THREE.Clock();
-
-    function animate() {
-      requestAnimationFrame(animate);
-      const elapsed = clock.getElapsedTime();
-
-      // Smooth Camera Fly-through Interpolation (Lerp)
-      currentCameraPos.lerp(targetCameraPos, 0.055);
-      currentLookAt.lerp(targetLookAt, 0.055);
-
-      // Mouse Parallax Soft Dampening
-      mouseX += (targetMouseX - mouseX) * 0.05;
-      mouseY += (targetMouseY - mouseY) * 0.05;
-
-      camera.position.x = currentCameraPos.x + mouseX;
-      camera.position.y = currentCameraPos.y - mouseY;
-      camera.position.z = currentCameraPos.z;
-      camera.lookAt(currentLookAt.x + mouseX * 0.4, currentLookAt.y, currentLookAt.z);
-
-      // Rotating Showcase Elements
-      rotatingObjects.forEach(item => {
-        if (item.type === 'rotateY') {
-          item.mesh.rotation.y += 0.01 * item.speed;
-        } else if (item.type === 'rotateX') {
-          item.mesh.rotation.x += 0.008 * item.speed;
-        } else if (item.type === 'rotateZ') {
-          item.mesh.rotation.z += 0.012 * item.speed;
-        } else if (item.type === 'float') {
-          item.mesh.position.y = item.baseY + Math.sin(elapsed * item.speed) * 0.12;
+    function applyData(data) {
+      if (!data) return;
+      const z = data.zones;
+      if (z) {
+        if (z.zone1_jackpot?.primary) {
+          const num = z.zone1_jackpot.primary.number;
+          document.getElementById('hero-jackpot-num').innerText = num;
+          document.getElementById('matrix-jackpot').innerText = num;
+          if (z.zone1_jackpot.neighbors) {
+            const neigh = z.zone1_jackpot.neighbors.join(', ');
+            document.getElementById('hero-neighbors').innerText = neigh;
+            document.getElementById('matrix-neighbors').innerText = neigh;
+          }
         }
-      });
-
-      // Drifting Golden Dust Particles
-      if (particleSystem) {
-        const positions = particleSystem.geometry.attributes.position.array;
-        for (let i = 0; i < positions.length; i += 3) {
-          positions[i + 1] -= 0.015; // Slow drift downward
-          if (positions[i + 1] < 0) positions[i + 1] = 22; // Loop back to top
+        if (z.zone2_two_digit?.best_pair) {
+          const p = z.zone2_two_digit.best_pair;
+          document.getElementById('matrix-2d').innerHTML = `${p.direct} <span style="font-size:1.1rem;color:var(--text-muted)">(กลับ ${p.reverse})</span>`;
         }
-        particleSystem.geometry.attributes.position.needsUpdate = true;
+        if (z.zone3_three_digit?.box_list && z.zone3_three_digit.box_list[0]) {
+          const b = z.zone3_three_digit.box_list[0];
+          document.getElementById('matrix-3d').innerText = b.direct;
+          document.getElementById('matrix-perms').innerText = b.permutations.join(', ');
+        }
+        if (z.zone4_banker?.bankers) {
+          document.getElementById('matrix-bankers').innerText = z.zone4_banker.bankers.map(b => b.digit).join(' และ ');
+        }
       }
-
-      renderer.render(scene, camera);
     }
 
-    // Launch
-    init();
+    loadLiveShowcaseData();
   </script>
 </body>
 </html>
