@@ -842,7 +842,7 @@
               <span>LOTTERY DEEP NEURAL DASHBOARD</span>
             </div>
             <div class="mockup-countdown" id="hero-countdown">
-              ⏳ งวดถัดไป: 16 ก.ย. 2569
+              ⏳ งวดถัดไป: 1 ต.ค. 2569
             </div>
           </div>
 
@@ -1224,6 +1224,12 @@
 
     function applyData(data) {
       if (!data) return;
+      if (data.meta?.next_draw?.thai_formatted) {
+        const cd = document.getElementById('hero-countdown');
+        if (cd && !cd.innerHTML.includes('วัน') && !cd.innerHTML.includes('ถ่ายทอดสด')) {
+          cd.innerText = `⏳ งวดถัดไป: ${data.meta.next_draw.thai_formatted}`;
+        }
+      }
       const z = data.zones;
       if (z) {
         if (z.zone1_jackpot?.primary) {

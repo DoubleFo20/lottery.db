@@ -499,31 +499,31 @@
     ],
     "surging_3digit": [
       {
-        "sequence": "107",
+        "sequence": "514",
+        "recent_count": 2,
+        "recent_freq": 0.025,
+        "baseline_freq": 0.0011,
+        "surge_ratio": 22.55
+      },
+      {
+        "sequence": "208",
         "recent_count": 1,
         "recent_freq": 0.0125,
         "baseline_freq": 0.0006,
         "surge_ratio": 22.55
       },
       {
-        "sequence": "004",
+        "sequence": "479",
         "recent_count": 1,
         "recent_freq": 0.0125,
         "baseline_freq": 0.0006,
         "surge_ratio": 22.55
       },
       {
-        "sequence": "932",
-        "recent_count": 1,
-        "recent_freq": 0.0125,
-        "baseline_freq": 0.0006,
-        "surge_ratio": 22.55
-      },
-      {
-        "sequence": "615",
-        "recent_count": 1,
-        "recent_freq": 0.0125,
-        "baseline_freq": 0.0006,
+        "sequence": "612",
+        "recent_count": 2,
+        "recent_freq": 0.025,
+        "baseline_freq": 0.0011,
         "surge_ratio": 22.55
       },
       {
@@ -534,7 +534,14 @@
         "surge_ratio": 22.55
       },
       {
-        "sequence": "009",
+        "sequence": "172",
+        "recent_count": 1,
+        "recent_freq": 0.0125,
+        "baseline_freq": 0.0006,
+        "surge_ratio": 22.55
+      },
+      {
+        "sequence": "046",
         "recent_count": 1,
         "recent_freq": 0.0125,
         "baseline_freq": 0.0006,
@@ -545,13 +552,6 @@
         "recent_count": 2,
         "recent_freq": 0.025,
         "baseline_freq": 0.0011,
-        "surge_ratio": 22.55
-      },
-      {
-        "sequence": "173",
-        "recent_count": 1,
-        "recent_freq": 0.0125,
-        "baseline_freq": 0.0006,
         "surge_ratio": 22.55
       }
     ],
@@ -1399,7 +1399,7 @@
         }
       }
     ],
-    "explained_at": "2026-09-16T18:35:47.118832",
+    "explained_at": "2026-09-18T01:41:43.692130",
     "ensemble_confidence": 100.0
   },
   "meta": {
@@ -1415,7 +1415,7 @@
       "beam": 3,
       "window": 50
     },
-    "processing_at": "2026-09-16T18:35:47.120841",
+    "processing_at": "2026-09-18T01:41:43.692130",
     "api_version": "1.0"
   }
 }
