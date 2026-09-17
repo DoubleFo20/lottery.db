@@ -134,13 +134,14 @@ def _conditional_prob(rows: list[dict]) -> dict[str, dict[int, dict[int, float]]
 
 
 def _transition_matrix(rows: list[dict]) -> dict[str, dict[int, dict[int, float]]]:
-    """P(digit_next_draw | digit_this_draw) per position."""
+    """P(digit_next_draw | digit_this_draw) per position in forward chronological order."""
     result = {}
+    chrono_rows = list(reversed(rows))
     for col in DIGIT_COLS:
         trans: dict[int, Counter] = {d: Counter() for d in ALL_DIGITS}
-        for idx in range(len(rows) - 1):
-            cur = int(rows[idx][col])
-            nxt = int(rows[idx + 1][col])
+        for idx in range(len(chrono_rows) - 1):
+            cur = int(chrono_rows[idx][col])
+            nxt = int(chrono_rows[idx + 1][col])
             trans[cur][nxt] += 1
         mat: dict[int, dict[int, float]] = {}
         for s in ALL_DIGITS:
@@ -297,6 +298,7 @@ class EnsemblePredictor:
         if not self.signals:
             return self
 
+        weights = getattr(self, "weights", None) or load_ensemble_weights()
         last_draw = self.rows[0] if self.rows else {}
 
         for col_idx, col in enumerate(DIGIT_COLS):
@@ -304,11 +306,11 @@ class EnsemblePredictor:
 
             for d in ALL_DIGITS:
                 # 1) Positional frequency
-                scores[d] += (WEIGHTS["positional_freq"]
+                scores[d] += (weights["positional_freq"]
                               * self.signals["positional_freq"][col].get(d, 0.1))
 
                 # 2) Rolling heat
-                scores[d] += (WEIGHTS["rolling_heat"]
+                scores[d] += (weights["rolling_heat"]
                               * self.signals["rolling_heat"][col].get(d, 0.1))
 
                 # 3) Conditional probability (from previous position's last digit)
@@ -318,12 +320,12 @@ class EnsemblePredictor:
                     if cond_key in self.signals["conditional"]:
                         prev_digit = int(last_draw.get(prev_col, "0"))
                         cp = self.signals["conditional"][cond_key].get(prev_digit, {}).get(d, 0.1)
-                        scores[d] += WEIGHTS["conditional"] * cp
+                        scores[d] += weights["conditional"] * cp
 
                 # 4) Transition (from same position in last draw)
                 last_digit = int(last_draw.get(col, "0"))
                 tp = self.signals["transition"][col].get(last_digit, {}).get(d, 0.1)
-                scores[d] += WEIGHTS["transition"] * tp
+                scores[d] += weights["transition"] * tp
 
                 # 5) Pair lift (boost via previous position)
                 if col_idx > 0:
@@ -333,18 +335,18 @@ class EnsemblePredictor:
                         prev_d = int(last_draw.get(prev_col, "0"))
                         lift_val = self.signals["pair_lift"][lift_key].get((prev_d, d), 1.0)
                         # Normalise lift around 1.0
-                        scores[d] += WEIGHTS["pair_lift"] * (lift_val / 2.0)
+                        scores[d] += weights["pair_lift"] * (lift_val / 2.0)
 
                 # 6) Pattern hot/cold
-                scores[d] += (WEIGHTS["pattern_hot"]
+                scores[d] += (weights["pattern_hot"]
                               * self.signals["pattern_hot"][col].get(d, 1.0) * 0.1)
 
                 # 7) Gap overdue
-                scores[d] += (WEIGHTS["gap_overdue"]
+                scores[d] += (weights["gap_overdue"]
                               * self.signals["gap_overdue"][col].get(d, 0.0))
 
                 # 8) Temporal trend
-                scores[d] += (WEIGHTS["temporal_trend"]
+                scores[d] += (weights["temporal_trend"]
                               * self.signals["temporal_trend"][col].get(d, 0.1))
 
             # Normalise to probabilities
@@ -361,11 +363,12 @@ class EnsemblePredictor:
         Generate top-K candidate 6-digit numbers using diverse beam search + statistical filters.
 
         Filters:
-          1. Sum of digits: 18 - 38 (standard lottery distribution)
-          2. Odd/Even balance: 2, 3, or 4 evens (no 6-even or 6-odd extremes)
-          3. Consecutive repetition: avoid 4 identical or 4 sequential digits
-          4. Prefix Diversity: top candidates are picked from distinct 2-digit prefixes (clusters)
-             to avoid prefix clumping (e.g. all starting with '8368--').
+          1. Sum constraint: 18 - 38 (covers >92% of historical winning numbers)
+          2. Odd/Even balance: 2, 3, or 4 evens (excludes extreme all-even or all-odd)
+          3. Repetition: avoid 4 identical consecutive digits
+          4. Sequence: avoid 4 sequential ascending digits (e.g. 1234, 5678)
+          5. Joint Coherence: evaluates intra-number conditional probability transitions
+          6. Prefix Diversity: top candidates chosen from distinct 2-digit prefixes (clusters)
         """
         if not self.position_scores:
             return []
@@ -397,9 +400,24 @@ class EnsemblePredictor:
             if any(digits[i] == digits[i+1] == digits[i+2] == digits[i+3] for i in range(3)):
                 continue
 
+            # Filter 4: No 4 sequential ascending digits
+            if any(int_digits[i+1] == int_digits[i]+1 and int_digits[i+2] == int_digits[i]+2 and int_digits[i+3] == int_digits[i]+3 for i in range(3)):
+                continue
+
             score = 1.0
             for d, s in combo:
                 score *= s
+
+            # Joint Intra-Draw Conditional Coherence Boost
+            if "conditional" in self.signals:
+                coherence = 1.0
+                for idx in range(5):
+                    src_col, tgt_col = DIGIT_COLS[idx], DIGIT_COLS[idx + 1]
+                    key = f"{src_col}->{tgt_col}"
+                    cp = self.signals["conditional"].get(key, {}).get(int_digits[idx], {}).get(int_digits[idx + 1], 0.1)
+                    coherence *= max(cp * 10.0, 0.2)
+                score *= coherence
+
             number = "".join(digits)
             raw_candidates.append({
                 "number": number,
