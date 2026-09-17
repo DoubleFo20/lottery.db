@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="assets/live_countdown.js"></script>
   <style>
     :root {
       --bg-dark: #070b14;
@@ -1097,7 +1098,7 @@
         <div>
           <div class="panel-header">
             <div class="panel-title">⏳ นับถอยหลังสู่งวดถัดไป</div>
-            <div class="panel-badge">วิเคราะห์เจาะจงต่อเนื่อง (1 ต.ค. 2569)</div>
+            <div class="panel-badge" id="countdown-status-badge">วิเคราะห์เจาะจงต่อเนื่อง (1 ต.ค. 2569)</div>
           </div>
           <div class="target-date-title">วันและเวลาที่คาดการณ์ออกผล:</div>
           <div class="target-date-display" id="target-date-display">
@@ -1756,62 +1757,48 @@ function buildFallbackDataset() {
 }
 
 // ── 3. Live Countdown Timer ────────────────────────────────
+// ── 3. Live Countdown & Real-Time Auto-Fetch Engine ────────
 function initCountdown() {
-  function getTarget() {
-    let target = new Date(appData.target?.iso_target || '2026-10-01T14:30:00+07:00');
-    const now = new Date();
-    if (target.getTime() > now.getTime()) return target;
-    
-    // Auto rollover to next 1st or 16th at 14:30 ICT
-    let y = now.getFullYear();
-    let m = now.getMonth();
-    const d1 = new Date(y, m, 1, 14, 30, 0);
-    const d16 = new Date(y, m, 16, 14, 30, 0);
-    const nextM1 = new Date(y, m + 1, 1, 14, 30, 0);
-    if (now < d1) return d1;
-    if (now < d16) return d16;
-    return nextM1;
+  if (typeof LotteryLiveEngine === 'undefined') {
+    console.warn('[WARN] LotteryLiveEngine not loaded, using fallback timer');
+    return;
   }
 
-  const targetDate = getTarget();
-  updateCountdownTargetUI(targetDate);
-
-  function update() {
-    const now = new Date().getTime();
-    const diff = targetDate.getTime() - now;
-
-    if (diff <= 0) {
-      el('cd-days').textContent = '00';
-      el('cd-hours').textContent = '00';
-      el('cd-mins').textContent = '00';
-      el('cd-secs').textContent = '00';
-      return;
+  const liveEngine = LotteryLiveEngine.createEngine({
+    onNewResult: (event) => {
+      console.log('🎉 [Live Engine] New lottery draw received:', event);
+      if (event.latestNum) {
+        const fp = String(event.latestNum).padStart(6, '0');
+        if (el('res-first-prize')) el('res-first-prize').textContent = fp;
+        if (el('res-top2')) el('res-top2').textContent = fp.slice(-2);
+        if (el('latest-result-panel-title')) {
+          el('latest-result-panel-title').textContent = `🏆 ผลรางวัลงวดล่าสุด (${event.latestDraw})`;
+        }
+      }
+      if (typeof showToast === 'function') {
+        showToast(`🎉 ตรวจพบผลรางวัลงวดใหม่ (${event.latestDraw})! อัปเดตหน้าจอเรียบร้อย`);
+      }
+      if (typeof fetchPipelineStatus === 'function') {
+        fetchPipelineStatus();
+      }
+    },
+    onStatusChange: (status) => {
+      const badge = el('countdown-status-badge');
+      if (badge) {
+        if (status.isDrawWindow) {
+          badge.innerHTML = '<span style="color:#ef4444;font-weight:700;">🔴 กำลังออกรางวัลสด...</span> (สแกนผลทุก 30 วิ)';
+          badge.style.borderColor = 'rgba(239, 68, 68, 0.7)';
+          badge.style.background = 'rgba(239, 68, 68, 0.15)';
+        } else {
+          badge.textContent = `วิเคราะห์เจาะจง (${status.target.thaiFormatted})`;
+          badge.style.borderColor = 'rgba(59, 130, 246, 0.3)';
+          badge.style.background = '';
+        }
+      }
     }
+  });
 
-    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-    el('cd-days').textContent = String(d).padStart(2, '0');
-    el('cd-hours').textContent = String(h).padStart(2, '0');
-    el('cd-mins').textContent = String(m).padStart(2, '0');
-    el('cd-secs').textContent = String(s).padStart(2, '0');
-  }
-
-  update();
-  setInterval(update, 1000);
-}
-
-function updateCountdownTargetUI(targetDate) {
-  const day = targetDate.getDate();
-  const mIdx = targetDate.getMonth() + 1;
-  const yearTH = targetDate.getFullYear() + 543;
-  const monthNames = ['', 'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
-  const targetDateDisplay = el('target-date-display');
-  if (targetDateDisplay) {
-    targetDateDisplay.innerHTML = `${day} ${monthNames[mIdx]} ${yearTH} <span style="font-size:1.1rem;color:var(--text-muted);">(14:30 น.)</span> <span class="target-date-tag">งวดเป้าหมายหลัก</span>`;
-  }
+  window.lotteryLiveEngine = liveEngine.init();
 }
 
 // ── 4. Predictions Rendering (Dual-Mode & Full Spectrum) ──

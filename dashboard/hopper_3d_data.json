@@ -1,12 +1,17 @@
 {
   "meta": {
-    "generated_at": "2026-09-16T17:52:16.247Z",
+    "generated_at": "2026-09-17T18:40:11.016Z",
     "version": "2.0-showcase",
     "theme": "golden-emerald-luxury",
     "latest_draw": "2026-09-16",
     "total_draws": 471,
     "total_balls": 40,
-    "chamber_radius": 12
+    "chamber_radius": 12,
+    "next_draw": {
+      "draw_date": "2026-10-01",
+      "iso_target": "2026-10-01T14:30:00+07:00",
+      "thai_formatted": "1 ตุลาคม 2569"
+    }
   },
   "zones": {
     "zone1_jackpot": {

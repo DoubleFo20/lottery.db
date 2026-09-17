@@ -1034,6 +1034,9 @@
 
   </div>
 
+  <!-- Central Real-Time Live Countdown & Auto-Fetch Engine -->
+  <script src="assets/live_countdown.js"></script>
+
   <!-- Global Interaction Scripts -->
   <script>
     // Navigation Drawer
@@ -1249,6 +1252,20 @@
     }
 
     loadLiveShowcaseData();
+
+    // Initialize Real-Time Live Engine on 3D Showcase
+    if (typeof LotteryLiveEngine !== 'undefined') {
+      const liveEngine = LotteryLiveEngine.createEngine({
+        onNewResult: (event) => {
+          console.log('🎉 [3D Showcase] New lottery draw detected:', event);
+          loadLiveShowcaseData();
+          if (typeof window.showToast === 'function') {
+            window.showToast(`🎉 ผลรางวัลงวดใหม่ (${event.latestDraw}) ออกแล้ว! กำลังอัปเดตหน้าจอ`);
+          }
+        }
+      });
+      window.lotteryLiveEngine = liveEngine.init();
+    }
   </script>
 </body>
 </html>

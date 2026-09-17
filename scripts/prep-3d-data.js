@@ -107,7 +107,12 @@ function main() {
       latest_draw: meta.latest_draw || '2026-09-16',
       total_draws: meta.total_draws || 471,
       total_balls: balls.length,
-      chamber_radius: 12.0
+      chamber_radius: 12.0,
+      next_draw: {
+        draw_date: '2026-10-01',
+        iso_target: '2026-10-01T14:30:00+07:00',
+        thai_formatted: '1 ตุลาคม 2569'
+      }
     },
     zones: {
       zone1_jackpot: {
