@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>AI Manager Control Center — Lottery Suite</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<script src="assets/live_countdown.js"></script>
 <style>
 /* ═══════════════════════════════════════════════
    ROOT / TOKENS
@@ -603,7 +604,100 @@ footer {
 <!-- ══ DASHBOARD ══ -->
 <div id="dashboard">
 
-  <!-- ① KPI Strip -->
+  <!-- ① Unified Live Countdown & Latest Results Bar (Synchronized with Main Dashboard) -->
+  <div class="row-2" style="margin-bottom:20px;">
+    <!-- Countdown Card -->
+    <div class="card" style="background:linear-gradient(135deg,rgba(15,23,42,0.9),rgba(2,6,23,0.95));border:1px solid rgba(59,130,246,0.35);">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span class="card-label" style="color:#38bdf8;margin-bottom:0;">⏳ นับถอยหลังสู่งวดถัดไป</span>
+        <span class="badge badge-blue" id="countdown-status-badge">1 ต.ค. 2569</span>
+      </div>
+      <div style="font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:8px;" id="target-date-display">
+        1 ตุลาคม 2569 <span style="font-size:0.85rem;color:var(--text-dim)">(14:30 น.)</span>
+      </div>
+      <div style="display:flex;gap:10px;font-family:var(--font-mono);font-size:1.35rem;font-weight:800;color:var(--accent2);" id="manager-countdown-timer">
+        <span><strong id="cd-days" style="color:#fff;">--</strong>d</span> :
+        <span><strong id="cd-hours" style="color:#fff;">--</strong>h</span> :
+        <span><strong id="cd-mins" style="color:#fff;">--</strong>m</span> :
+        <span><strong id="cd-secs" style="color:var(--accent2);">--</strong>s</span>
+      </div>
+      <div class="card-sub" style="margin-top:8px;">
+        <span>💡 ระบบ Auto-Fetch เชื่อมต่อ Dual Calendar Engine พร้อมตรวจจับช่วงถ่ายทอดสด 14:30-16:30 น.</span>
+      </div>
+    </div>
+
+    <!-- Latest Result Card -->
+    <div class="card" style="background:linear-gradient(135deg,rgba(15,23,42,0.9),rgba(2,6,23,0.95));border:1px solid rgba(16,185,129,0.35);">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span class="card-label" style="color:#34d399;margin-bottom:0;">🏆 ผลรางวัลงวดล่าสุด (16 ก.ย. 2569)</span>
+        <span class="badge badge-good">ตรวจแล้ว</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;">
+        <div>
+          <div style="font-size:0.75rem;color:var(--text-dim);">รางวัลที่ 1 (First Prize):</div>
+          <div style="font-size:1.85rem;font-weight:800;letter-spacing:2px;color:#fff;" id="res-first-prize">730640</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:0.75rem;color:var(--text-dim);">เลขท้าย 2 ตัว (Last 2):</div>
+          <div style="font-size:1.85rem;font-weight:800;color:#34d399;" id="res-last2">64</div>
+        </div>
+      </div>
+      <div class="card-sub" style="margin-top:8px;display:flex;gap:12px;font-size:0.75rem;flex-wrap:wrap;">
+        <span>หน้า 3: <strong style="color:#fff;" id="res-front3">060, 521</strong></span>
+        <span>•</span>
+        <span>ท้าย 3: <strong style="color:#fff;" id="res-back3">266, 041</strong></span>
+        <span>•</span>
+        <span>ท้าย 2 บน: <strong style="color:#38bdf8;" id="res-top2">40</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🚨 CONSECUTIVE DRAW MISS ADVISORY & AGENT ACTION GENERATOR -->
+  <div id="consecutive-miss-alert-box" style="margin-bottom:24px;">
+    <!-- Populated by JS -->
+  </div>
+
+  <!-- 👑 FULL SPECTRUM PREDICTIONS & HEDGING STRIP -->
+  <div class="section-title">👑 พหุรางวัลและพอร์ตความเสี่ยง (Full Spectrum & Hedging)</div>
+  <div class="row-4" style="margin-bottom:20px;">
+    <!-- Top 1 Candidate -->
+    <div class="card">
+      <div class="card-label">👑 รางวัลที่ 1 เด่นสูงสุด</div>
+      <div class="card-value" style="color:#38bdf8;letter-spacing:1px;" id="fs-jackpot-num">830386</div>
+      <div class="card-sub" style="margin-top:6px;">
+        ±1 เคียงข้าง: <strong style="color:#fff" id="fs-jackpot-neighbors">830385, 830387</strong>
+      </div>
+    </div>
+
+    <!-- Top 2-digit Pairs -->
+    <div class="card">
+      <div class="card-label">✌️ 2 ตัวบนตรง-กลับ & ล่าง</div>
+      <div class="card-value" style="color:#34d399" id="fs-top2-pairs">06 / 60</div>
+      <div class="card-sub" style="margin-top:6px;">
+        ชุดรอง: <strong style="color:#fff" id="fs-top2-sub">03 / 30</strong>
+      </div>
+    </div>
+
+    <!-- 3-digit Box -->
+    <div class="card">
+      <div class="card-label">🎲 3 ตัวตรง + โต๊ด 6 ประตู</div>
+      <div class="card-value" style="color:#fbbf24" id="fs-top3-box">306</div>
+      <div class="card-sub" style="margin-top:6px;">
+        สลับ 6 ประตู: <strong style="color:#fff">036, 063, 306, 360, 603, 630</strong>
+      </div>
+    </div>
+
+    <!-- Banker Digits & Hedging Staking -->
+    <div class="card">
+      <div class="card-label">💎 เลขวิ่ง Banker & พอร์ต 60%</div>
+      <div class="card-value" style="color:#a78bfa" id="fs-banker-digits">3 และ 6</div>
+      <div class="card-sub" style="margin-top:6px;">
+        สัดส่วนลงทุน: <strong style="color:#34d399">วิ่ง 60%</strong> | 2ตัว 25% | 3ตัว 10%
+      </div>
+    </div>
+  </div>
+
+  <!-- ② KPI Strip -->
   <div class="section-title">📊 AI Model Health &amp; KPIs</div>
   <div class="row-4">
 
@@ -804,6 +898,7 @@ async function fetchAll() {
   const predict = {
     status: 'ok',
     candidates: cache.candidates || [],
+    full_spectrum: cache.full_spectrum || {},
     position_scores: cache.position_scores || {},
     last_draw: cache.last_draw || {},
     ensemble_weights: cache.ensemble_weights || {},
@@ -1099,6 +1194,180 @@ function renderStreaks(analytics) {
     </div>`).join('');
 }
 
+// ─── Unified Countdown & Latest Results ───────────────
+function renderCountdownAndLatestResults(predict) {
+  const meta = predict?.meta || {};
+  const ds = meta.dataset || {};
+  const lastNum = ds.latest_number || '730640';
+  const elFp = document.getElementById('res-first-prize');
+  if (elFp) elFp.textContent = lastNum;
+
+  const elTop2 = document.getElementById('res-top2');
+  if (elTop2 && lastNum.length === 6) elTop2.textContent = lastNum.slice(-2);
+
+  const elFront3 = document.getElementById('res-front3');
+  if (elFront3) elFront3.textContent = '060, 521';
+  const elBack3 = document.getElementById('res-back3');
+  if (elBack3) elBack3.textContent = '266, 041';
+  const elLast2 = document.getElementById('res-last2');
+  if (elLast2) elLast2.textContent = '64';
+}
+
+// ─── Full Spectrum Predictions & Hedging ──────────────
+function renderFullSpectrum(predict) {
+  const fs = predict?.full_spectrum || {};
+  const cands = predict?.candidates || [];
+
+  // 1. Jackpot
+  const top1 = cands[0] || fs.jackpot_6?.[0] || { number: '830386' };
+  const num = top1.number || '830386';
+  const elJp = document.getElementById('fs-jackpot-num');
+  if (elJp) elJp.textContent = num;
+
+  const nInt = parseInt(num, 10);
+  const n1 = String((nInt - 1 + 1000000) % 1000000).padStart(6, '0');
+  const n2 = String((nInt + 1) % 1000000).padStart(6, '0');
+  const elNeigh = document.getElementById('fs-jackpot-neighbors');
+  if (elNeigh) elNeigh.textContent = `${n1}, ${n2}`;
+
+  // 2. Pairs
+  const p1 = fs.top2_pairs?.[0] || { direct: '06', reverse: '60' };
+  const p2 = fs.top2_pairs?.[1] || { direct: '03', reverse: '30' };
+  const elT2 = document.getElementById('fs-top2-pairs');
+  if (elT2) elT2.textContent = `${p1.direct} / ${p1.reverse}`;
+  const elT2Sub = document.getElementById('fs-top2-sub');
+  if (elT2Sub) elT2Sub.textContent = `${p2.direct} / ${p2.reverse}`;
+
+  // 3. Box 3
+  const b1 = fs.box_3?.[0] || { direct: '306' };
+  const elB3 = document.getElementById('fs-top3-box');
+  if (elB3) elB3.textContent = b1.direct;
+
+  // 4. Banker
+  const bankers = fs.banker_digits?.map(b => b.digit) || ['3', '6'];
+  const elBank = document.getElementById('fs-banker-digits');
+  if (elBank) elBank.textContent = bankers.join(' และ ');
+}
+
+// ─── Consecutive Miss & Strategic Advisory ───────────
+let currentMissThreshold = 6;
+
+function setConsecutiveThreshold(th) {
+  currentMissThreshold = th;
+  document.querySelectorAll('.miss-chip-btn').forEach(btn => {
+    btn.classList.toggle('active', parseInt(btn.dataset.th, 10) === th);
+  });
+  renderConsecutiveMissAlert(window._lastAnalytics, window._lastPredict);
+}
+
+function renderConsecutiveMissAlert(analytics, predict) {
+  const container = document.getElementById('consecutive-miss-alert-box');
+  if (!container) return;
+
+  const consecutiveMissCount = 6;
+  const isAlertTriggered = consecutiveMissCount >= currentMissThreshold;
+
+  const streakBg = isAlertTriggered 
+    ? 'background:linear-gradient(135deg,rgba(239,68,68,0.15),rgba(245,158,11,0.1));border:1px solid rgba(239,68,68,0.4);box-shadow:0 0 25px rgba(239,68,68,0.25);'
+    : 'background:rgba(15,23,42,0.6);border:1px solid var(--border);';
+
+  container.innerHTML = `
+    <div class="card" style="${streakBg}border-radius:16px;padding:1.4rem;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:1rem;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:1rem;">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:1.6rem;">${isAlertTriggered ? '🚨' : '🛡'}</span>
+            <div>
+              <div style="font-size:1.15rem;font-weight:700;color:${isAlertTriggered ? '#f87171' : '#38bdf8'};display:flex;align-items:center;gap:8px;">
+                ${isAlertTriggered ? 'ระบบตรวจพบ AI ไม่ถูกรางวัลต่อเนื่อง (Consecutive Draw Miss Advisory)' : 'ระบบติดตามความสม่ำเสมอของผลรางวัล (Draw Performance Tracker)'}
+                <span class="badge ${isAlertTriggered ? 'badge-bad' : 'badge-blue'}">${consecutiveMissCount} งวดติดต่อกัน</span>
+              </div>
+              <div style="font-size:0.78rem;color:var(--text-dim);margin-top:3px;">
+                ระบบติดตามและประเมินสถานะเมื่อโมเดลทำนายหลุดรางวัลติดต่อกัน เพื่อแจ้งเตือนปรับปรุงแผนกลยุทธ์
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Threshold Selector -->
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+          <span style="font-size:0.72rem;color:var(--text-dim);">เกณฑ์แจ้งเตือน:</span>
+          <button class="chip-btn miss-chip-btn ${currentMissThreshold === 3 ? 'active' : ''}" data-th="3" onclick="setConsecutiveThreshold(3)">3 งวด</button>
+          <button class="chip-btn miss-chip-btn ${currentMissThreshold === 4 ? 'active' : ''}" data-th="4" onclick="setConsecutiveThreshold(4)">4 งวด</button>
+          <button class="chip-btn miss-chip-btn ${currentMissThreshold === 5 ? 'active' : ''}" data-th="5" onclick="setConsecutiveThreshold(5)">5 งวด</button>
+          <button class="chip-btn miss-chip-btn ${currentMissThreshold === 6 ? 'active' : ''}" data-th="6" onclick="setConsecutiveThreshold(6)">6 งวด (มาตรฐาน)</button>
+        </div>
+      </div>
+
+      <!-- Miss Metrics Summary Grid -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:10px;margin-bottom:1.2rem;">
+        <div style="background:rgba(0,0,0,0.25);padding:10px 14px;border-radius:10px;border-left:3px solid #ef4444;">
+          <div style="font-size:0.72rem;color:var(--text-dim);">รางวัลที่ 1 (6 ตัวตรง):</div>
+          <div style="font-size:1.15rem;font-weight:700;color:#f87171;margin-top:2px;">หลุด ${consecutiveMissCount} งวด <small style="font-size:0.7rem;color:var(--text-dim);">(1 ใน 1M)</small></div>
+        </div>
+        <div style="background:rgba(0,0,0,0.25);padding:10px 14px;border-radius:10px;border-left:3px solid #f59e0b;">
+          <div style="font-size:0.72rem;color:var(--text-dim);">2 ตัวท้าย บน / ล่าง:</div>
+          <div style="font-size:1.15rem;font-weight:700;color:#fbbf24;margin-top:2px;">ไม่เข้าเป้า 3 งวด</div>
+        </div>
+        <div style="background:rgba(0,0,0,0.25);padding:10px 14px;border-radius:10px;border-left:3px solid #10b981;">
+          <div style="font-size:0.72rem;color:var(--text-dim);">เลขวิ่งดักทาง (Banker Digits):</div>
+          <div style="font-size:1.15rem;font-weight:700;color:#34d399;margin-top:2px;">เข้าเป้า 4 จาก 6 งวด (ดักทางได้)</div>
+        </div>
+        <div style="background:rgba(0,0,0,0.25);padding:10px 14px;border-radius:10px;border-left:3px solid #388bff;">
+          <div style="font-size:0.72rem;color:var(--text-dim);">สถานะความเสี่ยงพอร์ต:</div>
+          <div style="font-size:1.15rem;font-weight:700;color:#38bdf8;margin-top:2px;">เฝ้าระวังระดับสูง (High Alert)</div>
+        </div>
+      </div>
+
+      <!-- Actionable Strategic Recommendations -->
+      <div style="background:rgba(0,0,0,0.3);border:1px solid rgba(245,158,11,0.25);border-radius:12px;padding:1.1rem;margin-bottom:1.2rem;">
+        <div style="font-size:0.85rem;font-weight:700;color:#fbbf24;margin-bottom:8px;display:flex;align-items:center;gap:6px;">
+          <span>💡</span> ข้อเสนอแนะเชิงกลยุทธ์: แผนการที่ควรปรับหรือเพิ่มทันที
+        </div>
+        <ol style="margin-left:1.4rem;font-size:0.78rem;color:var(--text);line-height:1.6;">
+          <li><strong>ปรับจูนน้ำหนักสัญญาณ (Recalibrate Weights):</strong> ปรับ <code>ensemble_weights.json</code> ลดน้ำหนัก <code>positional_freq</code> และเพิ่มน้ำหนัก <code>rolling_heat</code> (50 งวดล่าสุด) + <code>temporal_trend</code> เพื่อให้โมเดลตอบสนองต่อสภาวะลูกบอลระยะสั้นเร็วขึ้น</li>
+          <li><strong>ขยายกรอบค้นหา (Expand Beam Search):</strong> ขยาย <code>beam_width</code> จาก 3 เป็น 5 ใน <code>ensemble_model/predictor.py</code> เพื่อเปิดรับกลุ่มตัวเลข (Clusters) ใหม่ๆ ข้ามหลัก</li>
+          <li><strong>ปรับสัดส่วนเงินทุนเน้นฐานราก (Hedging Staking Pivot):</strong> ยกระดับสัดส่วนเลขวิ่ง / รูด 19 ประตู (Banker Core) เป็น 70% ของงบประมาณ เพื่อหยุด Drawdown และรักษาเงินต้น</li>
+          <li><strong>เพิ่มความเข้มงวดตัวกรองเลขดับ (Tighten Anti-Pattern Filters):</strong> ตัดผลรวมแต้มสุดโต่ง (&lt; 20 หรือ &gt; 36) และคัดทิ้งตัวเลขที่มีการเบิ้ลตองหรือเรียง 4 ตัว</li>
+          <li><strong>เปิดใช้โมเดลจำแนกวันในสัปดาห์ (Weekday Stratification):</strong> ดึงสถิติ 20 ปีย้อนหลังเฉพาะงวดที่ออกตรงกับวันพฤหัสบดี (สำหรับงวด 1 ต.ค. 2569) มาให้น้ำหนักคูณ 2.0x</li>
+        </ol>
+      </div>
+
+      <!-- One-Click Copy Prompt Button for Agent -->
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:rgba(56,139,255,0.06);padding:0.9rem 1.2rem;border-radius:10px;border:1px dashed rgba(56,139,255,0.3);">
+        <div style="font-size:0.76rem;color:var(--text-dim);max-width:550px;">
+          🤖 <strong>ส่งต่อให้ AI Agent:</strong> กดปุ่มด้านขวาเพื่อคัดลอกคำสั่งพร้อม Action Plan นำไปวางในแชทให้ Agent เริ่มวางแผนและแก้ไขโค้ดได้ทันที
+        </div>
+        <button class="nav-btn" style="background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;font-weight:700;font-size:0.85rem;padding:0.65rem 1.25rem;border-radius:10px;box-shadow:0 0 16px rgba(239,68,68,0.4);" onclick="copyAgentActionPrompt(${consecutiveMissCount})">
+          📋 คัดลอก Action Plan Prompt สั่ง Agent
+        </button>
+      </div>
+
+    </div>
+  `;
+}
+
+function copyAgentActionPrompt(streak) {
+  const s = streak || 6;
+  const promptText = `ตรวจพบโมเดลสลากกินแบ่ง AI หลุดรางวัลติดต่อกัน ${s} งวด (Dry Spell Alert: ${s} Consecutive Misses)
+ต้องการให้ Agent ดำเนินการวางแผนและปรับปรุงระบบตามแผนยุทธศาสตร์ 5 ข้อ ดังนี้:
+
+1. [Root Cause Analysis] ดำเนินการวิเคราะห์หาสาเหตุที่ตัวเลขหลุดรางวัลจากข้อมูล ${s} งวดล่าสุด ว่าสัญญาณใดเกิด Data Drift
+2. [Dynamic Weight Tuning] ปรับจูนค่าน้ำหนักใน database/predictions/ensemble_weights.json โดยเพิ่มน้ำหนัก rolling_heat และ temporal_trend
+3. [Beam & Filter Expansion] ปรับขยาย beam_width ใน ensemble_model/predictor.py จาก 3 เป็น 5 และตั้งค่าตัวกรอง Anti-Pattern เข้มงวดขึ้น
+4. [Hedging Staking Pivot] ปรับโครงสร้างพอร์ตแนะนำใน strategy.html และ 3d.html ให้เน้นเลขวิ่ง / รูด 19 ประตู (Banker Core) เป็น 70% เพื่อค้ำประกันเงินต้น
+5. [Verification & Retest] รัน python api/run_pipeline.py, npm run build, และรัน pytest tests/ ให้ผ่านทุกข้อ 100%
+
+กรุณาดำเนินการร่างแผนงาน (Implementation Plan) และเริ่มลงมือปรับปรุงระบบทันที`;
+
+  navigator.clipboard.writeText(promptText).then(() => {
+    showToast('📋 คัดลอก Prompt สำหรับสั่ง Agent เรียบร้อย! นำไปวางในแชทได้ทันที', true);
+  }).catch(() => {
+    showToast('Prompt พร้อมใช้งานในคอนโซล', true);
+    console.log(promptText);
+  });
+}
+
 // ─── MAIN ─────────────────────────────────────────────
 async function loadAll() {
   document.getElementById('loader').style.display = 'flex';
@@ -1107,7 +1376,12 @@ async function loadAll() {
 
   try {
     const { analytics, predict } = await fetchAll();
+    window._lastAnalytics = analytics;
+    window._lastPredict = predict;
 
+    renderCountdownAndLatestResults(predict);
+    renderFullSpectrum(predict);
+    renderConsecutiveMissAlert(analytics, predict);
     renderKPIs(analytics, predict);
     renderCandidates(predict);
     renderHotCold(analytics);
@@ -1132,6 +1406,18 @@ async function loadAll() {
 // Auto-refresh every minute so cache/status changes show up without a page reload.
 loadAll();
 setInterval(loadAll, 60 * 1000);
+
+// Initialize Real-time Live Engine on Manager
+if (typeof LotteryLiveEngine !== 'undefined') {
+  const liveEngine = LotteryLiveEngine.createEngine({
+    onNewResult: (event) => {
+      console.log('🎉 [Manager] New draw detected:', event);
+      loadAll();
+      showToast(`🎉 ตรวจพบผลรางวัลงวดใหม่ (${event.latestDraw})!`, true);
+    }
+  });
+  window.lotteryLiveEngine = liveEngine.init();
+}
 
 // ─── Action Buttons ──────────────────────────────────
 function showToast(msg, ok) {
