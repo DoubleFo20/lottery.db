@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-09-21T15:53:33.627Z",
+    "generated_at": "2026-09-21T17:20:52.624Z",
     "version": "2.0-showcase",
     "theme": "golden-emerald-luxury",
     "latest_draw": "2026-09-16",
@@ -40,7 +40,7 @@
         },
         {
           "number": "530386",
-          "confidence": 68.16,
+          "confidence": 62.95,
           "sum": 25,
           "even_odd": "3คู่ / 3คี่",
           "neighbors": [
@@ -49,13 +49,13 @@
           ]
         },
         {
-          "number": "130386",
-          "confidence": 42.22,
-          "sum": 21,
-          "even_odd": "3คู่ / 3คี่",
+          "number": "256386",
+          "confidence": 51.8,
+          "sum": 30,
+          "even_odd": "4คู่ / 2คี่",
           "neighbors": [
-            "130385",
-            "130387"
+            "256385",
+            "256387"
           ]
         }
       ],
@@ -77,18 +77,18 @@
           ]
         },
         {
-          "direct": "03",
-          "reverse": "30",
-          "pair_set": [
-            "03",
-            "30"
-          ]
-        },
-        {
           "direct": "66",
           "reverse": "66",
           "pair_set": [
             "66"
+          ]
+        },
+        {
+          "direct": "86",
+          "reverse": "68",
+          "pair_set": [
+            "86",
+            "68"
           ]
         }
       ],
@@ -107,7 +107,7 @@
       "box_list": [
         {
           "direct": "306",
-          "score": 0.002406,
+          "score": 0.002613,
           "permutations": [
             "036",
             "063",
@@ -119,24 +119,27 @@
           "perm_count": 6
         },
         {
-          "direct": "303",
-          "score": 0.002385,
-          "permutations": [
-            "033",
-            "303",
-            "330"
-          ],
-          "perm_count": 3
-        },
-        {
           "direct": "366",
-          "score": 0.002382,
+          "score": 0.002549,
           "permutations": [
             "366",
             "636",
             "663"
           ],
           "perm_count": 3
+        },
+        {
+          "direct": "386",
+          "score": 0.002465,
+          "permutations": [
+            "368",
+            "386",
+            "638",
+            "683",
+            "836",
+            "863"
+          ],
+          "perm_count": 6
         }
       ]
     },
@@ -145,11 +148,11 @@
       "subtitle": "เลขเด่นวิ่ง/รูด 19 ประตู ความน่าจะเป็นสะสมสูงสุด",
       "bankers": [
         {
-          "digit": "3",
-          "strength": 0.667
+          "digit": "6",
+          "strength": 0.68
         },
         {
-          "digit": "6",
+          "digit": "3",
           "strength": 0.664
         }
       ]
@@ -167,7 +170,7 @@
     "jackpot_6": [
       {
         "number": "830386",
-        "score": 0.00003821,
+        "score": 0.00004469,
         "digits": [
           "8",
           "3",
@@ -182,7 +185,7 @@
       },
       {
         "number": "530386",
-        "score": 0.00002604,
+        "score": 0.00002813,
         "digits": [
           "5",
           "3",
@@ -193,27 +196,27 @@
         ],
         "sum": 25,
         "even_odd": "3คู่ / 3คี่",
-        "confidence": 68.16
+        "confidence": 62.95
       },
       {
-        "number": "130386",
-        "score": 0.00001613,
+        "number": "256386",
+        "score": 0.00002315,
         "digits": [
-          "1",
-          "3",
-          "0",
+          "2",
+          "5",
+          "6",
           "3",
           "8",
           "6"
         ],
-        "sum": 21,
-        "even_odd": "3คู่ / 3คี่",
-        "confidence": 42.22
+        "sum": 30,
+        "even_odd": "4คู่ / 2คี่",
+        "confidence": 51.8
       }
     ],
     "banker_digits": [
-      "3",
-      "6"
+      "6",
+      "3"
     ],
     "top2_pairs": [
       {
@@ -225,25 +228,25 @@
         ]
       },
       {
-        "direct": "03",
-        "reverse": "30",
-        "pair_set": [
-          "03",
-          "30"
-        ]
-      },
-      {
         "direct": "66",
         "reverse": "66",
         "pair_set": [
           "66"
+        ]
+      },
+      {
+        "direct": "86",
+        "reverse": "68",
+        "pair_set": [
+          "86",
+          "68"
         ]
       }
     ],
     "box_3": [
       {
         "direct": "306",
-        "score": 0.002406,
+        "score": 0.002613,
         "permutations": [
           "036",
           "063",
@@ -255,24 +258,27 @@
         "perm_count": 6
       },
       {
-        "direct": "303",
-        "score": 0.002385,
-        "permutations": [
-          "033",
-          "303",
-          "330"
-        ],
-        "perm_count": 3
-      },
-      {
         "direct": "366",
-        "score": 0.002382,
+        "score": 0.002549,
         "permutations": [
           "366",
           "636",
           "663"
         ],
         "perm_count": 3
+      },
+      {
+        "direct": "386",
+        "score": 0.002465,
+        "permutations": [
+          "368",
+          "386",
+          "638",
+          "683",
+          "836",
+          "863"
+        ],
+        "perm_count": 6
       }
     ]
   },

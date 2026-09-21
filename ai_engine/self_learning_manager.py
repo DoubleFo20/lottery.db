@@ -55,14 +55,14 @@ CSV_PATH        = BASE_DIR / "database" / "dataset" / "lottery_history.csv"
 EVAL_WINDOWS    = [50, 100, 200]
 
 DEFAULT_WEIGHTS = {
-    "positional_freq":  0.20,
-    "rolling_heat":     0.20,
-    "conditional":      0.15,
-    "transition":       0.10,
+    "rolling_heat":     0.25,
+    "conditional":      0.25,
+    "transition":       0.15,
+    "temporal_trend":   0.10,
     "pair_lift":        0.10,
-    "pattern_hot":      0.10,
-    "gap_overdue":      0.08,
-    "temporal_trend":   0.07,
+    "positional_freq":  0.05,
+    "pattern_hot":      0.05,
+    "gap_overdue":      0.05,
 }
 
 LEARNING_RATE   = 0.025

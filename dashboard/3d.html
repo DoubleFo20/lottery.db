@@ -899,10 +899,10 @@
       <!-- Hedging Pyramid Tier Breakdown -->
       <div class="pyramid-list">
         
-        <!-- Tier 1: 60% Banker -->
+        <!-- Tier 1: 70% Banker -->
         <div class="pyramid-tier-card" style="border-left: 3px solid var(--emerald-neon);">
           <div class="tier-left">
-            <div class="tier-pct" style="background:rgba(16,185,129,0.15);color:var(--emerald-neon);">60%</div>
+            <div class="tier-pct" style="background:rgba(16,185,129,0.15);color:var(--emerald-neon);">70%</div>
             <div>
               <div class="tier-info-title">💎 Banker Digits (เลขวิ่ง / รูด 19 ประตู)</div>
               <div class="tier-info-sub">ฐานรากพอร์ต: การปกป้องเงินต้นขั้นสูงสุด (Cash Flow Buffer)</div>
@@ -911,10 +911,10 @@
           <div class="tier-num-val" style="color:var(--emerald-neon)" id="banker-display">3, 6</div>
         </div>
 
-        <!-- Tier 2: 25% 2-Digit -->
+        <!-- Tier 2: 15% 2-Digit -->
         <div class="pyramid-tier-card" style="border-left: 3px solid var(--cyan-neon);">
           <div class="tier-left">
-            <div class="tier-pct" style="background:rgba(0,240,255,0.15);color:var(--cyan-neon);">25%</div>
+            <div class="tier-pct" style="background:rgba(0,240,255,0.15);color:var(--cyan-neon);">15%</div>
             <div>
               <div class="tier-info-title">✌️ 2-Digit Pairs (2 ตัวบนตรง-กลับ &amp; ล่าง)</div>
               <div class="tier-info-sub">ดักทางคู่เลขความถี่สูงสถิติ 20 ปี</div>
@@ -1345,7 +1345,7 @@
       pyramidGroup = new THREE.Group();
       pyramidGroup.position.set(0, 0, 0);
 
-      // Tier 1 (Base): Banker 60% — Emerald Core
+      // Tier 1 (Base): Banker 70% — Emerald Core
       const t1Geo = new THREE.CylinderGeometry(3.6, 4.0, 0.6, 8);
       const t1Mat = new THREE.MeshStandardMaterial({
         color: 0x06281e,
@@ -1363,7 +1363,7 @@
       t1Edge.position.y = 0.3;
       pyramidGroup.add(t1Edge);
 
-      // Tier 2: 2-Digit 25% — Cyan Core
+      // Tier 2: 2-Digit 15% — Cyan Core
       const t2Geo = new THREE.CylinderGeometry(2.6, 3.0, 0.6, 8);
       const t2Mat = new THREE.MeshStandardMaterial({
         color: 0x052331,
@@ -2034,8 +2034,8 @@
 
       const summary = `🛡️ [LOTTERY.DB] สรุปสถาปัตยกรรม Hedging ประจำงวด 1 ต.ค. 2569
 👑 รางวัลที่ 1 เด่น (5% Moonshot): ${jackpot} (เคียงข้าง: ${neighbors})
-💎 เลขเด่นวิ่ง / รูด 19 ประตู (60% Banker): ${banker}
-✌️ 2 ตัวบนตรง-กลับ / ล่าง (25% Pairs): ${pairs}
+💎 เลขเด่นวิ่ง / รูด 19 ประตู (70% Banker): ${banker}
+✌️ 2 ตัวบนตรง-กลับ / ล่าง (15% Pairs): ${pairs}
 🎲 3 ตัวตรง / โต๊ด 6 ประตู (10% Box): ${three} (036, 063, 306, 360, 603, 630)`;
 
       window.copyText(summary);

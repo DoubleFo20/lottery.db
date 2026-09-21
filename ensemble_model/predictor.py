@@ -49,14 +49,14 @@ ALL_DIGITS  = list(range(10))
 
 WEIGHT_FILE = BASE_DIR / "database" / "predictions" / "ensemble_weights.json"
 WEIGHTS_DEFAULT = {
-    "positional_freq":      0.20,   # historical base rate
-    "rolling_heat":         0.20,   # recent hot/cold
-    "conditional":          0.15,   # conditional P from previous position
-    "transition":           0.10,   # draw-to-draw transition
+    "rolling_heat":         0.25,   # recent hot/cold
+    "conditional":          0.25,   # conditional P from previous position
+    "transition":           0.15,   # draw-to-draw transition
+    "temporal_trend":       0.10,   # era-specific trends
     "pair_lift":            0.10,   # adjacent pair strength
-    "pattern_hot":          0.10,   # pattern engine hot digits
-    "gap_overdue":          0.08,   # cold/overdue reversion
-    "temporal_trend":       0.07,   # era-specific trends
+    "positional_freq":      0.05,   # historical base rate
+    "pattern_hot":          0.05,   # pattern engine hot digits
+    "gap_overdue":          0.05,   # cold/overdue reversion
 }
 
 def load_ensemble_weights() -> dict:
@@ -93,24 +93,46 @@ def load_rows(path: Path) -> list[dict]:
 #  Signal Extractors  (self-contained — no external imports needed)
 # ═══════════════════════════════════════════════════════════════════════════
 
+def _get_draw_weight(row: dict) -> float:
+    """Thursday sample weighting (weight = 2.0 if datetime.strptime(row['draw_date'], '%Y-%m-%d').weekday() == 3, else 1.0)."""
+    d = row.get("draw_date")
+    if hasattr(d, "weekday"):
+        try:
+            return 2.0 if d.weekday() == 3 else 1.0
+        except Exception:
+            pass
+    elif isinstance(d, str) and d.strip():
+        try:
+            return 2.0 if datetime.strptime(d.strip(), "%Y-%m-%d").weekday() == 3 else 1.0
+        except (ValueError, TypeError):
+            pass
+    return 1.0
+
+
 def _positional_freq(rows: list[dict]) -> dict[str, dict[int, float]]:
-    """P(digit | position)"""
+    """P(digit | position) with Thursday sample weighting."""
     result = {}
+    row_weights = [_get_draw_weight(r) for r in rows]
     for col in DIGIT_COLS:
-        cnt = Counter(int(r[col]) for r in rows)
-        total = sum(cnt.values())
-        result[col] = {d: cnt.get(d, 0) / total for d in ALL_DIGITS}
+        weights_map = defaultdict(float)
+        for r, w in zip(rows, row_weights):
+            weights_map[int(r[col])] += w
+        total = sum(weights_map.values())
+        result[col] = {d: weights_map.get(d, 0.0) / total if total > 0 else 0.1 for d in ALL_DIGITS}
     return result
 
 
 def _rolling_heat(rows: list[dict], window: int = 50) -> dict[str, dict[int, float]]:
-    """Per-position frequency in last N draws."""
+    """Per-position frequency in last N draws with Thursday sample weighting."""
     recent = rows[:window]   # rows are desc-sorted
+    row_weights = [_get_draw_weight(r) for r in recent]
     result = {}
     for col in DIGIT_COLS:
-        cnt = Counter(int(r[col]) for r in recent)
-        total = sum(cnt.values())
-        result[col] = {d: cnt.get(d, 0) / total for d in ALL_DIGITS}
+        weights_map = defaultdict(float)
+        for r, w in zip(recent, row_weights):
+            weights_map[int(r[col])] += w
+        total = sum(weights_map.values())
+        result[col] = {d: weights_map.get(d, 0.0) / total if total > 0 else 0.1 for d in ALL_DIGITS}
     return result
 
 
@@ -179,17 +201,18 @@ def _pair_lift(rows: list[dict]) -> dict[str, dict[tuple, float]]:
 
 
 def _pattern_hot_cold(rows: list[dict]) -> dict[str, dict[int, float]]:
-    """Global hot/cold bias from pattern engine logic."""
-    global_cnt = Counter()
+    """Global hot/cold bias from pattern engine logic with Thursday sample weighting."""
+    global_cnt = defaultdict(float)
     for row in rows:
+        w = _get_draw_weight(row)
         for col in DIGIT_COLS:
-            global_cnt[int(row[col])] += 1
+            global_cnt[int(row[col])] += w
     total = sum(global_cnt.values())
-    expected = total / 10
+    expected = total / 10 if total > 0 else 1.0
     scores = {}
     for d in ALL_DIGITS:
-        obs = global_cnt.get(d, 0)
-        scores[d] = obs / expected   # > 1 = hot, < 1 = cold
+        obs = global_cnt.get(d, 0.0)
+        scores[d] = (obs / expected) if (expected > 0 and total > 0) else 1.0   # > 1 = hot, < 1 = cold
     # Apply per-position
     result = {col: dict(scores) for col in DIGIT_COLS}
     return result
@@ -358,15 +381,15 @@ class EnsemblePredictor:
 
         return self
 
-    def generate_candidates(self, top_k: int = 5, beam_width: int = 4) -> list[dict]:
+    def generate_candidates(self, top_k: int = 5, beam_width: int = 5) -> list[dict]:
         """
         Generate top-K candidate 6-digit numbers using diverse beam search + statistical filters.
 
         Filters:
-          1. Sum constraint: 18 - 38 (covers >92% of historical winning numbers)
+          1. Sum constraint: 20 - 36 (covers ~90% of historical winning numbers)
           2. Odd/Even balance: 2, 3, or 4 evens (excludes extreme all-even or all-odd)
           3. Repetition: avoid 4 identical consecutive digits
-          4. Sequence: avoid 4 sequential ascending digits (e.g. 1234, 5678)
+          4. Sequence: avoid 4 sequential ascending or descending digits (e.g. 1234, 5678, 4321, 8765)
           5. Joint Coherence: evaluates intra-number conditional probability transitions
           6. Prefix Diversity: top candidates chosen from distinct 2-digit prefixes (clusters)
         """
@@ -386,9 +409,9 @@ class EnsemblePredictor:
             digits = [str(d) for d, _ in combo]
             int_digits = [int(d) for d in digits]
 
-            # Filter 1: Sum constraint (18 to 38)
+            # Filter 1: Sum constraint (20 to 36)
             sum_val = sum(int_digits)
-            if sum_val < 18 or sum_val > 38:
+            if sum_val < 20 or sum_val > 36:
                 continue
 
             # Filter 2: Odd/Even balance (2 to 4 evens)
@@ -400,8 +423,10 @@ class EnsemblePredictor:
             if any(digits[i] == digits[i+1] == digits[i+2] == digits[i+3] for i in range(3)):
                 continue
 
-            # Filter 4: No 4 sequential ascending digits
+            # Filter 4: No 4 sequential ascending or descending digits
             if any(int_digits[i+1] == int_digits[i]+1 and int_digits[i+2] == int_digits[i]+2 and int_digits[i+3] == int_digits[i]+3 for i in range(3)):
+                continue
+            if any(int_digits[i+1] == int_digits[i]-1 and int_digits[i+2] == int_digits[i]-2 and int_digits[i+3] == int_digits[i]-3 for i in range(3)):
                 continue
 
             score = 1.0
@@ -506,6 +531,7 @@ class EnsemblePredictor:
         for num_str, score in raw_t3:
             root = "".join(sorted(num_str))
             if root not in seen_t3_roots:
+                seen_t3_roots.add(root)
                 perms = sorted(list(set("".join(p) for p in product(num_str, repeat=3) if sorted(p) == sorted(num_str))))
                 box_3.append({
                     "direct": num_str,
@@ -554,7 +580,7 @@ class EnsemblePredictor:
             "banker_digits": bankers
         }
 
-    def run(self, top_k: int = 5, beam_width: int = 4) -> list[dict]:
+    def run(self, top_k: int = 5, beam_width: int = 5) -> list[dict]:
         """Full pipeline: load → extract → score → generate."""
         self.load()
         self.extract_signals()
@@ -632,7 +658,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Ensemble Lottery Predictor")
     parser.add_argument("--csv",    type=str, default=str(CSV_PATH))
     parser.add_argument("--top",    type=int, default=5, help="Top-K candidates")
-    parser.add_argument("--beam",   type=int, default=3, help="Beam width per position")
+    parser.add_argument("--beam",   type=int, default=5, help="Beam width per position")
     parser.add_argument("--window", type=int, default=50, help="Rolling window size")
     parser.add_argument("--json",   action="store_true")
     parser.add_argument("--save",   type=str, default="")

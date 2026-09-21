@@ -59,14 +59,14 @@ DIGIT_COLS = ["digit1", "digit2", "digit3", "digit4", "digit5", "digit6"]
 
 # Default ensemble weights (mirrors ensemble_model/predictor.py)
 DEFAULT_WEIGHTS = {
-    "positional_freq":  0.20,
-    "rolling_heat":     0.20,
-    "conditional":      0.15,
-    "transition":       0.10,
+    "rolling_heat":     0.25,
+    "conditional":      0.25,
+    "transition":       0.15,
+    "temporal_trend":   0.10,
     "pair_lift":        0.10,
-    "pattern_hot":      0.10,
-    "gap_overdue":      0.08,
-    "temporal_trend":   0.07,
+    "positional_freq":  0.05,
+    "pattern_hot":      0.05,
+    "gap_overdue":      0.05,
 }
 
 LEARNING_RATE    = 0.02    # step size per adaptation
@@ -131,7 +131,7 @@ def log_prediction(candidates: list[dict] | None = None,
         sys.path.insert(0, str(BASE_DIR))
         from ensemble_model.predictor import EnsemblePredictor
         predictor = EnsemblePredictor(CSV_PATH)
-        candidates = predictor.run(top_k=5, beam_width=3)
+        candidates = predictor.run(top_k=5, beam_width=5)
 
     log_data = _load_json(PRED_LOG)
     if not isinstance(log_data, list):

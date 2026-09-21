@@ -1278,7 +1278,7 @@
               <span>👑</span> เครื่องคำนวณพอร์ตหวยอัจฉริยะ (Hedging Calculator)
             </div>
             <div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px;">
-              สูตรกระจายความเสี่ยง 60% / 25% / 10% / 5% เพื่อโอกาสถูกรางวัลสูงสุด
+              สูตรกระจายความเสี่ยง 70% / 15% / 10% / 5% เพื่อโอกาสถูกรางวัลสูงสุด
             </div>
           </div>
           <span class="panel-badge" style="background:rgba(16,185,129,0.15);color:#34d399;border-color:rgba(16,185,129,0.4)">
@@ -2156,8 +2156,8 @@ function calculateHedgingPortfolio() {
   let b = parseFloat(inp ? inp.value : currentStakingBudget) || 1000;
   if (b < 100) b = 100;
 
-  const t1 = Math.round(b * 0.60); // Banker 60%
-  const t2 = Math.round(b * 0.25); // 2D Pairs 25%
+  const t1 = Math.round(b * 0.70); // Banker 70%
+  const t2 = Math.round(b * 0.15); // 2D Pairs 15%
   const t3 = Math.round(b * 0.10); // 3D Box 10%
   const t4 = Math.max(b - t1 - t2 - t3, 0); // Jackpot Moonshot 5%
 
@@ -2186,11 +2186,11 @@ function calculateHedgingPortfolio() {
   }
 
   cont.innerHTML = `
-    <!-- Tier 1: Foundation 60% -->
+    <!-- Tier 1: Foundation 70% -->
     <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.3);border-radius:10px;padding:0.75rem 0.9rem;">
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div style="display:flex;align-items:center;gap:6px;">
-          <span style="background:#10b981;color:#fff;font-weight:800;font-size:0.7rem;padding:2px 6px;border-radius:4px;">ฐานราก 60%</span>
+          <span style="background:#10b981;color:#fff;font-weight:800;font-size:0.7rem;padding:2px 6px;border-radius:4px;">ฐานราก 70%</span>
           <strong style="color:#34d399;font-size:0.95rem;">เลขวิ่ง / รูด 19 ประตู (Banker Core)</strong>
         </div>
         <span style="font-family:var(--font-mono);font-weight:800;color:#34d399;font-size:1.05rem;">${t1.toLocaleString()} บ.</span>
@@ -2201,11 +2201,11 @@ function calculateHedgingPortfolio() {
       </div>
     </div>
 
-    <!-- Tier 2: Multiplier 25% -->
+    <!-- Tier 2: Multiplier 15% -->
     <div style="background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.3);border-radius:10px;padding:0.75rem 0.9rem;">
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div style="display:flex;align-items:center;gap:6px;">
-          <span style="background:#0284c7;color:#fff;font-weight:800;font-size:0.7rem;padding:2px 6px;border-radius:4px;">ชั้นกลาง 25%</span>
+          <span style="background:#0284c7;color:#fff;font-weight:800;font-size:0.7rem;padding:2px 6px;border-radius:4px;">ชั้นกลาง 15%</span>
           <strong style="color:#38bdf8;font-size:0.95rem;">2 ตัวบนตรง-กลับ & 2 ตัวล่าง (Top Pairs)</strong>
         </div>
         <span style="font-family:var(--font-mono);font-weight:800;color:#38bdf8;font-size:1.05rem;">${t2.toLocaleString()} บ.</span>
@@ -2283,8 +2283,8 @@ function runSanityCheck() {
   const evens = digits.filter(d => d % 2 === 0).length;
   const odds = 6 - evens;
 
-  // Rule 1: Sum constraint (18-38)
-  const isSumValid = sumVal >= 18 && sumVal <= 38;
+  // Rule 1: Sum constraint (20-36)
+  const isSumValid = sumVal >= 20 && sumVal <= 36;
   
   // Rule 2: Parity balance (no 6-even or 6-odd)
   const isParityValid = evens >= 2 && evens <= 4;
@@ -2314,7 +2314,7 @@ function runSanityCheck() {
   let gradeDesc = 'ยอดเยี่ยม — สถิติความน่าจะเป็นเกาะกลุ่มสูงสุด';
   let failures = [];
 
-  if (!isSumValid) failures.push(`ผลรวมแต้ม (${sumVal}) หลุดนอกเกณฑ์สถิติ 18-38`);
+  if (!isSumValid) failures.push(`ผลรวมแต้ม (${sumVal}) หลุดนอกเกณฑ์สถิติ 20-36`);
   if (!isParityValid) failures.push(`สมดุลคู่-คี่ (${evens}คู่/${odds}คี่) เสี่ยงสูง (สถิติ 20 ปีไม่ออกคู่ล้วน/คี่ล้วน)`);
   if (has4Identical) failures.push('มีเลขตองซ้ำ 4 ตัวติดกัน (ความน่าจะเป็น < 0.01%)');
   if (has4Sequential) failures.push('มีเลขเรียงกัน 4 ตัวติดกัน (ความน่าจะเป็น < 0.05%)');
@@ -2347,7 +2347,7 @@ function runSanityCheck() {
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:0.73rem;">
       <div style="background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:6px;display:flex;justify-content:space-between;">
         <span style="color:var(--text-muted);">ผลรวมแต้ม 6 หลัก:</span>
-        <strong style="color:${isSumValid ? '#10b981' : '#ef4444'}">${sumVal} ${isSumValid ? '✓ (18-38)' : '✗ (ผิดเกณฑ์)'}</strong>
+        <strong style="color:${isSumValid ? '#10b981' : '#ef4444'}">${sumVal} ${isSumValid ? '✓ (20-36)' : '✗ (ผิดเกณฑ์)'}</strong>
       </div>
       <div style="background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:6px;display:flex;justify-content:space-between;">
         <span style="color:var(--text-muted);">สมดุลคู่ / คี่:</span>

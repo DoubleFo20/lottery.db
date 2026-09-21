@@ -384,7 +384,7 @@ class ExplainableAI:
         sys.path.insert(0, str(BASE_DIR))
         from ensemble_model.predictor import EnsemblePredictor
         predictor = EnsemblePredictor(self.csv_path)
-        candidates = predictor.run(top_k=top_k, beam_width=3)
+        candidates = predictor.run(top_k=top_k, beam_width=5)
 
         self.explanations = []
         for cand in candidates:

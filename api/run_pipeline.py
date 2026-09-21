@@ -50,7 +50,7 @@ def read_dataset_summary():
     }
 
 
-def run_pipeline(top_k=5, beam=3, window=50):
+def run_pipeline(top_k=5, beam=5, window=50):
     """Run all engines and return combined JSON-ready dict."""
 
     result = {"status": "ok"}
@@ -136,7 +136,7 @@ def save_cache(data: dict):
 def main():
     parser = argparse.ArgumentParser(description="Prediction Pipeline Runner")
     parser.add_argument("--top",    type=int, default=5)
-    parser.add_argument("--beam",   type=int, default=3)
+    parser.add_argument("--beam",   type=int, default=5)
     parser.add_argument("--window", type=int, default=50)
     parser.add_argument("--print",  action="store_true")
     args = parser.parse_args()

@@ -28,9 +28,9 @@ function main() {
   }
 
   const candidates = pipelineData.candidates || [
-    { number: '839386', confidence: 100.0, sum: 37, even_odd: '3คู่ / 3คี่' },
-    { number: '539386', confidence: 87.15, sum: 34, even_odd: '2คู่ / 4คี่' },
-    { number: '339386', confidence: 85.46, sum: 32, even_odd: '2คู่ / 4คี่' }
+    { number: '830386', confidence: 100.0, sum: 28, even_odd: '4คู่ / 2คี่' },
+    { number: '530386', confidence: 62.95, sum: 25, even_odd: '3คู่ / 3คี่' },
+    { number: '256386', confidence: 51.80, sum: 30, even_odd: '4คู่ / 2คี่' }
   ];
 
   const fullSpectrum = pipelineData.full_spectrum || {};
