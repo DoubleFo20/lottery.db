@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Mobile Wallet — Digital Banking & Transaction History</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ==========================================================================
+       CSS Variables & Design Tokens (iOS Light Glassmorphism)
+       ========================================================================== */
+    :root {
+      --bg-canvas: #f8fafc;
+      --bg-mesh-blue: rgba(56, 189, 248, 0.22);
+      --bg-mesh-purple: rgba(168, 85, 247, 0.18);
+      --bg-mesh-cyan: rgba(6, 182, 212, 0.15);
+
+      --glass-surface: rgba(255, 255, 255, 0.72);
+      --glass-surface-high: rgba(255, 255, 255, 0.88);
+      --glass-card: rgba(255, 255, 255, 0.65);
+      --glass-card-border: rgba(255, 255, 255, 0.85);
+      --glass-blur: blur(20px);
+
+      --accent-blue: #38bdf8;
+      --accent-blue-deep: #0284c7;
+      --accent-purple: #a855f7;
+      --accent-purple-deep: #7e22ce;
+      --accent-green: #10b981;
+      --accent-green-deep: #059669;
+
+      --text-main: #0f172a;
+      --text-secondary: #64748b;
+      --text-tertiary: #94a3b8;
+      --text-muted: #cbd5e1;
+
+      --card-shadow: 0 10px 30px -5px rgba(56, 189, 248, 0.12), 0 4px 10px -2px rgba(0, 0, 0, 0.04);
+      --floating-shadow: 0 16px 36px -6px rgba(168, 85, 247, 0.28), 0 6px 14px -3px rgba(56, 189, 248, 0.2);
+
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --ease-ios: cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      font-family: var(--font-family);
+      background-color: #0b0f19;
+      color: var(--text-main);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ==========================================================================
+       Desktop Control Toolbar & Viewport Wrapper
+       ========================================================================== */
+    .desktop-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+      font-size: 14px;
+      z-index: 1000;
+      position: sticky;
+      top: 0;
+    }
+
+    .desktop-toolbar .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .desktop-toolbar .brand-badge {
+      background: linear-gradient(135deg, #38bdf8, #a855f7);
+      color: #fff;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 9999px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .desktop-toolbar .controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .toolbar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 500;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #f1f5f9;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .toolbar-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.24);
+      transform: translateY(-1px);
+    }
+
+    .toolbar-btn.active {
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      color: #0f172a;
+      font-weight: 600;
+      border-color: transparent;
+    }
+
+    .viewport-stage {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 58px);
+      padding: 24px 16px;
+      background: radial-gradient(circle at 50% 20%, #172554 0%, #0b0f19 70%);
+      transition: all 0.3s ease;
+    }
+
+    /* Full-width mode override for desktop */
+    body.full-width-mode .viewport-stage {
+      padding: 0;
+      min-height: 100vh;
+      background: var(--bg-canvas);
+    }
+
+    body.full-width-mode .phone-device-frame {
+      max-width: 100%;
+      height: 100vh;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+    }
+
+    /* ==========================================================================
+       iPhone Device Mockup Container
+       ========================================================================== */
+    .phone-device-frame {
+      position: relative;
+      width: 100%;
+      max-width: 412px;
+      height: 870px;
+      background-color: var(--bg-canvas);
+      border-radius: 50px;
+      border: 11px solid #1e293b;
+      box-shadow:
+        0 0 0 2px rgba(255, 255, 255, 0.12),
+        0 25px 70px -10px rgba(0, 0, 0, 0.6),
+        0 10px 24px -5px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* Ambient Background Mesh Glows */
+    .ambient-glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(55px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.85;
+      animation: ambientPulse 12s ease-in-out infinite alternate;
+    }
+
+    .glow-top-left {
+      width: 260px;
+      height: 260px;
+      top: -40px;
+      left: -60px;
+      background: radial-gradient(circle, var(--bg-mesh-blue) 0%, rgba(56, 189, 248, 0) 70%);
+    }
+
+    .glow-mid-right {
+      width: 280px;
+      height: 280px;
+      top: 140px;
+      right: -80px;
+      background: radial-gradient(circle, var(--bg-mesh-purple) 0%, rgba(168, 85, 247, 0) 70%);
+    }
+
+    .glow-bottom-left {
+      width: 240px;
+      height: 240px;
+      bottom: 60px;
+      left: -40px;
+      background: radial-gradient(circle, var(--bg-mesh-cyan) 0%, rgba(6, 182, 212, 0) 70%);
+    }
+
+    @keyframes ambientPulse {
+      0% { transform: scale(1) translateY(0); }
+      100% { transform: scale(1.1) translateY(10px); }
+    }
+
+    /* ==========================================================================
+       Status Bar & Dynamic Island
+       ========================================================================== */
+    .ios-status-bar {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 48px;
+      padding: 0 24px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #0f172a;
+      z-index: 50;
+      flex-shrink: 0;
+    }
+
+    .status-time {
+      letter-spacing: -0.01em;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .dynamic-island {
+      position: absolute;
+      left: 50%;
+      top: 10px;
+      transform: translateX(-50%);
+      width: 116px;
+      height: 30px;
+      background: #000000;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 10px;
+      gap: 7px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      transition: width 0.3s var(--ease-ios), transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: pointer;
+    }
+
+    .dynamic-island:hover {
+      width: 130px;
+    }
+
+    .island-camera {
+      width: 11px;
+      height: 11px;
+      background: #0a0f1d;
+      border-radius: 50%;
+      border: 1px solid #1e293b;
+      position: relative;
+    }
+
+    .island-camera::after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #1e3a8a;
+      border-radius: 50%;
+      top: 2.5px;
+      left: 2.5px;
+    }
+
+    .island-sensor {
+      width: 6px;
+      height: 6px;
+      background: #1e293b;
+      border-radius: 50%;
+    }
+
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .icon-cellular {
+      display: flex;
+      align-items: flex-end;
+      gap: 1.5px;
+      height: 11px;
+    }
+
+    .icon-cellular span {
+      width: 3px;
+      background: #0f172a;
+      border-radius: 1px;
+    }
+
+    .icon-cellular span:nth-child(1) { height: 3px; }
+    .icon-cellular span:nth-child(2) { height: 5px; }
+    .icon-cellular span:nth-child(3) { height: 8px; }
+    .icon-cellular span:nth-child(4) { height: 11px; }
+
+    .battery-pill {
+      width: 22px;
+      height: 11px;
+      border: 1.5px solid #0f172a;
+      border-radius: 3.5px;
+      padding: 1px;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .battery-pill::after {
+      content: '';
+      position: absolute;
+      right: -3.5px;
+      top: 2.5px;
+      width: 2px;
+      height: 4px;
+      background: #0f172a;
+      border-radius: 0 1px 1px 0;
+    }
+
+    .battery-fill {
+      width: 85%;
+      height: 100%;
+      background: #0f172a;
+      border-radius: 1.5px;
+    }
+
+    /* ==========================================================================
+       App Navigation Header
+       ========================================================================== */
+    .app-header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 20px 14px;
+      z-index: 40;
+      flex-shrink: 0;
+    }
+
+    .header-placeholder {
+      width: 38px;
+      height: 38px;
+    }
+
+    .header-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+
+    .header-action-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #334155;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      transition: all 0.2s var(--ease-ios);
+    }
+
+    .header-action-btn:active {
+      transform: scale(0.92);
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    /* Animated Search Bar Container */
+    .search-bar-wrapper {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.28s var(--ease-ios);
+      padding: 0 20px;
+      z-index: 40;
+    }
+
+    .search-bar-wrapper.expanded {
+      max-height: 60px;
+      opacity: 1;
+      margin-bottom: 10px;
+    }
+
+    .search-input-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 14px;
+      padding: 8px 14px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .search-input-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text-main);
+    }
+
+    .search-input-box input::placeholder {
+      color: var(--text-tertiary);
+    }
+
+    /* ==========================================================================
+       Scrollable App Content Area
+       ========================================================================== */
+    .app-scroll-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 0 20px 160px;
+      z-index: 20;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .app-scroll-content::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* ==========================================================================
+       Glassmorphic Current Balance Card & Side Peek Accents
+       ========================================================================== */
+    .balance-card-wrapper {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .card-side-peek {
+      position: absolute;
+      top: 12px;
+      bottom: 12px;
+      width: 14px;
+      border-radius: 20px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.85;
+    }
+
+    .card-side-peek.peek-left {
+      left: -9px;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(255, 255, 255, 0.25));
+    }
+
+    .card-side-peek.peek-right {
+      right: -9px;
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(255, 255, 255, 0.25));
+    }
+
+    .current-balance-card {
+      position: relative;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.78) 0%, rgba(240, 249, 255, 0.65) 60%, rgba(245, 243, 255, 0.68) 100%);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1.5px solid var(--glass-card-border);
+      border-radius: 26px;
+      padding: 22px 24px;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.25s var(--ease-ios);
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .current-balance-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .balance-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .balance-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      letter-spacing: -0.01em;
+    }
+
+    .currency-pill-toggle {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(226, 232, 240, 0.6);
+      border-radius: 9999px;
+      padding: 2px 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      transition: all 0.2s ease;
+    }
+
+    .currency-pill-toggle span {
+      padding: 2px 6px;
+      border-radius: 9999px;
+    }
+
+    .currency-pill-toggle span.active {
+      background: #ffffff;
+      color: var(--accent-blue-deep);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    .balance-amount {
+      font-size: 32px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: baseline;
+      gap: 2px;
+    }
+
+    .manage-accounts-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.18s ease;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .manage-accounts-btn:hover {
+      color: var(--accent-blue-deep);
+    }
+
+    .manage-accounts-btn svg {
+      transition: transform 0.2s ease;
+    }
+
+    .manage-accounts-btn:hover svg {
+      transform: translateX(2px);
+    }
+
+    /* ==========================================================================
+       Segmented Control Filter Pills
+       ========================================================================== */
+    .filter-segmented-control {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: rgba(226, 232, 240, 0.55);
+      backdrop-filter: blur(16px);
+      border-radius: 18px;
+      padding: 4px;
+      margin-bottom: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+
+    .filter-pill-btn {
+      flex: 1;
+      text-align: center;
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      border: none;
+      background: transparent;
+      border-radius: 14px;
+      cursor: pointer;
+      position: relative;
+      z-index: 2;
+      transition: all 0.22s var(--ease-ios);
+    }
+
+    .filter-pill-btn.active {
+      color: #0f172a;
+      font-weight: 700;
+      background: #ffffff;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    /* iOS Segmented Control Divider Lines */
+    .filter-pill-btn:not(:last-child):not(.active)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 25%;
+      height: 50%;
+      width: 1px;
+      background: rgba(148, 163, 184, 0.4);
+      transition: opacity 0.2s ease;
+    }
+
+    .filter-pill-btn.active + .filter-pill-btn::after {
+      opacity: 0;
+    }
+
+    /* ==========================================================================
+       Transaction History Section
+       ========================================================================== */
+    .transaction-group {
+      margin-bottom: 20px;
+    }
+
+    .group-section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 10px;
+      padding-left: 4px;
+      letter-spacing: -0.01em;
+    }
+
+    .transaction-glass-card {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1.5px solid rgba(255, 255, 255, 0.9);
+      border-radius: 22px;
+      padding: 6px 14px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .transaction-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 2px;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+      transition: background-color 0.15s ease, opacity 0.25s ease, transform 0.25s ease;
+      cursor: pointer;
+    }
+
+    .transaction-row:last-child {
+      border-bottom: none;
+    }
+
+    .transaction-row:active {
+      opacity: 0.75;
+    }
+
+    .row-left {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .category-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Pastel Category Colors matching mockup */
+    .icon-spotify {
+      background: #e0f2fe;
+      color: #0284c7;
+    }
+
+    .icon-transfer {
+      background: #f3e8ff;
+      color: #9333ea;
+    }
+
+    .icon-grocery {
+      background: #ffe4e6;
+      color: #e11d48;
+    }
+
+    .icon-salary {
+      background: #e0f2fe;
+      color: #0891b2;
+    }
+
+    .icon-dinner {
+      background: #ede9fe;
+      color: #7c3aed;
+    }
+
+    .tx-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .tx-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #0f172a;
+      letter-spacing: -0.01em;
+    }
+
+    .tx-subtitle {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      font-weight: 400;
+    }
+
+    .tx-amount {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .tx-amount.expense {
+      color: #0f172a;
+    }
+
+    .tx-amount.income {
+      color: #16a34a;
+    }
+
+    .empty-state {
+      padding: 30px 10px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 13px;
+      display: none;
+    }
+
+    /* ==========================================================================
+       Floating Frosted Quick Transfer Action Button
+       ========================================================================== */
+    .quick-transfer-floating-wrap {
+      position: absolute;
+      bottom: 84px;
+      left: 20px;
+      right: 20px;
+      z-index: 60;
+      pointer-events: none;
+    }
+
+    .quick-transfer-btn {
+      pointer-events: auto;
+      width: 100%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(224, 242, 254, 0.75) 45%, rgba(243, 232, 255, 0.8) 100%);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1.5px solid rgba(255, 255, 255, 0.95);
+      border-radius: 24px;
+      padding: 10px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--floating-shadow);
+      cursor: pointer;
+      transition: all 0.22s var(--ease-ios);
+    }
+
+    .quick-transfer-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 42px -6px rgba(168, 85, 247, 0.35), 0 8px 18px -3px rgba(56, 189, 248, 0.25);
+    }
+
+    .quick-transfer-btn:active {
+      transform: scale(0.97) translateY(1px);
+    }
+
+    .quick-transfer-sublabel {
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748b;
+      margin-bottom: 2px;
+      letter-spacing: -0.01em;
+    }
+
+    .quick-transfer-mainlabel {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+    }
+
+    .quick-transfer-mainlabel svg {
+      stroke-width: 2.4;
+    }
+
+    /* ==========================================================================
+       iOS Bottom Navigation Tab Bar
+       ========================================================================== */
+    .ios-tab-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 82px;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-top: 1px solid rgba(255, 255, 255, 0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 8px 14px 4px;
+      z-index: 55;
+    }
+
+    .tab-items-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 100%;
+    }
+
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      background: none;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 10px;
+      font-weight: 500;
+      transition: all 0.18s ease;
+      min-width: 48px;
+    }
+
+    .tab-item svg {
+      width: 22px;
+      height: 22px;
+      transition: transform 0.18s ease;
+    }
+
+    .tab-item.active {
+      color: #0284c7;
+      font-weight: 700;
+    }
+
+    .tab-item.active svg {
+      transform: translateY(-1px);
+    }
+
+    .home-indicator {
+      width: 134px;
+      height: 5px;
+      background: #0f172a;
+      border-radius: 9999px;
+      margin: 4px auto 2px;
+    }
+
+    /* ==========================================================================
+       Interactive Bottom Sheet / Quick Transfer Modal
+       ========================================================================== */
+    .modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s var(--ease-ios);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .bottom-sheet {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      border-radius: 32px 32px 0 0;
+      padding: 14px 22px 30px;
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.25);
+      border-top: 1.5px solid rgba(255, 255, 255, 0.95);
+      transform: translateY(100%);
+      transition: transform 0.32s var(--ease-ios);
+    }
+
+    .modal-overlay.active .bottom-sheet {
+      transform: translateY(0);
+    }
+
+    .sheet-handle {
+      width: 42px;
+      height: 4.5px;
+      background: #cbd5e1;
+      border-radius: 9999px;
+      margin: 0 auto 16px;
+    }
+
+    .sheet-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .sheet-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .sheet-close-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #64748b;
+    }
+
+    /* Recent Contacts */
+    .recipients-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+
+    .recipients-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 18px;
+    }
+
+    .recipients-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      outline: none;
+    }
+
+    .contact-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+      border: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .contact-item.selected .contact-avatar {
+      border-color: #0284c7;
+      box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.3);
+      transform: scale(1.05);
+    }
+
+    .contact-name {
+      font-size: 12px;
+      color: #334155;
+      font-weight: 500;
+    }
+
+    .avatar-alice { background: #f3e8ff; color: #9333ea; }
+    .avatar-bob { background: #e0f2fe; color: #0284c7; }
+    .avatar-charlie { background: #ffe4e6; color: #e11d48; }
+    .avatar-novatech { background: #ccfbf1; color: #0d9488; }
+
+    /* Amount Input Box */
+    .sheet-input-group {
+      margin-bottom: 14px;
+    }
+
+    .input-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748b;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .amount-input-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 10px 14px;
+    }
+
+    .amount-input-box:focus-within {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+    }
+
+    .amount-prefix {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-right: 6px;
+    }
+
+    .amount-input-field {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 22px;
+      font-weight: 700;
+      color: #0f172a;
+      width: 100%;
+      font-family: inherit;
+    }
+
+    .quick-chips {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .chip-btn {
+      padding: 5px 12px;
+      border-radius: 9999px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      font-size: 12px;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .chip-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .submit-transfer-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #0284c7 0%, #7e22ce 100%);
+      color: #ffffff;
+      border: none;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(2, 132, 199, 0.3);
+      transition: all 0.2s ease;
+      margin-top: 10px;
+    }
+
+    .submit-transfer-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* Toast Notification */
+    .toast-notification {
+      position: absolute;
+      top: 58px;
+      left: 20px;
+      right: 20px;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(16px);
+      color: #ffffff;
+      padding: 12px 16px;
+      border-radius: 16px;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      transform: translateY(-80px);
+      opacity: 0;
+      transition: all 0.3s var(--ease-ios);
+      z-index: 120;
+    }
+
+    .toast-notification.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast-icon {
+      color: #10b981;
+    }
+
+    .toast-notification.error {
+      background: rgba(30, 10, 15, 0.94);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+    }
+
+    .toast-notification.error .toast-icon {
+      color: #f43f5e;
+    }
+
+    .input-error {
+      border-color: #f43f5e !important;
+      box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.15) !important;
+      animation: shake 0.35s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-5px); }
+      40%, 80% { transform: translateX(5px); }
+    }
+
+    /* ==========================================================================
+       Media Queries for Native Mobile Devices (< 500px)
+       ========================================================================== */
+    @media (max-width: 500px) {
+      .desktop-toolbar {
+        display: none !important;
+      }
+      .viewport-stage {
+        padding: 0 !important;
+        min-height: 100dvh !important;
+        background: var(--bg-canvas) !important;
+      }
+      .phone-device-frame {
+        max-width: 100% !important;
+        height: 100dvh !important;
+        border-radius: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Desktop Control Header -->
+  <header class="desktop-toolbar">
+    <div class="brand">
+      <span>iOS Banking Wallet UI</span>
+      <span class="brand-badge">Modern Glassmorphism</span>
+    </div>
+    <div class="controls">
+      <button class="toolbar-btn" id="btn-toggle-frame" onclick="toggleFrameMode()" title="Toggle Desktop Device Frame / Fluid Full-Width">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+          <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        </svg>
+        <span id="frame-toggle-text">Full Width</span>
+      </button>
+
+      <button class="toolbar-btn" id="btn-currency-toolbar" onclick="toggleCurrency()" title="Toggle Currency (€ EUR / ฿ THB)">
+        <span id="toolbar-curr-label">Currency: € EUR</span>
+      </button>
+
+      <a href="manager.html" class="toolbar-btn" title="Back to AI Manager Control Center">
+        <span>Manager Dashboard &rarr;</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Interactive Device Viewport -->
+  <main class="viewport-stage">
+    <div class="phone-device-frame" id="phone-container">
+
+      <!-- Ambient Glow Overlays -->
+      <div class="ambient-glow glow-top-left"></div>
+      <div class="ambient-glow glow-mid-right"></div>
+      <div class="ambient-glow glow-bottom-left"></div>
+
+      <!-- Toast Feedback -->
+      <div class="toast-notification" id="app-toast">
+        <svg class="toast-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        <span id="toast-message">Transfer completed successfully!</span>
+      </div>
+
+      <!-- iOS Status Bar & Dynamic Island -->
+      <div class="ios-status-bar">
+        <span class="status-time" id="status-clock">10:09</span>
+
+        <div class="dynamic-island" id="dynamic-island-notch" onclick="animateDynamicIsland()" title="Dynamic Island Notch">
+          <div class="island-camera"></div>
+          <div class="island-sensor"></div>
+        </div>
+
+        <div class="status-icons">
+          <div class="icon-cellular">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <!-- Wi-Fi Icon -->
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+            <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+            <line x1="12" y1="20" x2="12.01" y2="20"></line>
+          </svg>
+          <!-- Battery -->
+          <div class="battery-pill">
+            <div class="battery-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Header -->
+      <div class="app-header">
+        <div class="header-placeholder"></div>
+        <h1 class="header-title">Transaction History</h1>
+        <button class="header-action-btn" id="btn-search-toggle" onclick="toggleSearchBar()" aria-label="Search Transactions">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Expandable Search Input -->
+      <div class="search-bar-wrapper" id="search-container">
+        <div class="search-input-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="tx-search-input" placeholder="Search by recipient, merchant, note..." oninput="filterTransactions()" />
+        </div>
+      </div>
+
+      <!-- Main Scrollable Content Area -->
+      <div class="app-scroll-content" id="app-main-content">
+
+        <!-- Current Balance Card with Mockup Side Peeks -->
+        <div class="balance-card-wrapper">
+          <div class="card-side-peek peek-left" aria-hidden="true"></div>
+          <section class="current-balance-card" id="balance-card">
+            <div class="balance-card-header">
+              <span class="balance-label">Current Balance</span>
+              <div class="currency-pill-toggle" onclick="toggleCurrency()" title="Switch between Euro and Thai Baht">
+                <span id="curr-tag-eur" class="active">€</span>
+                <span id="curr-tag-thb">฿</span>
+              </div>
+            </div>
+
+            <div class="balance-amount" id="display-balance-val">
+              €12,480.75
+            </div>
+
+            <button class="manage-accounts-btn" onclick="showAccountNotice()">
+              <span>Manage Accounts</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </section>
+          <div class="card-side-peek peek-right" aria-hidden="true"></div>
+        </div>
+
+        <!-- Segmented Control Filter Pills -->
+        <div class="filter-segmented-control" role="tablist">
+          <button class="filter-pill-btn active" id="filter-all" onclick="setFilter('all', this)" role="tab" aria-selected="true">All</button>
+          <button class="filter-pill-btn" id="filter-income" onclick="setFilter('income', this)" role="tab" aria-selected="false">Income</button>
+          <button class="filter-pill-btn" id="filter-expenses" onclick="setFilter('expenses', this)" role="tab" aria-selected="false">Expenses</button>
+        </div>
+
+        <!-- Filterable Transaction Groups -->
+        <div id="transactions-container">
+
+          <!-- Today Group -->
+          <div class="transaction-group" id="group-today">
+            <h2 class="group-section-title">Today</h2>
+            <div class="transaction-glass-card">
+
+              <!-- Spotify -->
+              <div class="transaction-row" data-type="expenses" data-name="Spotify" data-eur="10.99" onclick="viewTxDetail(this)">
+                <div class="row-left">
+                  <div class="category-icon-box icon-spotify">
+                    <!-- Music Note Icon -->
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M9 18V5l12-2v13"></path>
+                      <circle cx="6" cy="18" r="3"></circle>
+                      <circle cx="18" cy="16" r="3"></circle>
+                    </svg>
+                  </div>
+                  <div class="tx-meta">
+                    <span class="tx-title">Spotify</span>
+                    <span class="tx-subtitle">11:17 AM</span>
+                  </div>
+                </div>
+                <div class="tx-amount expense" data-eur="10.99" data-sign="-">
+                  €10.99 -
+                </div>
+              </div>
+
+              <!-- Transfer from Alice -->
+              <div class="transaction-row" data-type="income" data-name="Transfer from Alice" data-eur="150.00" onclick="viewTxDetail(this)">
+                <div class="row-left">
+                  <div class="category-icon-box icon-transfer">
+                    <!-- User Avatar Icon -->
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                  </div>
+                  <div class="tx-meta">
+                    <span class="tx-title">Transfer from Alice</span>
+                    <span class="tx-subtitle">11:18 PM</span>
+                  </div>
+                </div>
+                <div class="tx-amount income" data-eur="150.00" data-sign="+">
+                  €150.00 +
+                </div>
+              </div>
+
+              <!-- Grocery -->
+              <div class="transaction-row" data-type="expenses" data-name="Grocery SuperMart" data-eur="64.50" onclick="viewTxDetail(this)">
+                <div class="row-left">
+                  <div class="category-icon-box icon-grocery">
+                    <!-- Shopping Cart Icon -->
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="9" cy="21" r="1"></circle>
+                      <circle cx="20" cy="21" r="1"></circle>
+                      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                  </div>
+                  <div class="tx-meta">
+                    <span class="tx-title">Grocery</span>
+                    <span class="tx-subtitle">SuperMart · 7:01 AM</span>
+                  </div>
+                </div>
+                <div class="tx-amount expense" data-eur="64.50" data-sign="-">
+                  €64.50 -
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Yesterday Group -->
+          <div class="transaction-group" id="group-yesterday">
+            <h2 class="group-section-title">Yesterday</h2>
+            <div class="transaction-glass-card">
+
+              <!-- Salary -->
+              <div class="transaction-row" data-type="income" data-name="Salary NovaTech" data-eur="3850.00" onclick="viewTxDetail(this)">
+                <div class="row-left">
+                  <div class="category-icon-box icon-salary">
+                    <!-- Briefcase Icon -->
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>
+                  </div>
+                  <div class="tx-meta">
+                    <span class="tx-title">Salary</span>
+                    <span class="tx-subtitle">NovaTech · 7:23 AM</span>
+                  </div>
+                </div>
+                <div class="tx-amount income" data-eur="3850.00" data-sign="+">
+                  €3,850.00 +
+                </div>
+              </div>
+
+              <!-- Dinner -->
+              <div class="transaction-row" data-type="expenses" data-name="Dinner Bistro 9" data-eur="88.30" onclick="viewTxDetail(this)">
+                <div class="row-left">
+                  <div class="category-icon-box icon-dinner">
+                    <!-- Food Cloche Icon -->
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 4V2"></path>
+                      <path d="M4 14a8 8 0 0 1 16 0H4z"></path>
+                      <path d="M2 18h20"></path>
+                    </svg>
+                  </div>
+                  <div class="tx-meta">
+                    <span class="tx-title">Dinner</span>
+                    <span class="tx-subtitle">Bistro 9 · 2:28 AM</span>
+                  </div>
+                </div>
+                <div class="tx-amount expense" data-eur="88.30" data-sign="-">
+                  €88.30 -
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Empty Search State -->
+          <div class="empty-state" id="empty-state">
+            No transactions found matching your criteria.
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Floating Frosted Quick Transfer Action Button -->
+      <div class="quick-transfer-floating-wrap">
+        <button class="quick-transfer-btn" id="btn-quick-transfer" onclick="openTransferModal()" aria-label="+ Send Money" title="+ Send Money">
+          <span class="quick-transfer-sublabel">Quick Transfer</span>
+          <span class="quick-transfer-mainlabel">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>Send Money</span>
+          </span>
+        </button>
+      </div>
+
+      <!-- iOS Bottom Navigation Tab Bar -->
+      <nav class="ios-tab-bar" aria-label="Bottom Navigation">
+        <div class="tab-items-row">
+
+          <button class="tab-item" onclick="switchNavTab(this, 'Home')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Home</span>
+          </button>
+
+          <button class="tab-item" onclick="switchNavTab(this, 'Accounts')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"></path>
+              <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"></path>
+            </svg>
+            <span>Accounts</span>
+          </button>
+
+          <button class="tab-item active" onclick="switchNavTab(this, 'Send')">
+            <!-- Paper Plane / Send Icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+            <span>Send</span>
+          </button>
+
+          <button class="tab-item" onclick="switchNavTab(this, 'Pay')">
+            <!-- Dollar / Pay Receipt Icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="2" width="16" height="20" rx="2"></rect>
+              <line x1="8" y1="6" x2="16" y2="6"></line>
+              <line x1="8" y1="10" x2="16" y2="10"></line>
+              <circle cx="12" cy="15" r="2"></circle>
+            </svg>
+            <span>Pay</span>
+          </button>
+
+          <button class="tab-item" onclick="switchNavTab(this, 'More')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="1"></circle>
+              <circle cx="19" cy="12" r="1"></circle>
+              <circle cx="5" cy="12" r="1"></circle>
+            </svg>
+            <span>More</span>
+          </button>
+
+        </div>
+
+        <!-- iOS Home Indicator -->
+        <div class="home-indicator"></div>
+      </nav>
+
+      <!-- Interactive Quick Transfer Bottom Sheet Modal -->
+      <div class="modal-overlay" id="transfer-modal" onclick="handleOverlayClick(event)">
+        <div class="bottom-sheet" onclick="event.stopPropagation()">
+          <div class="sheet-handle"></div>
+
+          <div class="sheet-header">
+            <h3 class="sheet-title">Quick Transfer</h3>
+            <button class="sheet-close-btn" onclick="closeTransferModal()" aria-label="Close transfer modal">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Recent Contacts -->
+          <div class="recipients-label">Recent Contacts</div>
+          <div class="recipients-scroll">
+            <button class="contact-item selected" onclick="selectContact(this, 'Alice')">
+              <div class="contact-avatar avatar-alice">A</div>
+              <span class="contact-name">Alice</span>
+            </button>
+            <button class="contact-item" onclick="selectContact(this, 'Bob')">
+              <div class="contact-avatar avatar-bob">B</div>
+              <span class="contact-name">Bob</span>
+            </button>
+            <button class="contact-item" onclick="selectContact(this, 'Charlie')">
+              <div class="contact-avatar avatar-charlie">C</div>
+              <span class="contact-name">Charlie</span>
+            </button>
+            <button class="contact-item" onclick="selectContact(this, 'NovaTech')">
+              <div class="contact-avatar avatar-novatech">N</div>
+              <span class="contact-name">NovaTech</span>
+            </button>
+          </div>
+
+          <!-- Transfer Amount Input -->
+          <div class="sheet-input-group">
+            <label class="input-label" for="transfer-amount-input">Amount</label>
+            <div class="amount-input-box">
+              <span class="amount-prefix" id="modal-currency-symbol">€</span>
+              <input type="number" id="transfer-amount-input" class="amount-input-field" placeholder="0.00" step="0.01" min="0.01" />
+            </div>
+            <!-- Quick Chips -->
+            <div class="quick-chips">
+              <button type="button" class="chip-btn" onclick="setQuickAmount(10)">+10</button>
+              <button type="button" class="chip-btn" onclick="setQuickAmount(50)">+50</button>
+              <button type="button" class="chip-btn" onclick="setQuickAmount(100)">+100</button>
+              <button type="button" class="chip-btn" onclick="setQuickAmount(500)">+500</button>
+            </div>
+          </div>
+
+          <!-- Note Input -->
+          <div class="sheet-input-group">
+            <label class="input-label" for="transfer-note-input">Note (Optional)</label>
+            <div class="amount-input-box">
+              <input type="text" id="transfer-note-input" class="amount-input-field" style="font-size: 14px; font-weight: 400;" placeholder="e.g. Lunch, Coffee, Split bill..." />
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="button" class="submit-transfer-btn" id="btn-submit-transfer" onclick="executeTransfer()">
+            Confirm Transfer
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Interactive JavaScript -->
+  <script>
+    /* ==========================================================================
+       Application State & Currency Logic
+       ========================================================================== */
+    const EUR_TO_THB_RATE = 39.00;
+    let currentCurrency = 'EUR'; // 'EUR' or 'THB'
+    let currentBalanceEUR = 12480.75;
+    let activeFilter = 'all';
+    let selectedContactName = 'Alice';
+
+    // Clock Updater for iPhone Status Bar
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      hours = hours < 10 ? '0' + hours : hours;
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      const el = document.getElementById('status-clock');
+      if (el) el.textContent = `${hours}:${minutes}`;
+    }
+    updateClock();
+    setInterval(updateClock, 30000);
+
+    // Format Amount Helper
+    function formatCurrency(eurAmount, curr = currentCurrency) {
+      if (curr === 'THB') {
+        const thb = eurAmount * EUR_TO_THB_RATE;
+        return '฿' + thb.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+      return '€' + eurAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    // Toggle Currency (€ EUR <-> ฿ THB)
+    function toggleCurrency() {
+      currentCurrency = (currentCurrency === 'EUR') ? 'THB' : 'EUR';
+
+      // Update Tag Pills
+      const tagEur = document.getElementById('curr-tag-eur');
+      const tagThb = document.getElementById('curr-tag-thb');
+      const toolbarLabel = document.getElementById('toolbar-curr-label');
+      const modalSymbol = document.getElementById('modal-currency-symbol');
+
+      if (currentCurrency === 'THB') {
+        tagEur.classList.remove('active');
+        tagThb.classList.add('active');
+        if (toolbarLabel) toolbarLabel.textContent = 'Currency: ฿ THB';
+        if (modalSymbol) modalSymbol.textContent = '฿';
+      } else {
+        tagThb.classList.remove('active');
+        tagEur.classList.add('active');
+        if (toolbarLabel) toolbarLabel.textContent = 'Currency: € EUR';
+        if (modalSymbol) modalSymbol.textContent = '€';
+      }
+
+      // Update Balance Card
+      const balEl = document.getElementById('display-balance-val');
+      if (balEl) {
+        balEl.textContent = formatCurrency(currentBalanceEUR, currentCurrency);
+      }
+
+      // Update all transaction amounts
+      document.querySelectorAll('.tx-amount').forEach(el => {
+        const eurVal = parseFloat(el.getAttribute('data-eur') || '0');
+        const sign = el.getAttribute('data-sign') || '-';
+        const formatted = formatCurrency(eurVal, currentCurrency);
+        el.textContent = `${formatted} ${sign}`;
+      });
+
+      showToast(`Switched currency to ${currentCurrency === 'EUR' ? 'Euro (€)' : 'Thai Baht (฿)'}`);
+    }
+
+    // Toggle Search Bar
+    function toggleSearchBar() {
+      const searchBox = document.getElementById('search-container');
+      const searchInput = document.getElementById('tx-search-input');
+      searchBox.classList.toggle('expanded');
+      if (searchBox.classList.contains('expanded')) {
+        searchInput.focus();
+      } else {
+        searchInput.value = '';
+        filterTransactions();
+      }
+    }
+
+    // Set Segmented Control Filter (All / Income / Expenses)
+    function setFilter(type, buttonEl) {
+      activeFilter = type;
+      document.querySelectorAll('.filter-pill-btn').forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
+      if (buttonEl) {
+        buttonEl.classList.add('active');
+        buttonEl.setAttribute('aria-selected', 'true');
+      }
+      filterTransactions();
+    }
+
+    // Filter Transactions by Category & Search query
+    function filterTransactions() {
+      const query = (document.getElementById('tx-search-input')?.value || '').toLowerCase().trim();
+      const rows = document.querySelectorAll('.transaction-row');
+      let visibleCount = 0;
+
+      rows.forEach(row => {
+        const rowType = row.getAttribute('data-type'); // 'income' or 'expenses'
+        const rowName = (row.getAttribute('data-name') || '').toLowerCase();
+        const rowText = row.textContent.toLowerCase();
+
+        const matchesFilter = (activeFilter === 'all') || (activeFilter === rowType);
+        const matchesQuery = !query || rowName.includes(query) || rowText.includes(query);
+
+        if (matchesFilter && matchesQuery) {
+          row.style.display = 'flex';
+          visibleCount++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      // Show/Hide section headers if all children are hidden
+      ['group-today', 'group-yesterday'].forEach(groupId => {
+        const groupEl = document.getElementById(groupId);
+        if (groupEl) {
+          const visibleInGroup = Array.from(groupEl.querySelectorAll('.transaction-row'))
+            .filter(r => r.style.display !== 'none').length;
+          groupEl.style.display = (visibleInGroup > 0) ? 'block' : 'none';
+        }
+      });
+
+      const emptyEl = document.getElementById('empty-state');
+      if (emptyEl) {
+        emptyEl.style.display = (visibleCount === 0) ? 'block' : 'none';
+      }
+    }
+
+    // Dynamic Island Tap Animation
+    function animateDynamicIsland() {
+      const island = document.getElementById('dynamic-island-notch');
+      if (!island) return;
+      island.style.transform = 'translateX(-50%) scale(1.15)';
+      setTimeout(() => {
+        island.style.transform = 'translateX(-50%) scale(1)';
+      }, 250);
+      showToast('Face ID & Apple Pay Active');
+    }
+
+    // Desktop Frame Mode Toggle
+    function toggleFrameMode() {
+      document.body.classList.toggle('full-width-mode');
+      const toggleText = document.getElementById('frame-toggle-text');
+      const isFull = document.body.classList.contains('full-width-mode');
+      if (toggleText) {
+        toggleText.textContent = isFull ? 'Device Frame' : 'Full Width';
+      }
+      const btn = document.getElementById('btn-toggle-frame');
+      if (btn) {
+        if (isFull) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      }
+    }
+
+    // Bottom Navigation Tab Switching
+    function switchNavTab(btn, tabName) {
+      document.querySelectorAll('.tab-item').forEach(el => el.classList.remove('active'));
+      btn.classList.add('active');
+      if (tabName !== 'Send') {
+        showToast(`${tabName} tab selected`);
+      }
+    }
+
+    // Modal Control: Open & Close
+    function openTransferModal() {
+      const modal = document.getElementById('transfer-modal');
+      const amountInput = document.getElementById('transfer-amount-input');
+      const noteInput = document.getElementById('transfer-note-input');
+      if (modal) {
+        modal.classList.add('active');
+        if (amountInput) {
+          amountInput.value = '';
+          setTimeout(() => amountInput.focus(), 300);
+        }
+        if (noteInput) {
+          noteInput.value = '';
+        }
+      }
+    }
+
+    function closeTransferModal() {
+      const modal = document.getElementById('transfer-modal');
+      if (modal) {
+        modal.classList.remove('active');
+      }
+    }
+
+    function handleOverlayClick(event) {
+      if (event.target === document.getElementById('transfer-modal')) {
+        closeTransferModal();
+      }
+    }
+
+    // Quick Contact Selection
+    function selectContact(el, name) {
+      document.querySelectorAll('.contact-item').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedContactName = name;
+    }
+
+    // Preset Amount Chips (increments if amount is already entered, or sets initial)
+    function setQuickAmount(val) {
+      const input = document.getElementById('transfer-amount-input');
+      if (input) {
+        const cur = parseFloat(input.value || '0');
+        const nextVal = (cur > 0 && !isNaN(cur)) ? (cur + val) : val;
+        input.value = nextVal.toFixed(2);
+      }
+    }
+
+    // Execute Money Transfer
+    function executeTransfer() {
+      const input = document.getElementById('transfer-amount-input');
+      const noteInput = document.getElementById('transfer-note-input');
+      const amount = parseFloat(input?.value || '0');
+
+      if (isNaN(amount) || amount < 0.01) {
+        showToast('Please enter a valid transfer amount (min 0.01)', 'error');
+        const box = input?.closest('.amount-input-box');
+        if (box) {
+          box.classList.add('input-error');
+          setTimeout(() => box.classList.remove('input-error'), 800);
+        }
+        return;
+      }
+
+      // Convert to EUR if entered in THB
+      let amountInEUR = amount;
+      if (currentCurrency === 'THB') {
+        amountInEUR = amount / EUR_TO_THB_RATE;
+      }
+
+      if (amountInEUR > currentBalanceEUR) {
+        showToast('Insufficient balance for this transfer', 'error');
+        const box = input?.closest('.amount-input-box');
+        if (box) {
+          box.classList.add('input-error');
+          setTimeout(() => box.classList.remove('input-error'), 800);
+        }
+        return;
+      }
+
+      // Deduct balance with clean precision
+      currentBalanceEUR = Math.max(0, Math.round((currentBalanceEUR - amountInEUR) * 100) / 100);
+      const balEl = document.getElementById('display-balance-val');
+      if (balEl) {
+        balEl.textContent = formatCurrency(currentBalanceEUR, currentCurrency);
+      }
+
+      // Insert new transaction row under Today group
+      const todayCard = document.querySelector('#group-today .transaction-glass-card');
+      if (todayCard) {
+        const newRow = document.createElement('div');
+        newRow.className = 'transaction-row';
+        newRow.setAttribute('data-type', 'expenses');
+        newRow.setAttribute('data-name', `Transfer to ${selectedContactName} ${noteInput?.value || ''}`);
+        newRow.setAttribute('data-eur', amountInEUR.toFixed(4));
+        newRow.setAttribute('onclick', 'viewTxDetail(this)');
+        newRow.style.display = (activeFilter === 'income') ? 'none' : 'flex';
+
+        const now = new Date();
+        let hours = now.getHours();
+        let mins = now.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12 || 12;
+        mins = mins < 10 ? '0' + mins : mins;
+        const timeStr = `${hours}:${mins} ${ampm}`;
+
+        const formatted = formatCurrency(amountInEUR, currentCurrency);
+
+        newRow.innerHTML = `
+          <div class="row-left">
+            <div class="category-icon-box icon-transfer">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </div>
+            <div class="tx-meta">
+              <span class="tx-title">Transfer to ${escapeHtml(selectedContactName)}</span>
+              <span class="tx-subtitle">${escapeHtml(noteInput?.value ? noteInput.value + ' · ' + timeStr : timeStr)}</span>
+            </div>
+          </div>
+          <div class="tx-amount expense" data-eur="${amountInEUR.toFixed(4)}" data-sign="-">
+            ${formatted} -
+          </div>
+        `;
+
+        todayCard.insertBefore(newRow, todayCard.firstChild);
+      }
+
+      const sentSummary = formatCurrency(amountInEUR, currentCurrency);
+      if (noteInput) noteInput.value = '';
+      if (input) input.value = '';
+      closeTransferModal();
+      filterTransactions();
+      showToast(`Sent ${sentSummary} to ${selectedContactName}!`, 'success');
+    }
+
+    // Helper: Escape HTML
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>"']/g, function(m) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+      });
+    }
+
+    // Toast Alert Notification
+    let toastTimeout = null;
+    function showToast(message, type = 'info') {
+      const toast = document.getElementById('app-toast');
+      const toastMsg = document.getElementById('toast-message');
+      const toastIcon = toast?.querySelector('.toast-icon');
+      if (!toast || !toastMsg) return;
+
+      toastMsg.textContent = message;
+
+      if (type === 'error') {
+        toast.classList.add('error');
+        if (toastIcon) {
+          toastIcon.innerHTML = `
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          `;
+        }
+      } else {
+        toast.classList.remove('error');
+        if (toastIcon) {
+          toastIcon.innerHTML = `
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          `;
+        }
+      }
+
+      toast.classList.add('show');
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2600);
+    }
+
+    // Manage accounts dialog notice
+    function showAccountNotice() {
+      showToast('Managing checking & savings accounts (Multi-Currency)');
+    }
+
+    // Transaction Detail Notice (supports either row element or 3 strings)
+    function viewTxDetail(target, amount, time) {
+      if (typeof target === 'object' && target !== null && target.querySelector) {
+        const title = target.querySelector('.tx-title')?.textContent?.trim() || 'Transaction';
+        const amt = target.querySelector('.tx-amount')?.textContent?.trim() || '';
+        const sub = target.querySelector('.tx-subtitle')?.textContent?.trim() || '';
+        showToast(`${title}: ${amt} (${sub})`);
+        return;
+      }
+      showToast(`${target}: ${amount} (${time})`);
+    }
+
+    // Dismiss modal on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeTransferModal();
+      }
+    });
+
+    // Swipe down to dismiss bottom sheet on touch devices
+    let touchStartY = 0;
+    const sheetEl = document.querySelector('.bottom-sheet');
+    if (sheetEl) {
+      sheetEl.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+      sheetEl.addEventListener('touchmove', (e) => {
+        const currentY = e.touches[0].clientY;
+        if (currentY - touchStartY > 60) {
+          closeTransferModal();
+        }
+      }, { passive: true });
+    }
+  </script>
+</body>
+</html>

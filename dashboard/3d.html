@@ -2,25 +2,23 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>⚡ LOTTERY.DB — 3D Cyber Gateway & Hedging Staking Station (DreamFrame Cinematic Walkthrough)</title>
-  <meta name="description" content="สัมผัสประสบการณ์ 3 มิติ Cinematic Continuous Shot: เดินทางผ่าน Cyber Gateway สู่ 3D Hedging Staking Station ด้วย Three.js และ GSAP Camera Spline">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>⚡ LOTTERY.DB — 3D Cyber Gateway &amp; Hedging Staking Station (Kinetic Scroll Canvas)</title>
+  <meta name="description" content="สัมผัสประสบการณ์ 3 มิติ Cinematic Continuous Shot: เดินทางผ่าน Cyber Gateway สู่ 3D Hedging Staking Station ด้วย Full-screen Sticky HTML5 2D Canvas Kinetic Image Sequence">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Three.js (r128) & GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <!-- Preload Hint for Frame 1 Instant Paint -->
+  <link rel="preload" as="image" href="public/frames/frame-001.webp" type="image/webp">
 
   <style>
     :root {
-      --bg-dark: #030712;
-      --bg-panel: rgba(8, 14, 28, 0.82);
-      --bg-card: rgba(15, 23, 42, 0.75);
-      --border-glow: rgba(0, 240, 255, 0.28);
+      --bg-dark: #060503;
+      --bg-panel: rgba(12, 10, 8, 0.84);
+      --bg-card: rgba(18, 15, 12, 0.82);
+      --border-glow: rgba(245, 158, 11, 0.32);
       --border-card: rgba(255, 255, 255, 0.12);
       --cyan-neon: #00f0ff;
       --cyan-glow: rgba(0, 240, 255, 0.45);
@@ -30,6 +28,7 @@
       --orange-bright: #ff4500;
       --orange-glow: rgba(255, 123, 0, 0.6);
       --gold-primary: #f59e0b;
+      --gold-light: #fef08a;
       --purple-neon: #a855f7;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
@@ -47,51 +46,75 @@
     }
 
     html, body {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
+      width: 100%;
+      min-height: 100%;
       background-color: var(--bg-dark);
       color: var(--text-main);
       font-family: var(--font-body);
-      position: relative;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
     }
 
-    /* Fullscreen WebGL Canvas */
-    #webgl-canvas {
-      position: fixed;
+    /* ═════════════════════════════════════════════════════
+       STICKY SCROLL ARCHITECTURE (R1)
+       ═════════════════════════════════════════════════════ */
+    .scroll-container {
+      position: relative;
+      width: 100%;
+      height: 450vh;
+      background-color: var(--bg-dark);
+      touch-action: pan-y;
+    }
+
+    .sticky-viewport {
+      position: sticky;
       top: 0;
       left: 0;
       width: 100vw;
+      width: 100%;
       height: 100vh;
-      z-index: 1;
-      display: block;
-      outline: none;
-      cursor: grab;
-    }
-    #webgl-canvas:active {
-      cursor: grabbing;
+      height: 100dvh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--bg-dark);
+      touch-action: pan-y;
     }
 
-    /* Subtle Cyber Vignette and Scanline Overlay */
+    /* Fullscreen HTML5 2D Kinetic Canvas */
+    #kinetic-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+      background-color: var(--bg-dark);
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+
+    /* Luxury Obsidian Gold Radial Vignette (R3) */
     .screen-vignette {
-      position: fixed;
+      position: absolute;
       inset: 0;
       pointer-events: none;
       z-index: 2;
-      background: radial-gradient(circle at center, transparent 40%, rgba(3, 7, 18, 0.65) 90%),
-                  linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.22) 50%);
-      background-size: 100% 100%, 100% 4px;
+      background:
+        radial-gradient(circle at center, transparent 32%, rgba(6, 5, 3, 0.52) 72%, #060503 100%),
+        linear-gradient(to bottom, rgba(6, 5, 3, 0.75) 0%, transparent 16%, transparent 82%, #060503 100%);
     }
 
     /* Top Capsule Navbar (DreamFrame AI UI) */
     .dream-navbar {
-      position: fixed;
+      position: absolute;
       top: 18px;
       left: 50%;
       transform: translateX(-50%);
       height: 52px;
       padding: 0 1.5rem;
-      background: rgba(8, 14, 28, 0.78);
+      background: rgba(8, 14, 28, 0.82);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.14);
@@ -105,6 +128,7 @@
                   0 0 20px rgba(0, 240, 255, 0.12);
       max-width: 94vw;
       transition: all 0.3s ease;
+      pointer-events: auto;
     }
 
     .brand-group {
@@ -212,11 +236,11 @@
        SCENE 1 HUD OVERLAY (DreamFrame Hero: Gateway)
        ═════════════════════════════════════════════════════ */
     .scene-hud {
-      position: fixed;
+      position: absolute;
       inset: 0;
       pointer-events: none;
       z-index: 20;
-      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     #scene1-hud {
@@ -282,7 +306,7 @@
       margin-bottom: 5px;
     }
 
-    /* Signature Orange Gradient CTA Button (Reference Frame 1) */
+    /* Signature Orange Gradient CTA Button */
     .btn-dream-cta {
       pointer-events: auto;
       background: linear-gradient(135deg, #ff8c00 0%, #ff4500 100%);
@@ -604,7 +628,7 @@
        BOTTOM TIMELINE SCRUBBER & CAMERA CONTROLLER
        ═════════════════════════════════════════════════════ */
     .timeline-controller-bar {
-      position: fixed;
+      position: absolute;
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
@@ -622,6 +646,7 @@
       box-shadow: 0 10px 35px rgba(0, 0, 0, 0.75);
       max-width: 94vw;
       width: 720px;
+      pointer-events: auto;
     }
 
     .timeline-btn {
@@ -747,6 +772,18 @@
     }
     .mobile-drawer.open { right: 0; }
 
+    /* Reduced Motion Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+      .scroll-chevron, .status-dot {
+        animation: none !important;
+      }
+    }
+
     /* Responsive Queries */
     @media (max-width: 900px) {
       .nav-links-capsule { display: none; }
@@ -762,1361 +799,827 @@
 </head>
 <body>
 
-  <!-- WebGL Three.js Container -->
-  <canvas id="webgl-canvas"></canvas>
-
-  <!-- Screen Vignette / Scanline -->
-  <div class="screen-vignette"></div>
-
-  <!-- Top Capsule Navbar (DreamFrame AI UI) -->
-  <header class="dream-navbar">
-    <a href="index.html" class="brand-group">
-      <div class="brand-icon-box">⚡</div>
-      <div>
-        <div class="brand-title-text">LOTTERY.DB</div>
-      </div>
-    </a>
-
-    <nav class="nav-links-capsule">
-      <a href="index.html" class="nav-item">🎯 หน้าหลัก</a>
-      <a href="index.html#sec-predictions" class="nav-item">🔮 พยากรณ์</a>
-      <a href="3d.html" class="nav-item active">⚡ 3D Gateway</a>
-      <a href="manager.html" class="nav-item">🖥 จัดการข้อมูล</a>
-      <a href="performance.html" class="nav-item">📈 ความแม่นยำ</a>
-    </nav>
-
-    <div style="display:flex;align-items:center;gap:10px;">
-      <div class="status-chip">
-        <span class="status-dot"></span>
-        <span id="fps-label">60 FPS</span>
-      </div>
-      <button class="hamburger-btn" onclick="toggleDrawer()" aria-label="Open Menu">☰</button>
-    </div>
-  </header>
-
-  <!-- Mobile Drawer -->
-  <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
-  <aside class="mobile-drawer" id="mobile-drawer">
-    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,0.1)">
-      <span style="font-family:var(--font-display);font-weight:700;color:var(--cyan-neon);">⚡ LOTTERY.DB</span>
-      <button onclick="closeDrawer()" style="background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;">✕</button>
-    </div>
-    <a href="index.html" class="nav-item" style="width:100%">🏠 กลับหน้าหลัก Dashboard</a>
-    <a href="index.html#sec-predictions" class="nav-item" style="width:100%">🎯 สรุปผลการพยากรณ์ AI</a>
-    <a href="3d.html" class="nav-item active" style="width:100%">⚡ 3D Gateway &amp; Staking</a>
-    <a href="manager.html" class="nav-item" style="width:100%">🖥 ระบบจัดการฐานข้อมูล</a>
-    <a href="performance.html" class="nav-item" style="width:100%">📈 ตรวจสอบผลงานย้อนหลัง</a>
-  </aside>
-
-  <!-- ═════════════════════════════════════════════════════
-       SCENE 1 HUD: CYBER GATEWAY (DreamFrame Reference Frame 1)
-       ═════════════════════════════════════════════════════ -->
-  <div class="scene-hud" id="scene1-hud">
+  <!-- Tall Hero Scroll Area (450vh) (R1) -->
+  <div class="scroll-container" id="scroll-container">
     
-    <div class="scene1-top-header">
-      <div class="dream-tag-badge">
-        <span>💎</span> NEXT-GEN AI DEEP NEURAL ENGINE
-      </div>
-      <h1 class="dream-giant-title">LOTTERY.DB</h1>
-      <p class="dream-subtitle">
-        สัมผัสประสบการณ์ท่องโลก 3 มิติ Cinematic Continuous Shot ข้ามผ่าน Cyber Gateway สู่ 3D Hedging Staking Station
-      </p>
-    </div>
+    <!-- Sticky Fullscreen Pinned Viewport (100dvh) (R1) -->
+    <div class="sticky-viewport" id="sticky-viewport">
 
-    <div class="scene1-bottom-cta">
-      <button class="btn-dream-cta" id="btn-start-tour">
-        <span>Start Exploring 3D</span>
-        <span class="arrow-icon">→</span>
-      </button>
+      <!-- Fullscreen HTML5 2D Kinetic Canvas (R1, R2) -->
+      <canvas id="kinetic-canvas"></canvas>
 
-      <div class="dream-countdown-chip" id="scene1-countdown">
-        ⏳ งวดถัดไป: 1 ต.ค. 2569 (เป้าหมาย 830386)
-      </div>
+      <!-- Luxury Radial Vignette (R3) -->
+      <div class="screen-vignette"></div>
 
-      <div class="scroll-hint-box">
-        <span>เลื่อนลูกกลิ้งเมาส์ / ลากเมาส์ / ปัดหน้าจอ เพื่อเคลื่อนกล้องอย่างอิสระ</span>
-        <span class="scroll-chevron">▼</span>
-      </div>
-    </div>
+      <!-- Top Capsule Navbar (DreamFrame AI UI) (R3) -->
+      <header class="dream-navbar">
+        <a href="index.html" class="brand-group">
+          <div class="brand-icon-box">⚡</div>
+          <div>
+            <div class="brand-title-text">LOTTERY.DB</div>
+          </div>
+        </a>
 
-  </div>
+        <nav class="nav-links-capsule">
+          <a href="index.html" class="nav-item">🎯 หน้าหลัก</a>
+          <a href="index.html#sec-predictions" class="nav-item">🔮 พยากรณ์</a>
+          <a href="3d.html" class="nav-item active">⚡ 3D Gateway</a>
+          <a href="manager.html" class="nav-item">🖥 จัดการข้อมูล</a>
+          <a href="performance.html" class="nav-item">📈 ความแม่นยำ</a>
+        </nav>
 
-  <!-- ═════════════════════════════════════════════════════
-       SCENE 2 HUD: HEDGING STAKING STATION (Reference Frame 2)
-       ═════════════════════════════════════════════════════ -->
-  <div class="scene-hud" id="scene2-hud">
-    
-    <div class="staking-console-card">
-      
-      <div class="station-badge">
-        <span>🛡️</span> 3D HEDGING STAKING STATION
-      </div>
-
-      <h2 class="station-title">Oct 1, 2026 Strategy Command</h2>
-      <p class="station-subtitle">สถาปัตยกรรมกระจายความเสี่ยง 4 ระดับ เพื่อการปกป้องเงินต้นสูงสุด</p>
-
-      <!-- Oct 1, 2026 Jackpot Highlight -->
-      <div class="prediction-box-highlight">
-        <div class="jackpot-headline">
-          <span style="font-size:0.75rem;font-weight:700;color:var(--emerald-neon)">👑 รางวัลที่ 1 เด่นสูงสุด (Grand Jackpot)</span>
-          <span style="font-size:0.7rem;color:var(--text-muted)">100% Confidence</span>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="status-chip">
+            <span class="status-dot"></span>
+            <span id="fps-label">60 FPS</span>
+          </div>
+          <button class="hamburger-btn" onclick="toggleDrawer()" aria-label="Open Menu">☰</button>
         </div>
-        <div class="jackpot-big-num" id="jackpot-display">830386</div>
-        <div style="font-size:0.74rem;color:var(--text-muted);display:flex;justify-content:space-between;margin-top:2px;">
-          <span>±1 เคียงข้าง: <strong style="color:#fff" id="neighbors-display">830385, 830387</strong></span>
-          <span>ผลรวม: <strong style="color:var(--gold-primary)">28</strong> (4คู่ / 2คี่)</span>
-        </div>
+      </header>
 
-        <!-- 6-Pillar Probability Summary -->
-        <div class="pillar-chips-row">
-          <div class="pillar-chip">
-            <div class="pillar-chip-digit">8</div>
-            <div class="pillar-chip-pct">88%</div>
-          </div>
-          <div class="pillar-chip">
-            <div class="pillar-chip-digit">3</div>
-            <div class="pillar-chip-pct">94%</div>
-          </div>
-          <div class="pillar-chip">
-            <div class="pillar-chip-digit">0</div>
-            <div class="pillar-chip-pct">91%</div>
-          </div>
-          <div class="pillar-chip">
-            <div class="pillar-chip-digit">3</div>
-            <div class="pillar-chip-pct">95%</div>
-          </div>
-          <div class="pillar-chip">
-            <div class="pillar-chip-digit">8</div>
-            <div class="pillar-chip-pct">89%</div>
-          </div>
-          <div class="pillar-chip">
-            <div class="pillar-chip-digit">6</div>
-            <div class="pillar-chip-pct">96%</div>
-          </div>
+      <!-- Mobile Drawer -->
+      <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+      <aside class="mobile-drawer" id="mobile-drawer">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,0.1)">
+          <span style="font-family:var(--font-display);font-weight:700;color:var(--cyan-neon);">⚡ LOTTERY.DB</span>
+          <button onclick="closeDrawer()" style="background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;">✕</button>
         </div>
-      </div>
+        <a href="index.html" class="nav-item" style="width:100%">🏠 กลับหน้าหลัก Dashboard</a>
+        <a href="index.html#sec-predictions" class="nav-item" style="width:100%">🎯 สรุปผลการพยากรณ์ AI</a>
+        <a href="3d.html" class="nav-item active" style="width:100%">⚡ 3D Gateway &amp; Staking</a>
+        <a href="manager.html" class="nav-item" style="width:100%">🖥 ระบบจัดการฐานข้อมูล</a>
+        <a href="performance.html" class="nav-item" style="width:100%">📈 ตรวจสอบผลงานย้อนหลัง</a>
+      </aside>
 
-      <!-- Hedging Pyramid Tier Breakdown -->
-      <div class="pyramid-list">
+      <!-- ═════════════════════════════════════════════════════
+           SCENE 1 HUD: CYBER GATEWAY (Progress: 0.0 -> 0.38)
+           ═════════════════════════════════════════════════════ -->
+      <div class="scene-hud" id="scene1-hud">
         
-        <!-- Tier 1: 70% Banker -->
-        <div class="pyramid-tier-card" style="border-left: 3px solid var(--emerald-neon);">
-          <div class="tier-left">
-            <div class="tier-pct" style="background:rgba(16,185,129,0.15);color:var(--emerald-neon);">70%</div>
-            <div>
-              <div class="tier-info-title">💎 Banker Digits (เลขวิ่ง / รูด 19 ประตู)</div>
-              <div class="tier-info-sub">ฐานรากพอร์ต: การปกป้องเงินต้นขั้นสูงสุด (Cash Flow Buffer)</div>
-            </div>
+        <div class="scene1-top-header">
+          <div class="dream-tag-badge">
+            <span>💎</span> NEXT-GEN AI DEEP NEURAL ENGINE
           </div>
-          <div class="tier-num-val" style="color:var(--emerald-neon)" id="banker-display">3, 6</div>
+          <h1 class="dream-giant-title">LOTTERY.DB</h1>
+          <p class="dream-subtitle">
+            สัมผัสประสบการณ์ท่องโลก 3 มิติ Cinematic Continuous Shot ข้ามผ่าน Cyber Gateway สู่ 3D Hedging Staking Station
+          </p>
         </div>
 
-        <!-- Tier 2: 15% 2-Digit -->
-        <div class="pyramid-tier-card" style="border-left: 3px solid var(--cyan-neon);">
-          <div class="tier-left">
-            <div class="tier-pct" style="background:rgba(0,240,255,0.15);color:var(--cyan-neon);">15%</div>
-            <div>
-              <div class="tier-info-title">✌️ 2-Digit Pairs (2 ตัวบนตรง-กลับ &amp; ล่าง)</div>
-              <div class="tier-info-sub">ดักทางคู่เลขความถี่สูงสถิติ 20 ปี</div>
-            </div>
-          </div>
-          <div class="tier-num-val" style="color:var(--cyan-neon)" id="pairs-display">06 <span style="font-size:0.75rem;color:var(--text-muted)">(กลับ 60)</span></div>
-        </div>
+        <div class="scene1-bottom-cta">
+          <button class="btn-dream-cta" id="btn-start-tour" onclick="toggleAutoTour()">
+            <span>Start Exploring 3D</span>
+            <span class="arrow-icon">→</span>
+          </button>
 
-        <!-- Tier 3: 10% 3-Digit -->
-        <div class="pyramid-tier-card" style="border-left: 3px solid var(--gold-primary);">
-          <div class="tier-left">
-            <div class="tier-pct" style="background:rgba(245,158,11,0.15);color:var(--gold-primary);">10%</div>
-            <div>
-              <div class="tier-info-title">🎲 3-Digit Box (3 ตัวตรง + โต๊ด 6 ประตู)</div>
-              <div class="tier-info-sub">สูตรสลับตำแหน่ง 6 ทิศ: 036, 063, 306, 360, 603, 630</div>
-            </div>
+          <div class="dream-countdown-chip" id="scene1-countdown">
+            ⏳ งวดถัดไป: 1 ต.ค. 2569 (เป้าหมาย 830386)
           </div>
-          <div class="tier-num-val" style="color:var(--gold-primary)" id="three-display">306</div>
-        </div>
 
-        <!-- Tier 4: 5% Moonshot -->
-        <div class="pyramid-tier-card" style="border-left: 3px solid var(--purple-neon);">
-          <div class="tier-left">
-            <div class="tier-pct" style="background:rgba(168,85,247,0.15);color:var(--purple-neon);">5%</div>
-            <div>
-              <div class="tier-info-title">👑 Moonshot Jackpot (สลากกินแบ่ง 1 ใบ)</div>
-              <div class="tier-info-sub">สลากฉบับจริงเป้าหมายรางวัลที่ 1 เต็มหลัก</div>
-            </div>
+          <div class="scroll-hint-box">
+            <span>เลื่อนลูกกลิ้งเมาส์ / ปัดหน้าจอเพื่อสัมผัส Kinetic Image Sequence 50 เฟรม</span>
+            <span class="scroll-chevron">▼</span>
           </div>
-          <div class="tier-num-val" style="color:var(--purple-neon)">830386</div>
         </div>
 
       </div>
 
-      <!-- Action Buttons -->
-      <div class="station-actions-grid">
-        <button class="btn-station-action primary" onclick="copyAllStrategy()">
-          <span>📋</span> คัดลอกสูตร Staking ทั้งหมด
-        </button>
-        <button class="btn-station-action" onclick="copyJackpot()">
-          <span>👑</span> คัดลอกเลขรางวัลที่ 1
-        </button>
-        <button class="btn-station-action" onclick="returnToGateway()">
-          <span>🚪</span> กลับสู่ Scene 1 Gateway
-        </button>
-        <a href="index.html" class="btn-station-action">
-          <span>🎯</span> กลับ Dashboard หลัก
-        </a>
-        <a href="performance.html" class="btn-station-action">
-          <span>📈</span> ตรวจสอบประวัติ
-        </a>
+      <!-- ═════════════════════════════════════════════════════
+           SCENE 2 HUD: HEDGING STAKING STATION (Progress: 0.62 -> 1.0)
+           ═════════════════════════════════════════════════════ -->
+      <div class="scene-hud" id="scene2-hud">
+        
+        <div class="staking-console-card">
+          
+          <div class="station-badge">
+            <span>🛡️</span> 3D HEDGING STAKING STATION
+          </div>
+
+          <h2 class="station-title">Oct 1, 2026 Strategy Command</h2>
+          <p class="station-subtitle">สถาปัตยกรรมกระจายความเสี่ยง 4 ระดับ เพื่อการปกป้องเงินต้นสูงสุด</p>
+
+          <!-- Oct 1, 2026 Jackpot Highlight -->
+          <div class="prediction-box-highlight">
+            <div class="jackpot-headline">
+              <span style="font-size:0.75rem;font-weight:700;color:var(--emerald-neon)">👑 รางวัลที่ 1 เด่นสูงสุด (Grand Jackpot)</span>
+              <span style="font-size:0.7rem;color:var(--text-muted)">100% Confidence</span>
+            </div>
+            <div class="jackpot-big-num" id="jackpot-display">830386</div>
+            <div style="font-size:0.74rem;color:var(--text-muted);display:flex;justify-content:space-between;margin-top:2px;">
+              <span>±1 เคียงข้าง: <strong style="color:#fff" id="neighbors-display">830385, 830387</strong></span>
+              <span>ผลรวม: <strong style="color:var(--gold-primary)">28</strong> (4คู่ / 2คี่)</span>
+            </div>
+
+            <!-- 6-Pillar Probability Summary -->
+            <div class="pillar-chips-row">
+              <div class="pillar-chip">
+                <div class="pillar-chip-digit">8</div>
+                <div class="pillar-chip-pct">88%</div>
+              </div>
+              <div class="pillar-chip">
+                <div class="pillar-chip-digit">3</div>
+                <div class="pillar-chip-pct">94%</div>
+              </div>
+              <div class="pillar-chip">
+                <div class="pillar-chip-digit">0</div>
+                <div class="pillar-chip-pct">91%</div>
+              </div>
+              <div class="pillar-chip">
+                <div class="pillar-chip-digit">3</div>
+                <div class="pillar-chip-pct">95%</div>
+              </div>
+              <div class="pillar-chip">
+                <div class="pillar-chip-digit">8</div>
+                <div class="pillar-chip-pct">89%</div>
+              </div>
+              <div class="pillar-chip">
+                <div class="pillar-chip-digit">6</div>
+                <div class="pillar-chip-pct">96%</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hedging Pyramid Tier Breakdown (R3 Invariants) -->
+          <div class="pyramid-list">
+            
+            <!-- Tier 1: 70% Banker -->
+            <div class="pyramid-tier-card" style="border-left: 3px solid var(--emerald-neon);">
+              <div class="tier-left">
+                <div class="tier-pct" style="background:rgba(16,185,129,0.15);color:var(--emerald-neon);">70%</div>
+                <div>
+                  <div class="tier-info-title">💎 Banker Digits (70% Banker) (เลขวิ่ง / รูด 19 ประตู)</div>
+                  <div class="tier-info-sub">ฐานรากพอร์ต: การปกป้องเงินต้นขั้นสูงสุด (Cash Flow Buffer)</div>
+                </div>
+              </div>
+              <div class="tier-num-val" style="color:var(--emerald-neon)" id="banker-display">3, 6</div>
+            </div>
+
+            <!-- Tier 2: 15% 2-Digit -->
+            <div class="pyramid-tier-card" style="border-left: 3px solid var(--cyan-neon);">
+              <div class="tier-left">
+                <div class="tier-pct" style="background:rgba(0,240,255,0.15);color:var(--cyan-neon);">15%</div>
+                <div>
+                  <div class="tier-info-title">✌️ 2-Digit Pairs (15% Pairs) (2 ตัวบนตรง-กลับ &amp; ล่าง)</div>
+                  <div class="tier-info-sub">ดักทางคู่เลขความถี่สูงสถิติ 20 ปี</div>
+                </div>
+              </div>
+              <div class="tier-num-val" style="color:var(--cyan-neon)" id="pairs-display">06 <span style="font-size:0.75rem;color:var(--text-muted)">(กลับ 60)</span></div>
+            </div>
+
+            <!-- Tier 3: 10% 3-Digit -->
+            <div class="pyramid-tier-card" style="border-left: 3px solid var(--gold-primary);">
+              <div class="tier-left">
+                <div class="tier-pct" style="background:rgba(245,158,11,0.15);color:var(--gold-primary);">10%</div>
+                <div>
+                  <div class="tier-info-title">🎲 3-Digit Box (3 ตัวตรง + โต๊ด 6 ประตู)</div>
+                  <div class="tier-info-sub">สูตรสลับตำแหน่ง 6 ทิศ: 036, 063, 306, 360, 603, 630</div>
+                </div>
+              </div>
+              <div class="tier-num-val" style="color:var(--gold-primary)" id="three-display">306</div>
+            </div>
+
+            <!-- Tier 4: 5% Moonshot -->
+            <div class="pyramid-tier-card" style="border-left: 3px solid var(--purple-neon);">
+              <div class="tier-left">
+                <div class="tier-pct" style="background:rgba(168,85,247,0.15);color:var(--purple-neon);">5%</div>
+                <div>
+                  <div class="tier-info-title">👑 Moonshot Jackpot (สลากกินแบ่ง 1 ใบ)</div>
+                  <div class="tier-info-sub">สลากฉบับจริงเป้าหมายรางวัลที่ 1 เต็มหลัก</div>
+                </div>
+              </div>
+              <div class="tier-num-val" style="color:var(--purple-neon)">830386</div>
+            </div>
+
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="station-actions-grid">
+            <button class="btn-station-action primary" onclick="copyAllStrategy()">
+              <span>📋</span> คัดลอกสูตร Staking ทั้งหมด
+            </button>
+            <button class="btn-station-action" onclick="copyJackpot()">
+              <span>👑</span> คัดลอกเลขรางวัลที่ 1
+            </button>
+            <button class="btn-station-action" onclick="returnToGateway()">
+              <span>🚪</span> กลับสู่ Scene 1 Gateway
+            </button>
+            <a href="index.html" class="btn-station-action">
+              <span>🎯</span> กลับ Dashboard หลัก
+            </a>
+            <a href="performance.html" class="btn-station-action">
+              <span>📈</span> ตรวจสอบประวัติ
+            </a>
+          </div>
+
+        </div>
+
       </div>
+
+      <!-- ═════════════════════════════════════════════════════
+           BOTTOM TIMELINE SCRUBBER CONTROLLER (R3)
+           ═════════════════════════════════════════════════════ -->
+      <div class="timeline-controller-bar" id="timeline-bar">
+        <button class="timeline-btn" id="btn-toggle-play" onclick="toggleAutoTour()">
+          <span id="play-icon">▶</span> <span id="play-text">เริ่มทัวร์</span>
+        </button>
+        <button class="timeline-btn" onclick="jumpToProgress(0.0)">
+          <span>🚪 Scene 1</span>
+        </button>
+
+        <div class="slider-track-wrap">
+          <input type="range" class="timeline-slider" id="camera-scrubber" min="0" max="1000" value="0" aria-label="Timeline Scrubber">
+          <div class="timeline-labels">
+            <span id="label-start">Cyber Gateway (0%)</span>
+            <span id="label-mid" style="opacity:0.6">Chamber Orbit (50%)</span>
+            <span id="label-end">Staking Station (100%)</span>
+          </div>
+        </div>
+
+        <button class="timeline-btn" onclick="jumpToProgress(1.0)">
+          <span>🏛️ Scene 2</span>
+        </button>
+        <button class="timeline-btn" id="btn-orbit" onclick="toggleOrbitMode()">
+          <span>🌐 Tour</span>
+        </button>
+      </div>
+
+      <!-- Toast Notification -->
+      <div class="toast" id="toast">คัดลอกข้อมูลสำเร็จ ✨</div>
 
     </div>
-
   </div>
-
-  <!-- ═════════════════════════════════════════════════════
-       BOTTOM TIMELINE SCRUBBER CONTROLLER
-       ═════════════════════════════════════════════════════ -->
-  <div class="timeline-controller-bar" id="timeline-bar">
-    <button class="timeline-btn" id="btn-toggle-play" onclick="toggleAutoTour()">
-      <span id="play-icon">▶</span> <span id="play-text">เริ่มทัวร์</span>
-    </button>
-    <button class="timeline-btn" onclick="jumpToProgress(0.0)">
-      <span>🚪 Scene 1</span>
-    </button>
-
-    <div class="slider-track-wrap">
-      <input type="range" class="timeline-slider" id="camera-scrubber" min="0" max="1000" value="0">
-      <div class="timeline-labels">
-        <span id="label-start">Cyber Gateway (0%)</span>
-        <span id="label-mid" style="opacity:0.6">Pass Door (50%)</span>
-        <span id="label-end">Staking Station (100%)</span>
-      </div>
-    </div>
-
-    <button class="timeline-btn" onclick="jumpToProgress(1.0)">
-      <span>🏛️ Scene 2</span>
-    </button>
-    <button class="timeline-btn" id="btn-orbit" onclick="toggleOrbitMode()">
-      <span>🌐 Orbit</span>
-    </button>
-  </div>
-
-  <!-- Toast Notification -->
-  <div class="toast" id="toast">คัดลอกข้อมูลสำเร็จ ✨</div>
 
   <!-- Central Live Engine Script -->
   <script src="assets/live_countdown.js"></script>
 
   <!-- ═════════════════════════════════════════════════════
-       THREE.JS & GSAP CINEMATIC ENGINE SCRIPT
+       ULTRA-OPTIMIZED KINETIC 2D CANVAS ENGINE (R1, R2, R3)
        ═════════════════════════════════════════════════════ -->
   <script>
-    // Global State
-    let scene, camera, renderer, clock;
-    let orbitControls = null;
-    let isOrbitMode = false;
-    let isTourPlaying = false;
-    let tourTween = null;
-    let cameraProgress = { t: 0.0 };
-    let targetT = 0.0;
-    let mouseX = 0, mouseY = 0;
-    let windowHalfX = window.innerWidth / 2;
-    let windowHalfY = window.innerHeight / 2;
+    (function () {
+      "use strict";
 
-    // Spline Curves for Continuous Cinematic Walkthrough
-    let cameraPathCurve, rightTurnSpline;
-    let currentLookAt = new THREE.Vector3(0, 1.8, 0);
+      const TOTAL_FRAMES = 50;
+      const LERP_FACTOR = 0.11; // Apple-grade smooth glide factor (0.10 - 0.12)
+      const TOUR_DURATION = 7200; // 7.2s auto-tour cinematic duration
 
-    // References to animated 3D meshes
-    let particleSystem;
-    let doorLeft, doorRight;
-    let corridorRings = [];
-    let probabilityPillars = [];
-    let pyramidGroup, pyramidCoreBeam, pyramidRings = [];
-    let holoScreenMesh;
-
-    // UI Elements
-    const hudScene1 = document.getElementById('scene1-hud');
-    const hudScene2 = document.getElementById('scene2-hud');
-    const scrubber = document.getElementById('camera-scrubber');
-    const btnPlay = document.getElementById('btn-toggle-play');
-    const playIcon = document.getElementById('play-icon');
-    const playText = document.getElementById('play-text');
-    const btnOrbit = document.getElementById('btn-orbit');
-    const fpsLabel = document.getElementById('fps-label');
-
-    // ─────────────────────────────────────────────────────────
-    // 1. INITIALIZE THREE.JS WORLD
-    // ─────────────────────────────────────────────────────────
-    function initThree() {
-      const canvas = document.getElementById('webgl-canvas');
-      
-      // Scene
-      scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x030712);
-      scene.fog = new THREE.FogExp2(0x030712, 0.012);
-
-      // Camera: Initialized exactly at Reference Frame 1
-      camera = new THREE.PerspectiveCamera(52, window.innerWidth / window.innerHeight, 0.1, 160);
-      camera.position.set(0, 1.8, 14.0);
-      camera.lookAt(0, 1.8, 0.0);
-
-      // Renderer
-      renderer = new THREE.WebGLRenderer({
-        canvas: canvas,
-        antialias: true,
-        powerPreference: "high-performance"
-      });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.15;
-
-      clock = new THREE.Clock();
-
-      // OrbitControls setup (free mode)
-      if (typeof THREE.OrbitControls !== 'undefined') {
-        orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
-        orbitControls.enableDamping = true;
-        orbitControls.dampingFactor = 0.05;
-        orbitControls.enabled = false; // Disabled by default for cinematic walkthrough
-        orbitControls.target.set(0, 1.8, 0);
-      }
-
-      // Lights
-      setupLighting();
-
-      // Build World: Scene 1 (Gateway), Corridor with Occlusion Bulkhead, Scene 2 (Staking Station)
-      buildGroundGrid();
-      buildCyberGateway();
-      buildCorridor();
-      buildScene2StakingStation();
-      buildAmbientDustParticles();
-
-      // Define Continuous Camera Splines
-      setupCameraSplines();
-
-      // Event Listeners
-      window.addEventListener('resize', onWindowResize, false);
-      window.addEventListener('wheel', onWheelScroll, { passive: false });
-      setupPointerControls();
-      setupTouchControls();
-
-      // Scrubber input
-      scrubber.addEventListener('input', (e) => {
-        if (isTourPlaying) stopAutoTour();
-        const val = parseFloat(e.target.value) / 1000;
-        targetT = val;
-        cameraProgress.t = val;
-        updateCameraSpline(val);
-      });
-
-      // Start render loop
-      animate();
-    }
-
-    // ─────────────────────────────────────────────────────────
-    // 2. LIGHTING SETUP
-    // ─────────────────────────────────────────────────────────
-    function setupLighting() {
-      // Soft ambient base
-      const ambientLight = new THREE.AmbientLight(0x0a162b, 1.3);
-      scene.add(ambientLight);
-
-      // Scene 1 Gateway Lights (Cyan & Electric Amber Rim)
-      const gatewayCyanLight = new THREE.PointLight(0x00f0ff, 2.5, 25);
-      gatewayCyanLight.position.set(0, 3.5, 1.5);
-      scene.add(gatewayCyanLight);
-
-      const gatewayOrangeLight = new THREE.PointLight(0xff7b00, 2.2, 20);
-      gatewayOrangeLight.position.set(0, 1.8, 4.5);
-      scene.add(gatewayOrangeLight);
-
-      // Scene 2 Staking Station Lights (Emerald, Cyan Fill & Cyber Violet Rim)
-      const stationEmeraldLight = new THREE.PointLight(0x10b981, 3.5, 35);
-      stationEmeraldLight.position.set(25, 4.5, -5.0);
-      scene.add(stationEmeraldLight);
-
-      const stationCyanFill = new THREE.PointLight(0x00f0ff, 2.2, 30);
-      stationCyanFill.position.set(20, 2.5, -2.5);
-      scene.add(stationCyanFill);
-
-      const stationPurpleBack = new THREE.PointLight(0xa855f7, 2.4, 28);
-      stationPurpleBack.position.set(28, 3.5, -8.0);
-      scene.add(stationPurpleBack);
-    }
-
-    // ─────────────────────────────────────────────────────────
-    // 3. CYBER GRID FLOOR
-    // ─────────────────────────────────────────────────────────
-    function buildGroundGrid() {
-      const gridHelper = new THREE.GridHelper(120, 120, 0x00f0ff, 0x0f223d);
-      gridHelper.position.y = -0.02;
-      scene.add(gridHelper);
-
-      // Dark reflective floor plane
-      const floorGeo = new THREE.PlaneGeometry(140, 140);
-      const floorMat = new THREE.MeshStandardMaterial({
-        color: 0x030712,
-        roughness: 0.22,
-        metalness: 0.88
-      });
-      const floor = new THREE.Mesh(floorGeo, floorMat);
-      floor.rotation.x = -Math.PI / 2;
-      floor.position.y = -0.05;
-      scene.add(floor);
-    }
-
-    // ─────────────────────────────────────────────────────────
-    // 4. SCENE 1: CYBER GATEWAY & FLOATING PORTAL DOOR FRAME
-    // ─────────────────────────────────────────────────────────
-    function buildCyberGateway() {
-      const gatewayGroup = new THREE.Group();
-      gatewayGroup.position.set(0, 0, 0);
-
-      // Outer Portal Arch Frame (Metallic Dark Sci-Fi Posts)
-      const frameMat = new THREE.MeshStandardMaterial({
-        color: 0x0d182b,
-        metalness: 0.9,
-        roughness: 0.2
-      });
-
-      const neonCyanMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
-      const neonOrangeMat = new THREE.MeshBasicMaterial({ color: 0xff7b00 });
-
-      // Left Pillar
-      const leftPillar = new THREE.Mesh(new THREE.BoxGeometry(0.5, 5.4, 0.7), frameMat);
-      leftPillar.position.set(-2.1, 2.7, 0);
-      gatewayGroup.add(leftPillar);
-
-      // Right Pillar
-      const rightPillar = new THREE.Mesh(new THREE.BoxGeometry(0.5, 5.4, 0.7), frameMat);
-      rightPillar.position.set(2.1, 2.7, 0);
-      gatewayGroup.add(rightPillar);
-
-      // Top Header Lintel
-      const topLintel = new THREE.Mesh(new THREE.BoxGeometry(4.7, 0.6, 0.7), frameMat);
-      topLintel.position.set(0, 5.2, 0);
-      gatewayGroup.add(topLintel);
-
-      // Glowing Neon Trims along the Arch
-      const leftTrim = new THREE.Mesh(new THREE.BoxGeometry(0.06, 5.4, 0.72), neonCyanMat);
-      leftTrim.position.set(-1.82, 2.7, 0);
-      gatewayGroup.add(leftTrim);
-
-      const rightTrim = new THREE.Mesh(new THREE.BoxGeometry(0.06, 5.4, 0.72), neonCyanMat);
-      rightTrim.position.set(1.82, 2.7, 0);
-      gatewayGroup.add(rightTrim);
-
-      const topTrim = new THREE.Mesh(new THREE.BoxGeometry(3.7, 0.06, 0.72), neonOrangeMat);
-      topTrim.position.set(0, 4.88, 0);
-      gatewayGroup.add(topTrim);
-
-      // Ground Threshold Light Bar
-      const threshold = new THREE.Mesh(new THREE.BoxGeometry(3.6, 0.04, 0.6), neonCyanMat);
-      threshold.position.set(0, 0.02, 0);
-      gatewayGroup.add(threshold);
-
-      // Open Door Panels (Angled inward into the gateway corridor)
-      const doorGeo = new THREE.BoxGeometry(1.65, 4.6, 0.08);
-      const doorMat = new THREE.MeshStandardMaterial({
-        color: 0x091424,
-        metalness: 0.85,
-        roughness: 0.28
-      });
-
-      // Left Door Panel (rotated open -72 deg inward)
-      doorLeft = new THREE.Group();
-      doorLeft.position.set(-1.8, 2.4, 0); // Pivot at left hinge
-      const doorLeftMesh = new THREE.Mesh(doorGeo, doorMat);
-      doorLeftMesh.position.set(0.825, 0, 0); // Offset to pivot
-      const dTrimL = new THREE.Mesh(new THREE.BoxGeometry(0.04, 4.4, 0.09), neonCyanMat);
-      dTrimL.position.set(1.5, 0, 0);
-      doorLeftMesh.add(dTrimL);
-      doorLeft.add(doorLeftMesh);
-      doorLeft.rotation.y = -THREE.MathUtils.degToRad(72); // Open into corridor
-      gatewayGroup.add(doorLeft);
-
-      // Right Door Panel (rotated open +72 deg inward)
-      doorRight = new THREE.Group();
-      doorRight.position.set(1.8, 2.4, 0); // Pivot at right hinge
-      const doorRightMesh = new THREE.Mesh(doorGeo, doorMat);
-      doorRightMesh.position.set(-0.825, 0, 0); // Offset to pivot
-      const dTrimR = new THREE.Mesh(new THREE.BoxGeometry(0.04, 4.4, 0.09), neonOrangeMat);
-      dTrimR.position.set(-1.5, 0, 0);
-      doorRightMesh.add(dTrimR);
-      doorRight.add(doorRightMesh);
-      doorRight.rotation.y = THREE.MathUtils.degToRad(72); // Open into corridor
-      gatewayGroup.add(doorRight);
-
-      // Floating Halo Energy Ring above Gateway
-      const haloGeo = new THREE.TorusGeometry(2.6, 0.04, 16, 64);
-      const haloMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true });
-      const halo = new THREE.Mesh(haloGeo, haloMat);
-      halo.position.set(0, 5.0, -0.2);
-      gatewayGroup.add(halo);
-
-      scene.add(gatewayGroup);
-    }
-
-    // ─────────────────────────────────────────────────────────
-    // 5. PASSAGEWAY / CORRIDOR & OCCLUSION ARCHITECTURE
-    // ─────────────────────────────────────────────────────────
-    function buildCorridor() {
-      const ringMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
-      const wallMat = new THREE.MeshStandardMaterial({
-        color: 0x071120,
-        metalness: 0.9,
-        roughness: 0.25
-      });
-
-      // Left Corridor Wall & Bulkheads
-      const leftWallGeo = new THREE.BoxGeometry(0.2, 5.4, 8.0);
-      const leftWall = new THREE.Mesh(leftWallGeo, wallMat);
-      leftWall.position.set(-2.4, 2.7, -4.0);
-      scene.add(leftWall);
-
-      // Left Wall Neon Accent Strip
-      const lStripGeo = new THREE.BoxGeometry(0.04, 0.06, 8.0);
-      const lStrip = new THREE.Mesh(lStripGeo, ringMat);
-      lStrip.position.set(-2.28, 2.2, -4.0);
-      scene.add(lStrip);
-
-      // Right Corridor Bulkhead (Occludes Scene 2 naturally from Frame 1 view!)
-      // Spans from z = 0 to z = -2.8, perfectly blocking line-of-sight from the front.
-      const rightBulkheadGeo = new THREE.BoxGeometry(0.2, 5.4, 2.8);
-      const rightBulkhead = new THREE.Mesh(rightBulkheadGeo, wallMat);
-      rightBulkhead.position.set(2.4, 2.7, -1.4);
-      scene.add(rightBulkhead);
-
-      const rStripGeo = new THREE.BoxGeometry(0.04, 0.06, 2.8);
-      const rStrip = new THREE.Mesh(rStripGeo, new THREE.MeshBasicMaterial({ color: 0xff7b00 }));
-      rStrip.position.set(2.28, 2.2, -1.4);
-      scene.add(rStrip);
-
-      // Grand Portal Archway Entrance to Scene 2 (Opens to the right at z = -2.8 to -7.0)
-      const archHeaderGeo = new THREE.BoxGeometry(0.2, 1.2, 4.2);
-      const archHeader = new THREE.Mesh(archHeaderGeo, wallMat);
-      archHeader.position.set(2.4, 4.8, -4.9);
-      scene.add(archHeader);
-
-      const archNeon = new THREE.Mesh(
-        new THREE.BoxGeometry(0.04, 0.08, 4.2),
-        new THREE.MeshBasicMaterial({ color: 0x10b981 })
-      );
-      archNeon.position.set(2.28, 4.16, -4.9);
-      scene.add(archNeon);
-
-      // Hexagonal neon corridor ribs at z = -2.5, -4.5
-      [-2.5, -4.5].forEach((z, idx) => {
-        const ringGroup = new THREE.Group();
-        ringGroup.position.set(0, 2.7, z);
-
-        const ribGeo = new THREE.TorusGeometry(2.6, 0.03, 8, 6);
-        const ribMesh = new THREE.Mesh(ribGeo, ringMat);
-        ringGroup.add(ribMesh);
-
-        scene.add(ringGroup);
-        corridorRings.push(ringGroup);
-      });
-
-      // Rightward floor guide light strip curving smoothly toward Scene 2
-      const curvePoints = [];
-      for (let i = 0; i <= 25; i++) {
-        const u = i / 25;
-        // Smooth bezier curve on floor from (0, 0.03, -2.5) to (21.0, 0.03, -5.0)
-        const x = u * u * (3 - 2 * u) * 21.0;
-        const z = -2.5 - u * 2.5;
-        curvePoints.push(new THREE.Vector3(x, 0.03, z));
-      }
-      const curveGeo = new THREE.BufferGeometry().setFromPoints(curvePoints);
-      const lineMat = new THREE.LineBasicMaterial({ color: 0x10b981, linewidth: 2 });
-      const guideLine = new THREE.Line(curveGeo, lineMat);
-      scene.add(guideLine);
-    }
-
-    // ─────────────────────────────────────────────────────────
-    // 6. SCENE 2: 3D HEDGING STAKING STATION (Naturally at x=25, z=-5)
-    // ─────────────────────────────────────────────────────────
-    function buildScene2StakingStation() {
-      const stationGroup = new THREE.Group();
-      stationGroup.position.set(25.0, 0.0, -5.0);
-
-      // A. Hedging Staking Pyramid (4 Tiers)
-      pyramidGroup = new THREE.Group();
-      pyramidGroup.position.set(0, 0, 0);
-
-      // Tier 1 (Base): Banker 70% — Emerald Core
-      const t1Geo = new THREE.CylinderGeometry(3.6, 4.0, 0.6, 8);
-      const t1Mat = new THREE.MeshStandardMaterial({
-        color: 0x06281e,
-        roughness: 0.3,
-        metalness: 0.85
-      });
-      const t1Mesh = new THREE.Mesh(t1Geo, t1Mat);
-      t1Mesh.position.y = 0.3;
-      pyramidGroup.add(t1Mesh);
-
-      const t1Edge = new THREE.LineSegments(
-        new THREE.EdgesGeometry(t1Geo),
-        new THREE.LineBasicMaterial({ color: 0x10b981 })
-      );
-      t1Edge.position.y = 0.3;
-      pyramidGroup.add(t1Edge);
-
-      // Tier 2: 2-Digit 15% — Cyan Core
-      const t2Geo = new THREE.CylinderGeometry(2.6, 3.0, 0.6, 8);
-      const t2Mat = new THREE.MeshStandardMaterial({
-        color: 0x052331,
-        roughness: 0.3,
-        metalness: 0.85
-      });
-      const t2Mesh = new THREE.Mesh(t2Geo, t2Mat);
-      t2Mesh.position.y = 0.9;
-      pyramidGroup.add(t2Mesh);
-
-      const t2Edge = new THREE.LineSegments(
-        new THREE.EdgesGeometry(t2Geo),
-        new THREE.LineBasicMaterial({ color: 0x00f0ff })
-      );
-      t2Edge.position.y = 0.9;
-      pyramidGroup.add(t2Edge);
-
-      // Tier 3: 3-Digit 10% — Gold Core
-      const t3Geo = new THREE.CylinderGeometry(1.6, 2.0, 0.6, 8);
-      const t3Mat = new THREE.MeshStandardMaterial({
-        color: 0x2b1e06,
-        roughness: 0.3,
-        metalness: 0.85
-      });
-      const t3Mesh = new THREE.Mesh(t3Geo, t3Mat);
-      t3Mesh.position.y = 1.5;
-      pyramidGroup.add(t3Mesh);
-
-      const t3Edge = new THREE.LineSegments(
-        new THREE.EdgesGeometry(t3Geo),
-        new THREE.LineBasicMaterial({ color: 0xf59e0b })
-      );
-      t3Edge.position.y = 1.5;
-      pyramidGroup.add(t3Edge);
-
-      // Tier 4 (Peak): Moonshot 5% — Floating Crystal
-      const t4Geo = new THREE.OctahedronGeometry(0.65, 0);
-      const t4Mat = new THREE.MeshStandardMaterial({
-        color: 0x6b21a8,
-        emissive: 0xa855f7,
-        emissiveIntensity: 0.65,
-        roughness: 0.1,
-        metalness: 0.9
-      });
-      const t4Mesh = new THREE.Mesh(t4Geo, t4Mat);
-      t4Mesh.position.y = 2.4;
-      pyramidGroup.add(t4Mesh);
-
-      // Central Vertical Glowing Energy Light Column
-      const beamGeo = new THREE.CylinderGeometry(0.12, 0.12, 6.0, 16);
-      const beamMat = new THREE.MeshBasicMaterial({
-        color: 0x10b981,
-        transparent: true,
-        opacity: 0.75
-      });
-      pyramidCoreBeam = new THREE.Mesh(beamGeo, beamMat);
-      pyramidCoreBeam.position.y = 3.0;
-      pyramidGroup.add(pyramidCoreBeam);
-
-      // Floating Rotating Neon Rings around Pyramid
-      const pRing1 = new THREE.Mesh(new THREE.TorusGeometry(3.9, 0.03, 8, 32), new THREE.MeshBasicMaterial({ color: 0x10b981 }));
-      pRing1.position.y = 0.6;
-      pRing1.rotation.x = Math.PI / 2;
-      pyramidGroup.add(pRing1);
-      pyramidRings.push(pRing1);
-
-      const pRing2 = new THREE.Mesh(new THREE.TorusGeometry(2.9, 0.03, 8, 32), new THREE.MeshBasicMaterial({ color: 0x00f0ff }));
-      pRing2.position.y = 1.2;
-      pRing2.rotation.x = Math.PI / 2;
-      pyramidGroup.add(pRing2);
-      pyramidRings.push(pRing2);
-
-      stationGroup.add(pyramidGroup);
-
-      // B. 6 3D Probability Pillars for Oct 1, 2026 (`8 3 0 3 8 6`)
-      // Arranged along the Z-axis in front of the pyramid (perpendicular to +X camera viewing direction)
-      const pillarConfigs = [
-        { digit: '8', prob: 0.88, label: 'หลักแสน' },
-        { digit: '3', prob: 0.94, label: 'หลักหมื่น' },
-        { digit: '0', prob: 0.91, label: 'หลักพัน' },
-        { digit: '3', prob: 0.95, label: 'หลักร้อย' },
-        { digit: '8', prob: 0.89, label: 'หลักสิบ' },
-        { digit: '6', prob: 0.96, label: 'หลักหน่วย' }
+      // Multi-root candidate search paths for root, dashboard subfolder, and components
+      const CANDIDATE_BASE_PATHS = [
+        "public/frames",
+        "../public/frames",
+        "./public/frames",
+        "video-generator/public/frames",
+        "../video-generator/public/frames",
+        "next-app/public/frames",
+        "../next-app/public/frames"
       ];
 
-      const startZ = -2.5; // in station local coords: spans -2.5 to +2.5 (world z = -7.5 to -2.5)
-      const stepZ = 1.0;
-      const posX = -4.0;   // in front of pyramid at x = -4.0 (world x = 21.0)
+      // Locked discovery parameters to prevent redundant 404 probing
+      let lockedBasePath = null;
+      let lockedExt = null;
 
-      pillarConfigs.forEach((cfg, idx) => {
-        const pillarGroup = new THREE.Group();
-        const posZ = startZ + idx * stepZ;
-        pillarGroup.position.set(posX, 0, posZ);
+      // DOM Elements
+      const canvas = document.getElementById("kinetic-canvas");
+      const container = document.getElementById("scroll-container");
+      const ctx = canvas ? canvas.getContext("2d", { alpha: false, desynchronized: true }) : null;
+      const fpsEl = document.getElementById("fps-label");
+      const scrubber = document.getElementById("camera-scrubber");
+      const hud1 = document.getElementById("scene1-hud");
+      const hud2 = document.getElementById("scene2-hud");
+      const btnTogglePlay = document.getElementById("btn-toggle-play");
+      const playIcon = document.getElementById("play-icon");
+      const playText = document.getElementById("play-text");
 
-        const pillarHeight = cfg.prob * 2.5;
+      // Memory Store and Preload Registers
+      const images = new Array(TOTAL_FRAMES + 1);
+      const loadedMap = new Array(TOTAL_FRAMES + 1).fill(false);
+      const loadingPromises = new Map();
+      let loadedCount = 0;
+      let lastDrawnFrameIndex = -1;
+      let needsRedraw = true;
 
-        // Base
-        const pBase = new THREE.Mesh(
-          new THREE.CylinderGeometry(0.38, 0.42, 0.2, 8),
-          new THREE.MeshStandardMaterial({ color: 0x0c192c, metalness: 0.85 })
-        );
-        pBase.position.y = 0.1;
-        pillarGroup.add(pBase);
+      // Motion and Lerp Registers
+      let targetProgress = 0.0;
+      let currentProgress = 0.0;
+      let targetFrame = 1.0;
+      let currentFrame = 1.0;
+      let isUserScrubbing = false;
 
-        // Translucent cylinder body
-        const cylGeo = new THREE.CylinderGeometry(0.24, 0.24, pillarHeight, 16);
-        const cylMat = new THREE.MeshStandardMaterial({
-          color: 0x052130,
-          roughness: 0.2,
-          metalness: 0.75,
-          transparent: true,
-          opacity: 0.85
-        });
-        const cyl = new THREE.Mesh(cylGeo, cylMat);
-        cyl.position.y = pillarHeight / 2 + 0.2;
-        pillarGroup.add(cyl);
+      // Auto-Tour State
+      let isAutoTourRunning = false;
+      let tourStartTime = 0;
+      let tourStartProgress = 0.0;
 
-        // Inner glowing core rod
-        const rodGeo = new THREE.CylinderGeometry(0.05, 0.05, pillarHeight, 8);
-        const rodMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
-        const rod = new THREE.Mesh(rodGeo, rodMat);
-        rod.position.y = pillarHeight / 2 + 0.2;
-        pillarGroup.add(rod);
+      // Performance Monitor
+      let fpsCount = 0;
+      let lastFpsTime = performance.now();
 
-        // Top Rotating Digit Cube with High-Res Canvas Texture
-        const digitTex = createDigitTexture(cfg.digit, `${(cfg.prob * 100).toFixed(0)}%`);
-        const cubeGeo = new THREE.BoxGeometry(0.55, 0.55, 0.55);
-        const cubeMat = new THREE.MeshBasicMaterial({ map: digitTex });
-        const cube = new THREE.Mesh(cubeGeo, cubeMat);
-        cube.position.y = pillarHeight + 0.5;
-        // Align initial rotation facing camera (-X direction)
-        cube.rotation.y = Math.PI / 2;
-        pillarGroup.add(cube);
-
-        stationGroup.add(pillarGroup);
-        probabilityPillars.push({ group: pillarGroup, cube: cube, baseHeight: pillarHeight });
+      // Check prefers-reduced-motion
+      let prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.matchMedia("(prefers-reduced-motion: reduce)").addEventListener("change", (e) => {
+        prefersReducedMotion = e.matches;
       });
 
-      // C. Curved Holographic Cyber Command Screen (positioned behind the pyramid facing the camera)
-      const holoTex = createHoloScreenTexture();
-      // Curved screen facing towards -X (towards the camera at x=15.5)
-      const screenGeo = new THREE.CylinderGeometry(5.2, 5.2, 2.4, 32, 1, true, Math.PI * 0.7, Math.PI * 0.6);
-      const screenMat = new THREE.MeshBasicMaterial({
-        map: holoTex,
-        side: THREE.DoubleSide,
-        transparent: true,
-        opacity: 0.95
-      });
-      holoScreenMesh = new THREE.Mesh(screenGeo, screenMat);
-      holoScreenMesh.position.set(3.2, 3.8, 0.0);
-      holoScreenMesh.rotation.y = 0; // Concave surface faces camera
-      stationGroup.add(holoScreenMesh);
-
-      scene.add(stationGroup);
-    }
-
-    // ─────────────────────────────────────────────────────────
-    // 7. AMBIENT PARTICLES (Space Dust & Data Nodes)
-    // ─────────────────────────────────────────────────────────
-    function buildAmbientDustParticles() {
-      const particleCount = 500;
-      const geometry = new THREE.BufferGeometry();
-      const positions = new Float32Array(particleCount * 3);
-      const colors = new Float32Array(particleCount * 3);
-
-      const cCyan = new THREE.Color(0x00f0ff);
-      const cEmerald = new THREE.Color(0x10b981);
-      const cAmber = new THREE.Color(0xff7b00);
-
-      for (let i = 0; i < particleCount; i++) {
-        // Spread throughout Gateway, corridor, and station spaces
-        positions[i * 3] = (Math.random() - 0.15) * 45;
-        positions[i * 3 + 1] = Math.random() * 7.5 + 0.2;
-        positions[i * 3 + 2] = (Math.random() - 0.5) * 35;
-
-        const choice = Math.random();
-        const col = choice < 0.45 ? cCyan : (choice < 0.8 ? cEmerald : cAmber);
-        colors[i * 3] = col.r;
-        colors[i * 3 + 1] = col.g;
-        colors[i * 3 + 2] = col.b;
+      // Format index: 1 -> "001"
+      function padIndex(idx) {
+        return String(Math.min(TOTAL_FRAMES, Math.max(1, idx))).padStart(3, "0");
       }
 
-      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+      // ─────────────────────────────────────────────────────────
+      // 1. THERMAL & MEMORY GUARD: DPR CAPPED AT 2.0x (R2)
+      // ─────────────────────────────────────────────────────────
+      function resizeCanvas() {
+        if (!canvas) return;
+        // Cap DPR at 2.0 on mobile/retina displays to protect GPU thermals and eliminate VRAM bloat
+        const dpr = Math.min(window.devicePixelRatio || 1, 2.0);
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width || window.innerWidth || 390;
+        const h = rect.height || window.innerHeight || 844;
 
-      const mat = new THREE.PointsMaterial({
-        size: 0.12,
-        vertexColors: true,
-        transparent: true,
-        opacity: 0.75
-      });
+        const targetW = Math.round(w * dpr);
+        const targetH = Math.round(h * dpr);
 
-      particleSystem = new THREE.Points(geometry, mat);
-      scene.add(particleSystem);
-    }
-
-    // ─────────────────────────────────────────────────────────
-    // 8. CANVAS TEXTURE GENERATORS
-    // ─────────────────────────────────────────────────────────
-    function createDigitTexture(digit, pctText) {
-      const canvas = document.createElement('canvas');
-      canvas.width = 256;
-      canvas.height = 256;
-      const ctx = canvas.getContext('2d');
-
-      // Dark sci-fi background with neon rim
-      ctx.fillStyle = '#061324';
-      ctx.fillRect(0, 0, 256, 256);
-
-      ctx.strokeStyle = '#00f0ff';
-      ctx.lineWidth = 10;
-      ctx.strokeRect(5, 5, 246, 246);
-
-      // Large bold digit
-      ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 120px "JetBrains Mono", monospace';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(digit, 128, 115);
-
-      // Confidence badge text
-      ctx.fillStyle = '#00f0ff';
-      ctx.font = 'bold 32px "Chakra Petch", sans-serif';
-      ctx.fillText(pctText, 128, 205);
-
-      const texture = new THREE.CanvasTexture(canvas);
-      texture.needsUpdate = true;
-      return texture;
-    }
-
-    function createHoloScreenTexture() {
-      const canvas = document.createElement('canvas');
-      canvas.width = 1024;
-      canvas.height = 512;
-      const ctx = canvas.getContext('2d');
-
-      // Background
-      ctx.fillStyle = 'rgba(5, 15, 30, 0.88)';
-      ctx.fillRect(0, 0, 1024, 512);
-
-      // Border and neon grid
-      ctx.strokeStyle = '#10b981';
-      ctx.lineWidth = 4;
-      ctx.strokeRect(10, 10, 1004, 492);
-
-      // Header
-      ctx.fillStyle = '#10b981';
-      ctx.font = 'bold 36px "Chakra Petch", sans-serif';
-      ctx.fillText('⚡ 3D HEDGING TELEMETRY CONSOLE', 40, 65);
-
-      ctx.fillStyle = '#00f0ff';
-      ctx.font = '24px "JetBrains Mono", monospace';
-      ctx.fillText('TARGET: DRAW 1 OCT 2026  |  CONFIDENCE: 96.8%', 40, 110);
-
-      // Horizontal Divider
-      ctx.strokeStyle = 'rgba(0, 240, 255, 0.4)';
-      ctx.beginPath();
-      ctx.moveTo(40, 130);
-      ctx.lineTo(984, 130);
-      ctx.stroke();
-
-      // Big Jackpot Numbers
-      ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 74px "JetBrains Mono", monospace';
-      ctx.fillText('GRAND JACKPOT: 830386', 40, 220);
-
-      ctx.fillStyle = '#94a3b8';
-      ctx.font = '26px "Prompt", sans-serif';
-      ctx.fillText('±1 NEIGHBORS: 830385, 830387  |  SUM: 28 (4คู่ / 2คี่)', 40, 270);
-
-      // Strategy Row
-      ctx.fillStyle = '#f59e0b';
-      ctx.font = 'bold 32px "JetBrains Mono", monospace';
-      ctx.fillText('2-DIGIT: 06 / 60   •   3-DIGIT: 306 (6 ประตู)   •   BANKER: 3, 6', 40, 340);
-
-      // Sparkline Graph
-      ctx.strokeStyle = '#00f0ff';
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      const sparkY = [440, 420, 435, 410, 395, 415, 390, 380, 400, 370, 360, 375];
-      for (let i = 0; i < sparkY.length; i++) {
-        const x = 40 + i * 80;
-        if (i === 0) ctx.moveTo(x, sparkY[i]);
-        else ctx.lineTo(x, sparkY[i]);
-      }
-      ctx.stroke();
-
-      const texture = new THREE.CanvasTexture(canvas);
-      texture.needsUpdate = true;
-      return texture;
-    }
-
-    // ─────────────────────────────────────────────────────────
-    // 9. CONTINUOUS CINEMATIC SPLINE PATH & CHOREOGRAPHY
-    // ─────────────────────────────────────────────────────────
-    function setupCameraSplines() {
-      // 1. Camera Path Curve:
-      // - Phase 1 (t = 0.0 to 0.48): Moves straight forward along X=0 through the open doorway.
-      // - Phase 2 (t = 0.48 to 1.00): Fully through doorway, smoothly curves right into Scene 2.
-      const pathWaypoints = [
-        new THREE.Vector3(0.0, 1.8, 14.0), // t = 0.00: Frame 1 facing Portal Door
-        new THREE.Vector3(0.0, 1.8, 9.0),  // t = 0.15: Gliding down cyber grid
-        new THREE.Vector3(0.0, 1.8, 4.0),  // t = 0.30: Approaching open portal
-        new THREE.Vector3(0.0, 1.8, 0.0),  // t = 0.42: Entering doorway threshold
-        new THREE.Vector3(0.0, 1.8, -2.5), // t = 0.50: Passed completely through open doorway
-        new THREE.Vector3(0.0, 1.8, -3.2), // Corridor branch
-        new THREE.Vector3(1.5, 1.85, -4.2),// Beginning smooth rightward turn
-        new THREE.Vector3(4.8, 1.9, -4.8), // Passing through grand arched entrance
-        new THREE.Vector3(9.5, 1.95, -5.0),// Sweeping into Staking Station hall
-        new THREE.Vector3(13.5, 2.0, -5.0),// Approaching settled composition
-        new THREE.Vector3(15.5, 2.0, -5.0) // t = 1.00: Frame 2 Settled on Staking Station
-      ];
-
-      cameraPathCurve = new THREE.CatmullRomCurve3(pathWaypoints, false, 'centripetal');
-
-      // 2. Rightward Turn LookAt Spline (initiates once camera is completely through doorway)
-      rightTurnSpline = new THREE.CubicBezierCurve3(
-        new THREE.Vector3(0.0, 1.8, -14.0),  // Straight ahead down corridor
-        new THREE.Vector3(0.0, 1.8, -14.0),  // Tangent holds straight initially
-        new THREE.Vector3(16.0, 1.95, -8.0), // Smooth sweep toward Staking Pyramid
-        new THREE.Vector3(25.0, 2.0, -3.4)   // Settled composition (pyramid left-center, HUD right)
-      );
-    }
-
-    function updateCameraSpline(t) {
-      if (isOrbitMode) return;
-
-      const clampedT = Math.max(0, Math.min(1, t));
-
-      // Compute Spline Position
-      const camPos = cameraPathCurve.getPointAt(clampedT);
-
-      // Compute LookAt:
-      // While passing through door (t <= 0.48): pure straight forward gaze (angle = 0.0 deg)
-      // Once fully through doorway (t > 0.48): smooth rightward turn into Scene 2
-      let camLook;
-      if (clampedT <= 0.48) {
-        camLook = new THREE.Vector3(camPos.x, camPos.y, camPos.z - 12.0);
-      } else {
-        const u = (clampedT - 0.48) / 0.52;
-        camLook = rightTurnSpline.getPoint(u);
+        if (canvas.width !== targetW || canvas.height !== targetH) {
+          canvas.width = targetW;
+          canvas.height = targetH;
+          needsRedraw = true;
+        }
       }
 
-      currentLookAt.copy(camLook);
+      // ─────────────────────────────────────────────────────────
+      // 2. SMART FALLBACK ALGORITHM (R2)
+      // ─────────────────────────────────────────────────────────
+      function getNearestLoadedImage(frameIdx) {
+        if (loadedMap[frameIdx] && images[frameIdx] && images[frameIdx].complete && images[frameIdx].naturalWidth > 0) {
+          return { img: images[frameIdx], index: frameIdx };
+        }
 
-      // Subtle mouse parallax
-      const pX = (mouseX / windowHalfX) * 0.22;
-      const pY = -(mouseY / windowHalfY) * 0.14;
-
-      camera.position.set(camPos.x + pX, camPos.y + pY, camPos.z);
-      camera.lookAt(camLook.x, camLook.y, camLook.z);
-
-      // Sync scrubber UI
-      scrubber.value = Math.round(clampedT * 1000);
-
-      // HUD Cross-Fade Transition (Natural, no abrupt cut)
-      // Scene 1 HUD fades out smoothly as camera advances (t: 0 -> 0.38)
-      if (clampedT <= 0.38) {
-        const op1 = Math.max(0, 1 - clampedT / 0.32);
-        hudScene1.style.opacity = op1.toFixed(3);
-        hudScene1.style.transform = `translateY(${(-clampedT * 75).toFixed(1)}px)`;
-        hudScene1.style.pointerEvents = op1 > 0.4 ? 'auto' : 'none';
-      } else {
-        hudScene1.style.opacity = '0';
-        hudScene1.style.pointerEvents = 'none';
-      }
-
-      // Scene 2 HUD fades in smoothly as camera settles into station (t: 0.65 -> 1.0)
-      if (clampedT >= 0.62) {
-        const op2 = Math.min(1, (clampedT - 0.62) / 0.35);
-        hudScene2.style.opacity = op2.toFixed(3);
-        hudScene2.style.transform = `translateY(${((1 - op2) * 35).toFixed(1)}px)`;
-        hudScene2.style.pointerEvents = op2 > 0.4 ? 'auto' : 'none';
-      } else {
-        hudScene2.style.opacity = '0';
-        hudScene2.style.pointerEvents = 'none';
-      }
-    }
-
-    // ─────────────────────────────────────────────────────────
-    // 10. INTERACTIVE TOUR CONTROLS (Hybrid GSAP + Scroll + Drag)
-    // ─────────────────────────────────────────────────────────
-    function startAutoTour() {
-      if (isOrbitMode) disableOrbitMode();
-
-      isTourPlaying = true;
-      playIcon.innerText = '⏸';
-      playText.innerText = 'หยุดทัวร์';
-      btnPlay.classList.add('active');
-
-      const startVal = cameraProgress.t >= 0.99 ? 0.0 : cameraProgress.t;
-      cameraProgress.t = startVal;
-
-      if (typeof gsap !== 'undefined') {
-        if (tourTween) tourTween.kill();
-        tourTween = gsap.to(cameraProgress, {
-          t: 1.0,
-          duration: 6.8 * (1 - startVal),
-          ease: "power2.inOut",
-          onUpdate: () => {
-            targetT = cameraProgress.t;
-            updateCameraSpline(cameraProgress.t);
-          },
-          onComplete: () => {
-            stopAutoTour();
+        // Bidirectional expansion search to locate closest available frame
+        for (let offset = 1; offset < TOTAL_FRAMES; offset++) {
+          const prev = frameIdx - offset;
+          const next = frameIdx + offset;
+          if (prev >= 1 && loadedMap[prev] && images[prev] && images[prev].complete && images[prev].naturalWidth > 0) {
+            return { img: images[prev], index: prev };
           }
-        });
-      }
-    }
-
-    function stopAutoTour() {
-      isTourPlaying = false;
-      playIcon.innerText = '▶';
-      playText.innerText = 'เริ่มทัวร์';
-      btnPlay.classList.remove('active');
-      if (tourTween) {
-        tourTween.kill();
-        tourTween = null;
-      }
-    }
-
-    window.toggleAutoTour = () => {
-      if (isTourPlaying) stopAutoTour();
-      else startAutoTour();
-    };
-
-    window.jumpToProgress = (destT) => {
-      if (isOrbitMode) disableOrbitMode();
-      stopAutoTour();
-
-      if (typeof gsap !== 'undefined') {
-        gsap.to(cameraProgress, {
-          t: destT,
-          duration: 2.2,
-          ease: "power2.inOut",
-          onUpdate: () => {
-            targetT = cameraProgress.t;
-            updateCameraSpline(cameraProgress.t);
+          if (next <= TOTAL_FRAMES && loadedMap[next] && images[next] && images[next].complete && images[next].naturalWidth > 0) {
+            return { img: images[next], index: next };
           }
-        });
-      } else {
-        cameraProgress.t = destT;
-        targetT = destT;
-        updateCameraSpline(destT);
-      }
-    };
+        }
 
-    window.returnToGateway = () => {
-      window.jumpToProgress(0.0);
-    };
-
-    document.getElementById('btn-start-tour').addEventListener('click', () => {
-      startAutoTour();
-    });
-
-    // Scroll-driven camera movement (allows normal scrolling inside strategy card)
-    function onWheelScroll(e) {
-      if (isOrbitMode) return;
-
-      // Allow natural scroll inside strategy console card and mobile drawer
-      if (e.target.closest('.staking-console-card, .mobile-drawer')) {
-        return;
+        return null;
       }
 
-      e.preventDefault();
-      if (isTourPlaying) stopAutoTour();
+      // ─────────────────────────────────────────────────────────
+      // 3. OBJECT-COVER CANVAS BLITTING & LUXURY BLEND (R1, R3)
+      // ─────────────────────────────────────────────────────────
+      function renderFrame(frameIdx) {
+        if (!ctx || !canvas) return;
 
-      targetT += e.deltaY * 0.0006;
-      targetT = Math.max(0, Math.min(1, targetT));
-    }
-
-    // Pointer Drag Exploration on Canvas
-    let isDragging = false;
-    let dragStartX = 0, dragStartY = 0;
-    let dragStartT = 0;
-
-    function setupPointerControls() {
-      window.addEventListener('pointerdown', (e) => {
-        // Ignore interactive UI elements
-        if (e.target.closest('button, a, input, .staking-console-card, .dream-navbar, .mobile-drawer')) {
+        const match = getNearestLoadedImage(frameIdx);
+        if (!match) {
+          // Pre-fill canvas with obsidian dark luxury background
+          ctx.fillStyle = "#060503";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
           return;
         }
-        if (isOrbitMode) return;
-        isDragging = true;
-        dragStartX = e.clientX;
-        dragStartY = e.clientY;
-        dragStartT = targetT;
-        if (isTourPlaying) stopAutoTour();
-      });
 
-      window.addEventListener('pointermove', (e) => {
-        // Mouse parallax
-        mouseX = e.clientX - windowHalfX;
-        mouseY = e.clientY - windowHalfY;
+        const targetImg = match.img;
+        const drawnIndex = match.index;
+        const cW = canvas.width;
+        const cH = canvas.height;
+        if (cW <= 0 || cH <= 0) return;
 
-        if (!isDragging || isOrbitMode) return;
-        const deltaX = e.clientX - dragStartX;
-        const deltaY = dragStartY - e.clientY;
-        const dominantDelta = Math.abs(deltaY) > Math.abs(deltaX) ? deltaY : -deltaX;
-        targetT = dragStartT + dominantDelta * 0.0018;
-        targetT = Math.max(0, Math.min(1, targetT));
-      });
+        const iW = targetImg.naturalWidth || 720;
+        const iH = targetImg.naturalHeight || 1280;
 
-      window.addEventListener('pointerup', () => {
-        isDragging = false;
-      });
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = "high";
 
-      window.addEventListener('pointercancel', () => {
-        isDragging = false;
-      });
-    }
+        // Object cover mathematics (center crop with uniform scaling)
+        const scale = Math.max(cW / iW, cH / iH);
+        const dW = iW * scale;
+        const dH = iH * scale;
+        const dX = (cW - dW) / 2;
+        const dY = (cH - dH) / 2;
 
-    // Touch swipe support for mobile
-    let touchStartY = 0;
-    function setupTouchControls() {
-      window.addEventListener('touchstart', (e) => {
-        if (e.touches.length > 0) touchStartY = e.touches[0].clientY;
-      }, { passive: true });
-
-      window.addEventListener('touchmove', (e) => {
-        if (isOrbitMode || e.touches.length === 0) return;
-        if (e.target.closest('.staking-console-card, .mobile-drawer')) return;
-        const delta = touchStartY - e.touches[0].clientY;
-        touchStartY = e.touches[0].clientY;
-        if (isTourPlaying) stopAutoTour();
-        targetT += delta * 0.0015;
-        targetT = Math.max(0, Math.min(1, targetT));
-      }, { passive: true });
-    }
-
-    // Free Orbit Mode Toggle
-    window.toggleOrbitMode = () => {
-      if (!orbitControls) return;
-      if (isOrbitMode) {
-        disableOrbitMode();
-      } else {
-        enableOrbitMode();
-      }
-    };
-
-    function enableOrbitMode() {
-      if (!orbitControls) return;
-      stopAutoTour();
-      isOrbitMode = true;
-      orbitControls.enabled = true;
-      orbitControls.target.copy(currentLookAt);
-      btnOrbit.classList.add('active');
-      btnOrbit.innerText = '🎥 Cinematic';
-      window.showToast('เปิดโหมดสำรวจ 3D อิสระ (Orbit View)');
-    }
-
-    function disableOrbitMode() {
-      if (!orbitControls) return;
-      isOrbitMode = false;
-      orbitControls.enabled = false;
-      btnOrbit.classList.remove('active');
-      btnOrbit.innerText = '🌐 Orbit';
-      updateCameraSpline(cameraProgress.t);
-      window.showToast('กลับสู่มุมกล้อง Cinematic Spline');
-    }
-
-    // ─────────────────────────────────────────────────────────
-    // 11. ANIMATION & RENDER LOOP
-    // ─────────────────────────────────────────────────────────
-    let frameCount = 0;
-    let lastTime = performance.now();
-
-    function animate() {
-      requestAnimationFrame(animate);
-
-      const elapsedTime = clock.getElapsedTime();
-      const delta = clock.getDelta();
-
-      // Smooth damping on camera progress when scrolling or dragging
-      if (!isTourPlaying && !isOrbitMode) {
-        const diff = targetT - cameraProgress.t;
-        if (Math.abs(diff) > 0.0001) {
-          cameraProgress.t += diff * 0.12;
-          updateCameraSpline(cameraProgress.t);
-        }
+        ctx.drawImage(targetImg, dX, dY, dW, dH);
+        lastDrawnFrameIndex = drawnIndex;
       }
 
-      // Environmental animations
-      // 1. Staking Pyramid animations
-      if (pyramidGroup) {
-        pyramidRings.forEach((r, idx) => {
-          r.rotation.z = elapsedTime * (idx % 2 === 0 ? 0.4 : -0.4);
+      // ─────────────────────────────────────────────────────────
+      // 4. MULTI-PATH CANDIDATE LOADER WITH BASE LOCK (R2)
+      // ─────────────────────────────────────────────────────────
+      function loadSingleImage(idx) {
+        if (loadedMap[idx]) return Promise.resolve(true);
+        if (loadingPromises.has(idx)) return loadingPromises.get(idx);
+
+        const promise = new Promise((resolve) => {
+          const pad = padIndex(idx);
+          const candidates = [];
+
+          if (lockedBasePath && lockedExt) {
+            candidates.push({ bp: lockedBasePath, ext: lockedExt, url: `${lockedBasePath}/frame-${pad}.${lockedExt}` });
+            if (lockedExt === "webp") {
+              candidates.push({ bp: lockedBasePath, ext: "png", url: `${lockedBasePath}/frame-${pad}.png` });
+            }
+          } else {
+            for (const bp of CANDIDATE_BASE_PATHS) {
+              candidates.push({ bp, ext: "webp", url: `${bp}/frame-${pad}.webp` });
+              candidates.push({ bp, ext: "png", url: `${bp}/frame-${pad}.png` });
+            }
+          }
+
+          let attemptIdx = 0;
+
+          function tryNextCandidate() {
+            if (attemptIdx >= candidates.length) {
+              resolve(false);
+              return;
+            }
+
+            const item = candidates[attemptIdx++];
+            const img = new Image();
+            img.decoding = "async";
+
+            img.onload = async () => {
+              if ("decode" in img) {
+                try {
+                  await img.decode();
+                } catch (e) {}
+              }
+
+              if (!lockedBasePath) {
+                lockedBasePath = item.bp;
+                lockedExt = item.ext;
+              }
+
+              images[idx] = img;
+              loadedMap[idx] = true;
+              loadedCount++;
+
+              // Instant paint or immediate in-flight upgrade
+              const currentTarget = Math.round(currentFrame);
+              if (idx === 1 && lastDrawnFrameIndex === -1) {
+                renderFrame(1);
+              } else if (idx === currentTarget || Math.abs(idx - currentTarget) < Math.abs(lastDrawnFrameIndex - currentTarget)) {
+                needsRedraw = true;
+              }
+
+              resolve(true);
+            };
+
+            img.onerror = () => {
+              tryNextCandidate();
+            };
+
+            img.src = item.url;
+          }
+
+          tryNextCandidate();
         });
+
+        loadingPromises.set(idx, promise);
+        return promise;
       }
-      if (pyramidCoreBeam) {
-        pyramidCoreBeam.material.opacity = 0.55 + Math.sin(elapsedTime * 3) * 0.25;
-      }
 
-      // 2. Probability Pillars rotating cubes & pulse
-      probabilityPillars.forEach((p, idx) => {
-        p.cube.rotation.y = elapsedTime * 0.8 + idx;
-        p.cube.position.y = p.baseHeight + 0.5 + Math.sin(elapsedTime * 2 + idx) * 0.04;
-      });
+      // ─────────────────────────────────────────────────────────
+      // 5. THREE-TIER PROGRESSIVE PRELOADER PIPELINE (R2)
+      // ─────────────────────────────────────────────────────────
+      async function runPreloadPipeline() {
+        // Tier 1: Instant Paint Frame 1 immediately
+        await loadSingleImage(1);
 
-      // 3. Corridor ribs subtle pulse
-      corridorRings.forEach((r, idx) => {
-        const s = 1 + Math.sin(elapsedTime * 2 + idx * 0.8) * 0.02;
-        r.scale.set(s, s, 1);
-      });
-
-      // 4. Ambient particles drift
-      if (particleSystem) {
-        const pos = particleSystem.geometry.attributes.position.array;
-        for (let i = 1; i < pos.length; i += 3) {
-          pos[i] += Math.sin(elapsedTime + pos[i - 1]) * 0.002;
+        // Tier 2: Keyframe Stride across sequence in parallel (2, 3, 4, 5, 10, 15, ..., 50)
+        const keyframes = [2, 3, 4];
+        for (let i = 5; i <= TOTAL_FRAMES; i += 5) {
+          keyframes.push(i);
         }
-        particleSystem.geometry.attributes.position.needsUpdate = true;
+        await Promise.all(keyframes.map(loadSingleImage));
+
+        // Tier 3: Chunked in-flight loading in batches of 4 with 20ms cooperative yields
+        const remaining = [];
+        for (let i = 1; i <= TOTAL_FRAMES; i++) {
+          if (!loadedMap[i]) remaining.push(i);
+        }
+
+        const BATCH_SIZE = 4;
+        for (let i = 0; i < remaining.length; i += BATCH_SIZE) {
+          const chunk = remaining.slice(i, i + BATCH_SIZE);
+          await Promise.all(chunk.map(loadSingleImage));
+          // Yield to browser main-thread to guarantee 60-120 FPS touch response
+          await new Promise((r) => setTimeout(r, 20));
+        }
       }
 
-      // Orbit controls update if active
-      if (isOrbitMode && orbitControls) {
-        orbitControls.update();
+      // ─────────────────────────────────────────────────────────
+      // 6. SCROLL MAPPING & PROGRESS CALCULATION (R1)
+      // ─────────────────────────────────────────────────────────
+      function getScrollProgress() {
+        if (!container) return 0;
+        const rect = container.getBoundingClientRect();
+        const viewportH = window.innerHeight || document.documentElement.clientHeight || 800;
+        const maxScroll = rect.height - viewportH;
+        if (maxScroll <= 0) return 0;
+        return Math.max(0, Math.min(1, -rect.top / maxScroll));
       }
 
-      renderer.render(scene, camera);
+      // ─────────────────────────────────────────────────────────
+      // 7. HUD CROSS-FADE & TIMELINE SCRUBBER SYNC (R3)
+      // ─────────────────────────────────────────────────────────
+      function updateHUD(p) {
+        if (scrubber && !isUserScrubbing) {
+          scrubber.value = Math.round(p * 1000);
+        }
 
-      // FPS Monitor
-      frameCount++;
-      const now = performance.now();
-      if (now - lastTime >= 1000) {
-        const fps = Math.round((frameCount * 1000) / (now - lastTime));
-        fpsLabel.innerText = `${fps} FPS`;
-        frameCount = 0;
-        lastTime = now;
+        // Scene 1 HUD: active from 0% -> 38%
+        if (hud1) {
+          if (p <= 0.38) {
+            const op1 = Math.max(0, 1 - p / 0.32);
+            hud1.style.opacity = op1.toFixed(3);
+            hud1.style.transform = `translateY(${(-p * 80).toFixed(1)}px)`;
+            hud1.style.pointerEvents = op1 > 0.35 ? "auto" : "none";
+          } else {
+            hud1.style.opacity = "0";
+            hud1.style.pointerEvents = "none";
+          }
+        }
+
+        // Scene 2 HUD: active from 62% -> 100%
+        if (hud2) {
+          if (p >= 0.62) {
+            const op2 = Math.min(1, (p - 0.62) / 0.34);
+            hud2.style.opacity = op2.toFixed(3);
+            hud2.style.transform = `translateY(${((1 - op2) * 35).toFixed(1)}px)`;
+            hud2.style.pointerEvents = op2 > 0.35 ? "auto" : "none";
+          } else {
+            hud2.style.opacity = "0";
+            hud2.style.pointerEvents = "none";
+          }
+        }
       }
-    }
 
-    function onWindowResize() {
-      windowHalfX = window.innerWidth / 2;
-      windowHalfY = window.innerHeight / 2;
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    }
+      // ─────────────────────────────────────────────────────────
+      // 8. AUTO-TOUR SIMULATION ENGINE (R3)
+      // ─────────────────────────────────────────────────────────
+      function syncWindowScroll(p) {
+        if (!container) return;
+        const viewportH = window.innerHeight || document.documentElement.clientHeight || 800;
+        const maxScroll = container.offsetHeight - viewportH;
+        window.scrollTo({ top: p * maxScroll, behavior: "auto" });
+      }
 
-    // ─────────────────────────────────────────────────────────
-    // 12. DATA LOADER & CLIPBOARD UTILITIES
-    // ─────────────────────────────────────────────────────────
-    window.showToast = (msg) => {
-      const t = document.getElementById('toast');
-      t.innerText = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2400);
-    };
+      function startAutoTour() {
+        isAutoTourRunning = true;
+        tourStartTime = performance.now();
+        tourStartProgress = getScrollProgress();
+        if (tourStartProgress >= 0.98) {
+          tourStartProgress = 0.0;
+          syncWindowScroll(0.0);
+        }
+        if (btnTogglePlay) {
+          btnTogglePlay.classList.add("active");
+          if (playIcon) playIcon.innerText = "⏸";
+          if (playText) playText.innerText = "หยุดทัวร์";
+        }
+      }
 
-    window.copyText = (text) => {
-      navigator.clipboard.writeText(text).then(() => {
-        window.showToast(`คัดลอก: ${text} สำเร็จ! ✨`);
-      });
-    };
+      function stopAutoTour() {
+        if (!isAutoTourRunning) return;
+        isAutoTourRunning = false;
+        if (btnTogglePlay) {
+          btnTogglePlay.classList.remove("active");
+          if (playIcon) playIcon.innerText = "▶";
+          if (playText) playText.innerText = "เริ่มทัวร์";
+        }
+      }
 
-    window.copyJackpot = () => {
-      const num = document.getElementById('jackpot-display').innerText;
-      window.copyText(num);
-    };
+      function updateAutoTourTick(now) {
+        if (!isAutoTourRunning) return;
+        const elapsed = now - tourStartTime;
+        const t = Math.min(1, elapsed / TOUR_DURATION);
+        // Smooth sine ease in-out curve
+        const ease = 0.5 - 0.5 * Math.cos(Math.PI * t);
+        const nextP = tourStartProgress + (1.0 - tourStartProgress) * ease;
+        syncWindowScroll(nextP);
 
-    window.copyAllStrategy = () => {
-      const jackpot = document.getElementById('jackpot-display').innerText;
-      const neighbors = document.getElementById('neighbors-display').innerText;
-      const pairs = document.getElementById('pairs-display').innerText;
-      const three = document.getElementById('three-display').innerText;
-      const banker = document.getElementById('banker-display').innerText;
+        if (t >= 1) {
+          stopAutoTour();
+        }
+      }
 
-      const summary = `🛡️ [LOTTERY.DB] สรุปสถาปัตยกรรม Hedging ประจำงวด 1 ต.ค. 2569
+      window.toggleAutoTour = () => {
+        if (isAutoTourRunning) {
+          stopAutoTour();
+        } else {
+          startAutoTour();
+        }
+      };
+
+      window.toggleOrbitMode = () => {
+        window.toggleAutoTour();
+      };
+
+      window.jumpToProgress = (destP) => {
+        stopAutoTour();
+        if (!container) return;
+        const viewportH = window.innerHeight || document.documentElement.clientHeight || 800;
+        const maxScroll = container.offsetHeight - viewportH;
+        window.scrollTo({ top: destP * maxScroll, behavior: "smooth" });
+      };
+
+      window.returnToGateway = () => window.jumpToProgress(0.0);
+
+      // ─────────────────────────────────────────────────────────
+      // 9. PERSISTENT RAF LERP ANIMATION LOOP (R1)
+      // ─────────────────────────────────────────────────────────
+      function animate(now) {
+        requestAnimationFrame(animate);
+
+        updateAutoTourTick(now);
+
+        if (!isAutoTourRunning) {
+          targetProgress = getScrollProgress();
+        }
+
+        targetFrame = 1 + targetProgress * (TOTAL_FRAMES - 1);
+
+        if (prefersReducedMotion) {
+          currentFrame = targetFrame;
+        } else {
+          const diff = targetFrame - currentFrame;
+          if (Math.abs(diff) < 0.001) {
+            currentFrame = targetFrame;
+          } else {
+            currentFrame += diff * LERP_FACTOR;
+          }
+        }
+
+        currentProgress = (currentFrame - 1) / (TOTAL_FRAMES - 1);
+        const frameToDraw = Math.min(TOTAL_FRAMES, Math.max(1, Math.round(currentFrame)));
+
+        if (frameToDraw !== lastDrawnFrameIndex || needsRedraw) {
+          renderFrame(frameToDraw);
+          needsRedraw = false;
+        }
+
+        updateHUD(currentProgress);
+
+        // Hardware-Accelerated FPS Monitor
+        fpsCount++;
+        if (now - lastFpsTime >= 1000) {
+          const fps = Math.round((fpsCount * 1000) / (now - lastFpsTime));
+          if (fpsEl) fpsEl.innerText = `${fps} FPS`;
+          fpsCount = 0;
+          lastFpsTime = now;
+        }
+      }
+
+      // ─────────────────────────────────────────────────────────
+      // 10. TIMELINE SCRUBBING & TOUCH EVENT HANDLING (R3)
+      // ─────────────────────────────────────────────────────────
+      if (scrubber) {
+        scrubber.addEventListener("input", (e) => {
+          isUserScrubbing = true;
+          stopAutoTour();
+          const p = parseFloat(e.target.value) / 1000;
+          syncWindowScroll(p);
+        });
+        const endScrub = () => { isUserScrubbing = false; };
+        scrubber.addEventListener("change", endScrub);
+        scrubber.addEventListener("pointerup", endScrub);
+        scrubber.addEventListener("touchend", endScrub);
+      }
+
+      // Non-blocking interaction: cancel tour on user touch/wheel gestures
+      window.addEventListener("wheel", () => { if (isAutoTourRunning) stopAutoTour(); }, { passive: true });
+      window.addEventListener("touchstart", () => { if (isAutoTourRunning) stopAutoTour(); }, { passive: true });
+      window.addEventListener("resize", () => { resizeCanvas(); }, { passive: true });
+      window.addEventListener("orientationchange", () => { resizeCanvas(); }, { passive: true });
+
+      // ─────────────────────────────────────────────────────────
+      // 11. DATA LOADER & CLIPBOARD UTILITIES (R3 Invariants)
+      // ─────────────────────────────────────────────────────────
+      window.showToast = (msg) => {
+        const t = document.getElementById("toast");
+        if (!t) return;
+        t.innerText = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 2400);
+      };
+
+      window.copyText = (text) => {
+        navigator.clipboard.writeText(text).then(() => {
+          window.showToast(`คัดลอก: ${text} สำเร็จ! ✨`);
+        });
+      };
+
+      window.copyJackpot = () => {
+        const el = document.getElementById("jackpot-display");
+        if (el) window.copyText(el.innerText);
+      };
+
+      window.copyAllStrategy = () => {
+        const jackpot = document.getElementById("jackpot-display")?.innerText || "830386";
+        const neighbors = document.getElementById("neighbors-display")?.innerText || "830385, 830387";
+        const pairs = document.getElementById("pairs-display")?.innerText || "06 (กลับ 60)";
+        const three = document.getElementById("three-display")?.innerText || "306";
+        const banker = document.getElementById("banker-display")?.innerText || "3, 6";
+
+        const summary = `🛡️ [LOTTERY.DB] สรุปสถาปัตยกรรม Hedging ประจำงวด 1 ต.ค. 2569
 👑 รางวัลที่ 1 เด่น (5% Moonshot): ${jackpot} (เคียงข้าง: ${neighbors})
 💎 เลขเด่นวิ่ง / รูด 19 ประตู (70% Banker): ${banker}
 ✌️ 2 ตัวบนตรง-กลับ / ล่าง (15% Pairs): ${pairs}
 🎲 3 ตัวตรง / โต๊ด 6 ประตู (10% Box): ${three} (036, 063, 306, 360, 603, 630)`;
 
-      window.copyText(summary);
-    };
+        window.copyText(summary);
+      };
 
-    // Navigation Drawer
-    window.toggleDrawer = () => {
-      document.getElementById('mobile-drawer').classList.toggle('open');
-      document.getElementById('drawer-overlay').classList.toggle('show');
-    };
-    window.closeDrawer = () => {
-      document.getElementById('mobile-drawer').classList.remove('open');
-      document.getElementById('drawer-overlay').classList.remove('show');
-    };
+      // Drawer Navigation
+      window.toggleDrawer = () => {
+        document.getElementById("mobile-drawer")?.classList.toggle("open");
+        document.getElementById("drawer-overlay")?.classList.toggle("show");
+      };
+      window.closeDrawer = () => {
+        document.getElementById("mobile-drawer")?.classList.remove("open");
+        document.getElementById("drawer-overlay")?.classList.remove("show");
+      };
 
-    // Live Showcase Data Fetcher
-    async function loadShowcaseData() {
-      const candidates = [
-        './hopper_3d_data.json',
-        './database/predictions/hopper_3d_data.json',
-        '../database/predictions/hopper_3d_data.json'
-      ];
-      for (const p of candidates) {
-        try {
-          const res = await fetch(p);
-          if (res.ok) {
-            const data = await res.json();
-            applyShowcaseData(data);
-            return;
+      // Live Showcase Data Fetcher
+      async function loadShowcaseData() {
+        const candidates = [
+          "./hopper_3d_data.json",
+          "./database/predictions/hopper_3d_data.json",
+          "../database/predictions/hopper_3d_data.json"
+        ];
+        for (const p of candidates) {
+          try {
+            const res = await fetch(p);
+            if (res.ok) {
+              const data = await res.json();
+              applyShowcaseData(data);
+              return;
+            }
+          } catch (e) {}
+        }
+      }
+
+      function applyShowcaseData(data) {
+        if (!data) return;
+        if (data.meta?.next_draw?.thai_formatted) {
+          const cd = document.getElementById("scene1-countdown");
+          if (cd) cd.innerText = `⏳ งวดถัดไป: ${data.meta.next_draw.thai_formatted}`;
+        }
+        const z = data.zones;
+        if (z) {
+          if (z.zone1_jackpot?.primary?.number) {
+            const num = z.zone1_jackpot.primary.number;
+            const jEl = document.getElementById("jackpot-display");
+            if (jEl) jEl.innerText = num;
+            if (z.zone1_jackpot.neighbors) {
+              const nEl = document.getElementById("neighbors-display");
+              if (nEl) nEl.innerText = z.zone1_jackpot.neighbors.join(", ");
+            }
           }
-        } catch (e) {}
-      }
-    }
-
-    function applyShowcaseData(data) {
-      if (!data) return;
-      if (data.meta?.next_draw?.thai_formatted) {
-        const cd = document.getElementById('scene1-countdown');
-        if (cd) cd.innerText = `⏳ งวดถัดไป: ${data.meta.next_draw.thai_formatted}`;
-      }
-      const z = data.zones;
-      if (z) {
-        if (z.zone1_jackpot?.primary?.number) {
-          const num = z.zone1_jackpot.primary.number;
-          document.getElementById('jackpot-display').innerText = num;
-          if (z.zone1_jackpot.neighbors) {
-            document.getElementById('neighbors-display').innerText = z.zone1_jackpot.neighbors.join(', ');
+          if (z.zone2_two_digit?.best_pair) {
+            const p = z.zone2_two_digit.best_pair;
+            const pEl = document.getElementById("pairs-display");
+            if (pEl) pEl.innerHTML = `${p.direct} <span style="font-size:0.75rem;color:var(--text-muted)">(กลับ ${p.reverse})</span>`;
+          }
+          if (z.zone3_three_digit?.box_list && z.zone3_three_digit.box_list[0]) {
+            const b = z.zone3_three_digit.box_list[0];
+            const tEl = document.getElementById("three-display");
+            if (tEl) tEl.innerText = b.direct;
+          }
+          if (z.zone4_banker?.bankers) {
+            const bEl = document.getElementById("banker-display");
+            if (bEl) bEl.innerText = z.zone4_banker.bankers.map((b) => b.digit).join(", ");
           }
         }
-        if (z.zone2_two_digit?.best_pair) {
-          const p = z.zone2_two_digit.best_pair;
-          document.getElementById('pairs-display').innerHTML = `${p.direct} <span style="font-size:0.75rem;color:var(--text-muted)">(กลับ ${p.reverse})</span>`;
-        }
-        if (z.zone3_three_digit?.box_list && z.zone3_three_digit.box_list[0]) {
-          const b = z.zone3_three_digit.box_list[0];
-          document.getElementById('three-display').innerText = b.direct;
-        }
-        if (z.zone4_banker?.bankers) {
-          document.getElementById('banker-display').innerText = z.zone4_banker.bankers.map(b => b.digit).join(', ');
-        }
       }
-    }
 
-    // Initialize 3D Engine on DOMContentLoaded
-    window.addEventListener('DOMContentLoaded', () => {
-      initThree();
-      loadShowcaseData();
-      updateCameraSpline(0.0);
+      // ─────────────────────────────────────────────────────────
+      // 12. INITIALIZATION ON DOM READY
+      // ─────────────────────────────────────────────────────────
+      window.addEventListener("DOMContentLoaded", () => {
+        resizeCanvas();
+        renderFrame(1);
+        animate(performance.now());
+        runPreloadPipeline();
+        loadShowcaseData();
 
-      // Initialize Central Live Engine
-      if (typeof LotteryLiveEngine !== 'undefined') {
-        const liveEngine = LotteryLiveEngine.createEngine({
-          onNewResult: (event) => {
-            console.log('🎉 [3D Gateway] New draw detected:', event);
-            loadShowcaseData();
-            window.showToast(`🎉 ผลรางวัลงวดใหม่ (${event.latestDraw}) ออกแล้ว! กำลังอัปเดตหน้าจอ`);
-          }
-        });
-        window.lotteryLiveEngine = liveEngine.init();
-      }
-    });
+        // Initialize Central Live Engine
+        if (typeof LotteryLiveEngine !== "undefined") {
+          const liveEngine = LotteryLiveEngine.createEngine({
+            onNewResult: (event) => {
+              console.log("🎉 [3D Gateway] New draw detected:", event);
+              loadShowcaseData();
+              window.showToast(`🎉 ผลรางวัลงวดใหม่ (${event.latestDraw}) ออกแล้ว! กำลังอัปเดตหน้าจอ`);
+            }
+          });
+          window.lotteryLiveEngine = liveEngine.init();
+        }
+      });
+    })();
   </script>
 </body>
 </html>
