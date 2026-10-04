@@ -1,0 +1,71 @@
+name: Canvas Browser Regression
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'next-app/**'
+      - '**/*.html'
+      - 'scripts/*canvas*.js'
+      - 'package*.json'
+      - '.github/workflows/canvas_regression.yml'
+  pull_request:
+    paths:
+      - 'next-app/**'
+      - '**/*.html'
+      - 'scripts/*canvas*.js'
+      - 'package*.json'
+      - '.github/workflows/canvas_regression.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  canvas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            next-app/package-lock.json
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm ci --prefix next-app
+      - name: Lint, typecheck and build Next
+        working-directory: next-app
+        run: |
+          npm run lint
+          npx tsc --noEmit --incremental false
+          npm run build
+      - name: Canvas lifecycle and legacy checks
+        run: |
+          npm run test:canvas:lifecycle
+          npm run test:canvas:legacy
+      - name: Real browser regression
+        env:
+          NEXT_BASE_URL: http://127.0.0.1:3107/
+        run: |
+          export CHROME_PATH="$(command -v google-chrome)"
+          node next-app/node_modules/next/dist/bin/next start next-app --hostname 127.0.0.1 --port 3107 > /tmp/canvas-next.log 2>&1 &
+          canvas_server_pid=$!
+          trap 'kill "$canvas_server_pid" 2>/dev/null || true' EXIT
+          ready=false
+          for attempt in $(seq 1 30); do
+            if curl --silent --fail "$NEXT_BASE_URL" > /dev/null; then
+              ready=true
+              break
+            fi
+            sleep 1
+          done
+          if [ "$ready" != true ]; then
+            cat /tmp/canvas-next.log
+            exit 1
+          fi
+          npm run test:canvas

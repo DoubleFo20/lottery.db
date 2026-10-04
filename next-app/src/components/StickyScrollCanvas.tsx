@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 
 const TOTAL_FRAMES = 50;
 
@@ -35,6 +35,7 @@ export default function StickyScrollCanvas({
   const lastDrawnFrameRef = useRef<number>(-1);
   const needsResizeRef = useRef<boolean>(true);
   const rafIdRef = useRef<number | null>(null);
+  const requestRenderRef = useRef<() => void>(() => {});
 
   // Image cache and load tracking
   const imagesRef = useRef<HTMLImageElement[]>([]);
@@ -60,7 +61,7 @@ export default function StickyScrollCanvas({
       scrollProgressBarRef.current.style.width = `${pct}%`;
     }
     if (activeFrameSpanRef.current) {
-      activeFrameSpanRef.current.textContent = formatFrameIndex(frameNum);
+      activeFrameSpanRef.current.textContent = String(Math.min(totalFrames, Math.max(1, frameNum))).padStart(3, "0");
     }
 
     // Smooth milestone crossfade calculations
@@ -108,10 +109,13 @@ export default function StickyScrollCanvas({
     if (!ctx) return;
 
     const match = getNearestLoadedImage(frameIdx);
+    const selectedIndex = match?.index ?? 0;
+    if (selectedIndex === lastDrawnFrameRef.current && !needsResizeRef.current) return;
     if (!match) {
       // If no image loaded yet, ensure canvas background matches luxury dark tone
       ctx.fillStyle = "#060503";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
+      lastDrawnFrameRef.current = 0;
       return;
     }
 
@@ -169,6 +173,7 @@ export default function StickyScrollCanvas({
     prefersReducedMotionRef.current = motionQuery.matches;
     const onMotionChange = (e: MediaQueryListEvent) => {
       prefersReducedMotionRef.current = e.matches;
+      requestRenderRef.current();
     };
     motionQuery.addEventListener("change", onMotionChange);
 
@@ -232,13 +237,7 @@ export default function StickyScrollCanvas({
               loadCountSpanRef.current.textContent = String(loadedCountRef.current);
             }
 
-            // If this is frame 1 or closer to target, mark for immediate redraw
-            const currentTarget = Math.round(currentFrameRef.current);
-            if (idx === 1 && lastDrawnFrameRef.current === -1) {
-              renderFrame(1);
-            } else if (idx === currentTarget || lastDrawnFrameRef.current !== currentTarget) {
-              needsResizeRef.current = true;
-            }
+            requestRenderRef.current();
 
             resolve(true);
           };
@@ -308,6 +307,7 @@ export default function StickyScrollCanvas({
       if (maxScroll <= 0) {
         targetFrameRef.current = 1.0;
         updateHUD(0, 1);
+        requestRenderRef.current();
         return;
       }
 
@@ -317,6 +317,7 @@ export default function StickyScrollCanvas({
       // Direct scroll to frame mapping: 0% -> 1.0, 100% -> totalFrames
       targetFrameRef.current = 1 + progress * (totalFrames - 1);
       updateHUD(progress, Math.round(targetFrameRef.current));
+      requestRenderRef.current();
     };
 
     const handleResize = () => {
@@ -339,56 +340,73 @@ export default function StickyScrollCanvas({
     };
   }, [totalFrames, resizeCanvas, updateHUD]);
 
-  // Persistent Animation Loop: Sub-pixel Lerp Interpolation
+  // One pending frame at most; image failure never keeps interpolation alive.
   useEffect(() => {
-    let animId: number;
+    let disposed = false;
+    let previousTime: number | null = null;
+    lastDrawnFrameRef.current = -1;
+    needsResizeRef.current = true;
 
-    const tick = () => {
-      const target = targetFrameRef.current;
-      const current = currentFrameRef.current;
+    const stop = () => {
+      if (rafIdRef.current !== null) cancelAnimationFrame(rafIdRef.current);
+      rafIdRef.current = null;
+      previousTime = null;
+    };
 
-      if (prefersReducedMotionRef.current) {
-        currentFrameRef.current = target;
-      } else {
-        const diff = target - current;
-        if (Math.abs(diff) < 0.002) {
-          currentFrameRef.current = target;
-        } else {
-          // Buttery 0.12 easing factor for Apple-grade momentum
-          currentFrameRef.current = current + diff * 0.12;
-        }
+    const schedule = () => {
+      if (!disposed && !document.hidden && rafIdRef.current === null) {
+        rafIdRef.current = requestAnimationFrame(tick);
       }
+    };
+
+    function tick(time: number) {
+      rafIdRef.current = null;
+      if (disposed || document.hidden) {
+        previousTime = null;
+        return;
+      }
+      const target = Math.min(totalFrames, Math.max(1, targetFrameRef.current));
+      const current = currentFrameRef.current;
+      const elapsed = previousTime === null ? 1000 / 60 : Math.min(time - previousTime, 50);
+      previousTime = time;
+      const alpha = 1 - Math.pow(0.88, elapsed / (1000 / 60));
+      const next = prefersReducedMotionRef.current ? target : current + (target - current) * alpha;
+      currentFrameRef.current = Math.abs(target - next) <= 0.002 ? target : next;
 
       const frameToDraw = Math.min(
         totalFrames,
         Math.max(1, Math.round(currentFrameRef.current))
       );
 
-      // Redraw whenever the target frame changes or canvas resized or fallback upgraded
-      if (frameToDraw !== lastDrawnFrameRef.current || needsResizeRef.current) {
-        renderFrame(frameToDraw);
-        needsResizeRef.current = false;
-
-        if (activeFrameSpanRef.current) {
-          activeFrameSpanRef.current.textContent = formatFrameIndex(frameToDraw);
-        }
+      renderFrame(frameToDraw);
+      needsResizeRef.current = false;
+      if (activeFrameSpanRef.current) {
+        activeFrameSpanRef.current.textContent = String(frameToDraw).padStart(3, "0");
       }
+      if (currentFrameRef.current !== target) schedule();
+      else previousTime = null;
+    }
 
-      animId = requestAnimationFrame(tick);
-      rafIdRef.current = animId;
+    requestRenderRef.current = schedule;
+    const onVisibilityChange = () => {
+      if (document.hidden) stop();
+      else schedule();
     };
-
-    animId = requestAnimationFrame(tick);
-    rafIdRef.current = animId;
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    schedule();
 
     return () => {
-      cancelAnimationFrame(animId);
+      disposed = true;
+      requestRenderRef.current = () => {};
+      stop();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
-  }, [totalFrames, renderFrame]);
+  }, [basePath, totalFrames, renderFrame]);
 
   return (
     <div
       ref={containerRef}
+      data-canvas-benchmark="scroll-sequence"
       className={`relative w-full h-[450vh] bg-[#060503] text-zinc-100 ${className}`}
       style={{ touchAction: "pan-y" }}
     >

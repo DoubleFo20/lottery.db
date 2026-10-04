@@ -7,7 +7,10 @@
     "build": "npm run prep:3d && npm run build:3d",
     "prep:3d": "node scripts/prep-3d-data.js",
     "build:3d": "node scripts/build-3d.js",
-    "test": "node scripts/prep-3d-data.js"
+    "test": "node scripts/prep-3d-data.js",
+    "test:canvas": "node scripts/stress-3d-canvas.js",
+    "test:canvas:lifecycle": "node scripts/test-canvas-lifecycle.js",
+    "test:canvas:legacy": "node scripts/stress-3d-canvas-legacy.js"
   },
   "keywords": [
     "lottery",
@@ -17,5 +20,8 @@
     "github-pages"
   ],
   "author": "DoubleFo20",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "puppeteer-core": "^25.12.0"
+  }
 }
