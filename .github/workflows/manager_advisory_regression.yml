@@ -1,0 +1,40 @@
+name: Manager Advisory Regression
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/manager.html'
+      - '**/miss_advisory.js'
+      - 'scripts/*advisory*.js'
+      - 'sw.js'
+      - 'package*.json'
+      - '.github/workflows/manager_advisory_regression.yml'
+  pull_request:
+    paths:
+      - '**/manager.html'
+      - '**/miss_advisory.js'
+      - 'scripts/*advisory*.js'
+      - 'sw.js'
+      - 'package*.json'
+      - '.github/workflows/manager_advisory_regression.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  advisory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Verify advisory and Manager pages in Chrome
+        run: |
+          export CHROME_PATH="$(command -v google-chrome)"
+          npm run test:advisory

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lottery-ai-v1';
+const CACHE_NAME = 'lottery-ai-v2-advisory';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -33,6 +33,11 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+  // Monitoring requests must not reuse the previous draw or model configuration.
+  if (event.request.cache === 'no-store') {
+    event.respondWith(fetch(event.request));
+    return;
+  }
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {

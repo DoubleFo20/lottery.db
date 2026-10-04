@@ -6,6 +6,7 @@
 <title>AI Manager Control Center — Lottery Suite</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet"/>
 <script src="assets/live_countdown.js"></script>
+<script src="assets/miss_advisory.js"></script>
 <style>
 /* ═══════════════════════════════════════════════
    ROOT / TOKENS
@@ -884,7 +885,7 @@ async function fetchAll() {
 
   // 2. Fallback to static JSON (GitHub Pages)
   const [cacheRes, perfRes] = await Promise.all([
-    smartFetch('database/predictions/pipeline_cache.json?ts=' + Date.now()),
+    smartFetch('database/predictions/pipeline_cache.json?ts=' + Date.now(), { cache: 'no-store' }),
     smartFetch('performance.json?ts=' + Date.now()),
   ]);
 
@@ -1251,8 +1252,10 @@ function renderFullSpectrum(predict) {
 
 // ─── Consecutive Miss & Strategic Advisory ───────────
 let currentMissThreshold = 6;
+let currentMissState = { misses: null, evaluated: 0, status: 'waiting', afterDraw: null };
 
 function setConsecutiveThreshold(th) {
+  if (![3, 4, 5, 6].includes(th)) return;
   currentMissThreshold = th;
   document.querySelectorAll('.miss-chip-btn').forEach(btn => {
     btn.classList.toggle('active', parseInt(btn.dataset.th, 10) === th);
@@ -1264,8 +1267,15 @@ function renderConsecutiveMissAlert(analytics, predict) {
   const container = document.getElementById('consecutive-miss-alert-box');
   if (!container) return;
 
-  const consecutiveMissCount = 6;
-  const isAlertTriggered = consecutiveMissCount >= currentMissThreshold;
+  const consecutiveMissCount = currentMissState.misses;
+  const isAlertTriggered = currentMissState.status === 'ready' &&
+    consecutiveMissCount >= currentMissThreshold;
+  const countLabel = currentMissState.status === 'ready'
+    ? consecutiveMissCount + ' งวดติดต่อกัน'
+    : currentMissState.status === 'waiting' ? 'เริ่มรอบติดตามใหม่ • รอผลประเมิน'
+    : 'ข้อมูลไม่เพียงพอ • รอผลประเมิน';
+  const baseline = /^\d{4}-\d{2}-\d{2}$/.test(currentMissState.afterDraw || '')
+    ? currentMissState.afterDraw : '—';
 
   const streakBg = isAlertTriggered 
     ? 'background:linear-gradient(135deg,rgba(239,68,68,0.15),rgba(245,158,11,0.1));border:1px solid rgba(239,68,68,0.4);box-shadow:0 0 25px rgba(239,68,68,0.25);'
@@ -1280,10 +1290,10 @@ function renderConsecutiveMissAlert(analytics, predict) {
             <div>
               <div style="font-size:1.15rem;font-weight:700;color:${isAlertTriggered ? '#f87171' : '#38bdf8'};display:flex;align-items:center;gap:8px;">
                 ${isAlertTriggered ? 'ระบบตรวจพบ AI ไม่ถูกรางวัลต่อเนื่อง (Consecutive Draw Miss Advisory)' : 'ระบบติดตามความสม่ำเสมอของผลรางวัล (Draw Performance Tracker)'}
-                <span class="badge ${isAlertTriggered ? 'badge-bad' : 'badge-blue'}">${consecutiveMissCount} งวดติดต่อกัน</span>
+                <span class="badge ${isAlertTriggered ? 'badge-bad' : 'badge-blue'}">${countLabel}</span>
               </div>
               <div style="font-size:0.78rem;color:var(--text-dim);margin-top:3px;">
-                ระบบติดตามและประเมินสถานะเมื่อโมเดลทำนายหลุดรางวัลติดต่อกัน เพื่อแจ้งเตือนปรับปรุงแผนกลยุทธ์
+                ติดตามรอบปัจจุบันหลังงวด ${baseline} • รีเซตอัตโนมัติเมื่อเปลี่ยนการตั้งค่าโมเดลหรือถูก 6 ตัวตรง • ประวัติเดิมยังคงอยู่
               </div>
             </div>
           </div>
@@ -1303,24 +1313,24 @@ function renderConsecutiveMissAlert(analytics, predict) {
       <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:10px;margin-bottom:1.2rem;">
         <div style="background:rgba(0,0,0,0.25);padding:10px 14px;border-radius:10px;border-left:3px solid #ef4444;">
           <div style="font-size:0.72rem;color:var(--text-dim);">รางวัลที่ 1 (6 ตัวตรง):</div>
-          <div style="font-size:1.15rem;font-weight:700;color:#f87171;margin-top:2px;">หลุด ${consecutiveMissCount} งวด <small style="font-size:0.7rem;color:var(--text-dim);">(1 ใน 1M)</small></div>
+          <div style="font-size:1.15rem;font-weight:700;color:${isAlertTriggered ? '#f87171' : '#38bdf8'};margin-top:2px;">${currentMissState.status === 'ready' ? 'พลาดต่อเนื่อง ' + consecutiveMissCount + ' งวด' : 'รอผลประเมินที่ตรวจสอบได้'}</div>
         </div>
         <div style="background:rgba(0,0,0,0.25);padding:10px 14px;border-radius:10px;border-left:3px solid #f59e0b;">
           <div style="font-size:0.72rem;color:var(--text-dim);">2 ตัวท้าย บน / ล่าง:</div>
-          <div style="font-size:1.15rem;font-weight:700;color:#fbbf24;margin-top:2px;">ไม่เข้าเป้า 3 งวด</div>
+          <div style="font-size:1.15rem;font-weight:700;color:#fbbf24;margin-top:2px;">ยังไม่มีผลประเมินแยกรางวัล</div>
         </div>
         <div style="background:rgba(0,0,0,0.25);padding:10px 14px;border-radius:10px;border-left:3px solid #10b981;">
           <div style="font-size:0.72rem;color:var(--text-dim);">เลขวิ่งดักทาง (Banker Digits):</div>
-          <div style="font-size:1.15rem;font-weight:700;color:#34d399;margin-top:2px;">เข้าเป้า 4 จาก 6 งวด (ดักทางได้)</div>
+          <div style="font-size:1.15rem;font-weight:700;color:#34d399;margin-top:2px;">ยังไม่มีผลประเมินแยกรางวัล</div>
         </div>
         <div style="background:rgba(0,0,0,0.25);padding:10px 14px;border-radius:10px;border-left:3px solid #388bff;">
           <div style="font-size:0.72rem;color:var(--text-dim);">สถานะความเสี่ยงพอร์ต:</div>
-          <div style="font-size:1.15rem;font-weight:700;color:#38bdf8;margin-top:2px;">เฝ้าระวังระดับสูง (High Alert)</div>
+          <div style="font-size:1.15rem;font-weight:700;color:#38bdf8;margin-top:2px;">${isAlertTriggered ? 'แจ้งเตือนตามผลประเมิน (High Alert)' : 'กำลังติดตาม • ไม่มีการแจ้งเตือน'}</div>
         </div>
       </div>
 
       <!-- Actionable Strategic Recommendations -->
-      <div style="background:rgba(0,0,0,0.3);border:1px solid rgba(245,158,11,0.25);border-radius:12px;padding:1.1rem;margin-bottom:1.2rem;">
+      <div style="display:${isAlertTriggered ? 'block' : 'none'};background:rgba(0,0,0,0.3);border:1px solid rgba(245,158,11,0.25);border-radius:12px;padding:1.1rem;margin-bottom:1.2rem;">
         <div style="font-size:0.85rem;font-weight:700;color:#fbbf24;margin-bottom:8px;display:flex;align-items:center;gap:6px;">
           <span>💡</span> ข้อเสนอแนะเชิงกลยุทธ์: แผนการที่ควรปรับหรือเพิ่มทันที
         </div>
@@ -1334,7 +1344,7 @@ function renderConsecutiveMissAlert(analytics, predict) {
       </div>
 
       <!-- One-Click Copy Prompt Button for Agent -->
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:rgba(56,139,255,0.06);padding:0.9rem 1.2rem;border-radius:10px;border:1px dashed rgba(56,139,255,0.3);">
+      <div style="display:${isAlertTriggered ? 'flex' : 'none'};justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:rgba(56,139,255,0.06);padding:0.9rem 1.2rem;border-radius:10px;border:1px dashed rgba(56,139,255,0.3);">
         <div style="font-size:0.76rem;color:var(--text-dim);max-width:550px;">
           🤖 <strong>ส่งต่อให้ AI Agent:</strong> กดปุ่มด้านขวาเพื่อคัดลอกคำสั่งพร้อม Action Plan นำไปวางในแชทให้ Agent เริ่มวางแผนและแก้ไขโค้ดได้ทันที
         </div>
@@ -1348,7 +1358,11 @@ function renderConsecutiveMissAlert(analytics, predict) {
 }
 
 function copyAgentActionPrompt(streak) {
-  const s = streak || 6;
+  const s = currentMissState.misses;
+  if (currentMissState.status !== 'ready' || !Number.isInteger(s) || s < currentMissThreshold) {
+    showToast('ยังไม่มีการแจ้งเตือนจากผลประเมินที่ตรวจสอบได้', false);
+    return;
+  }
   const promptText = `ตรวจพบโมเดลสลากกินแบ่ง AI หลุดรางวัลติดต่อกัน ${s} งวด (Dry Spell Alert: ${s} Consecutive Misses)
 ต้องการให้ Agent ดำเนินการวางแผนและปรับปรุงระบบตามแผนยุทธศาสตร์ 5 ข้อ ดังนี้:
 
@@ -1378,6 +1392,9 @@ async function loadAll() {
     const { analytics, predict } = await fetchAll();
     window._lastAnalytics = analytics;
     window._lastPredict = predict;
+    let advisoryStorage = null;
+    try { advisoryStorage = window.localStorage; } catch { /* tracking remains available without storage */ }
+    currentMissState = await LotteryMissAdvisory.load(smartFetch, predict, advisoryStorage);
 
     renderCountdownAndLatestResults(predict);
     renderFullSpectrum(predict);

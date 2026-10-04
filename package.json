@@ -10,7 +10,8 @@
     "test": "node scripts/prep-3d-data.js",
     "test:canvas": "node scripts/stress-3d-canvas.js",
     "test:canvas:lifecycle": "node scripts/test-canvas-lifecycle.js",
-    "test:canvas:legacy": "node scripts/stress-3d-canvas-legacy.js"
+    "test:canvas:legacy": "node scripts/stress-3d-canvas-legacy.js",
+    "test:advisory": "node --test scripts/test-miss-advisory.js && node scripts/test-manager-advisory-browser.js"
   },
   "keywords": [
     "lottery",

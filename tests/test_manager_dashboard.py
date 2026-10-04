@@ -32,6 +32,11 @@ def test_manager_html_dom_elements():
     
     # 1. Scripts
     assert "assets/live_countdown.js" in content, "Must include live_countdown.js"
+    assert "assets/miss_advisory.js" in content
+    assert "const consecutiveMissCount = 6" not in content
+    assert "ไม่เข้าเป้า 3 งวด" not in content
+    assert "เข้าเป้า 4 จาก 6 งวด" not in content
+    assert "LotteryMissAdvisory.load" in content
     
     # 2. Countdown and Results
     assert "manager-countdown-timer" in content, "Must contain manager-countdown-timer"
@@ -55,6 +60,12 @@ def test_manager_html_dom_elements():
     assert "fs-top3-box" in content, "Must contain fs-top3-box"
     assert "fs-banker-digits" in content, "Must contain fs-banker-digits"
     assert "renderFullSpectrum" in content, "Must contain renderFullSpectrum function"
+
+
+def test_advisory_script_mirror_parity():
+    assert (REPO_ROOT / "assets/miss_advisory.js").read_bytes() == (
+        REPO_ROOT / "dashboard/assets/miss_advisory.js"
+    ).read_bytes()
 
 
 def test_consecutive_miss_prompt_contents():
