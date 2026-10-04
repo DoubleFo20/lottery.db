@@ -1,6 +1,29 @@
+# Virtual Environments & Python Cache
 .venv/
 __pycache__/
 *.pyc
 .pytest_cache/
+.ruff_cache/
 *.db
 .env
+
+# Dependencies & Build Output
+node_modules/
+*/node_modules/
+.next/
+*/.next/
+dist/
+build/
+*.zip
+
+# Redundant Asset Caches & Heavy Raw PNGs (WebP canonical in Git)
+public/frames/*.png
+video-generator/public/
+
+# Temporary Agent Workspace & Tools Cache
+.aider-desk/
+ORIGINAL_REQUEST.md
+.agents/ORIGINAL_REQUEST.md
+.agents/orchestrator_*/
+.agents/sentinel_*/
+.agents/teamwork_preview_*/

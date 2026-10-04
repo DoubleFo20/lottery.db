@@ -454,14 +454,14 @@
         "surge_ratio": 3.23
       },
       {
-        "sequence": "30",
+        "sequence": "63",
         "recent_count": 3,
         "recent_freq": 0.03,
         "baseline_freq": 0.0097,
         "surge_ratio": 3.08
       },
       {
-        "sequence": "63",
+        "sequence": "30",
         "recent_count": 3,
         "recent_freq": 0.03,
         "baseline_freq": 0.0097,
@@ -489,7 +489,7 @@
         "surge_ratio": 2.82
       },
       {
-        "sequence": "73",
+        "sequence": "77",
         "recent_count": 3,
         "recent_freq": 0.03,
         "baseline_freq": 0.0111,
@@ -505,35 +505,28 @@
         "surge_ratio": 22.6
       },
       {
-        "sequence": "638",
+        "sequence": "701",
         "recent_count": 1,
         "recent_freq": 0.0125,
         "baseline_freq": 0.0006,
         "surge_ratio": 22.6
       },
       {
-        "sequence": "878",
+        "sequence": "615",
         "recent_count": 1,
         "recent_freq": 0.0125,
         "baseline_freq": 0.0006,
         "surge_ratio": 22.6
       },
       {
-        "sequence": "009",
+        "sequence": "897",
         "recent_count": 1,
         "recent_freq": 0.0125,
         "baseline_freq": 0.0006,
         "surge_ratio": 22.6
       },
       {
-        "sequence": "479",
-        "recent_count": 1,
-        "recent_freq": 0.0125,
-        "baseline_freq": 0.0006,
-        "surge_ratio": 22.6
-      },
-      {
-        "sequence": "173",
+        "sequence": "270",
         "recent_count": 1,
         "recent_freq": 0.0125,
         "baseline_freq": 0.0006,
@@ -547,7 +540,14 @@
         "surge_ratio": 22.6
       },
       {
-        "sequence": "897",
+        "sequence": "479",
+        "recent_count": 1,
+        "recent_freq": 0.0125,
+        "baseline_freq": 0.0006,
+        "surge_ratio": 22.6
+      },
+      {
+        "sequence": "878",
         "recent_count": 1,
         "recent_freq": 0.0125,
         "baseline_freq": 0.0006,
@@ -1400,7 +1400,7 @@
         }
       }
     ],
-    "explained_at": "2026-10-01T14:37:36.035761",
+    "explained_at": "2026-10-05T01:51:37.415638",
     "ensemble_confidence": 100.0
   },
   "meta": {
@@ -1416,7 +1416,7 @@
       "beam": 5,
       "window": 50
     },
-    "processing_at": "2026-10-01T14:37:36.037047",
+    "processing_at": "2026-10-05T01:51:37.421888",
     "api_version": "1.0"
   }
 }
