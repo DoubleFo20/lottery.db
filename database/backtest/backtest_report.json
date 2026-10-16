@@ -2,14 +2,39 @@
   "summary": {
     "mode": "ENSEMBLE MODEL",
     "model_version": "EnsemblePredictor-v2.1",
-    "total_draws": 10,
+    "attempted_draws": 20,
+    "successful_draws": 20,
+    "prediction_failures": 0,
+    "failure_rate_pct": 0.0,
+    "failed_draws_details": [],
+    "total_draws": 20,
+    "sample_size_positions": 120,
+    "statistical_uncertainty": {
+      "sample_size_draws": 20,
+      "sample_size_positions": 120,
+      "positional_accuracy_pct": 14.1667,
+      "wilson_ci_95": {
+        "lower_pct": 9.0369,
+        "upper_pct": 21.5195
+      },
+      "standard_error": 0.031833,
+      "hypothesis_test_vs_random_10pct": {
+        "null_hypothesis": "Positional accuracy is <= 10.0% (random baseline)",
+        "z_score": 1.5215,
+        "p_value": 0.128147,
+        "statistically_significant_at_05": false
+      },
+      "interpretation": "Do not interpret a positive lift as proof of predictive advantage. Due to high variance and inherent randomness in lottery draws, sample hit rate variations are consistent with random statistical fluctuations. Lottery outcomes are designed to be independent and uniformly random."
+    },
     "metrics_6digit": {
       "exact_matches": 0,
       "exact_match_rate": 0.0,
-      "average_digit_hits": 2.7,
-      "average_position_hits": 1.0,
-      "positional_accuracy_pct": 16.6667,
-      "expected_random_accuracy_pct": 10.0
+      "average_digit_hits": 2.6,
+      "average_position_hits": 0.85,
+      "positional_accuracy_pct": 14.1667,
+      "expected_random_accuracy_pct": 10.0,
+      "ci_95_lower_pct": 9.0369,
+      "ci_95_upper_pct": 21.5195
     },
     "metrics_2digit": {
       "top2_matches": 0,
@@ -28,13 +53,139 @@
     },
     "exact_matches": 0,
     "exact_match_rate": 0.0,
-    "average_digit_hits": 2.7,
-    "average_position_hits": 1.0,
-    "positional_accuracy_pct": 16.6667,
-    "note": "Positional accuracy = total_position_hits / (draws × 6). Random baseline expectation ≈ 10% (1/10 per digit position). Lottery outcomes are inherently unpredictable; past performance does not guarantee future hits.",
-    "run_time": "2026-10-17T00:55:16.701796"
+    "average_digit_hits": 2.6,
+    "average_position_hits": 0.85,
+    "positional_accuracy_pct": 14.1667,
+    "note": "Positional accuracy = total_position_hits / (successful_draws × 6). Random baseline expectation ≈ 10% (1/10 per digit position). Lottery outcomes are inherently unpredictable; past performance does not guarantee future hits.",
+    "run_time": "2026-10-17T02:42:00.723444"
   },
   "details": [
+    {
+      "predicted": "831867",
+      "actual": "837706",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 4,
+      "top2_match": false,
+      "last2_match": false,
+      "top3_direct": false,
+      "top3_box": false,
+      "status": "success",
+      "date": "2026-01-02",
+      "error": null
+    },
+    {
+      "predicted": "811867",
+      "actual": "878972",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "top2_match": false,
+      "last2_match": false,
+      "top3_direct": false,
+      "top3_box": false,
+      "status": "success",
+      "date": "2026-01-17",
+      "error": null
+    },
+    {
+      "predicted": "818607",
+      "actual": "174629",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 3,
+      "top2_match": false,
+      "last2_match": false,
+      "top3_direct": false,
+      "top3_box": false,
+      "status": "success",
+      "date": "2026-02-01",
+      "error": null
+    },
+    {
+      "predicted": "818605",
+      "actual": "340563",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 3,
+      "top2_match": false,
+      "last2_match": false,
+      "top3_direct": false,
+      "top3_box": false,
+      "status": "success",
+      "date": "2026-02-16",
+      "error": null
+    },
+    {
+      "predicted": "943417",
+      "actual": "820866",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 0,
+      "top2_match": false,
+      "last2_match": false,
+      "top3_direct": false,
+      "top3_box": false,
+      "status": "success",
+      "date": "2026-03-01",
+      "error": null
+    },
+    {
+      "predicted": "880397",
+      "actual": "833009",
+      "exact_match": false,
+      "position_hits": 1,
+      "digit_hits": 4,
+      "top2_match": false,
+      "last2_match": false,
+      "top3_direct": false,
+      "top3_box": false,
+      "status": "success",
+      "date": "2026-03-16",
+      "error": null
+    },
+    {
+      "predicted": "811863",
+      "actual": "292514",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "top2_match": false,
+      "last2_match": false,
+      "top3_direct": false,
+      "top3_box": false,
+      "status": "success",
+      "date": "2026-04-01",
+      "error": null
+    },
+    {
+      "predicted": "815867",
+      "actual": "309612",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 2,
+      "top2_match": false,
+      "last2_match": false,
+      "top3_direct": false,
+      "top3_box": false,
+      "status": "success",
+      "date": "2026-04-16",
+      "error": null
+    },
+    {
+      "predicted": "456907",
+      "actual": "536077",
+      "exact_match": false,
+      "position_hits": 2,
+      "digit_hits": 4,
+      "top2_match": false,
+      "last2_match": false,
+      "top3_direct": false,
+      "top3_box": false,
+      "status": "success",
+      "date": "2026-05-02",
+      "error": null
+    },
     {
       "predicted": "811767",
       "actual": "107387",
@@ -45,7 +196,9 @@
       "last2_match": false,
       "top3_direct": false,
       "top3_box": false,
-      "date": "2026-05-16"
+      "status": "success",
+      "date": "2026-05-16",
+      "error": null
     },
     {
       "predicted": "206377",
@@ -57,7 +210,9 @@
       "last2_match": false,
       "top3_direct": false,
       "top3_box": false,
-      "date": "2026-06-01"
+      "status": "success",
+      "date": "2026-06-01",
+      "error": null
     },
     {
       "predicted": "207867",
@@ -69,7 +224,9 @@
       "last2_match": false,
       "top3_direct": false,
       "top3_box": false,
-      "date": "2026-06-16"
+      "status": "success",
+      "date": "2026-06-16",
+      "error": null
     },
     {
       "predicted": "810397",
@@ -81,7 +238,9 @@
       "last2_match": false,
       "top3_direct": false,
       "top3_box": false,
-      "date": "2026-07-01"
+      "status": "success",
+      "date": "2026-07-01",
+      "error": null
     },
     {
       "predicted": "836704",
@@ -93,7 +252,9 @@
       "last2_match": false,
       "top3_direct": false,
       "top3_box": false,
-      "date": "2026-07-16"
+      "status": "success",
+      "date": "2026-07-16",
+      "error": null
     },
     {
       "predicted": "206372",
@@ -105,7 +266,9 @@
       "last2_match": false,
       "top3_direct": false,
       "top3_box": false,
-      "date": "2026-08-01"
+      "status": "success",
+      "date": "2026-08-01",
+      "error": null
     },
     {
       "predicted": "810377",
@@ -117,7 +280,9 @@
       "last2_match": false,
       "top3_direct": false,
       "top3_box": false,
-      "date": "2026-08-16"
+      "status": "success",
+      "date": "2026-08-16",
+      "error": null
     },
     {
       "predicted": "207867",
@@ -129,7 +294,9 @@
       "last2_match": false,
       "top3_direct": false,
       "top3_box": false,
-      "date": "2026-09-01"
+      "status": "success",
+      "date": "2026-09-01",
+      "error": null
     },
     {
       "predicted": "831372",
@@ -141,7 +308,9 @@
       "last2_match": false,
       "top3_direct": false,
       "top3_box": false,
-      "date": "2026-09-16"
+      "status": "success",
+      "date": "2026-09-16",
+      "error": null
     },
     {
       "predicted": "830386",
@@ -153,7 +322,23 @@
       "last2_match": false,
       "top3_direct": false,
       "top3_box": false,
-      "date": "2026-10-01"
+      "status": "success",
+      "date": "2026-10-01",
+      "error": null
+    },
+    {
+      "predicted": "256904",
+      "actual": "011781",
+      "exact_match": false,
+      "position_hits": 0,
+      "digit_hits": 1,
+      "top2_match": false,
+      "last2_match": false,
+      "top3_direct": false,
+      "top3_box": false,
+      "status": "success",
+      "date": "2026-10-16",
+      "error": null
     }
   ]
 }

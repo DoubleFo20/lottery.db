@@ -38,8 +38,13 @@ Dashboards (4 mirrors) ◄─────── dynamic binding (no hardcoded 64
 
 ### 3. Backtest Engine Real Model & Multi-Tier Metrics
 - **File Changed:** `analytics/backtest_engine.py`
-- **Before:** Evaluated only 6-digit positions using single metric; lacked 2-digit and 3-digit separate tracking.
-- **After:** `score_prediction()` and `run_backtest()` now evaluate 6-digit Jackpot, 2-digit Top/Last2, and 3-digit Direct/Box permutations separately. Normalization formula verified as `total_pos_hits / (total_draws * 6)`. Generated `database/backtest/comparative_report.json` with empirical random baseline comparison.
+- **Before:** Evaluated only 6-digit positions using single metric; lacked 2-digit and 3-digit separate tracking; silently fell back to `_random_prediction()` on predictor exceptions.
+- **After:**
+  1. **Zero Random Fallback:** When `_predict_with_ensemble()` fails, the failure is reported explicitly, tracked in `prediction_failures` and `failed_draws_details`, and never masked with random numbers.
+  2. **Multi-Tier Metrics:** `score_prediction()` and `run_backtest()` evaluate 6-digit Jackpot, 2-digit Top/Last2, and 3-digit Direct/Box permutations separately. Normalization formula: `total_pos_hits / (successful_draws * 6)`.
+  3. **Repeated Baseline Trials with Fixed Seed:** `run_comparative_backtest()` runs multiple random baseline trials with `--seed 42` to compute empirical mean, standard deviation, and 95% confidence intervals.
+  4. **Statistical Uncertainty & Hypothesis Testing:** Calculates Wilson Score 95% Confidence Intervals, two-tailed Z-tests, and p-values against theoretical and empirical random baselines.
+  5. **Explicit Scientific Disclaimers:** Clarifies that slight positive lifts in finite samples do NOT constitute proof of an exploitable predictive edge in independent random lottery draws.
 
 ### 4. Performance History Deduplication
 - **Files Changed:** `database/predictions/prediction_history.json`, `performance.json`
@@ -58,20 +63,26 @@ Dashboards (4 mirrors) ◄─────── dynamic binding (no hardcoded 64
 
 ### 7. New Automated Test Suite
 - **File Added:** `tests/test_data_integrity_and_backtest.py`
-- 7 new tests covering ground truth integrity, `read_dataset_summary()`, prediction history deduplication, honest performance metrics, multi-tier backtest scoring, and dashboard ground truth consistency.
+- 10 comprehensive tests covering ground truth integrity, `read_dataset_summary()`, prediction history deduplication, honest performance metrics, multi-tier backtest scoring, intentional predictor failure error handling (verifying zero random fallback), Wilson score confidence intervals, and comparative random baseline reproducibility.
 
 ---
 
 ## 3. Verification Commands for Auditor
 
 ```bash
-# 1. Run all Python unit and integration tests (expect: 229 passed)
+# 1. Run all Python unit and integration tests (expect: 232 passed)
 python -m pytest tests/
 
-# 2. Verify 3D build and data generation
+# 2. Run Puppeteer browser advisory regression test
+npm run test:advisory
+
+# 3. Verify 3D build and data generation
 npm run build
 
-# 3. Verify git status is clean on feature branch
+# 4. Run comparative backtest with repeated random baseline trials
+python analytics/backtest_engine.py --compare --draws 20 --trials 5 --seed 42
+
+# 5. Verify git status is clean on feature branch
 git status
 ```
 

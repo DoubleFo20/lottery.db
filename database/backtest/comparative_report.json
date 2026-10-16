@@ -1,35 +1,104 @@
 {
   "ensemble": {
     "mode": "ENSEMBLE MODEL",
-    "total_draws": 10,
+    "model_version": "EnsemblePredictor-v2.1",
+    "attempted_draws": 20,
+    "successful_draws": 20,
+    "prediction_failures": 0,
+    "failure_rate_pct": 0.0,
+    "failed_draws_details": [],
+    "total_draws": 20,
+    "sample_size_positions": 120,
+    "statistical_uncertainty": {
+      "sample_size_draws": 20,
+      "sample_size_positions": 120,
+      "positional_accuracy_pct": 14.1667,
+      "wilson_ci_95": {
+        "lower_pct": 9.0369,
+        "upper_pct": 21.5195
+      },
+      "standard_error": 0.031833,
+      "hypothesis_test_vs_random_10pct": {
+        "null_hypothesis": "Positional accuracy is <= 10.0% (random baseline)",
+        "z_score": 1.5215,
+        "p_value": 0.128147,
+        "statistically_significant_at_05": false
+      },
+      "interpretation": "Do not interpret a positive lift as proof of predictive advantage. Due to high variance and inherent randomness in lottery draws, sample hit rate variations are consistent with random statistical fluctuations. Lottery outcomes are designed to be independent and uniformly random."
+    },
+    "metrics_6digit": {
+      "exact_matches": 0,
+      "exact_match_rate": 0.0,
+      "average_digit_hits": 2.6,
+      "average_position_hits": 0.85,
+      "positional_accuracy_pct": 14.1667,
+      "expected_random_accuracy_pct": 10.0,
+      "ci_95_lower_pct": 9.0369,
+      "ci_95_upper_pct": 21.5195
+    },
+    "metrics_2digit": {
+      "top2_matches": 0,
+      "top2_match_rate_pct": 0.0,
+      "expected_top2_random_pct": 1.0,
+      "last2_matches": 0,
+      "last2_match_rate_pct": 0.0
+    },
+    "metrics_3digit": {
+      "top3_direct_matches": 0,
+      "top3_direct_rate_pct": 0.0,
+      "expected_top3_direct_random_pct": 0.1,
+      "top3_box_matches": 0,
+      "top3_box_rate_pct": 0.0,
+      "expected_top3_box_random_pct": 0.6
+    },
     "exact_matches": 0,
     "exact_match_rate": 0.0,
-    "average_digit_hits": 2.7,
-    "average_position_hits": 1.0,
-    "positional_accuracy_pct": 16.6667,
-    "note": "Positional accuracy = total_position_hits / (draws × 6). Random baseline expectation ≈ 10% (1/10 per digit position). Lottery outcomes are inherently unpredictable.",
-    "run_time": "2026-10-17T00:54:06.879428"
+    "average_digit_hits": 2.6,
+    "average_position_hits": 0.85,
+    "positional_accuracy_pct": 14.1667,
+    "note": "Positional accuracy = total_position_hits / (successful_draws × 6). Random baseline expectation ≈ 10% (1/10 per digit position). Lottery outcomes are inherently unpredictable; past performance does not guarantee future hits.",
+    "run_time": "2026-10-17T02:40:23.803001"
   },
   "random_baseline": {
-    "mode": "RANDOM BASELINE",
-    "total_draws": 10,
-    "exact_matches": 0,
-    "exact_match_rate": 0.0,
-    "average_digit_hits": 2.5,
-    "average_position_hits": 0.7,
-    "positional_accuracy_pct": 11.6667,
-    "note": "Positional accuracy = total_position_hits / (draws × 6). Random baseline expectation ≈ 10% (1/10 per digit position). Lottery outcomes are inherently unpredictable.",
-    "run_time": "2026-10-17T00:54:06.882418"
+    "mode": "RANDOM BASELINE (5 repeated trials, seed=42)",
+    "trials_count": 5,
+    "mean_positional_accuracy_pct": 11.0,
+    "std_positional_accuracy_pct": 0.6972,
+    "ci_95_pct": {
+      "lower_pct": 10.3888,
+      "upper_pct": 11.6112
+    },
+    "mean_digit_hits": 2.36,
+    "mean_pos_hits": 0.66,
+    "expected_theoretical_accuracy_pct": 10.0
   },
   "comparison": {
-    "ensemble_avg_pos_hits": 1.0,
-    "random_avg_pos_hits": 0.7,
-    "ensemble_accuracy_pct": 16.6667,
-    "random_accuracy_pct": 11.6667,
-    "ensemble_avg_dig_hits": 2.7,
-    "random_avg_dig_hits": 2.5,
-    "lift_over_random_pct": 5.0,
-    "interpretation": "Positive lift = model captures some signal above chance. Near-zero or negative lift = no reliable predictive edge. Lottery draws are designed to be uniformly random."
+    "ensemble_avg_pos_hits": 0.85,
+    "random_avg_pos_hits": 0.66,
+    "ensemble_accuracy_pct": 14.1667,
+    "random_accuracy_pct": 11.0,
+    "ensemble_avg_dig_hits": 2.6,
+    "random_avg_dig_hits": 2.36,
+    "lift_over_random_pct": 3.1667,
+    "random_baseline_std": 0.6972,
+    "random_baseline_ci_95": {
+      "lower_pct": 10.3888,
+      "upper_pct": 11.6112
+    },
+    "random_trials_count": 5,
+    "hypothesis_test_vs_empirical_random": {
+      "null_hypothesis": "Ensemble positional accuracy equals empirical random baseline mean",
+      "z_score": 0.99,
+      "p_value": 0.322151,
+      "statistically_significant_at_05": false
+    },
+    "disclaimer": "Do not interpret a positive lift as proof of predictive advantage. Due to high variance and inherent randomness in lottery draws, sample hit rate variations are consistent with random statistical fluctuations. Lottery outcomes are designed to be independent and uniformly random."
   },
-  "timestamp": "2026-10-17T00:54:06.882418"
+  "sample_size": {
+    "attempted_draws": 20,
+    "successful_draws": 20,
+    "failures_count": 0,
+    "failure_rate_pct": 0.0
+  },
+  "timestamp": "2026-10-17T02:40:23.832645"
 }

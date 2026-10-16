@@ -122,10 +122,84 @@ def test_backtest_engine_walk_forward_execution():
 
 
 def test_dashboards_latest_result_ground_truth_consistency():
-    """Verify manager.html, index.html, and strategy.html all reflect the 1 Oct 2026 draw."""
+    """Verify manager.html, index.html, and strategy.html all reflect the 16 Oct 2026 draw."""
     for filename in ["manager.html", "index.html", "strategy.html"]:
         path = REPO_ROOT / filename
         content = path.read_text(encoding="utf-8")
         assert "011781" in content, f"{filename} missing latest first prize 011781"
         assert "48" in content, f"{filename} missing latest last-2 48"
         assert "16 ต.ค. 2569" in content, f"{filename} missing latest draw date 16 ต.ค. 2569"
+
+
+def test_backtest_predictor_failure_handling_no_random_fallback(monkeypatch):
+    """
+    CRITICAL: Verify that when the real predictor fails:
+    1. The failure is recorded explicitly in prediction_failures and failed_draws_details.
+    2. NO random number fallback is silently substituted into model metrics.
+    3. Failed draws have predicted=None and status='failed'.
+    """
+    import analytics.backtest_engine as bte
+
+    # Spy on _random_prediction to ensure it is NEVER called during ensemble failure
+    random_called = []
+    original_random = bte._random_prediction
+
+    def mock_random():
+        random_called.append(True)
+        return original_random()
+
+    def mock_failing_predictor(history_rows, top_k=1):
+        raise RuntimeError("Intentional predictor crash for testing error handling")
+
+    monkeypatch.setattr(bte, "_random_prediction", mock_random)
+    monkeypatch.setattr(bte, "_predict_with_ensemble", mock_failing_predictor)
+
+    res = bte.run_backtest(max_draws=3, use_random_only=False)
+
+    assert res["prediction_failures"] == 3, "All 3 draws must be recorded as failures"
+    assert res["failure_rate_pct"] == 100.0, "Failure rate must be 100%"
+    assert res["successful_draws"] == 0, "Successful draws must be 0"
+    assert len(res["failed_draws_details"]) == 3, "Must capture error details for all 3 failed draws"
+    assert all("Intentional predictor crash" in d["error"] for d in res["failed_draws_details"])
+
+    # Verify no random fallback was invoked
+    assert len(random_called) == 0, "Must NEVER call random fallback when predictor fails!"
+
+    # Verify detail rows
+    for draw in res["draws_evaluated"]:
+        assert draw["status"] == "failed"
+        assert draw["predicted"] is None
+        assert draw["position_hits"] == 0
+        assert draw["exact_match"] is False
+
+
+def test_backtest_statistical_uncertainty_and_confidence_interval():
+    """Verify Wilson score interval and two-tailed p-value calculation."""
+    from analytics.backtest_engine import compute_wilson_ci, calc_two_tailed_p_value
+
+    ci = compute_wilson_ci(10, 100, confidence=0.95)
+    assert ci["point_estimate_pct"] == 10.0
+    assert 5.0 < ci["ci_lower_pct"] < 10.0
+    assert 10.0 < ci["ci_upper_pct"] < 18.0
+
+    # Z = 1.96 should produce two-tailed p ~ 0.05
+    p_val = calc_two_tailed_p_value(1.95996)
+    assert abs(p_val - 0.05) < 0.001
+
+
+def test_comparative_backtest_repeated_trials_and_seed_reproducibility():
+    """Verify comparative backtest runs repeated random trials with disclaimer and seed reproducibility."""
+    from analytics.backtest_engine import run_comparative_backtest
+
+    res1 = run_comparative_backtest(max_draws=2, random_trials=3, random_seed=42)
+    res2 = run_comparative_backtest(max_draws=2, random_trials=3, random_seed=42)
+
+    # Identical seed produces identical random baseline mean
+    assert res1["random_baseline"]["mean_positional_accuracy_pct"] == res2["random_baseline"]["mean_positional_accuracy_pct"]
+    assert res1["random_baseline"]["trials_count"] == 3
+
+    # Verification of explicit scientific disclaimer
+    disclaimer = res1["comparison"]["disclaimer"]
+    assert "Do not interpret a positive lift as proof of predictive advantage" in disclaimer
+    assert "inherent randomness in lottery draws" in disclaimer
+

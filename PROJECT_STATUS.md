@@ -24,9 +24,11 @@
 - **Localization:** Populated `i18n/th.json` and `i18n/en.json` from empty 0-byte placeholders to complete UI dictionaries.
 
 ### 1.3 Scientifically Evaluated Prediction & Backtesting
-- **Multi-Tier Backtest:** `analytics/backtest_engine.py` evaluates 6-digit Jackpot, 2-digit Top/Last2, and 3-digit Direct/Box permutations separately.
-- **Empirical Baseline:** Generated `database/backtest/comparative_report.json` showing empirical random baseline comparison.
-- **Honest Labeling:** Disclaimed that high relative scores represent heuristic ranking rather than guaranteed outcome probabilities.
+- **Zero Random Fallback:** `analytics/backtest_engine.py` completely eliminated random fallback during model prediction failure. Failures are tracked explicitly (`prediction_failures`, `failure_rate_pct`, `failed_draws_details`) and never masked with random numbers.
+- **Repeated Baseline Trials:** Evaluates multiple random baseline trials with fixed seed (`--seed 42`), computing empirical mean, standard deviation, and 95% confidence intervals.
+- **Statistical Uncertainty:** Computes 95% Wilson Score Confidence Intervals and hypothesis testing (two-tailed Z-test, p-value) against theoretical and empirical chance.
+- **Multi-Tier Backtest:** Evaluates 6-digit Jackpot, 2-digit Top/Last2, and 3-digit Direct/Box permutations separately across configurable walk-forward windows (e.g. 20, 50, or all eligible historical draws).
+- **Explicit Disclaimers:** Explicitly states that positive lift does NOT constitute proof of an exploitable predictive edge in independent random draws.
 
 ### 1.4 Code Cleanup & Dead Code Removal
 - Removed 4 zero-byte placeholder files:
@@ -39,6 +41,8 @@
 ---
 
 ## 2. Test Verification
-- Existing test suite + new data integrity & backtest suite: **229 / 229 passed** (`pytest tests/`).
+- Existing test suite + new data integrity & backtest suite: **232 / 232 passed** (`pytest tests/`).
 - 3D assets build: **Clean** (`npm run build`).
 - Dashboard SHA-256 parity: **100% matched across all mirrors**.
+- Full Puppeteer browser advisory suite: **PASS** (`npm run test:advisory`).
+- Canvas lifecycle tests: **PASS** (`npm run test:canvas:lifecycle`).

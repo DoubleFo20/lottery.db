@@ -22,6 +22,9 @@
 
 ## Phase 2: Prediction Model Evaluation
 - [x] Extend `analytics/backtest_engine.py` to evaluate 6-digit, last-2, and 3-digit metrics separately.
+- [x] Eliminate random fallback on predictor failure: explicitly record `prediction_failures` and error details without polluting accuracy.
+- [x] Implement repeated random baseline trials with fixed seeds (`--seed 42`), empirical standard deviation, and confidence intervals.
+- [x] Compute 95% Wilson Score Confidence Intervals and hypothesis testing (Z-score, two-tailed p-value).
 - [x] Calibrate confidence labels (distinguish relative score rank vs. true outcome probability).
 - [x] Run comparative walk-forward backtest against empirical random baseline (`database/backtest/comparative_report.json`).
 
@@ -34,9 +37,10 @@
 ## Phase 4: Optimization & Code Quality
 - [x] Delete 4 zero-byte dead placeholder files (`backend/api/history.php`, `backend/api/statistics.php`, `database/api/history.php`, `database/api/statistics.php`).
 - [x] Replace broken `database/api/predict.php` with clean forwarding shim to canonical `api/predict.php`.
-- [x] Add unit test suite `tests/test_data_integrity_and_backtest.py` covering ground truth, deduplication, backtest metrics, and dashboard parity.
+- [x] Add unit test suite `tests/test_data_integrity_and_backtest.py` covering ground truth, deduplication, backtest metrics, intentional predictor failures, and dashboard parity.
 - [x] Rebuild 3D assets (`npm run build`).
 
 ## Phase 5: Verification & Release
-- [x] Full regression test suite passing: **229 / 229 passed**.
+- [x] Full regression test suite passing: **232 / 232 passed**.
+- [x] Puppeteer browser integration passing: `npm run test:advisory`.
 - [x] Verify identical ground truth across all dashboards (`index.html`, `strategy.html`, `manager.html`, `performance.html`, `3d.html`).
