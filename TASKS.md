@@ -13,12 +13,12 @@
 - [x] Document root cause of hardcoded 64 in `manager.html` and stale data in `index.html`.
 
 ## Phase 1: Data & Core Correctness
-- [x] Regenerate `lottery_features.csv` and `lottery_temporal_features.csv` to 472 rows.
+- [x] Regenerate `lottery_features.csv` and `lottery_temporal_features.csv` to 473 rows (including latest draw 2026-10-16).
 - [x] Update `api/run_pipeline.py:read_dataset_summary()` to include `last2`, `front3`, and `back3`.
 - [x] Deduplicate `prediction_history.json` (remove duplicate 2026-04-01 entry).
 - [x] Re-run `analytics/performance_analyzer.py --save performance.json` to reflect deduplicated reality (evaluated: 2).
-- [x] Update `manager.html` & `dashboard/manager.html` to dynamically render `last2`, `front3`, `back3` from `meta.dataset` and remove hardcoded 64/730640 fallbacks.
-- [x] Update `index.html`, `strategy.html`, `dashboard/strategy.html`, `dashboard/index.html` fallback dataset and default UI values to 2026-10-01 (402701, 70, 791/912, 058/396).
+- [x] Update `manager.html` & `dashboard/manager.html` to dynamically render `last2`, `front3`, `back3` from `meta.dataset` and remove hardcoded 64/730640 fallbacks (verified 2026-10-16: 011781, 48).
+- [x] Update `index.html`, `strategy.html`, `dashboard/strategy.html`, `dashboard/index.html` fallback dataset and default UI values to 2026-10-16 (011781, 48, 402/392, 171/255).
 
 ## Phase 2: Prediction Model Evaluation
 - [x] Extend `analytics/backtest_engine.py` to evaluate 6-digit, last-2, and 3-digit metrics separately.

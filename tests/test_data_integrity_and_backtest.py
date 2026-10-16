@@ -31,13 +31,13 @@ def test_lottery_history_ground_truth_integrity():
 
     # Verify latest draw
     latest = reader[0]
-    assert latest["draw_date"] == "2026-10-01"
-    assert latest["first_prize"] == "402701"
-    assert latest["last2"] == "70"
-    assert latest["front3_1"] == "791"
-    assert latest["front3_2"] == "912"
-    assert latest["back3_1"] == "058"
-    assert latest["back3_2"] == "396"
+    assert latest["draw_date"] == "2026-10-16"
+    assert latest["first_prize"] == "011781"
+    assert latest["last2"] == "48"
+    assert latest["front3_1"] == "402"
+    assert latest["front3_2"] == "392"
+    assert latest["back3_1"] == "171"
+    assert latest["back3_2"] == "255"
 
 
 def test_read_dataset_summary_includes_full_prize_structure():
@@ -47,11 +47,11 @@ def test_read_dataset_summary_includes_full_prize_structure():
     summary = read_dataset_summary()
     assert isinstance(summary, dict)
     assert summary["total_draws"] >= 470
-    assert summary["latest"] == "2026-10-01"
-    assert summary["latest_number"] == "402701"
-    assert summary["last2"] == "70"
-    assert summary["front3"] == ["791", "912"]
-    assert summary["back3"] == ["058", "396"]
+    assert summary["latest"] == "2026-10-16"
+    assert summary["latest_number"] == "011781"
+    assert summary["last2"] == "48"
+    assert summary["front3"] == ["402", "392"]
+    assert summary["back3"] == ["171", "255"]
 
 
 def test_prediction_history_no_duplicates_or_fabricated_actuals():
@@ -126,6 +126,6 @@ def test_dashboards_latest_result_ground_truth_consistency():
     for filename in ["manager.html", "index.html", "strategy.html"]:
         path = REPO_ROOT / filename
         content = path.read_text(encoding="utf-8")
-        assert "402701" in content, f"{filename} missing latest first prize 402701"
-        assert "70" in content, f"{filename} missing latest last-2 70"
-        assert "1 ต.ค. 2569" in content, f"{filename} missing latest draw date 1 ต.ค. 2569"
+        assert "011781" in content, f"{filename} missing latest first prize 011781"
+        assert "48" in content, f"{filename} missing latest last-2 48"
+        assert "16 ต.ค. 2569" in content, f"{filename} missing latest draw date 16 ต.ค. 2569"

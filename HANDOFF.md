@@ -13,7 +13,7 @@
 All 8 verified issues identified in the mission brief have been resolved, verified with deterministic tests, and mirrored across all dashboard targets without breaking any existing contracts.
 
 ```
-Master History (472 draws) ───► Feature Datasets (472 rows)
+Master History (473 draws) ───► Feature Datasets (473 rows)
        │                               │
        ▼                               ▼
 api/run_pipeline.py ─────────► pipeline_cache.json (includes last2, front3, back3)
@@ -29,12 +29,12 @@ Dashboards (4 mirrors) ◄─────── dynamic binding (no hardcoded 64
 ### 1. Hardcoded Draw Result '64' in Manager Dashboard
 - **Files Changed:** `manager.html`, `dashboard/manager.html`, `api/run_pipeline.py`
 - **Before:** Lines 639-651 and 1209-1215 in `manager.html` hardcoded `730640`, `64`, `060, 521`, `266, 041`.
-- **After:** `api/run_pipeline.py:read_dataset_summary()` now exports `last2`, `front3`, and `back3` in `meta.dataset`. `renderCountdownAndLatestResults()` in `manager.html` dynamically binds these values and formats the Thai date (`1 ต.ค. 2569`). Initial HTML defaults updated to the verified 1 Oct 2026 draw (`402701`, `70`).
+- **After:** `api/run_pipeline.py:read_dataset_summary()` now exports `last2`, `front3`, and `back3` in `meta.dataset`. `renderCountdownAndLatestResults()` in `manager.html` dynamically binds these values and formats the Thai date (`16 ต.ค. 2569`). Initial HTML defaults updated to the verified 16 Oct 2026 draw (`011781`, `48`).
 
 ### 2. Stale Embedded Historical Data in Strategy & Index
 - **Files Changed:** `index.html`, `strategy.html`, `dashboard/strategy.html`, `dashboard/index.html`
 - **Before:** Static result panel, `strategy-data` JSON script, and `buildFallbackDataset()` were frozen at 16 Sep 2026 (`730640`).
-- **After:** Updated to 1 Oct 2026 (`402701`, `70`, `791, 912`, `058, 396`). All 4 mirrors maintain byte-for-byte SHA-256 parity.
+- **After:** Updated to 16 Oct 2026 (`011781`, `48`, `402, 392`, `171, 255`). All 4 mirrors maintain byte-for-byte SHA-256 parity.
 
 ### 3. Backtest Engine Real Model & Multi-Tier Metrics
 - **File Changed:** `analytics/backtest_engine.py`
