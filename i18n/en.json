@@ -1,0 +1,35 @@
+{
+  "app_title": "AI Lottery Strategy & Deep Analytics Platform",
+  "nav": {
+    "strategy": "Strategy Dashboard",
+    "manager": "AI Manager Control Center",
+    "performance": "Backtest & Performance",
+    "showcase_3d": "3D Visualizer"
+  },
+  "results": {
+    "latest_title": "Latest Official Draw Result",
+    "first_prize": "First Prize",
+    "last2": "Last 2 Digits",
+    "top2": "Top 2 Digits",
+    "front3": "Front 3 Digits",
+    "back3": "Back 3 Digits",
+    "verified": "Verified",
+    "pending": "Pending Announcement"
+  },
+  "predictions": {
+    "top_candidates": "Top Filtered Candidates",
+    "confidence": "Relative Score Rank",
+    "confidence_disclaimer": "Confidence metrics reflect heuristic scoring rank, not absolute winning probability.",
+    "full_spectrum": "Full-Spectrum Hedging Portfolio",
+    "jackpot": "6-Digit Primary Target",
+    "top2_pairs": "2-Digit Direct / Reverse Pairs",
+    "banker_digits": "Banker Running Digits (High Liquidity)"
+  },
+  "analytics": {
+    "historical_draws": "Historical Draws",
+    "odd_even": "Parity Balance",
+    "digit_sum": "Digit Sum",
+    "walk_forward_evaluation": "Walk-Forward Out-of-Sample Evaluation",
+    "random_baseline": "Measured Random Baseline"
+  }
+}

@@ -1,6 +1,11 @@
-date,actual,predicted,digit_hits,position_hits,exact_match
-2026-08-01,932479,206372,3,1,False
-2026-08-16,004615,810377,2,0,False
-2026-09-01,417212,207867,2,1,False
-2026-09-16,730640,831372,2,1,False
-2026-10-01,402701,830386,1,0,False
+date,actual,predicted,digit_hits,position_hits,exact_match,top2_match,last2_match,top3_direct,top3_box
+2026-05-16,107387,811767,4,1,False,False,False,False,False
+2026-06-01,173770,206377,4,1,False,False,False,False,False
+2026-06-16,287184,207867,3,2,False,False,False,False,False
+2026-07-01,751495,810397,3,1,False,False,False,False,False
+2026-07-16,639214,836704,3,2,False,False,False,False,False
+2026-08-01,932479,206372,3,1,False,False,False,False,False
+2026-08-16,004615,810377,2,0,False,False,False,False,False
+2026-09-01,417212,207867,2,1,False,False,False,False,False
+2026-09-16,730640,831372,2,1,False,False,False,False,False
+2026-10-01,402701,830386,1,0,False,False,False,False,False

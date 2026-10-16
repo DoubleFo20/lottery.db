@@ -1,0 +1,35 @@
+{
+  "ensemble": {
+    "mode": "ENSEMBLE MODEL",
+    "total_draws": 10,
+    "exact_matches": 0,
+    "exact_match_rate": 0.0,
+    "average_digit_hits": 2.7,
+    "average_position_hits": 1.0,
+    "positional_accuracy_pct": 16.6667,
+    "note": "Positional accuracy = total_position_hits / (draws × 6). Random baseline expectation ≈ 10% (1/10 per digit position). Lottery outcomes are inherently unpredictable.",
+    "run_time": "2026-10-17T00:54:06.879428"
+  },
+  "random_baseline": {
+    "mode": "RANDOM BASELINE",
+    "total_draws": 10,
+    "exact_matches": 0,
+    "exact_match_rate": 0.0,
+    "average_digit_hits": 2.5,
+    "average_position_hits": 0.7,
+    "positional_accuracy_pct": 11.6667,
+    "note": "Positional accuracy = total_position_hits / (draws × 6). Random baseline expectation ≈ 10% (1/10 per digit position). Lottery outcomes are inherently unpredictable.",
+    "run_time": "2026-10-17T00:54:06.882418"
+  },
+  "comparison": {
+    "ensemble_avg_pos_hits": 1.0,
+    "random_avg_pos_hits": 0.7,
+    "ensemble_accuracy_pct": 16.6667,
+    "random_accuracy_pct": 11.6667,
+    "ensemble_avg_dig_hits": 2.7,
+    "random_avg_dig_hits": 2.5,
+    "lift_over_random_pct": 5.0,
+    "interpretation": "Positive lift = model captures some signal above chance. Near-zero or negative lift = no reliable predictive edge. Lottery draws are designed to be uniformly random."
+  },
+  "timestamp": "2026-10-17T00:54:06.882418"
+}

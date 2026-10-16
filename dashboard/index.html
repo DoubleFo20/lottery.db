@@ -1135,32 +1135,32 @@
     <!-- Latest Result Box -->
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title" id="latest-result-panel-title">🏆 ผลรางวัลงวดล่าสุด (16 ก.ย. 2569)</div>
+        <div class="panel-title" id="latest-result-panel-title">🏆 ผลรางวัลงวดล่าสุด (1 ต.ค. 2569)</div>
         <div class="panel-badge" id="latest-draw-date">อ้างอิงงวดล่าสุด</div>
       </div>
       <div class="latest-result-grid">
         <div class="result-card">
           <div class="result-label">รางวัลที่ 1 (First Prize)</div>
-          <div class="result-value-big" id="res-first-prize">730640</div>
-          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">ท้าย 2 ตัวบน: <span id="res-top2" style="color:#fff;font-weight:700">40</span></div>
+          <div class="result-value-big" id="res-first-prize">402701</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">ท้าย 2 ตัวบน: <span id="res-top2" style="color:#fff;font-weight:700">01</span></div>
         </div>
         <div class="result-card">
           <div class="result-label">เลขท้าย 2 ตัวล่าง (Last 2)</div>
-          <div class="result-value-sub" id="res-last2">64</div>
+          <div class="result-value-sub" id="res-last2">70</div>
           <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">สภาพคู่/คี่: <span id="res-odd-even" style="color:#fff;font-weight:700">คู่ (Even)</span></div>
         </div>
         <div class="result-card">
           <div class="result-label">เลขหน้า 3 ตัว (Front 3)</div>
           <div class="multi-badges">
-            <span class="num-pill" id="res-front3-1">060</span>
-            <span class="num-pill" id="res-front3-2">521</span>
+            <span class="num-pill" id="res-front3-1">791</span>
+            <span class="num-pill" id="res-front3-2">912</span>
           </div>
         </div>
         <div class="result-card">
           <div class="result-label">เลขท้าย 3 ตัว (Back 3)</div>
           <div class="multi-badges">
-            <span class="num-pill" id="res-back3-1">266</span>
-            <span class="num-pill" id="res-back3-2">041</span>
+            <span class="num-pill" id="res-back3-1">058</span>
+            <span class="num-pill" id="res-back3-2">396</span>
           </div>
         </div>
       </div>
@@ -1576,13 +1576,13 @@
     "iso_target": "2026-10-01T14:30:00+07:00"
   },
   "latest_result": {
-    "date": "2026-09-16",
-    "first_prize": "730640",
-    "last2": "64",
-    "front3_1": "060",
-    "front3_2": "521",
-    "back3_1": "266",
-    "back3_2": "041"
+    "date": "2026-10-01",
+    "first_prize": "402701",
+    "last2": "70",
+    "front3_1": "791",
+    "front3_2": "912",
+    "back3_1": "058",
+    "back3_2": "396"
   },
   "predictions": {
     "top2": [
@@ -1811,6 +1811,7 @@ function parseCSV(text) {
 
 function buildFallbackDataset() {
   const base = [
+    {draw_date:"2026-10-01", first_prize:"402701", last2:"70", front3_1:"791", front3_2:"912", back3_1:"058", back3_2:"396"},
     {draw_date:"2026-09-16", first_prize:"730640", last2:"64", front3_1:"060", front3_2:"521", back3_1:"266", back3_2:"041"},
     {draw_date:"2026-09-01", first_prize:"417212", last2:"04", front3_1:"257", front3_2:"346", back3_1:"136", back3_2:"740"},
     {draw_date:"2026-08-16", first_prize:"004615", last2:"53", front3_1:"731", front3_2:"429", back3_1:"937", back3_2:"094"},

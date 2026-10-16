@@ -43,10 +43,15 @@ def read_dataset_summary():
 
     rows.sort(key=lambda row: row.get("draw_date", ""), reverse=True)
     latest = rows[0] if rows else {}
+    front3 = [latest.get("front3_1", ""), latest.get("front3_2", "")]
+    back3 = [latest.get("back3_1", ""), latest.get("back3_2", "")]
     return {
         "total_draws": len(rows),
         "latest": latest.get("draw_date"),
         "latest_number": latest.get("first_prize"),
+        "last2": latest.get("last2", ""),
+        "front3": [f for f in front3 if f],
+        "back3": [b for b in back3 if b],
     }
 
 

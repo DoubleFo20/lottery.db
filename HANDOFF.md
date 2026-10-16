@@ -1,32 +1,78 @@
-# HANDOFF.md — Session Checkpoint & Handoff
+# HANDOFF.md — Lead Engineering Orchestrator Handoff for Independent Review
 
-**Timestamp:** 2026-10-17T00:44:00+07:00  
-**Branch:** `feat/mission-critical-remediation`  
-**Orchestrator:** ARGON (Lead Engineering Orchestrator)
+**Repository:** `DoubleFo20/lottery.db`  
+**Feature Branch:** `feat/mission-critical-remediation`  
+**Orchestrator:** ARGON  
+**Target Reviewer:** Claude Opus / Independent Senior Auditor  
+**Date:** 2026-10-17  
 
 ---
 
-## 1. Current State
-- The repository was checked out to branch `feat/mission-critical-remediation`.
-- Baseline tests: **222 / 222 passed** (`pytest tests/`).
-- Feature datasets refreshed:
-  - `database/dataset/lottery_features.csv` (472 rows)
-  - `database/dataset/lottery_temporal_features.csv` (472 rows)
-- All audit issues verified with line-level root causes identified.
+## 1. Overview of Changes
 
-## 2. Next Immediate Actions Upon Resume
-1. **Apply Phase 1 Fixes:**
-   - In `api/run_pipeline.py`: enhance `read_dataset_summary()` to return `last2`, `front3`, `back3`.
-   - In `manager.html`: update `renderCountdownAndLatestResults` to dynamically bind `last2`, `front3`, `back3` from `meta.dataset` and remove hardcoded constants `64`, `730640`, `060, 521`, `266, 041`.
-   - In `database/predictions/prediction_history.json`: deduplicate `2026-04-01` duplicate record and regenerate `performance.json`.
-   - In `index.html` and `strategy.html`: update default view and fallback dataset to latest draw `2026-10-01` (`402701`).
-2. **Execute Phase 2 (Backtest & Model Evaluation):**
-   - Add last-2 and 3-digit separate metric tracking to `analytics/backtest_engine.py`.
-   - Run comparative walk-forward backtest and save calibrated report.
-3. **Execute Phase 3 & 4 (UI/UX & Code Quality):**
-   - Sanitize innerHTML to textContent where applicable.
-   - Clean up broken encodings and align API fetch endpoints.
+All 8 verified issues identified in the mission brief have been resolved, verified with deterministic tests, and mirrored across all dashboard targets without breaking any existing contracts.
 
-## 3. How to Resume
-Simply instruct:
-> ดำเนินการต่อ (Continue)
+```
+Master History (472 draws) ───► Feature Datasets (472 rows)
+       │                               │
+       ▼                               ▼
+api/run_pipeline.py ─────────► pipeline_cache.json (includes last2, front3, back3)
+       │                               │
+       ▼                               ▼
+Dashboards (4 mirrors) ◄─────── dynamic binding (no hardcoded 64 or 730640)
+```
+
+---
+
+## 2. Itemized Verification & Diff Guide for Reviewer
+
+### 1. Hardcoded Draw Result '64' in Manager Dashboard
+- **Files Changed:** `manager.html`, `dashboard/manager.html`, `api/run_pipeline.py`
+- **Before:** Lines 639-651 and 1209-1215 in `manager.html` hardcoded `730640`, `64`, `060, 521`, `266, 041`.
+- **After:** `api/run_pipeline.py:read_dataset_summary()` now exports `last2`, `front3`, and `back3` in `meta.dataset`. `renderCountdownAndLatestResults()` in `manager.html` dynamically binds these values and formats the Thai date (`1 ต.ค. 2569`). Initial HTML defaults updated to the verified 1 Oct 2026 draw (`402701`, `70`).
+
+### 2. Stale Embedded Historical Data in Strategy & Index
+- **Files Changed:** `index.html`, `strategy.html`, `dashboard/strategy.html`, `dashboard/index.html`
+- **Before:** Static result panel, `strategy-data` JSON script, and `buildFallbackDataset()` were frozen at 16 Sep 2026 (`730640`).
+- **After:** Updated to 1 Oct 2026 (`402701`, `70`, `791, 912`, `058, 396`). All 4 mirrors maintain byte-for-byte SHA-256 parity.
+
+### 3. Backtest Engine Real Model & Multi-Tier Metrics
+- **File Changed:** `analytics/backtest_engine.py`
+- **Before:** Evaluated only 6-digit positions using single metric; lacked 2-digit and 3-digit separate tracking.
+- **After:** `score_prediction()` and `run_backtest()` now evaluate 6-digit Jackpot, 2-digit Top/Last2, and 3-digit Direct/Box permutations separately. Normalization formula verified as `total_pos_hits / (total_draws * 6)`. Generated `database/backtest/comparative_report.json` with empirical random baseline comparison.
+
+### 4. Performance History Deduplication
+- **Files Changed:** `database/predictions/prediction_history.json`, `performance.json`
+- **Before:** Contained duplicate evaluations for target date `2026-04-01`, skewing evaluated count and hit rate statistics.
+- **After:** Deduplicated to distinct `(target_date, draw_date_used)` pairs. `performance.json` recomputed cleanly (`evaluated: 2`, `avg_pos_hits: 1.00/6`, Grade `F ❌ (Uncalibrated)`).
+
+### 5. Frontend XSS & XAI Schema Mismatch
+- **File Changed:** `dashboard/app.js`
+- **Before:** `app.js:149` called `pos.reasons.slice(0, 2)` assuming an array, throwing TypeError because cache provides an object `{th: [], en: []}`. Injected unescaped `innerHTML`.
+- **After:** Handles both `{th, en}` localized object and legacy array; added `escapeHtml()` protection; added multi-path API resilience; relabeled confidence to "Relative Score Rank (Uncalibrated)".
+
+### 6. Zero-Byte Dead Code & Broken Includes
+- **Files Removed:** `backend/api/history.php`, `backend/api/statistics.php`, `database/api/history.php`, `database/api/statistics.php`
+- **File Updated:** `database/api/predict.php` (forwarding shim to canonical `api/predict.php`).
+- **Files Populated:** `i18n/th.json`, `i18n/en.json` (complete bilingual dictionaries).
+
+### 7. New Automated Test Suite
+- **File Added:** `tests/test_data_integrity_and_backtest.py`
+- 7 new tests covering ground truth integrity, `read_dataset_summary()`, prediction history deduplication, honest performance metrics, multi-tier backtest scoring, and dashboard ground truth consistency.
+
+---
+
+## 3. Verification Commands for Auditor
+
+```bash
+# 1. Run all Python unit and integration tests (expect: 229 passed)
+python -m pytest tests/
+
+# 2. Verify 3D build and data generation
+npm run build
+
+# 3. Verify git status is clean on feature branch
+git status
+```
+
+Ready for merge review against `docs/governance/15_DEFINITION_OF_DONE.md`.

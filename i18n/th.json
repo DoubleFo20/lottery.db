@@ -1,0 +1,35 @@
+{
+  "app_title": "ระบบวิเคราะห์ยุทธศาสตร์และคาดการณ์สลากกินแบ่งรัฐบาล AI",
+  "nav": {
+    "strategy": "ยุทธศาสตร์สลาก",
+    "manager": "ศูนย์ควบคุมผู้จัดการ AI",
+    "performance": "ผลการประเมินย้อนหลัง",
+    "showcase_3d": "แบบจำลอง 3 มิติ"
+  },
+  "results": {
+    "latest_title": "ผลรางวัลงวดล่าสุด",
+    "first_prize": "รางวัลที่ 1",
+    "last2": "เลขท้าย 2 ตัว",
+    "top2": "เลขท้าย 2 ตัวบน",
+    "front3": "เลขหน้า 3 ตัว",
+    "back3": "เลขท้าย 3 ตัว",
+    "verified": "ตรวจแล้ว",
+    "pending": "รอผลรางวัล"
+  },
+  "predictions": {
+    "top_candidates": "ตัวเลขเด่นที่ผ่านการคัดเลือก (Top Candidates)",
+    "confidence": "คะแนนอันดับสัมพันธ์ (Relative Score)",
+    "confidence_disclaimer": "คะแนนความมั่นใจแสดงลำดับคะแนนสัมพันธ์ ไม่ใช่ความน่าจะเป็นที่การันตีผลรางวัล",
+    "full_spectrum": "ยุทธศาสตร์กระจายความเสี่ยงรอบด้าน (Full Spectrum)",
+    "jackpot": "รางวัลที่ 1 ชุดหลัก (6 ตัว)",
+    "top2_pairs": "คู่โต๊ด/ตรง 2 ตัว",
+    "banker_digits": "เลขวิ่ง / รูด 19 ประตู"
+  },
+  "analytics": {
+    "historical_draws": "งวดประวัติศาสตร์",
+    "odd_even": "สภาพคู่/คี่",
+    "digit_sum": "ผลรวมแต้ม",
+    "walk_forward_evaluation": "การประเมินแบบไม่มองข้อมูลอนาคต (Walk-Forward)",
+    "random_baseline": "เกณฑ์สุ่มมาตรฐาน (Random Baseline)"
+  }
+}

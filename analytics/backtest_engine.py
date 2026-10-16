@@ -53,18 +53,20 @@ def load_history() -> list[dict]:
     return history
 
 
-def score_prediction(predicted: str, actual: str) -> dict:
+def score_prediction(predicted: str, actual: str, actual_last2: str = "") -> dict:
     """
-    Compare predicted number with the actual number.
-    Returns digit_hits, position_hits, and exact_match.
+    Compare predicted number with the actual number across:
+    1. 6-digit Jackpot (position hits, digit hits, exact match)
+    2. 2-digit Top & Last2 (top2 direct match, last2 match)
+    3. 3-digit Top Direct & Box permutations
     """
     predicted = str(predicted).zfill(6)[:6]
     actual = str(actual).zfill(6)[:6]
+    actual_last2 = str(actual_last2).zfill(2)[:2] if actual_last2 else ""
 
-    # Calculate position_hits
+    # 1. 6-digit evaluation
     position_hits = sum(1 for p, a in zip(predicted, actual) if p == a)
 
-    # Calculate digit_hits (shared digits, each matched once)
     p_list = list(predicted)
     a_list = list(actual)
     digit_hits = 0
@@ -73,12 +75,24 @@ def score_prediction(predicted: str, actual: str) -> dict:
             digit_hits += 1
             a_list.remove(d)
 
+    # 2. 2-digit evaluation
+    top2_match = (predicted[-2:] == actual[-2:])
+    last2_match = (predicted[-2:] == actual_last2) if actual_last2 else False
+
+    # 3. 3-digit evaluation
+    top3_direct = (predicted[-3:] == actual[-3:])
+    top3_box = (sorted(predicted[-3:]) == sorted(actual[-3:]))
+
     return {
         "predicted": predicted,
         "actual": actual,
         "exact_match": predicted == actual,
         "position_hits": position_hits,
-        "digit_hits": digit_hits
+        "digit_hits": digit_hits,
+        "top2_match": top2_match,
+        "last2_match": last2_match,
+        "top3_direct": top3_direct,
+        "top3_box": top3_box,
     }
 
 
@@ -144,10 +158,15 @@ def run_backtest(max_draws: int = 0, use_random_only: bool = False) -> dict:
     exact_matches = 0
     total_digit_hits = 0
     total_pos_hits = 0
+    total_top2_matches = 0
+    total_last2_matches = 0
+    total_top3_direct_matches = 0
+    total_top3_box_matches = 0
 
     for count, i in enumerate(test_range):
         history_up_to = [h["raw"] for h in history[:i]]
         actual_number = history[i]["number"]
+        actual_last2 = history[i]["raw"].get("last2", "")
         draw_date = history[i]["date"]
 
         # Generate prediction
@@ -161,7 +180,7 @@ def run_backtest(max_draws: int = 0, use_random_only: bool = False) -> dict:
                 predicted_number = _random_prediction()
 
         # Score it
-        sc = score_prediction(predicted_number, actual_number)
+        sc = score_prediction(predicted_number, actual_number, actual_last2=actual_last2)
         sc["date"] = draw_date
         results.append(sc)
 
@@ -171,24 +190,57 @@ def run_backtest(max_draws: int = 0, use_random_only: bool = False) -> dict:
             exact_matches += 1
         total_digit_hits += sc["digit_hits"]
         total_pos_hits += sc["position_hits"]
+        if sc["top2_match"]:
+            total_top2_matches += 1
+        if sc["last2_match"]:
+            total_last2_matches += 1
+        if sc["top3_direct"]:
+            total_top3_direct_matches += 1
+        if sc["top3_box"]:
+            total_top3_box_matches += 1
 
         # Progress reporting
         if (count + 1) % 50 == 0 or count == 0:
             print(f"  [{count+1}/{len(test_range)}] avg_pos={total_pos_hits/total_draws:.2f}/6  "
-                  f"avg_dig={total_digit_hits/total_draws:.2f}/6")
+                  f"avg_dig={total_digit_hits/total_draws:.2f}/6  "
+                  f"top2={total_top2_matches}/{total_draws}  "
+                  f"top3_box={total_top3_box_matches}/{total_draws}")
 
     if total_draws == 0:
         return {}
 
     # ── Corrected accuracy formula ──
     # Positional accuracy = total_pos_hits / (total_draws × 6)
-    # This gives a value in [0, 1], representing the fraction of
-    # individual digit positions correctly predicted.
     positional_accuracy = total_pos_hits / (total_draws * 6)
 
     summary = {
         "mode": mode,
+        "model_version": "EnsemblePredictor-v2.1",
         "total_draws": total_draws,
+        "metrics_6digit": {
+            "exact_matches": exact_matches,
+            "exact_match_rate": round(exact_matches / total_draws, 6),
+            "average_digit_hits": round(total_digit_hits / total_draws, 4),
+            "average_position_hits": round(total_pos_hits / total_draws, 4),
+            "positional_accuracy_pct": round(positional_accuracy * 100, 4),
+            "expected_random_accuracy_pct": 10.0,
+        },
+        "metrics_2digit": {
+            "top2_matches": total_top2_matches,
+            "top2_match_rate_pct": round(total_top2_matches / total_draws * 100, 4),
+            "expected_top2_random_pct": 1.0,
+            "last2_matches": total_last2_matches,
+            "last2_match_rate_pct": round(total_last2_matches / total_draws * 100, 4),
+        },
+        "metrics_3digit": {
+            "top3_direct_matches": total_top3_direct_matches,
+            "top3_direct_rate_pct": round(total_top3_direct_matches / total_draws * 100, 4),
+            "expected_top3_direct_random_pct": 0.1,
+            "top3_box_matches": total_top3_box_matches,
+            "top3_box_rate_pct": round(total_top3_box_matches / total_draws * 100, 4),
+            "expected_top3_box_random_pct": 0.6,
+        },
+        # Backward-compatible flat keys:
         "exact_matches": exact_matches,
         "exact_match_rate": round(exact_matches / total_draws, 6),
         "average_digit_hits": round(total_digit_hits / total_draws, 4),
@@ -197,7 +249,7 @@ def run_backtest(max_draws: int = 0, use_random_only: bool = False) -> dict:
         "note": (
             "Positional accuracy = total_position_hits / (draws × 6). "
             "Random baseline expectation ≈ 10% (1/10 per digit position). "
-            "Lottery outcomes are inherently unpredictable."
+            "Lottery outcomes are inherently unpredictable; past performance does not guarantee future hits."
         ),
         "run_time": datetime.now().isoformat(),
         "draws_evaluated": results,
@@ -271,7 +323,7 @@ def save_report(summary: dict):
     # 2. Save CSV
     with open(REPORT_CSV, "w", encoding="utf-8", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow(["date", "actual", "predicted", "digit_hits", "position_hits", "exact_match"])
+        writer.writerow(["date", "actual", "predicted", "digit_hits", "position_hits", "exact_match", "top2_match", "last2_match", "top3_direct", "top3_box"])
         for d in draws:
             writer.writerow([
                 d["date"],
@@ -279,7 +331,11 @@ def save_report(summary: dict):
                 d["predicted"],
                 d["digit_hits"],
                 d["position_hits"],
-                d["exact_match"]
+                d["exact_match"],
+                d.get("top2_match", False),
+                d.get("last2_match", False),
+                d.get("top3_direct", False),
+                d.get("top3_box", False),
             ])
 
     # Put it back to avoid mutating caller's dict silently

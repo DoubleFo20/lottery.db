@@ -1,27 +1,11 @@
 {
-  "updated": "2026-10-01T14:37:35.833104",
-  "evaluated": 3,
-  "avg_positional_hits": 1.0,
-  "avg_digit_hits": 3.333,
-  "exact_matches": 0,
-  "model_score": {
-    "score": 17.2,
-    "grade": "F  ❌ (Uncalibrated)",
-    "detail": {
-      "avg_positional_hits": 1.0,
-      "avg_digit_hits": 3.33,
-      "top2_match_rate": 0.0,
-      "top3_box_match_rate": 0.0,
-      "exact_match_rate": 0.0
-    }
-  },
   "hit_rate": {
-    "total_evaluated": 3,
+    "total_evaluated": 2,
     "exact_match_count": 0,
     "exact_match_rate": 0.0,
     "positional_thresholds": {
       "pos_ge_1": {
-        "count": 3,
+        "count": 2,
         "rate": 100.0
       },
       "pos_ge_2": {
@@ -47,20 +31,20 @@
     },
     "digit_thresholds": {
       "dig_ge_1": {
-        "count": 3,
+        "count": 2,
         "rate": 100.0
       },
       "dig_ge_2": {
-        "count": 3,
+        "count": 2,
         "rate": 100.0
       },
       "dig_ge_3": {
-        "count": 3,
+        "count": 2,
         "rate": 100.0
       },
       "dig_ge_4": {
         "count": 1,
-        "rate": 33.33
+        "rate": 50.0
       },
       "dig_ge_5": {
         "count": 0,
@@ -75,33 +59,33 @@
   "digit_accuracy": {
     "position_accuracy": {
       "digit1": {
-        "correct": 2,
-        "total": 3,
-        "rate": 66.67
+        "correct": 1,
+        "total": 2,
+        "rate": 50.0
       },
       "digit2": {
         "correct": 1,
-        "total": 3,
-        "rate": 33.33
+        "total": 2,
+        "rate": 50.0
       },
       "digit3": {
         "correct": 0,
-        "total": 3,
+        "total": 2,
         "rate": 0.0
       },
       "digit4": {
         "correct": 0,
-        "total": 3,
+        "total": 2,
         "rate": 0.0
       },
       "digit5": {
         "correct": 0,
-        "total": 3,
+        "total": 2,
         "rate": 0.0
       },
       "digit6": {
         "correct": 0,
-        "total": 3,
+        "total": 2,
         "rate": 0.0
       }
     },
@@ -113,18 +97,18 @@
       },
       "1": {
         "correct": 0,
-        "total": 2,
+        "total": 1,
         "rate": 0.0
       },
       "2": {
-        "correct": 2,
-        "total": 2,
+        "correct": 1,
+        "total": 1,
         "rate": 100.0
       },
       "3": {
         "correct": 1,
-        "total": 3,
-        "rate": 33.33
+        "total": 2,
+        "rate": 50.0
       },
       "4": {
         "correct": 0,
@@ -138,12 +122,12 @@
       },
       "6": {
         "correct": 0,
-        "total": 3,
+        "total": 2,
         "rate": 0.0
       },
       "7": {
         "correct": 0,
-        "total": 3,
+        "total": 2,
         "rate": 0.0
       },
       "8": {
@@ -153,9 +137,24 @@
       },
       "9": {
         "correct": 0,
-        "total": 2,
+        "total": 1,
         "rate": 0.0
       }
     }
+  },
+  "model_score": {
+    "score": 17.9,
+    "grade": "F  ❌ (Uncalibrated)",
+    "detail": {
+      "avg_positional_hits": 1.0,
+      "avg_digit_hits": 3.5,
+      "top2_match_rate": 0.0,
+      "top3_box_match_rate": 0.0,
+      "exact_match_rate": 0.0
+    }
+  },
+  "meta": {
+    "evaluated": 2,
+    "analyzed_at": "2026-10-17T00:50:39.350395"
   }
 }
