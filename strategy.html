@@ -3,14 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lottery Strategy & AI Analytics Dashboard | งวด 16 กันยายน 2569</title>
-  <meta name="theme-color" content="#3b82f6">
+  <title>Lottery Strategy & AI Analytics Platform — LOTTERY.DB</title>
+  <meta name="theme-color" content="#4f46e5">
   <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="assets/css/premium-theme.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="assets/live_countdown.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/nav-component.js"></script>
   <style>
     :root {
       --bg-dark: #070b14;
@@ -1040,6 +1043,8 @@
   </style>
 </head>
 <body>
+<!-- Unified Shared Navigation Header -->
+<div id="unified-app-header"></div>
 
 <!-- Mobile Drawer & Overlay -->
 <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
@@ -1063,28 +1068,18 @@
 
 <div class="dashboard-container">
 
-  <!-- ═════ 1. HEADER ═════ -->
-  <header class="header">
-    <div class="brand">
-      <div class="brand-logo">🎯</div>
-      <div class="brand-text">
-        <h1>LOTTERY STRATEGY &amp; DEEP ANALYTICS</h1>
-        <p>
-          <span>20-Year Analysis Suite</span> •
-          <span>งวดเป้าหมาย: 16 กันยายน 2569</span> •
-          <span class="live-badge"><span class="pulse-dot"></span> Live Engine Active</span>
-        </p>
-      </div>
+  <!-- ═════ SUB-NAV / QUICK JUMPER TOOLBAR ═════ -->
+  <header class="header" style="padding: 0.85rem 1.4rem; margin-bottom: 1.5rem; justify-content: space-between;">
+    <div style="display:flex; align-items:center; gap:0.75rem;">
+      <span style="font-weight:700; font-size:0.95rem; color:var(--text-main);" data-i18n="nav.strategy">📊 Strategy Analysis Suite</span>
+      <span class="live-badge"><span class="pulse-dot"></span> <span data-i18n="meta.status_connected">Live Engine Active (473 Draws)</span></span>
     </div>
-    <nav class="header-nav">
-      <a class="nav-btn active" href="strategy.html">📊 Strategy</a>
-      <a class="nav-btn" href="3d.html">👑 3D Showcase</a>
-      <a class="nav-btn" href="manager.html">🖥 Manager</a>
-      <a class="nav-btn" href="performance.html">📈 Performance</a>
-      <button class="nav-btn" onclick="scrollToSection('sec-predictions')">🎯 คาดการณ์</button>
-      <button class="nav-btn" onclick="scrollToSection('sec-heatmap')">🌡 Heatmap</button>
-      <button class="nav-btn" onclick="scrollToSection('sec-charts')">📊 สถิติ</button>
-      <button class="nav-btn" onclick="scrollToSection('sec-history')">📜 คลังงวด</button>
+    <nav class="header-nav" style="gap:0.4rem;">
+      <button class="nav-btn" onclick="scrollToSection('sec-predictions')">🎯 <span data-i18n="predictions.top_candidates">Top Candidates</span></button>
+      <button class="nav-btn" onclick="scrollToSection('sec-full-spectrum')">👑 <span data-i18n="predictions.full_spectrum">Full Spectrum</span></button>
+      <button class="nav-btn" onclick="scrollToSection('sec-heatmap')">🌡 <span data-i18n="analytics.heatmap_title">Heatmap</span></button>
+      <button class="nav-btn" onclick="scrollToSection('sec-charts')">📊 <span data-i18n="analytics.title">Statistics</span></button>
+      <button class="nav-btn" onclick="scrollToSection('sec-history')">📜 <span data-i18n="analytics.historical_draws">Archive</span></button>
       <button class="nav-btn" id="lang-btn" onclick="toggleLanguage()">🌐 TH / EN</button>
     </nav>
     <button class="hamburger-btn" id="hamburger-toggle" onclick="toggleDrawer()" aria-label="Open Menu">☰</button>
@@ -3047,8 +3042,18 @@ function toggleLanguage() {
     }
   }
   walk(document.body);
+  if (window.LotteryI18n) {
+    window.LotteryI18n.setLang(isEnglish ? 'en' : 'th');
+  }
   showToast(isEnglish ? 'Switched to English (All Elements)' : 'เปลี่ยนเป็นภาษาไทย (ทุกองค์ประกอบ)');
 }
+
+// Sync on startup with persisted language
+window.addEventListener('DOMContentLoaded', () => {
+  if (window.LotteryI18n && window.LotteryI18n.getLang() === 'en' && !isEnglish) {
+    toggleLanguage();
+  }
+});
 
 // Service Worker Registration for PWA / Offline Support
 if ('serviceWorker' in navigator) {

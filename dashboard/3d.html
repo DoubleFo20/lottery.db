@@ -821,14 +821,17 @@
         </a>
 
         <nav class="nav-links-capsule">
-          <a href="index.html" class="nav-item">🎯 หน้าหลัก</a>
-          <a href="index.html#sec-predictions" class="nav-item">🔮 พยากรณ์</a>
-          <a href="3d.html" class="nav-item active">⚡ 3D Gateway</a>
-          <a href="manager.html" class="nav-item">🖥 จัดการข้อมูล</a>
-          <a href="performance.html" class="nav-item">📈 ความแม่นยำ</a>
+          <a href="strategy.html" class="nav-item" data-i18n="nav.strategy">📊 Strategy</a>
+          <a href="manager.html" class="nav-item" data-i18n="nav.manager">⚙️ Manager</a>
+          <a href="performance.html" class="nav-item" data-i18n="nav.performance">📈 Performance</a>
+          <a href="3d.html" class="nav-item active" data-i18n="nav.showcase_3d">⚡ 3D Gateway</a>
+          <a href="mobile-wallet.html" class="nav-item" data-i18n="nav.wallet">📱 Wallet</a>
         </nav>
 
         <div style="display:flex;align-items:center;gap:10px;">
+          <button type="button" class="lang-toggle-btn" data-action="toggle-lang" aria-label="Toggle Language" style="padding:0.25rem 0.65rem; border-radius:9999px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); color:#fff; font-size:0.75rem; font-weight:700; cursor:pointer; font-family:var(--font-mono);">
+            🌐 <span class="lang-label">TH / EN</span>
+          </button>
           <div class="status-chip">
             <span class="status-dot"></span>
             <span id="fps-label">60 FPS</span>
@@ -1049,8 +1052,9 @@
     </div>
   </div>
 
-  <!-- Central Live Engine Script -->
+  <!-- Central Live Engine & Localization Scripts -->
   <script src="assets/live_countdown.js"></script>
+  <script src="assets/js/i18n.js"></script>
 
   <!-- ═════════════════════════════════════════════════════
        ULTRA-OPTIMIZED KINETIC 2D CANVAS ENGINE (R1, R2, R3)
@@ -1606,6 +1610,15 @@
         animate(performance.now());
         runPreloadPipeline();
         loadShowcaseData();
+
+        // Initialize Language Switcher (guarded for headless VM mock compatibility)
+        if (typeof document.querySelectorAll === 'function') {
+          document.querySelectorAll('[data-action="toggle-lang"]').forEach(btn => {
+            btn.addEventListener('click', () => {
+              if (window.LotteryI18n) window.LotteryI18n.toggleLang();
+            });
+          });
+        }
 
         // Initialize Central Live Engine
         if (typeof LotteryLiveEngine !== "undefined") {
