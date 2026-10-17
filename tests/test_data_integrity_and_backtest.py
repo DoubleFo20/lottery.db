@@ -148,7 +148,7 @@ def test_backtest_predictor_failure_handling_no_random_fallback(monkeypatch):
         random_called.append(True)
         return original_random()
 
-    def mock_failing_predictor(history_rows, top_k=1):
+    def mock_failing_predictor(history_rows, top_k=1, **kwargs):
         raise RuntimeError("Intentional predictor crash for testing error handling")
 
     monkeypatch.setattr(bte, "_random_prediction", mock_random)
@@ -202,4 +202,81 @@ def test_comparative_backtest_repeated_trials_and_seed_reproducibility():
     disclaimer = res1["comparison"]["disclaimer"]
     assert "Do not interpret a positive lift as proof of predictive advantage" in disclaimer
     assert "inherent randomness in lottery draws" in disclaimer
+
+
+def test_score_prediction_official_glo_prizes():
+    """Verify score_prediction evaluates official Front-3, Back-3, Last-2, and Top-3 prizes accurately."""
+    from analytics.backtest_engine import score_prediction
+
+    # 1. Front-3 matches front3_1 (402)
+    res_f1 = score_prediction("402999", "123456", front3=["402", "392"])
+    assert res_f1["front3_match"] is True
+    assert res_f1["back3_match"] is False
+
+    # 2. Front-3 matches front3_2 (392)
+    res_f2 = score_prediction("392888", "123456", front3=["402", "392"])
+    assert res_f2["front3_match"] is True
+
+    # 3. Back-3 matches back3_1 (171)
+    res_b1 = score_prediction("999171", "123456", back3=["171", "255"])
+    assert res_b1["back3_match"] is True
+    assert res_b1["front3_match"] is False
+
+    # 4. Back-3 matches back3_2 (255)
+    res_b2 = score_prediction("000255", "123456", back3=["171", "255"])
+    assert res_b2["back3_match"] is True
+
+    # 5. Official Last-2 match vs actual_last2 (48)
+    res_l2 = score_prediction("111148", "999999", actual_last2="48")
+    assert res_l2["last2_match"] is True
+    assert res_l2["top2_match"] is False  # '48' != '99'
+
+    # 6. Top-2 match (matches last 2 of First Prize)
+    res_t2 = score_prediction("111199", "999999", actual_last2="48")
+    assert res_t2["top2_match"] is True
+    assert res_l2["last2_match"] is True
+
+
+def test_backtest_draw_level_uncertainty_and_coverage():
+    """Verify draw-level statistical uncertainty and prediction coverage calculation."""
+    from analytics.backtest_engine import run_backtest
+
+    res = run_backtest(max_draws=5, use_random_only=True, random_seed=123)
+
+    assert "coverage" in res
+    cov = res["coverage"]
+    assert cov["attempted_draws"] == 5
+    assert cov["successful_draws"] == 5
+    assert cov["coverage_rate_pct"] == 100.0
+    assert cov["failure_rate_pct"] == 0.0
+
+    stat = res["statistical_uncertainty"]
+    assert "draw_level_uncertainty" in stat
+    d_stat = stat["draw_level_uncertainty"]
+    assert d_stat["sample_size_draws"] == 5
+    assert "mean_position_hits_per_draw" in d_stat
+    assert "sample_std_dev" in d_stat
+    assert "draw_standard_error" in d_stat
+    assert "ci_95_draw_hits" in d_stat
+    assert "hypothesis_test_vs_random_0_60" in d_stat
+    assert d_stat["hypothesis_test_vs_random_0_60"]["expected_mean"] == 0.60
+
+
+def test_audit_weights_leakage_and_equal_weights_mode():
+    """Verify audit_weights_leakage passes and untuned equal weights mode operates cleanly."""
+    from analytics.backtest_engine import audit_weights_leakage, run_backtest
+
+    # Audit must pass zero future leakage
+    audit_res = audit_weights_leakage()
+    assert audit_res["passed"] is True
+    assert audit_res["chronological_order"] is True
+    assert audit_res["strict_pre_draw_isolation"] is True
+    assert audit_res["equal_weights_operational"] is True
+
+    # Untuned equal weights mode must execute without error
+    backtest_equal = run_backtest(max_draws=2, weights_mode="equal")
+    assert backtest_equal["mode"] == "ENSEMBLE (UNTUNED EQUAL)"
+    assert backtest_equal["successful_draws"] == 2
+    assert "metrics_official_prizes" in backtest_equal
+
 

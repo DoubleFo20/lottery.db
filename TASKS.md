@@ -1,46 +1,43 @@
 # TASKS.md — Mission-Critical Workplan & Progress
 
 **Feature Branch:** `feat/mission-critical-remediation`  
-**Status:** Verification & Ready for Review  
+**Pull Request:** PR #1 (Draft) — https://github.com/DoubleFo20/lottery.db/pull/1  
+**Status:** PR #1 Review Remediation Complete & Verified  
 **Lead Orchestrator:** ARGON
 
 ---
 
-## Phase 0: Safety, Audit & Baseline
-- [x] Run baseline test suite (`pytest tests/`) — 222 passed.
-- [x] Create feature branch `feat/mission-critical-remediation`.
-- [x] Verify existing fixes (`load_ensemble_weights`, transition matrix, fabricated actuals).
-- [x] Document root cause of hardcoded 64 in `manager.html` and stale data in `index.html`.
+## Phase A: Merge Conflict Resolution with `origin/main`
+- [x] Fetch `origin/main` (`c62352d`) containing automated GitHub Actions cron commits.
+- [x] Merge `origin/main` into `feat/mission-critical-remediation`.
+- [x] Resolve conflict in `database/dataset/lottery_history.csv` preserving canonical 473-draw history (latest draw `2026-10-16`: `011781`, `48`, `402, 392`, `171, 255`).
+- [x] Resolve conflict in `performance.json` preserving honest deduplicated ground truth (`evaluated: 2`, `avg_pos_hits: 1.00/6`).
+- [x] Regenerate `database/predictions/pipeline_cache.json` via `python api/run_pipeline.py`.
+- [x] Rebuild `hopper_3d_data.json` across both locations via `npm run build`.
+- [x] Commit merge resolving all conflicts cleanly (Commit `48008b3`).
 
-## Phase 1: Data & Core Correctness
-- [x] Regenerate `lottery_features.csv` and `lottery_temporal_features.csv` to 473 rows (including latest draw 2026-10-16).
-- [x] Update `api/run_pipeline.py:read_dataset_summary()` to include `last2`, `front3`, and `back3`.
-- [x] Deduplicate `prediction_history.json` (remove duplicate 2026-04-01 entry).
-- [x] Re-run `analytics/performance_analyzer.py --save performance.json` to reflect deduplicated reality (evaluated: 2).
-- [x] Update `manager.html` & `dashboard/manager.html` to dynamically render `last2`, `front3`, `back3` from `meta.dataset` and remove hardcoded 64/730640 fallbacks (verified 2026-10-16: 011781, 48).
-- [x] Update `index.html`, `strategy.html`, `dashboard/strategy.html`, `dashboard/index.html` fallback dataset and default UI values to 2026-10-16 (011781, 48, 402/392, 171/255).
+## Phase B: Independent Review Findings Remediation
+- [x] Implement look-ahead data leakage audit `audit_weights_leakage()` in `analytics/backtest_engine.py` (CLI: `--audit`).
+- [x] Enforce strict chronological pre-draw history assertion in walk-forward evaluation (`assert all(h["draw_date"] < draw_date for h in history_up_to)`).
+- [x] Support untuned a-priori equal weights mode (`--weights equal`) in `EnsemblePredictor` and `run_backtest()`.
+- [x] Implement official GLO prize structure in `score_prediction()` and `run_backtest()`: First Prize Jackpot, Front-3 (`front3_1`, `front3_2`), Back-3 (`back3_1`, `back3_2`), Last-2 (`actual_last2`), Top-2, Top-3 Direct, and Top-3 Box.
+- [x] Implement draw-level statistical uncertainty evaluation ($\bar{X}_{pos}$, $s_{pos}$, $SE_{draw}$, 95% CI, and draw-level hypothesis test vs null 0.60 hits/draw).
+- [x] Report prediction success coverage metrics (`coverage_rate_pct`, `attempted_draws`, `successful_draws`, `prediction_failures`, `failure_rate_pct`).
+- [x] Zero random fallback strictly maintained: predictor failures are recorded explicitly and never masked with random numbers.
 
-## Phase 2: Prediction Model Evaluation
-- [x] Extend `analytics/backtest_engine.py` to evaluate 6-digit, last-2, and 3-digit metrics separately.
-- [x] Eliminate random fallback on predictor failure: explicitly record `prediction_failures` and error details without polluting accuracy.
-- [x] Implement repeated random baseline trials with fixed seeds (`--seed 42`), empirical standard deviation, and confidence intervals.
-- [x] Compute 95% Wilson Score Confidence Intervals and hypothesis testing (Z-score, two-tailed p-value).
-- [x] Calibrate confidence labels (distinguish relative score rank vs. true outcome probability).
-- [x] Run comparative walk-forward backtest against empirical random baseline (`database/backtest/comparative_report.json`).
+## Phase C: Verification Suite
+- [x] Python regression suite: **235 / 235 passed** (`pytest tests/`).
+- [x] Leakage audit verified: **PASSED** (`python analytics/backtest_engine.py --audit`).
+- [x] Node.js test & 3D data prep: **PASSED** (`npm test`).
+- [x] Advisory regression suite & Puppeteer browser test: **PASS** (`npm run test:advisory`).
+- [x] Canvas lifecycle test: **PASS** (`npm run test:canvas:lifecycle`).
+- [x] 3D assets build: **Clean** (`npm run build`).
+- [x] Re-run comparative backtest with draw-level stats: **PASSED** (`comparative_report.json` updated).
 
-## Phase 3: Premium UI/UX & Quality
-- [x] Refactor `dashboard/app.js` with XSS sanitization (`escapeHtml`), multi-path API resilience, and XAI reasons object support (`{th, en}`).
-- [x] Fix unescaped `innerHTML` and XSS vectors in dashboard controllers.
-- [x] Fix broken Thai character encodings (`หน้า 3`, `ท้าย 3`).
-- [x] Populate `i18n/th.json` and `i18n/en.json` with comprehensive bilingual dictionaries.
+## Phase D: PR #1 Update & Next Steps
+- [x] Update `HANDOFF.md`, `PROJECT_STATUS.md`, and `TASKS.md`.
+- [ ] Commit verified changes with structured commit message.
+- [ ] Push to `origin/feat/mission-critical-remediation`.
+- [ ] Verify GitHub PR #1 reports clean status with zero merge conflicts.
+- [ ] Prepare scope for follow-up Premium UI/UX feature branch (`feat/premium-analytical-ui`) post-merge.
 
-## Phase 4: Optimization & Code Quality
-- [x] Delete 4 zero-byte dead placeholder files (`backend/api/history.php`, `backend/api/statistics.php`, `database/api/history.php`, `database/api/statistics.php`).
-- [x] Replace broken `database/api/predict.php` with clean forwarding shim to canonical `api/predict.php`.
-- [x] Add unit test suite `tests/test_data_integrity_and_backtest.py` covering ground truth, deduplication, backtest metrics, intentional predictor failures, and dashboard parity.
-- [x] Rebuild 3D assets (`npm run build`).
-
-## Phase 5: Verification & Release
-- [x] Full regression test suite passing: **232 / 232 passed**.
-- [x] Puppeteer browser integration passing: `npm run test:advisory`.
-- [x] Verify identical ground truth across all dashboards (`index.html`, `strategy.html`, `manager.html`, `performance.html`, `3d.html`).

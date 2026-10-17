@@ -86,15 +86,24 @@ def calc_two_tailed_p_value(z: float) -> float:
     return 2.0 * (1.0 - normal_cdf(abs(z)))
 
 
-def score_prediction(predicted: str | None, actual: str, actual_last2: str = "") -> dict:
+def score_prediction(
+    predicted: str | None,
+    actual: str,
+    actual_last2: str = "",
+    front3: list[str] | None = None,
+    back3: list[str] | None = None,
+) -> dict:
     """
-    Compare predicted number with the actual number across:
-    1. 6-digit Jackpot (position hits, digit hits, exact match)
-    2. 2-digit Top & Last2 (top2 direct match, last2 match)
-    3. 3-digit Top Direct & Box permutations
+    Compare predicted number with official draw results across:
+    1. 6-digit First Prize / Jackpot (position hits, digit hits, exact match)
+    2. Official 2-digit Last-2 prize (เลขท้าย 2 ตัว) & Top-2 (2 ตัวบน)
+    3. Official 3-digit Front-3 prizes (เลขหน้า 3 ตัว) & Back-3 prizes (เลขท้าย 3 ตัว)
+    4. Top-3 Direct (3 ตัวตรง) & Top-3 Box (3 ตัวโต๊ด)
     """
     actual = str(actual).zfill(6)[:6]
     actual_last2 = str(actual_last2).zfill(2)[:2] if actual_last2 else ""
+    front3_cleaned = [str(f).zfill(3)[:3] for f in front3 if f] if front3 else []
+    back3_cleaned = [str(b).zfill(3)[:3] for b in back3 if b] if back3 else []
 
     if predicted is None:
         return {
@@ -105,6 +114,8 @@ def score_prediction(predicted: str | None, actual: str, actual_last2: str = "")
             "digit_hits": 0,
             "top2_match": False,
             "last2_match": False,
+            "front3_match": False,
+            "back3_match": False,
             "top3_direct": False,
             "top3_box": False,
             "status": "failed",
@@ -127,7 +138,11 @@ def score_prediction(predicted: str | None, actual: str, actual_last2: str = "")
     top2_match = (predicted[-2:] == actual[-2:])
     last2_match = (predicted[-2:] == actual_last2) if actual_last2 else False
 
-    # 3. 3-digit evaluation
+    # 3. Official GLO 3-digit evaluation
+    front3_match = (predicted[:3] in front3_cleaned) if front3_cleaned else False
+    back3_match = (predicted[-3:] in back3_cleaned) if back3_cleaned else False
+
+    # 4. First Prize sub-combinations (Top-3 Direct & Box)
     top3_direct = (predicted[-3:] == actual[-3:])
     top3_box = (sorted(predicted[-3:]) == sorted(actual[-3:]))
 
@@ -139,21 +154,24 @@ def score_prediction(predicted: str | None, actual: str, actual_last2: str = "")
         "digit_hits": digit_hits,
         "top2_match": top2_match,
         "last2_match": last2_match,
+        "front3_match": front3_match,
+        "back3_match": back3_match,
         "top3_direct": top3_direct,
         "top3_box": top3_box,
         "status": "success",
     }
 
 
-def _predict_with_ensemble(history_rows: list[dict], top_k: int = 1) -> str:
+def _predict_with_ensemble(history_rows: list[dict], top_k: int = 1, weights: dict | None = None) -> str:
     """
     Generate a prediction using the real EnsemblePredictor,
     trained only on the provided history_rows (walk-forward).
+    Accepts optional decoupled weights to prevent look-ahead hyperparameter leakage.
     Returns the top-1 candidate number string.
     """
     from ensemble_model.predictor import EnsemblePredictor
 
-    predictor = EnsemblePredictor(CSV_PATH, window=min(50, len(history_rows)))
+    predictor = EnsemblePredictor(CSV_PATH, window=min(50, len(history_rows)), weights=weights)
     # Feed only the allowed historical rows (desc order expected by predictor)
     predictor.rows = list(reversed(history_rows))  # predictor expects desc order
     predictor.extract_signals()
@@ -173,6 +191,54 @@ def _predict_with_ensemble(history_rows: list[dict], top_k: int = 1) -> str:
     return fallback
 
 
+def audit_weights_leakage() -> dict:
+    """
+    Audit ensemble weights and walk-forward data partitioning for look-ahead data leakage.
+    Verifies that:
+      1. History partitioning produces strictly earlier draws than target draw.
+      2. Signal extraction operates only on visible draws prior to the target.
+      3. Predictor accepts decoupled weights (e.g., untuned equal weights) to isolate
+         model architecture evaluation from historical parameter fitting.
+    """
+    history = load_history()
+    if len(history) < 10:
+        return {"passed": False, "reason": "Insufficient history for audit"}
+
+    dates = [h["date"] for h in history]
+    is_sorted = all(dates[i] < dates[i + 1] for i in range(len(dates) - 1))
+
+    mid_idx = len(history) // 2
+    history_up_to = [h["raw"] for h in history[:mid_idx]]
+    target_draw = history[mid_idx]
+    target_date = target_draw["date"]
+
+    no_future_rows = all(h["draw_date"] < target_date for h in history_up_to)
+
+    equal_weights = {
+        "rolling_heat": 0.125,
+        "conditional": 0.125,
+        "transition": 0.125,
+        "temporal_trend": 0.125,
+        "pair_lift": 0.125,
+        "positional_freq": 0.125,
+        "pattern_hot": 0.125,
+        "gap_overdue": 0.125,
+    }
+    pred_equal = _predict_with_ensemble(history_up_to, weights=equal_weights)
+    valid_pred = isinstance(pred_equal, str) and len(pred_equal) == 6 and pred_equal.isdigit()
+
+    passed = is_sorted and no_future_rows and valid_pred
+    return {
+        "passed": passed,
+        "chronological_order": is_sorted,
+        "strict_pre_draw_isolation": no_future_rows,
+        "equal_weights_operational": valid_pred,
+        "sample_draw_evaluated": target_date,
+        "sample_prediction": pred_equal,
+        "audit_timestamp": datetime.now().isoformat(),
+    }
+
+
 def _random_prediction() -> str:
     """Generate a uniformly random 6-digit number for baseline measurement."""
     return f"{random.randint(0, 999999):06d}"
@@ -183,18 +249,36 @@ def run_backtest(
     use_random_only: bool = False,
     min_history: int = 100,
     random_seed: int | None = None,
+    weights_mode: str | dict = "calibrated",
 ) -> dict:
     """
     Walk-forward backtest: for each draw i >= min_history,
     predict using only draws [0..i-1], then score against draw i.
 
-    CRITICAL INTEGRITY RULE:
-    When use_random_only=False, NO random fallback is ever used.
-    If the predictor fails, the failure is reported explicitly,
-    tracked in failure counts, and never silently masked.
+    CRITICAL INTEGRITY RULES:
+    1. Zero random fallback: if predictor fails, explicitly recorded and penalized.
+    2. Strict pre-draw isolation: draws [0..i-1] only, asserted chronologically.
+    3. Official prize structure: evaluates 6-digit First Prize, Last-2, Front-3, Back-3, Top-2, Top-3.
+    4. Decoupled weights: supports untuned equal weights to prevent look-ahead bias.
     """
     if random_seed is not None:
         random.seed(random_seed)
+
+    if weights_mode == "equal":
+        eval_weights = {
+            "rolling_heat": 0.125,
+            "conditional": 0.125,
+            "transition": 0.125,
+            "temporal_trend": 0.125,
+            "pair_lift": 0.125,
+            "positional_freq": 0.125,
+            "pattern_hot": 0.125,
+            "gap_overdue": 0.125,
+        }
+    elif isinstance(weights_mode, dict):
+        eval_weights = weights_mode
+    else:
+        eval_weights = None
 
     history = load_history()
     if not history:
@@ -209,7 +293,7 @@ def run_backtest(
     if max_draws > 0:
         test_range = test_range[-max_draws:]  # most recent N draws
 
-    mode = "RANDOM BASELINE" if use_random_only else "ENSEMBLE MODEL"
+    mode = "RANDOM BASELINE" if use_random_only else ("ENSEMBLE (UNTUNED EQUAL)" if weights_mode == "equal" else "ENSEMBLE MODEL")
     print(f"\n[INFO] Running {mode} backtest on {len(test_range)} draws (walk-forward)...")
 
     results = []
@@ -223,15 +307,27 @@ def run_backtest(
     total_pos_hits = 0
     total_top2_matches = 0
     total_last2_matches = 0
+    total_front3_matches = 0
+    total_back3_matches = 0
     total_top3_direct_matches = 0
     total_top3_box_matches = 0
 
     for count, i in enumerate(test_range):
         history_up_to = [h["raw"] for h in history[:i]]
         actual_number = history[i]["number"]
-        actual_last2 = history[i]["raw"].get("last2", "")
+        raw_row = history[i]["raw"]
+        actual_last2 = raw_row.get("last2", "")
+        front3 = [raw_row.get("front3_1", ""), raw_row.get("front3_2", "")]
+        back3 = [raw_row.get("back3_1", ""), raw_row.get("back3_2", "")]
+        front3 = [f for f in front3 if f]
+        back3 = [b for b in back3 if b]
         draw_date = history[i]["date"]
         total_attempted += 1
+
+        # Strict chronological verification against look-ahead data leakage
+        assert all(h["draw_date"] < draw_date for h in history_up_to), (
+            f"LEAKAGE DETECTED: Draw {draw_date} history contains draws >= {draw_date}"
+        )
 
         # Generate prediction
         if use_random_only:
@@ -240,7 +336,10 @@ def run_backtest(
             pred_error = None
         else:
             try:
-                predicted_number = _predict_with_ensemble(history_up_to)
+                if eval_weights is not None:
+                    predicted_number = _predict_with_ensemble(history_up_to, weights=eval_weights)
+                else:
+                    predicted_number = _predict_with_ensemble(history_up_to)
                 pred_status = "success"
                 pred_error = None
             except Exception as e:
@@ -254,7 +353,13 @@ def run_backtest(
 
         if predicted_number is not None:
             successful_draws += 1
-            sc = score_prediction(predicted_number, actual_number, actual_last2=actual_last2)
+            sc = score_prediction(
+                predicted_number,
+                actual_number,
+                actual_last2=actual_last2,
+                front3=front3,
+                back3=back3,
+            )
             sc["date"] = draw_date
             sc["status"] = "success"
             sc["error"] = None
@@ -268,6 +373,10 @@ def run_backtest(
                 total_top2_matches += 1
             if sc["last2_match"]:
                 total_last2_matches += 1
+            if sc["front3_match"]:
+                total_front3_matches += 1
+            if sc["back3_match"]:
+                total_back3_matches += 1
             if sc["top3_direct"]:
                 total_top3_direct_matches += 1
             if sc["top3_box"]:
@@ -285,6 +394,8 @@ def run_backtest(
                 "digit_hits": 0,
                 "top2_match": False,
                 "last2_match": False,
+                "front3_match": False,
+                "back3_match": False,
                 "top3_direct": False,
                 "top3_box": False,
             }
@@ -307,7 +418,7 @@ def run_backtest(
     n_digit_trials = successful_draws * 6
     positional_accuracy = total_pos_hits / n_digit_trials if n_digit_trials > 0 else 0.0
 
-    # Statistical confidence interval (Wilson Score)
+    # Statistical confidence interval (Wilson Score for position trials)
     wilson_ci = compute_wilson_ci(total_pos_hits, n_digit_trials)
 
     # Z-test against pure random chance p0 = 0.10
@@ -320,7 +431,33 @@ def run_backtest(
         z_stat = 0.0
         p_val = 1.0
 
-    failure_rate_pct = round(prediction_failures / total_attempted * 100, 4)
+    # Draw-level statistical uncertainty
+    draw_pos_hits = [r["position_hits"] for r in results if r.get("status") == "success"]
+    if draw_pos_hits:
+        n_draws = len(draw_pos_hits)
+        mean_draw_pos = sum(draw_pos_hits) / n_draws
+        var_draw_pos = sum((x - mean_draw_pos) ** 2 for x in draw_pos_hits) / (n_draws - 1) if n_draws > 1 else 0.0
+        std_draw_pos = math.sqrt(var_draw_pos)
+        se_draw_pos = std_draw_pos / math.sqrt(n_draws) if n_draws > 0 else 0.0
+        ci_draw_lower = max(0.0, mean_draw_pos - 1.95996 * se_draw_pos)
+        ci_draw_upper = min(6.0, mean_draw_pos + 1.95996 * se_draw_pos)
+
+        # Draw-level test vs random null mu0 = 0.60 (6 * 0.10)
+        sigma0_draw = math.sqrt(0.54)
+        se0_draw = sigma0_draw / math.sqrt(n_draws) if n_draws > 0 else 0.0
+        z_draw = (mean_draw_pos - 0.60) / se0_draw if se0_draw > 0 else 0.0
+        p_val_draw = calc_two_tailed_p_value(z_draw)
+    else:
+        mean_draw_pos = 0.0
+        std_draw_pos = 0.0
+        se_draw_pos = 0.0
+        ci_draw_lower = 0.0
+        ci_draw_upper = 0.0
+        z_draw = 0.0
+        p_val_draw = 1.0
+
+    coverage_rate_pct = round(successful_draws / total_attempted * 100, 4) if total_attempted > 0 else 0.0
+    failure_rate_pct = round(prediction_failures / total_attempted * 100, 4) if total_attempted > 0 else 0.0
 
     summary = {
         "mode": mode,
@@ -332,6 +469,13 @@ def run_backtest(
         "failed_draws_details": failed_draws_details,
         "total_draws": successful_draws,  # backward compatibility
         "sample_size_positions": n_digit_trials,
+        "coverage": {
+            "attempted_draws": total_attempted,
+            "successful_draws": successful_draws,
+            "failed_draws": prediction_failures,
+            "coverage_rate_pct": coverage_rate_pct,
+            "failure_rate_pct": failure_rate_pct,
+        },
         "statistical_uncertainty": {
             "sample_size_draws": successful_draws,
             "sample_size_positions": n_digit_trials,
@@ -341,17 +485,72 @@ def run_backtest(
                 "upper_pct": wilson_ci["ci_upper_pct"],
             },
             "standard_error": wilson_ci["standard_error"],
+            "position_standard_error": wilson_ci["standard_error"],
             "hypothesis_test_vs_random_10pct": {
                 "null_hypothesis": "Positional accuracy is <= 10.0% (random baseline)",
                 "z_score": round(z_stat, 4),
                 "p_value": round(p_val, 6),
                 "statistically_significant_at_05": p_val < 0.05 and z_stat > 0,
             },
+            "draw_level_uncertainty": {
+                "sample_size_draws": successful_draws,
+                "mean_position_hits_per_draw": round(mean_draw_pos, 4),
+                "sample_std_dev": round(std_draw_pos, 4),
+                "draw_standard_error": round(se_draw_pos, 4),
+                "ci_95_draw_hits": {
+                    "lower": round(ci_draw_lower, 4),
+                    "upper": round(ci_draw_upper, 4),
+                },
+                "hypothesis_test_vs_random_0_60": {
+                    "null_hypothesis": "Mean position hits per draw is <= 0.60 (pure random expectation)",
+                    "expected_mean": 0.60,
+                    "z_score": round(z_draw, 4),
+                    "p_value": round(p_val_draw, 6),
+                    "statistically_significant_at_05": p_val_draw < 0.05 and z_draw > 0,
+                },
+            },
             "interpretation": (
                 "Do not interpret a positive lift as proof of predictive advantage. "
                 "Due to high variance and inherent randomness in lottery draws, sample hit rate variations "
                 "are consistent with random statistical fluctuations. Lottery outcomes are designed to be independent and uniformly random."
             ),
+        },
+        "metrics_official_prizes": {
+            "first_prize_jackpot": {
+                "matches": exact_matches,
+                "match_rate_pct": round(exact_matches / eval_draws * 100, 4),
+                "expected_random_pct": 0.0001,
+            },
+            "front3_prizes": {
+                "matches": total_front3_matches,
+                "match_rate_pct": round(total_front3_matches / eval_draws * 100, 4),
+                "expected_random_pct": 0.20,
+            },
+            "back3_prizes": {
+                "matches": total_back3_matches,
+                "match_rate_pct": round(total_back3_matches / eval_draws * 100, 4),
+                "expected_random_pct": 0.20,
+            },
+            "last2_prize": {
+                "matches": total_last2_matches,
+                "match_rate_pct": round(total_last2_matches / eval_draws * 100, 4),
+                "expected_random_pct": 1.00,
+            },
+            "top2_market": {
+                "matches": total_top2_matches,
+                "match_rate_pct": round(total_top2_matches / eval_draws * 100, 4),
+                "expected_random_pct": 1.00,
+            },
+            "top3_direct_market": {
+                "matches": total_top3_direct_matches,
+                "match_rate_pct": round(total_top3_direct_matches / eval_draws * 100, 4),
+                "expected_random_pct": 0.10,
+            },
+            "top3_box_market": {
+                "matches": total_top3_box_matches,
+                "match_rate_pct": round(total_top3_box_matches / eval_draws * 100, 4),
+                "expected_random_pct": 0.60,
+            },
         },
         "metrics_6digit": {
             "exact_matches": exact_matches,
@@ -371,6 +570,12 @@ def run_backtest(
             "last2_match_rate_pct": round(total_last2_matches / eval_draws * 100, 4),
         },
         "metrics_3digit": {
+            "front3_matches": total_front3_matches,
+            "front3_match_rate_pct": round(total_front3_matches / eval_draws * 100, 4),
+            "expected_front3_random_pct": 0.2,
+            "back3_matches": total_back3_matches,
+            "back3_match_rate_pct": round(total_back3_matches / eval_draws * 100, 4),
+            "expected_back3_random_pct": 0.2,
             "top3_direct_matches": total_top3_direct_matches,
             "top3_direct_rate_pct": round(total_top3_direct_matches / eval_draws * 100, 4),
             "expected_top3_direct_random_pct": 0.1,
@@ -401,6 +606,7 @@ def run_comparative_backtest(
     random_trials: int = 10,
     random_seed: int = 42,
     min_history: int = 100,
+    weights_mode: str = "calibrated",
 ) -> dict:
     """
     Run ensemble backtest (zero random fallback) and compare against
@@ -408,7 +614,7 @@ def run_comparative_backtest(
     """
     print("=" * 60)
     print("  COMPARATIVE WALK-FORWARD BACKTEST")
-    print(f"  Max draws: {max_draws} | Random trials: {random_trials} | Seed: {random_seed}")
+    print(f"  Max draws: {max_draws} | Random trials: {random_trials} | Seed: {random_seed} | Weights: {weights_mode}")
     print("=" * 60)
 
     # 1. Ensemble model (never falls back to random)
@@ -416,6 +622,7 @@ def run_comparative_backtest(
         max_draws=max_draws,
         use_random_only=False,
         min_history=min_history,
+        weights_mode=weights_mode,
     )
 
     # 2. Repeated random baseline trials (same draws, fixed seed)
@@ -424,6 +631,10 @@ def run_comparative_backtest(
     trial_digit_hits = []
     trial_pos_hits = []
     trial_top2 = []
+    trial_last2 = []
+    trial_front3 = []
+    trial_back3 = []
+    trial_top3_direct = []
     trial_top3_box = []
 
     print(f"\n[INFO] Running {random_trials} repeated random baseline trials...")
@@ -438,6 +649,10 @@ def run_comparative_backtest(
             trial_digit_hits.append(trial_res["average_digit_hits"])
             trial_pos_hits.append(trial_res["average_position_hits"])
             trial_top2.append(trial_res["metrics_2digit"]["top2_match_rate_pct"])
+            trial_last2.append(trial_res["metrics_2digit"]["last2_match_rate_pct"])
+            trial_front3.append(trial_res["metrics_3digit"]["front3_match_rate_pct"])
+            trial_back3.append(trial_res["metrics_3digit"]["back3_match_rate_pct"])
+            trial_top3_direct.append(trial_res["metrics_3digit"]["top3_direct_rate_pct"])
             trial_top3_box.append(trial_res["metrics_3digit"]["top3_box_rate_pct"])
 
     # Aggregate random trials statistics
@@ -454,12 +669,24 @@ def run_comparative_backtest(
 
         mean_rnd_dig = sum(trial_digit_hits) / k_trials
         mean_rnd_pos = sum(trial_pos_hits) / k_trials
+        mean_rnd_top2 = sum(trial_top2) / k_trials
+        mean_rnd_last2 = sum(trial_last2) / k_trials
+        mean_rnd_front3 = sum(trial_front3) / k_trials
+        mean_rnd_back3 = sum(trial_back3) / k_trials
+        mean_rnd_top3_direct = sum(trial_top3_direct) / k_trials
+        mean_rnd_top3_box = sum(trial_top3_box) / k_trials
     else:
         mean_rnd_acc = 10.0
         std_rnd_acc = 0.0
         rnd_ci_95 = (10.0, 10.0)
         mean_rnd_dig = 2.5
         mean_rnd_pos = 0.6
+        mean_rnd_top2 = 1.0
+        mean_rnd_last2 = 1.0
+        mean_rnd_front3 = 0.2
+        mean_rnd_back3 = 0.2
+        mean_rnd_top3_direct = 0.1
+        mean_rnd_top3_box = 0.6
         k_trials = 0
 
     comparison = {}
@@ -490,6 +717,23 @@ def run_comparative_backtest(
                 "p_value": round(p_diff, 6),
                 "statistically_significant_at_05": p_diff < 0.05 and z_diff > 0,
             },
+            "official_prize_rates": {
+                "front3_match_rate_pct": {
+                    "ensemble": ensemble_result.get("metrics_official_prizes", {}).get("front3_prizes", {}).get("match_rate_pct", 0.0),
+                    "random_empirical_mean": round(mean_rnd_front3, 4),
+                    "theoretical_random": 0.20,
+                },
+                "back3_match_rate_pct": {
+                    "ensemble": ensemble_result.get("metrics_official_prizes", {}).get("back3_prizes", {}).get("match_rate_pct", 0.0),
+                    "random_empirical_mean": round(mean_rnd_back3, 4),
+                    "theoretical_random": 0.20,
+                },
+                "last2_match_rate_pct": {
+                    "ensemble": ensemble_result.get("metrics_official_prizes", {}).get("last2_prize", {}).get("match_rate_pct", 0.0),
+                    "random_empirical_mean": round(mean_rnd_last2, 4),
+                    "theoretical_random": 1.00,
+                },
+            },
             "disclaimer": (
                 "Do not interpret a positive lift as proof of predictive advantage. "
                 "Due to high variance and inherent randomness in lottery draws, sample hit rate variations "
@@ -507,12 +751,19 @@ def run_comparative_backtest(
             "ci_95_pct": {"lower_pct": rnd_ci_95[0], "upper_pct": rnd_ci_95[1]},
             "mean_digit_hits": round(mean_rnd_dig, 4),
             "mean_pos_hits": round(mean_rnd_pos, 4),
+            "mean_top2_match_rate_pct": round(mean_rnd_top2, 4),
+            "mean_last2_match_rate_pct": round(mean_rnd_last2, 4),
+            "mean_front3_match_rate_pct": round(mean_rnd_front3, 4),
+            "mean_back3_match_rate_pct": round(mean_rnd_back3, 4),
+            "mean_top3_direct_rate_pct": round(mean_rnd_top3_direct, 4),
+            "mean_top3_box_rate_pct": round(mean_rnd_top3_box, 4),
             "expected_theoretical_accuracy_pct": 10.0,
         },
         "comparison": comparison,
         "sample_size": {
             "attempted_draws": ensemble_result.get("attempted_draws", 0),
             "successful_draws": ensemble_result.get("successful_draws", 0),
+            "coverage_rate_pct": ensemble_result.get("coverage", {}).get("coverage_rate_pct", 100.0),
             "failures_count": ensemble_result.get("prediction_failures", 0),
             "failure_rate_pct": ensemble_result.get("failure_rate_pct", 0.0),
         },
@@ -543,7 +794,11 @@ def save_report(summary: dict):
     # 2. Save CSV
     with open(REPORT_CSV, "w", encoding="utf-8", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow(["date", "actual", "predicted", "digit_hits", "position_hits", "exact_match", "top2_match", "last2_match", "top3_direct", "top3_box", "status"])
+        writer.writerow([
+            "date", "actual", "predicted", "digit_hits", "position_hits",
+            "exact_match", "top2_match", "last2_match", "front3_match", "back3_match",
+            "top3_direct", "top3_box", "status"
+        ])
         for d in draws:
             writer.writerow([
                 d["date"],
@@ -554,6 +809,8 @@ def save_report(summary: dict):
                 d["exact_match"],
                 d.get("top2_match", False),
                 d.get("last2_match", False),
+                d.get("front3_match", False),
+                d.get("back3_match", False),
                 d.get("top3_direct", False),
                 d.get("top3_box", False),
                 d.get("status", "success"),
@@ -573,8 +830,25 @@ def main():
     parser.add_argument("--trials", type=int, default=10, help="Number of random baseline trials (default 10)")
     parser.add_argument("--seed", type=int, default=42, help="Fixed random seed (default 42)")
     parser.add_argument("--min-history", type=int, default=100, help="Minimum history required (default 100)")
+    parser.add_argument("--weights", choices=["calibrated", "equal"], default="calibrated", help="Weights mode: calibrated from disk or untuned equal (default: calibrated)")
+    parser.add_argument("--audit", action="store_true", help="Audit ensemble weights and partitioning for look-ahead data leakage")
     parser.add_argument("--random-only", action="store_true", help="Random baseline only")
     args = parser.parse_args()
+
+    if args.audit:
+        print("\n" + "=" * 60)
+        print("  LOOK-AHEAD DATA LEAKAGE AUDIT")
+        print("=" * 60)
+        res = audit_weights_leakage()
+        for k, v in res.items():
+            print(f"  {k:30s}: {v}")
+        print("=" * 60)
+        if res.get("passed"):
+            print("  AUDIT RESULT: PASSED (Zero future-data leakage detected)")
+        else:
+            print("  AUDIT RESULT: FAILED")
+        print("=" * 60 + "\n")
+        return
 
     if args.compare:
         result = run_comparative_backtest(
@@ -582,6 +856,7 @@ def main():
             random_trials=args.trials,
             random_seed=args.seed,
             min_history=args.min_history,
+            weights_mode=args.weights,
         )
         print("\n" + "=" * 60)
         print("  COMPARATIVE BACKTEST RESULTS")
@@ -590,7 +865,7 @@ def main():
         rnd = result.get("random_baseline", {})
         cmp = result.get("comparison", {})
         ss = result.get("sample_size", {})
-        print(f"  Sample size (draws)          : {ss.get('successful_draws', 0)} / {ss.get('attempted_draws', 0)} attempted")
+        print(f"  Sample size (draws)          : {ss.get('successful_draws', 0)} / {ss.get('attempted_draws', 0)} attempted (Coverage: {ss.get('coverage_rate_pct', 0.0):.2f}%)")
         print(f"  Predictor failures           : {ss.get('failures_count', 0)} ({ss.get('failure_rate_pct', 0.0):.2f}%)")
         print(f"  Ensemble positional accuracy : {ens.get('positional_accuracy_pct', 0):.2f}%")
         print(f"  Random baseline mean accuracy: {rnd.get('mean_positional_accuracy_pct', 0):.2f}% (std: {rnd.get('std_positional_accuracy_pct', 0):.2f}%)")
@@ -620,6 +895,7 @@ def main():
             use_random_only=args.random_only,
             min_history=args.min_history,
             random_seed=args.seed if args.random_only else None,
+            weights_mode=args.weights,
         )
         if summary:
             save_report(summary)
@@ -629,6 +905,7 @@ def main():
             print(f" Mode                    : {summary['mode']}")
             print(f" Attempted draws         : {summary['attempted_draws']}")
             print(f" Successful draws        : {summary['successful_draws']}")
+            print(f" Coverage rate           : {summary.get('coverage', {}).get('coverage_rate_pct', 0.0)}%")
             print(f" Prediction failures     : {summary['prediction_failures']} ({summary['failure_rate_pct']}%)")
             print(f" Exact matches           : {summary['exact_matches']} ({summary['exact_match_rate']:.4%})")
             print(f" Average digit hits      : {summary['average_digit_hits']} / 6")

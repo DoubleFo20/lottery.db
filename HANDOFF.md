@@ -2,15 +2,16 @@
 
 **Repository:** `DoubleFo20/lottery.db`  
 **Feature Branch:** `feat/mission-critical-remediation`  
+**Pull Request:** PR #1 (Draft) — https://github.com/DoubleFo20/lottery.db/pull/1  
 **Orchestrator:** ARGON  
 **Target Reviewer:** Claude Opus / Independent Senior Auditor  
 **Date:** 2026-10-17  
 
 ---
 
-## 1. Overview of Changes
+## 1. Overview of Changes & Independent Review Remediation
 
-All 8 verified issues identified in the mission brief have been resolved, verified with deterministic tests, and mirrored across all dashboard targets without breaking any existing contracts.
+In addition to resolving all 8 original mission-critical issues, this update addresses all findings from the independent code review on PR #1:
 
 ```
 Master History (473 draws) ───► Feature Datasets (473 rows)
@@ -19,71 +20,101 @@ Master History (473 draws) ───► Feature Datasets (473 rows)
 api/run_pipeline.py ─────────► pipeline_cache.json (includes last2, front3, back3)
        │                               │
        ▼                               ▼
+analytics/backtest_engine.py ──► Zero leakage, official GLO prizes, draw-level uncertainty
+       │                               │
+       ▼                               ▼
 Dashboards (4 mirrors) ◄─────── dynamic binding (no hardcoded 64 or 730640)
 ```
 
 ---
 
-## 2. Itemized Verification & Diff Guide for Reviewer
+## 2. Review Findings & Remediation Guide
 
-### 1. Hardcoded Draw Result '64' in Manager Dashboard
-- **Files Changed:** `manager.html`, `dashboard/manager.html`, `api/run_pipeline.py`
-- **Before:** Lines 639-651 and 1209-1215 in `manager.html` hardcoded `730640`, `64`, `060, 521`, `266, 041`.
-- **After:** `api/run_pipeline.py:read_dataset_summary()` now exports `last2`, `front3`, and `back3` in `meta.dataset`. `renderCountdownAndLatestResults()` in `manager.html` dynamically binds these values and formats the Thai date (`16 ต.ค. 2569`). Initial HTML defaults updated to the verified 16 Oct 2026 draw (`011781`, `48`).
+### Phase A: Merge Conflict Resolution with `origin/main`
+- Reconciled branch diverge with `origin/main` (`c62352d`, which contained automated cron bot commits).
+- Resolved conflicts in 5 files cleanly:
+  1. `database/dataset/lottery_history.csv`: Preserved canonical 473-row history including verified 2026-10-16 draw (`011781`, `48`, `402, 392`, `171, 255`).
+  2. `performance.json`: Preserved deduplicated honest ground truth (`evaluated: 2`, `avg_pos_hits: 1.00/6`, Grade `F ❌ (Uncalibrated)`).
+  3. `database/predictions/pipeline_cache.json`: Regenerated cleanly from master dataset via `python api/run_pipeline.py`.
+  4. `dashboard/hopper_3d_data.json` & `database/predictions/hopper_3d_data.json`: Rebuilt from pipeline cache via `npm run build`.
 
-### 2. Stale Embedded Historical Data in Strategy & Index
-- **Files Changed:** `index.html`, `strategy.html`, `dashboard/strategy.html`, `dashboard/index.html`
-- **Before:** Static result panel, `strategy-data` JSON script, and `buildFallbackDataset()` were frozen at 16 Sep 2026 (`730640`).
-- **After:** Updated to 16 Oct 2026 (`011781`, `48`, `402, 392`, `171, 255`). All 4 mirrors maintain byte-for-byte SHA-256 parity.
+### Phase B: Independent Review Findings Addressed
 
-### 3. Backtest Engine Real Model & Multi-Tier Metrics
-- **File Changed:** `analytics/backtest_engine.py`
-- **Before:** Evaluated only 6-digit positions using single metric; lacked 2-digit and 3-digit separate tracking; silently fell back to `_random_prediction()` on predictor exceptions.
-- **After:**
-  1. **Zero Random Fallback:** When `_predict_with_ensemble()` fails, the failure is reported explicitly, tracked in `prediction_failures` and `failed_draws_details`, and never masked with random numbers.
-  2. **Multi-Tier Metrics:** `score_prediction()` and `run_backtest()` evaluate 6-digit Jackpot, 2-digit Top/Last2, and 3-digit Direct/Box permutations separately. Normalization formula: `total_pos_hits / (successful_draws * 6)`.
-  3. **Repeated Baseline Trials with Fixed Seed:** `run_comparative_backtest()` runs multiple random baseline trials with `--seed 42` to compute empirical mean, standard deviation, and 95% confidence intervals.
-  4. **Statistical Uncertainty & Hypothesis Testing:** Calculates Wilson Score 95% Confidence Intervals, two-tailed Z-tests, and p-values against theoretical and empirical random baselines.
-  5. **Explicit Scientific Disclaimers:** Clarifies that slight positive lifts in finite samples do NOT constitute proof of an exploitable predictive edge in independent random lottery draws.
+#### 1. Look-Ahead Data Leakage Audit (`audit_weights_leakage()`)
+- Added `audit_weights_leakage()` in `analytics/backtest_engine.py` (runnable via `--audit`).
+- Formally verifies:
+  - Chronological ordering of historical draws.
+  - Strict pre-draw history isolation (`history_up_to` contains only draws strictly prior to target draw date).
+  - Model operates cleanly with untuned a-priori equal weights (`--weights equal`), completely decoupling architecture evaluation from historical parameter fitting.
 
-### 4. Performance History Deduplication
-- **Files Changed:** `database/predictions/prediction_history.json`, `performance.json`
-- **Before:** Contained duplicate evaluations for target date `2026-04-01`, skewing evaluated count and hit rate statistics.
-- **After:** Deduplicated to distinct `(target_date, draw_date_used)` pairs. `performance.json` recomputed cleanly (`evaluated: 2`, `avg_pos_hits: 1.00/6`, Grade `F ❌ (Uncalibrated)`).
+#### 2. Strict Pre-Draw Information Isolation
+- `analytics/backtest_engine.py` enforces explicit runtime assertion:
+  ```python
+  assert all(h["draw_date"] < draw_date for h in history_up_to)
+  ```
+  Guarantees zero future data can leak into signal extraction or candidate generation.
 
-### 5. Frontend XSS & XAI Schema Mismatch
-- **File Changed:** `dashboard/app.js`
-- **Before:** `app.js:149` called `pos.reasons.slice(0, 2)` assuming an array, throwing TypeError because cache provides an object `{th: [], en: []}`. Injected unescaped `innerHTML`.
-- **After:** Handles both `{th, en}` localized object and legacy array; added `escapeHtml()` protection; added multi-path API resilience; relabeled confidence to "Relative Score Rank (Uncalibrated)".
+#### 3. Official GLO Prize Categories Evaluation
+- Updated `score_prediction()` and `run_backtest()` to evaluate official Thai Government Lottery prize categories:
+  - **First Prize / Jackpot:** 6-digit exact match ($1/1,000,000$).
+  - **Official Front-3 Prizes (เลขหน้า 3 ตัว):** Matches either `front3_1` or `front3_2` ($2/1,000 = 0.20\%$).
+  - **Official Back-3 Prizes (เลขท้าย 3 ตัว):** Matches either `back3_1` or `back3_2` ($2/1,000 = 0.20\%$).
+  - **Official Last-2 Prize (เลขท้าย 2 ตัว):** Matches `actual_last2` ($1/100 = 1.00\%$).
+  - **Top-2 Market (2 ตัวบน):** Matches last 2 digits of First Prize ($1/100 = 1.00\%$).
+  - **Top-3 Direct (3 ตัวตรง):** Matches last 3 digits of First Prize ($1/1,000 = 0.10\%$).
+  - **Top-3 Box (3 ตัวโต๊ด):** Permutations of last 3 digits of First Prize ($\approx 6/1,000 = 0.60\%$).
 
-### 6. Zero-Byte Dead Code & Broken Includes
-- **Files Removed:** `backend/api/history.php`, `backend/api/statistics.php`, `database/api/history.php`, `database/api/statistics.php`
-- **File Updated:** `database/api/predict.php` (forwarding shim to canonical `api/predict.php`).
-- **Files Populated:** `i18n/th.json`, `i18n/en.json` (complete bilingual dictionaries).
+#### 4. Draw-Level Statistical Uncertainty Evaluation
+- In addition to position-level Wilson Score intervals, added draw-level uncertainty:
+  - Mean positional hits per draw ($\bar{X}_{pos}$).
+  - Sample standard deviation ($s_{pos}$) and standard error of the mean ($SE_{draw} = s_{pos} / \sqrt{N}$).
+  - 95% Confidence Interval for draw hits: $[\bar{X} \pm 1.96 \cdot SE_{draw}]$.
+  - Draw-level hypothesis test vs null expectation $\mu_0 = 0.60$ hits/draw with two-tailed p-value.
 
-### 7. New Automated Test Suite
-- **File Added:** `tests/test_data_integrity_and_backtest.py`
-- 10 comprehensive tests covering ground truth integrity, `read_dataset_summary()`, prediction history deduplication, honest performance metrics, multi-tier backtest scoring, intentional predictor failure error handling (verifying zero random fallback), Wilson score confidence intervals, and comparative random baseline reproducibility.
+#### 5. Prediction Success Coverage Reporting
+- Added explicit coverage tracking:
+  - `attempted_draws`: total draws in evaluation window.
+  - `successful_draws`: draws where predictor generated valid prediction.
+  - `coverage_rate_pct`: $\text{successful} / \text{attempted} \times 100\%$.
+  - `prediction_failures` & `failure_rate_pct`.
+  - Zero random fallback is strictly enforced: failures are never masked with random guesses.
 
 ---
 
-## 3. Verification Commands for Auditor
+## 3. Premium UI/UX Separate Branch Roadmap
+
+Per instructions, the Premium UI/UX platform redesign is intentionally scoped for a dedicated follow-up feature branch (`feat/premium-analytical-ui`) immediately after PR #1 merge:
+- Professional analytical theme (slate/indigo/glass hierarchy, eliminating generic AI dashboard patterns).
+- Unified multi-tab dashboard architecture (Strategy, Manager, Analytics, 3D Showcase).
+- Comprehensive Thai/English localization toggle.
+- Full WCAG 2.1 AA accessibility and responsive mobile layout.
+
+---
+
+## 4. Verification Commands for Auditor
 
 ```bash
-# 1. Run all Python unit and integration tests (expect: 232 passed)
+# 1. Run all Python unit and integration tests (expect: 235 passed)
 python -m pytest tests/
 
-# 2. Run Puppeteer browser advisory regression test
-npm run test:advisory
+# 2. Run data leakage audit
+python analytics/backtest_engine.py --audit
 
-# 3. Verify 3D build and data generation
-npm run build
-
-# 4. Run comparative backtest with repeated random baseline trials
+# 3. Run comparative backtest with repeated random baseline trials
 python analytics/backtest_engine.py --compare --draws 20 --trials 5 --seed 42
 
-# 5. Verify git status is clean on feature branch
+# 4. Run Puppeteer browser advisory regression test
+npm run test:advisory
+
+# 5. Run canvas lifecycle test
+npm run test:canvas:lifecycle
+
+# 6. Verify 3D build and data generation
+npm run build
+
+# 7. Verify git status is clean on feature branch
 git status
 ```
 
-Ready for merge review against `docs/governance/15_DEFINITION_OF_DONE.md`.
+Ready for merge review on PR #1 against `docs/governance/15_DEFINITION_OF_DONE.md`.
+Do not merge automatically; requires human owner sign-off.
