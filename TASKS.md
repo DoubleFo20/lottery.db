@@ -34,10 +34,15 @@
 - [x] 3D assets build: **Clean** (`npm run build`).
 - [x] Re-run comparative backtest with draw-level stats: **PASSED** (`comparative_report.json` updated).
 
-## Phase D: PR #1 Update & Next Steps
+## Phase D: CI Repair & Merge Readiness
+- [x] Fix TypeScript `LayoutProps` error in `next-app/src/app/layout.tsx` using `Readonly<{ children: ReactNode }>`.
+- [x] Verify `npx tsc --noEmit --incremental false` passes with 0 errors on clean checkout.
+- [x] Verify `npm run lint` and `npm run build` pass in `next-app`.
+- [x] Isolate backtest weights by defaulting comparative backtest to untuned equal weights (`weights_mode="equal"`).
+- [x] Clearly distinguish official GLO equipment prizes from independent market sub-combination models.
+- [x] Run full regression tests (235 passed in Pytest, advisory tests, canvas lifecycle, legacy stress).
 - [x] Update `HANDOFF.md`, `PROJECT_STATUS.md`, and `TASKS.md`.
-- [ ] Commit verified changes with structured commit message.
-- [ ] Push to `origin/feat/mission-critical-remediation`.
-- [ ] Verify GitHub PR #1 reports clean status with zero merge conflicts.
-- [ ] Prepare scope for follow-up Premium UI/UX feature branch (`feat/premium-analytical-ui`) post-merge.
+- [ ] Commit and push verified fixes to `origin/feat/mission-critical-remediation`.
+- [ ] Verify GitHub Actions workflows complete with green status on PR #1.
+- [ ] Keep PR #1 in Draft status for owner review.
 

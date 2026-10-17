@@ -79,6 +79,13 @@ Dashboards (4 mirrors) ◄─────── dynamic binding (no hardcoded 64
   - `prediction_failures` & `failure_rate_pct`.
   - Zero random fallback is strictly enforced: failures are never masked with random guesses.
 
+#### 6. Canvas CI Regression Repair (`next-app/src/app/layout.tsx`)
+- **Issue:** CI failure in `Canvas Browser Regression` workflow:
+  `next-app/src/app/layout.tsx(20,50): error TS2304: Cannot find name 'LayoutProps'.`
+- **Root Cause:** `npx tsc --noEmit --incremental false` in CI runs before `npm run build` generates `.next/types`.
+- **Resolution:** Replaced missing `LayoutProps<"/">` with standard React App Router prop typing `Readonly<{ children: ReactNode }>`. Verified `npx tsc --noEmit --incremental false`, `npm run lint`, and `npm run build` all pass with 0 errors on clean checkout.
+- **Leakage-Safe Benchmark Default:** Defaulted `run_comparative_backtest()` to `weights_mode="equal"` (untuned equal weights `1/8 = 0.125`) for strictly leakage-safe historical benchmarking, explicitly distinguishing official GLO prize equipment draws from independent market models.
+
 ---
 
 ## 3. Premium UI/UX Separate Branch Roadmap

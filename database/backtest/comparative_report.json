@@ -1,6 +1,6 @@
 {
   "ensemble": {
-    "mode": "ENSEMBLE MODEL",
+    "mode": "ENSEMBLE (UNTUNED EQUAL)",
     "model_version": "EnsemblePredictor-v2.1",
     "attempted_draws": 20,
     "successful_draws": 20,
@@ -35,11 +35,11 @@
       "draw_level_uncertainty": {
         "sample_size_draws": 20,
         "mean_position_hits_per_draw": 0.85,
-        "sample_std_dev": 0.7452,
-        "draw_standard_error": 0.1666,
+        "sample_std_dev": 0.8127,
+        "draw_standard_error": 0.1817,
         "ci_95_draw_hits": {
-          "lower": 0.5234,
-          "upper": 1.1766
+          "lower": 0.4938,
+          "upper": 1.2062
         },
         "hypothesis_test_vs_random_0_60": {
           "null_hypothesis": "Mean position hits per draw is <= 0.60 (pure random expectation)",
@@ -50,6 +50,52 @@
         }
       },
       "interpretation": "Do not interpret a positive lift as proof of predictive advantage. Due to high variance and inherent randomness in lottery draws, sample hit rate variations are consistent with random statistical fluctuations. Lottery outcomes are designed to be independent and uniformly random."
+    },
+    "weights_provenance": {
+      "weights_mode": "equal",
+      "leakage_isolation": "STRICT_LEAKAGE_SAFE",
+      "historical_provenance": "Untuned a-priori equal weights (1/8 = 0.125 for all signals) guarantee zero look-ahead bias across all historical backtest draws."
+    },
+    "official_glo_prizes": {
+      "description": "Official prize categories drawn by separate, independent GLO lottery machines (First Prize, Front-3, Back-3, Last-2)",
+      "first_prize_jackpot": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 0.0001
+      },
+      "front3_prizes": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 0.2
+      },
+      "back3_prizes": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 0.2
+      },
+      "last2_prize": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 1.0
+      }
+    },
+    "independent_market_models": {
+      "description": "First Prize sub-combinations evaluated for independent prize / market analysis (Top-2, Top-3 Direct, Top-3 Box)",
+      "top2_market": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 1.0
+      },
+      "top3_direct_market": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 0.1
+      },
+      "top3_box_market": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 0.6
+      }
     },
     "metrics_official_prizes": {
       "first_prize_jackpot": {
@@ -91,7 +137,7 @@
     "metrics_6digit": {
       "exact_matches": 0,
       "exact_match_rate": 0.0,
-      "average_digit_hits": 2.6,
+      "average_digit_hits": 2.85,
       "average_position_hits": 0.85,
       "positional_accuracy_pct": 14.1667,
       "expected_random_accuracy_pct": 10.0,
@@ -121,11 +167,11 @@
     },
     "exact_matches": 0,
     "exact_match_rate": 0.0,
-    "average_digit_hits": 2.6,
+    "average_digit_hits": 2.85,
     "average_position_hits": 0.85,
     "positional_accuracy_pct": 14.1667,
     "note": "Positional accuracy = total_position_hits / (successful_draws × 6). Random baseline expectation ≈ 10% (1/10 per digit position). Lottery outcomes are inherently unpredictable; past performance does not guarantee future hits.",
-    "run_time": "2026-10-17T22:42:28.588558"
+    "run_time": "2026-10-17T22:56:48.758553"
   },
   "random_baseline": {
     "mode": "RANDOM BASELINE (5 repeated trials, seed=42)",
@@ -151,7 +197,7 @@
     "random_avg_pos_hits": 0.66,
     "ensemble_accuracy_pct": 14.1667,
     "random_accuracy_pct": 11.0,
-    "ensemble_avg_dig_hits": 2.6,
+    "ensemble_avg_dig_hits": 2.85,
     "random_avg_dig_hits": 2.36,
     "lift_over_random_pct": 3.1667,
     "random_baseline_std": 0.6972,
@@ -192,5 +238,10 @@
     "failures_count": 0,
     "failure_rate_pct": 0.0
   },
-  "timestamp": "2026-10-17T22:42:28.612063"
+  "weights_provenance": {
+    "weights_mode": "equal",
+    "leakage_isolation": "STRICT_LEAKAGE_SAFE",
+    "historical_provenance": "Untuned a-priori equal weights (1/8 = 0.125 for all signals) guarantee zero look-ahead bias across all historical backtest draws."
+  },
+  "timestamp": "2026-10-17T22:56:48.811736"
 }

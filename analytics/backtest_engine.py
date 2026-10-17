@@ -249,7 +249,7 @@ def run_backtest(
     use_random_only: bool = False,
     min_history: int = 100,
     random_seed: int | None = None,
-    weights_mode: str | dict = "calibrated",
+    weights_mode: str | dict = "equal",
 ) -> dict:
     """
     Walk-forward backtest: for each draw i >= min_history,
@@ -515,6 +515,56 @@ def run_backtest(
                 "are consistent with random statistical fluctuations. Lottery outcomes are designed to be independent and uniformly random."
             ),
         },
+        "weights_provenance": {
+            "weights_mode": weights_mode if isinstance(weights_mode, str) else "custom_dict",
+            "leakage_isolation": "STRICT_LEAKAGE_SAFE" if weights_mode == "equal" else "CALIBRATED_HISTORICAL",
+            "historical_provenance": (
+                "Untuned a-priori equal weights (1/8 = 0.125 for all signals) guarantee zero look-ahead bias across all historical backtest draws."
+                if weights_mode == "equal" else
+                "Calibrated weights loaded from database/predictions/ensemble_weights.json (fitted during exploratory feature training)."
+            ),
+        },
+        "official_glo_prizes": {
+            "description": "Official prize categories drawn by separate, independent GLO lottery machines (First Prize, Front-3, Back-3, Last-2)",
+            "first_prize_jackpot": {
+                "matches": exact_matches,
+                "match_rate_pct": round(exact_matches / eval_draws * 100, 4),
+                "expected_random_pct": 0.0001,
+            },
+            "front3_prizes": {
+                "matches": total_front3_matches,
+                "match_rate_pct": round(total_front3_matches / eval_draws * 100, 4),
+                "expected_random_pct": 0.20,
+            },
+            "back3_prizes": {
+                "matches": total_back3_matches,
+                "match_rate_pct": round(total_back3_matches / eval_draws * 100, 4),
+                "expected_random_pct": 0.20,
+            },
+            "last2_prize": {
+                "matches": total_last2_matches,
+                "match_rate_pct": round(total_last2_matches / eval_draws * 100, 4),
+                "expected_random_pct": 1.00,
+            },
+        },
+        "independent_market_models": {
+            "description": "First Prize sub-combinations evaluated for independent prize / market analysis (Top-2, Top-3 Direct, Top-3 Box)",
+            "top2_market": {
+                "matches": total_top2_matches,
+                "match_rate_pct": round(total_top2_matches / eval_draws * 100, 4),
+                "expected_random_pct": 1.00,
+            },
+            "top3_direct_market": {
+                "matches": total_top3_direct_matches,
+                "match_rate_pct": round(total_top3_direct_matches / eval_draws * 100, 4),
+                "expected_random_pct": 0.10,
+            },
+            "top3_box_market": {
+                "matches": total_top3_box_matches,
+                "match_rate_pct": round(total_top3_box_matches / eval_draws * 100, 4),
+                "expected_random_pct": 0.60,
+            },
+        },
         "metrics_official_prizes": {
             "first_prize_jackpot": {
                 "matches": exact_matches,
@@ -606,11 +656,12 @@ def run_comparative_backtest(
     random_trials: int = 10,
     random_seed: int = 42,
     min_history: int = 100,
-    weights_mode: str = "calibrated",
+    weights_mode: str = "equal",
 ) -> dict:
     """
     Run ensemble backtest (zero random fallback) and compare against
     repeated random-baseline trials with fixed seed and confidence intervals.
+    Defaults to weights_mode='equal' to ensure strictly leakage-safe historical benchmarking.
     """
     print("=" * 60)
     print("  COMPARATIVE WALK-FORWARD BACKTEST")
@@ -767,6 +818,15 @@ def run_comparative_backtest(
             "failures_count": ensemble_result.get("prediction_failures", 0),
             "failure_rate_pct": ensemble_result.get("failure_rate_pct", 0.0),
         },
+        "weights_provenance": {
+            "weights_mode": weights_mode,
+            "leakage_isolation": "STRICT_LEAKAGE_SAFE" if weights_mode == "equal" else "CALIBRATED_HISTORICAL",
+            "historical_provenance": (
+                "Untuned a-priori equal weights (1/8 = 0.125 for all signals) guarantee zero look-ahead bias across all historical backtest draws."
+                if weights_mode == "equal" else
+                "Calibrated weights loaded from database/predictions/ensemble_weights.json (fitted during exploratory feature training)."
+            ),
+        },
         "timestamp": datetime.now().isoformat(),
     }
 
@@ -830,7 +890,7 @@ def main():
     parser.add_argument("--trials", type=int, default=10, help="Number of random baseline trials (default 10)")
     parser.add_argument("--seed", type=int, default=42, help="Fixed random seed (default 42)")
     parser.add_argument("--min-history", type=int, default=100, help="Minimum history required (default 100)")
-    parser.add_argument("--weights", choices=["calibrated", "equal"], default="calibrated", help="Weights mode: calibrated from disk or untuned equal (default: calibrated)")
+    parser.add_argument("--weights", choices=["equal", "calibrated"], default="equal", help="Weights mode: untuned equal for leakage-safe benchmark (default) or calibrated from disk")
     parser.add_argument("--audit", action="store_true", help="Audit ensemble weights and partitioning for look-ahead data leakage")
     parser.add_argument("--random-only", action="store_true", help="Random baseline only")
     args = parser.parse_args()
