@@ -1,35 +1,120 @@
 {
-  "app_title": "ระบบวิเคราะห์ยุทธศาสตร์และคาดการณ์สลากกินแบ่งรัฐบาล AI",
+  "app_title": "LOTTERY.DB — แพลตฟอร์มวิเคราะห์ยุทธศาสตร์และสถิติสลากขั้นสูง",
+  "app_subtitle": "ระบบปัญญาประดิษฐ์วิเคราะห์สถิติและการกระจายความเสี่ยงระดับองค์กร",
+  "meta": {
+    "version": "v1.2 Analytical Pro",
+    "status_connected": "เชื่อมต่อระบบปกติ",
+    "status_syncing": "กำลังอัปเดตข้อมูล",
+    "dataset_draws": "งวดประวัติศาสตร์ในฐานข้อมูล",
+    "latest_draw": "ผลงวดล่าสุด",
+    "cache_age": "อายุข้อมูลแคช",
+    "just_now": "เมื่อสักครู่",
+    "ago": "ที่แล้ว",
+    "updated_at": "อัปเดตเมื่อ"
+  },
   "nav": {
-    "strategy": "ยุทธศาสตร์สลาก",
-    "manager": "ศูนย์ควบคุมผู้จัดการ AI",
+    "strategy": "ยุทธศาสตร์หลัก",
+    "manager": "ศูนย์ควบคุมผู้จัดการ",
     "performance": "ผลการประเมินย้อนหลัง",
-    "showcase_3d": "แบบจำลอง 3 มิติ"
+    "showcase_3d": "แบบจำลอง 3 มิติ",
+    "wallet": "พอร์ตความเสี่ยง",
+    "lang_toggle": "TH / EN",
+    "menu": "เมนู"
   },
   "results": {
-    "latest_title": "ผลรางวัลงวดล่าสุด",
+    "latest_title": "ผลรางวัลสลากกินแบ่งรัฐบาลทางการ",
+    "draw_date": "งวดประจำวันที่",
     "first_prize": "รางวัลที่ 1",
     "last2": "เลขท้าย 2 ตัว",
-    "top2": "เลขท้าย 2 ตัวบน",
+    "top2": "2 ตัวบน",
+    "top3": "3 ตัวตรง",
     "front3": "เลขหน้า 3 ตัว",
     "back3": "เลขท้าย 3 ตัว",
-    "verified": "ตรวจแล้ว",
-    "pending": "รอผลรางวัล"
+    "verified": "ตรวจรับรองแล้ว",
+    "pending": "รอผลรางวัล",
+    "official_equipment_notice": "ออกรางวัลด้วยอุปกรณ์วงล้ออิสระของ สนง. สลากกินแบ่งรัฐบาล"
+  },
+  "countdown": {
+    "title": "นับถอยหลังสู่งวดถัดไป",
+    "days": "วัน",
+    "hours": "ชม.",
+    "mins": "นาที",
+    "secs": "วินาที",
+    "drawing_in_progress": "กำลังออกรางวัลสด",
+    "target_time": "เวลาออกรางวัล 14:30 น."
   },
   "predictions": {
-    "top_candidates": "ตัวเลขเด่นที่ผ่านการคัดเลือก (Top Candidates)",
-    "confidence": "คะแนนอันดับสัมพันธ์ (Relative Score)",
-    "confidence_disclaimer": "คะแนนความมั่นใจแสดงลำดับคะแนนสัมพันธ์ ไม่ใช่ความน่าจะเป็นที่การันตีผลรางวัล",
-    "full_spectrum": "ยุทธศาสตร์กระจายความเสี่ยงรอบด้าน (Full Spectrum)",
+    "title": "ผลการคัดกรองตัวเลขเด่น AI",
+    "top_candidates": "ตัวเลขเด่นที่ผ่านเกณฑ์คัดกรอง",
+    "confidence": "คะแนนอันดับสัมพันธ์",
+    "confidence_disclaimer": "หมายเหตุสำคัญ: คะแนนความมั่นใจเป็นเพียงคะแนนสัมพัทธ์ (Heuristic Score Rank) เพื่อจัดอันดับสัญญาณเชิงสถิติ ไม่ใช่ความน่าจะเป็นจริงที่จะถูกรางวัล และไม่มีผลต่อการออกรางวัลแบบสุ่มของสำนักงานสลากกินแบ่งรัฐบาล",
+    "full_spectrum": "ยุทธศาสตร์กระจายความเสี่ยงรอบด้าน (Hedging Portfolio)",
     "jackpot": "รางวัลที่ 1 ชุดหลัก (6 ตัว)",
-    "top2_pairs": "คู่โต๊ด/ตรง 2 ตัว",
-    "banker_digits": "เลขวิ่ง / รูด 19 ประตู"
+    "jackpot_neighbors": "เลขเคียงรางวัลที่ 1 (±1)",
+    "top2_pairs": "คู่ 2 ตัวบนตรง/กลับ",
+    "top3_box": "3 ตัวโต๊ด (Permutations)",
+    "banker_digits": "เลขวิ่ง / รูด 19 ประตู (Banker Core)"
   },
   "analytics": {
-    "historical_draws": "งวดประวัติศาสตร์",
-    "odd_even": "สภาพคู่/คี่",
-    "digit_sum": "ผลรวมแต้ม",
-    "walk_forward_evaluation": "การประเมินแบบไม่มองข้อมูลอนาคต (Walk-Forward)",
-    "random_baseline": "เกณฑ์สุ่มมาตรฐาน (Random Baseline)"
+    "title": "สถิติและสัญญาณแนวโน้มเชิงลึก",
+    "historical_draws": "ประวัติการออกรางวัล",
+    "odd_even": "สมดุลคู่ / คี่ (Parity Balance)",
+    "digit_sum": "ผลรวมแต้ม (Digit Sum)",
+    "sum_range": "ช่วงผลรวมที่พบบ่อย (18 - 38)",
+    "active_streaks": "เลขซ้ำต่อเนื่อง (Active Streaks)",
+    "frequency_spikes": "ตัวเลขความถี่พุ่งสูง (Surging Spikes)",
+    "frequency_drops": "ตัวเลขลดความถี่ (Cooling Drops)",
+    "heatmap_title": "แผนที่ความร้อนรายตำแหน่ง (Positional Digit Heatmap)",
+    "position": "หลักที่",
+    "digit": "เลข",
+    "frequency": "ความถี่",
+    "walk_forward_evaluation": "การประเมินแบบไม่มองข้อมูลอนาคต (Walk-Forward Out-of-Sample)",
+    "random_baseline": "เกณฑ์สุ่มมาตรฐาน (Empirical Random Baseline)",
+    "xai_title": "คำอธิบายเชิงสถิติของโมเดล (Explainable AI Attribution)",
+    "why_candidate": "ทำไมหมายเลขนี้จึงได้คะแนนอันดับ 1",
+    "signals": {
+      "rolling_heat": "ความร้อนช่วงสั้น (Rolling Heat)",
+      "transition": "การเปลี่ยนผ่านเลข (Transition)",
+      "positional_freq": "ความถี่ตามตำแหน่ง (Positional Freq)",
+      "pair_lift": "แรงยกคู่เลข (Pair Lift)",
+      "temporal_trend": "แนวโน้มเชิงเวลา (Temporal Trend)"
+    }
+  },
+  "manager": {
+    "title": "ศูนย์บัญชาการระบบ AI (Manager Control Center)",
+    "subtitle": "ตรวจวัดสถานะแบบจำลอง บริหารความเสี่ยง และปรับแต่งค่าน้ำหนัก",
+    "miss_advisory_title": "ระบบแจ้งเตือนช่วงเว้นว่างรางวัล (Dry Spell Advisory)",
+    "miss_streak": "ไม่เข้าเป้าต่อเนื่อง",
+    "draws": "งวด",
+    "threshold": "เกณฑ์ตรวจจับ",
+    "remediation_status": "สถานะการตอบสนอง",
+    "action_prompt_btn": "คัดลอกคำสั่งแก้ไขฉุกเฉิน (5-Step Playbook Prompt)",
+    "prompt_copied": "คัดลอกคำสั่งสำเร็จแล้ว!",
+    "weights_tuning": "ปรับแต่งค่าน้ำหนักโมเดล (Ensemble Weights Recalibration)",
+    "save_weights": "บันทึกค่าน้ำหนัก",
+    "reset_weights": "รีเซ็ตเป็นค่ามาตรฐาน (Equal Weights)"
+  },
+  "performance": {
+    "title": "รายงานประสิทธิภาพและการประเมินย้อนหลัง",
+    "subtitle": "การประเมินทางสถิติแบบ Out-of-Sample โดยปราศจาก Look-Ahead Data Leakage",
+    "evaluated_draws": "จำนวนงวดที่ประเมินผล",
+    "avg_positional_hits": "ค่าเฉลี่ยตำแหน่งที่ตรง / 6",
+    "avg_digit_hits": "ค่าเฉลี่ยตัวเลขที่ตรง / 6",
+    "exact_jackpot": "รางวัลที่ 1 ตรงเป๊ะ",
+    "model_score": "คะแนนโมเดล",
+    "model_grade": "เกรดความเสถียร",
+    "confidence_interval": "ช่วงความเชื่อมั่น 95% (Wilson / Normal CI)",
+    "p_value": "ค่า p-value เทียบกับการสุ่ม",
+    "recent_draw_evaluations": "บันทึกผลการประเมินงวดล่าสุด",
+    "actual_number": "เลขจริงที่ออก",
+    "best_candidate": "ตัวเลขคาดการณ์อันดับ 1",
+    "hits": "จำนวนหลักตรง",
+    "status": "ผลลัพธ์"
+  },
+  "showcase_3d": {
+    "title": "แบบจำลองสามมิติสถานีคำนวณและกระจายความเสี่ยง",
+    "subtitle": "Kinetic Scroll Canvas — การเดินทางเสมือนจริงสู่วงล้อสลากกินแบ่ง",
+    "scroll_hint": "เลื่อนหน้าจอเพื่อเริ่มการนำเสนอแบบ Cinematic",
+    "station_title": "3D Hedging Staking Station"
   }
 }
