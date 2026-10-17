@@ -461,17 +461,17 @@
     ],
     "surging_2digit": [
       {
-        "sequence": "17",
-        "recent_count": 4,
-        "recent_freq": 0.04,
-        "baseline_freq": 0.0106,
-        "surge_ratio": 3.77
-      },
-      {
         "sequence": "70",
         "recent_count": 3,
         "recent_freq": 0.03,
         "baseline_freq": 0.0079,
+        "surge_ratio": 3.77
+      },
+      {
+        "sequence": "17",
+        "recent_count": 4,
+        "recent_freq": 0.04,
+        "baseline_freq": 0.0106,
         "surge_ratio": 3.77
       },
       {
@@ -510,7 +510,7 @@
         "surge_ratio": 2.72
       },
       {
-        "sequence": "92",
+        "sequence": "09",
         "recent_count": 2,
         "recent_freq": 0.02,
         "baseline_freq": 0.0079,
@@ -519,35 +519,7 @@
     ],
     "surging_3digit": [
       {
-        "sequence": "897",
-        "recent_count": 1,
-        "recent_freq": 0.0125,
-        "baseline_freq": 0.0006,
-        "surge_ratio": 22.65
-      },
-      {
-        "sequence": "184",
-        "recent_count": 1,
-        "recent_freq": 0.0125,
-        "baseline_freq": 0.0006,
-        "surge_ratio": 22.65
-      },
-      {
-        "sequence": "270",
-        "recent_count": 1,
-        "recent_freq": 0.0125,
-        "baseline_freq": 0.0006,
-        "surge_ratio": 22.65
-      },
-      {
-        "sequence": "932",
-        "recent_count": 1,
-        "recent_freq": 0.0125,
-        "baseline_freq": 0.0006,
-        "surge_ratio": 22.65
-      },
-      {
-        "sequence": "009",
+        "sequence": "046",
         "recent_count": 1,
         "recent_freq": 0.0125,
         "baseline_freq": 0.0006,
@@ -561,6 +533,27 @@
         "surge_ratio": 22.65
       },
       {
+        "sequence": "701",
+        "recent_count": 1,
+        "recent_freq": 0.0125,
+        "baseline_freq": 0.0006,
+        "surge_ratio": 22.65
+      },
+      {
+        "sequence": "932",
+        "recent_count": 1,
+        "recent_freq": 0.0125,
+        "baseline_freq": 0.0006,
+        "surge_ratio": 22.65
+      },
+      {
+        "sequence": "897",
+        "recent_count": 1,
+        "recent_freq": 0.0125,
+        "baseline_freq": 0.0006,
+        "surge_ratio": 22.65
+      },
+      {
         "sequence": "615",
         "recent_count": 1,
         "recent_freq": 0.0125,
@@ -568,10 +561,17 @@
         "surge_ratio": 22.65
       },
       {
-        "sequence": "004",
+        "sequence": "270",
         "recent_count": 1,
         "recent_freq": 0.0125,
         "baseline_freq": 0.0006,
+        "surge_ratio": 22.65
+      },
+      {
+        "sequence": "514",
+        "recent_count": 2,
+        "recent_freq": 0.025,
+        "baseline_freq": 0.0011,
         "surge_ratio": 22.65
       }
     ],
@@ -1415,7 +1415,7 @@
         }
       }
     ],
-    "explained_at": "2026-10-17T01:55:49.963170",
+    "explained_at": "2026-10-17T22:31:36.216887",
     "ensemble_confidence": 100.0
   },
   "meta": {
@@ -1440,7 +1440,7 @@
       "beam": 5,
       "window": 50
     },
-    "processing_at": "2026-10-17T01:55:49.967036",
+    "processing_at": "2026-10-17T22:31:36.219574",
     "api_version": "1.0"
   }
 }
