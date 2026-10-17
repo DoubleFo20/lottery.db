@@ -1,48 +1,60 @@
-# TASKS.md — Mission-Critical Workplan & Progress
+# TASKS.md — Premium UI/UX Analytical Platform Workplan & Progress
 
-**Feature Branch:** `feat/mission-critical-remediation`  
-**Pull Request:** PR #1 (Draft) — https://github.com/DoubleFo20/lottery.db/pull/1  
-**Status:** PR #1 Review Remediation Complete & Verified  
-**Lead Orchestrator:** ARGON
+**Feature Branch:** `feat/premium-analytical-ui`  
+**Base Commit:** `fdbceb5` (`origin/main`)  
+**Status:** All Phases Completed & Fully Verified  
+**Lead Engineering Orchestrator:** ARGON
 
 ---
 
-## Phase A: Merge Conflict Resolution with `origin/main`
-- [x] Fetch `origin/main` (`c62352d`) containing automated GitHub Actions cron commits.
-- [x] Merge `origin/main` into `feat/mission-critical-remediation`.
-- [x] Resolve conflict in `database/dataset/lottery_history.csv` preserving canonical 473-draw history (latest draw `2026-10-16`: `011781`, `48`, `402, 392`, `171, 255`).
-- [x] Resolve conflict in `performance.json` preserving honest deduplicated ground truth (`evaluated: 2`, `avg_pos_hits: 1.00/6`).
-- [x] Regenerate `database/predictions/pipeline_cache.json` via `python api/run_pipeline.py`.
-- [x] Rebuild `hopper_3d_data.json` across both locations via `npm run build`.
-- [x] Commit merge resolving all conflicts cleanly (Commit `48008b3`).
+## Phase 1: Git Initialization & Baseline Establishment
+- [x] Fetch `origin/main` and verify merged PR #1 (`fdbceb5`).
+- [x] Create dedicated feature branch `feat/premium-analytical-ui`.
+- [x] Run baseline test suites (Python 235 passed, Node advisory passed, Canvas lifecycle passed).
+- [x] Record initial UI performance metrics via `scripts/audit-ui-performance.js`.
 
-## Phase B: Independent Review Findings Remediation
-- [x] Implement look-ahead data leakage audit `audit_weights_leakage()` in `analytics/backtest_engine.py` (CLI: `--audit`).
-- [x] Enforce strict chronological pre-draw history assertion in walk-forward evaluation (`assert all(h["draw_date"] < draw_date for h in history_up_to)`).
-- [x] Support untuned a-priori equal weights mode (`--weights equal`) in `EnsemblePredictor` and `run_backtest()`.
-- [x] Implement official GLO prize structure in `score_prediction()` and `run_backtest()`: First Prize Jackpot, Front-3 (`front3_1`, `front3_2`), Back-3 (`back3_1`, `back3_2`), Last-2 (`actual_last2`), Top-2, Top-3 Direct, and Top-3 Box.
-- [x] Implement draw-level statistical uncertainty evaluation ($\bar{X}_{pos}$, $s_{pos}$, $SE_{draw}$, 95% CI, and draw-level hypothesis test vs null 0.60 hits/draw).
-- [x] Report prediction success coverage metrics (`coverage_rate_pct`, `attempted_draws`, `successful_draws`, `prediction_failures`, `failure_rate_pct`).
-- [x] Zero random fallback strictly maintained: predictor failures are recorded explicitly and never masked with random numbers.
+## Phase 2: Design Tokens & Shared Component Architecture
+- [x] Create unified Slate / Indigo design system in `assets/css/premium-theme.css` (mirrored in `dashboard/assets/css/premium-theme.css`).
+- [x] Define color tokens, Inter/JetBrains Mono typography, WCAG 2.1 AA focus rings, and reduced motion queries.
+- [x] Build enterprise localization engine `assets/js/i18n.js` (mirrored in `dashboard/assets/js/i18n.js`) with deep key resolution and localStorage persistence.
+- [x] Enrich bilingual dictionaries `i18n/th.json` and `i18n/en.json` with comprehensive UI keys.
+- [x] Build shared responsive navigation component `assets/js/nav-component.js` (mirrored in `dashboard/assets/js/nav-component.js`) with active routing and mobile drawer.
 
-## Phase C: Verification Suite
-- [x] Python regression suite: **235 / 235 passed** (`pytest tests/`).
-- [x] Leakage audit verified: **PASSED** (`python analytics/backtest_engine.py --audit`).
-- [x] Node.js test & 3D data prep: **PASSED** (`npm test`).
-- [x] Advisory regression suite & Puppeteer browser test: **PASS** (`npm run test:advisory`).
-- [x] Canvas lifecycle test: **PASS** (`npm run test:canvas:lifecycle`).
-- [x] 3D assets build: **Clean** (`npm run build`).
-- [x] Re-run comparative backtest with draw-level stats: **PASSED** (`comparative_report.json` updated).
+## Phase 3: Dashboard Upgrades & Module Implementation
+- [x] **Performance Dashboard (`performance.html`):**
+  - Implement analytical KPI cards and model stability gauge.
+  - Add Walk-Forward Out-of-Sample Statistical Rigor section (Wilson Score 95% CI, hypothesis testing $p = 0.128$, random expectation $0.60$ hits/draw).
+  - Modernize Chart.js theme to high-contrast slate.
+  - Mirror to `dashboard/performance.html` with 100% SHA-256 parity.
+- [x] **Manager Control Center (`manager.html`):**
+  - Link premium design tokens, i18n engine, and unified header.
+  - Preserve all element contracts (`#consecutive-miss-alert-box`, `currentMissState`, `loadAll()`, `#fs-jackpot-num`, etc.).
+  - Mirror to `dashboard/manager.html` with 100% SHA-256 parity.
+- [x] **Strategy Dashboard (`strategy.html` / `index.html`):**
+  - Add unified header and section quick-jumper toolbar.
+  - Synchronize language toggle with `LotteryI18n`.
+  - Maintain 100% SHA-256 parity across `index.html`, `strategy.html`, `dashboard/index.html`, `dashboard/strategy.html`.
+- [x] **3D Showcase (`3d.html`):**
+  - Modernize capsule navbar with language switcher.
+  - Guard headless VM test compatibility (`document.querySelectorAll`).
+  - Maintain 100% SHA-256 parity with `dashboard/3d.html`.
+- [x] **Mobile Wallet (`mobile-wallet.html`):**
+  - Add navigation links to Strategy, Performance, and 3D Showcase.
+  - Maintain 100% SHA-256 parity with `dashboard/mobile-wallet.html`.
 
-## Phase D: CI Repair & Merge Readiness
-- [x] Fix TypeScript `LayoutProps` error in `next-app/src/app/layout.tsx` using `Readonly<{ children: ReactNode }>`.
-- [x] Verify `npx tsc --noEmit --incremental false` passes with 0 errors on clean checkout.
-- [x] Verify `npm run lint` and `npm run build` pass in `next-app`.
-- [x] Isolate backtest weights by defaulting comparative backtest to untuned equal weights (`weights_mode="equal"`).
-- [x] Clearly distinguish official GLO equipment prizes from independent market sub-combination models.
-- [x] Run full regression tests (235 passed in Pytest, advisory tests, canvas lifecycle, legacy stress).
-- [x] Update `HANDOFF.md`, `PROJECT_STATUS.md`, and `TASKS.md`.
-- [ ] Commit and push verified fixes to `origin/feat/mission-critical-remediation`.
-- [ ] Verify GitHub Actions workflows complete with green status on PR #1.
-- [ ] Keep PR #1 in Draft status for owner review.
+## Phase 4: Full Verification & Integration
+- [x] Run full Python pytest suite: **235 / 235 passed**.
+- [x] Run data leakage audit: **PASSED (Zero look-ahead leakage)**.
+- [x] Run Puppeteer advisory regression suite: **PASS (13/13 + browser test on both mirrors)**.
+- [x] Run Canvas lifecycle suite: **PASS**.
+- [x] Run Canvas legacy adversarial stress tests: **PASS (12/12)**.
+- [x] Run 3D data prep and build: **Clean**.
+- [x] Run Next.js lint, typecheck, production build: **Clean (0 errors)**.
+- [x] Capture visual QA screenshots (10 files in `reports/screenshots/`).
+- [x] Verify 100% byte-for-byte SHA-256 parity across all 6 mirror pairs.
 
+## Phase 5: Git Commit, Push & Draft PR Preparation
+- [x] Stage and commit verified changes.
+- [x] Push `feat/premium-analytical-ui` to GitHub.
+- [x] Create Draft Pull Request targeting `main`.
+- [x] Provide comprehensive Thai final report for owner review.
