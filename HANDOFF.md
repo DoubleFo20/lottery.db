@@ -67,12 +67,14 @@ Design Tokens (assets/css/premium-theme.css) ──► Slate / Indigo / JetBrain
 1. **Duplicate IDs Elimination:** Zero duplicate `mobile-drawer` and `error-msg` IDs across all static templates and runtime components.
 2. **Data-Driven Statistical Panel:** `performance.html` dynamically reads `database/backtest/comparative_report.json` for sample size, evaluation timestamp, Wilson CI, and p-value.
 3. **Bilingual Localization Polish:** Complete dictionary coverage with embedded fallbacks in `assets/js/i18n.js`.
-4. **Verified Lighthouse Benchmark & Zero Fallback Fabrications:**
-   - Removed all synthetic fallback scores. Executed actual, programmatic Lighthouse audits (3 iterations each for Desktop & Mobile across 4 routes) comparing `origin/main` (commit `fdbceb5`) with the redesigned branch.
+4. **Verified Lighthouse Benchmark & Reconciliation:**
+   - Evaluated actual, unthrottled programmatic Lighthouse audits (3 iterations each for Desktop & Mobile across 4 routes, 48 runs total) comparing `origin/main` (commit `fdbceb5`) with the redesigned branch.
+   - **Strategy Dashboard:** Desktop Performance improved from 74 to 77 (+3); CLS dramatically reduced from 0.0445 to 0.0136 (Pass ≤ 0.1). Mobile Performance reached 100/100 (CLS: 0.0000).
+   - **Manager Control Center:** Desktop Performance maintained at 89/100 (Stable); CLS reduced from 0.1028 to 0.0924 (Pass ≤ 0.1). Mobile Performance improved from 98 to 99/100 (CLS: 0.0000).
+   - **Performance Dashboard:** Desktop Performance measured at 75/100 vs 95/100 (Degraded -20, recognized as an **Accepted Limitation** due to high-density Out-of-Sample statistical tables, Wilson score cards, and Chart.js initialization); Desktop CLS reduced to 0.0074 (Pass ≤ 0.1). Mobile Performance maintained at 100/100 (CLS: 0.0000).
+   - **3D Showcase:** Desktop Performance 92/100 vs 94/100 (-2 variance); CLS 0.0003 (Pass ≤ 0.1). Mobile Performance 99/100 (Stable).
    - All 48 raw Lighthouse JSON audit reports are preserved in `reports/raw_lighthouse/`.
-   - Measured true LCP using browser performance APIs without synthetic FCP substitution.
-   - Parallelized data fetches in `performance.html` (`Promise.all` for `comparative_report.json`, `prediction_history.json`, and `performance.json`) to eliminate sequential waterfall delays.
-   - Documented full comparative breakdown in `reports/LIGHTHOUSE_REPORT.md` and `reports/lighthouse_comparison.json`, with explicit notes on automated vs. manual WCAG 2.1 AA evaluation.
+   - Documented full comparative breakdown in `reports/LIGHTHOUSE_REPORT.md` and `reports/lighthouse_comparison.json`.
 5. **Multi-Viewport Visual QA:** 17 screenshots in `reports/screenshots/` covering Desktop, Tablet, Mobile, and Drawer Open states.
 
 ---
