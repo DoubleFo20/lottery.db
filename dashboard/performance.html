@@ -368,9 +368,10 @@ async function loadMetrics() {
   }).catch(() => {});
 
   try {
-    const [res, perfRes] = await Promise.all([
+    const [res, perfRes, bRes] = await Promise.all([
       smartFetch("database/predictions/prediction_history.json"),
       smartFetch("performance.json"),
+      smartFetch("database/backtest/comparative_report.json").catch(() => null)
     ]);
     if (!res || !res.ok) throw new Error("Could not load prediction history");
 
@@ -518,14 +519,14 @@ async function loadMetrics() {
       }
     });
 
-    // 3. Load dynamic statistical backtest report
+    // 3. Populate dynamic statistical backtest report
     try {
-      let bRes = await smartFetch("database/backtest/comparative_report.json");
-      if (!bRes || !bRes.ok) {
-        bRes = await smartFetch("database/backtest/backtest_report.json");
+      let reportRes = bRes;
+      if (!reportRes || !reportRes.ok) {
+        reportRes = await smartFetch("database/backtest/backtest_report.json");
       }
-      if (bRes && bRes.ok) {
-        const report = await bRes.json();
+      if (reportRes && reportRes.ok) {
+        const report = await reportRes.json();
         const ens = report.ensemble || report.summary || {};
         const uncert = ens.statistical_uncertainty || {};
         const wilson = uncert.wilson_ci_95 || {};

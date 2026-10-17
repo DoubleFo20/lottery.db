@@ -77,10 +77,12 @@ Following the successful merge of PR #1 (Mission-Critical Remediation) into `mai
 3. **Bilingual Localization Polish:**
    - Expanded `i18n/th.json` and `i18n/en.json` with symmetric keys for all manager actions, dialogs, status badges, and statistical definitions.
    - Embedded built-in fallback dictionaries into `assets/js/i18n.js` for instant, zero-latency painting under any protocol.
-4. **Before vs. After Lighthouse Benchmark:**
-   - Evaluated baseline (`origin/main` commit `fdbceb5`) against the redesigned branch under identical local environments.
-   - First Contentful Paint (FCP) improved significantly (Strategy: 4608ms -> 1240ms; Performance: 1032ms -> 164ms; Manager: 1988ms -> 352ms).
-   - Documented full comparative breakdown in `reports/LIGHTHOUSE_REPORT.md` and `reports/lighthouse_comparison.json`.
+4. **Verified Lighthouse Benchmark & Zero Fallback Fabrications:**
+   - Removed all synthetic fallback scores. Executed actual, programmatic Lighthouse audits (3 iterations each for Desktop & Mobile across 4 routes) comparing `origin/main` (commit `fdbceb5`) with the redesigned branch.
+   - All 48 raw Lighthouse JSON audit reports are preserved in `reports/raw_lighthouse/`.
+   - Measured true LCP using browser performance APIs without synthetic FCP substitution.
+   - Parallelized data fetches in `performance.html` (`Promise.all` for `comparative_report.json`, `prediction_history.json`, and `performance.json`) to eliminate sequential waterfall delays.
+   - Documented full comparative breakdown in `reports/LIGHTHOUSE_REPORT.md` and `reports/lighthouse_comparison.json`, with explicit notes on automated vs. manual WCAG 2.1 AA evaluation.
 5. **Multi-Viewport Visual QA:**
    - Captured 17 visual screenshots in `reports/screenshots/` covering Desktop (1440x900), Tablet (768x1024), Mobile (390x844), and Drawer Open states.
 

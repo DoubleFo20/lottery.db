@@ -23,6 +23,7 @@
   "author": "DoubleFo20",
   "license": "MIT",
   "devDependencies": {
+    "lighthouse": "^13.5.0",
     "puppeteer-core": "^25.12.0"
   }
 }

@@ -67,7 +67,12 @@ Design Tokens (assets/css/premium-theme.css) ──► Slate / Indigo / JetBrain
 1. **Duplicate IDs Elimination:** Zero duplicate `mobile-drawer` and `error-msg` IDs across all static templates and runtime components.
 2. **Data-Driven Statistical Panel:** `performance.html` dynamically reads `database/backtest/comparative_report.json` for sample size, evaluation timestamp, Wilson CI, and p-value.
 3. **Bilingual Localization Polish:** Complete dictionary coverage with embedded fallbacks in `assets/js/i18n.js`.
-4. **Before/After Lighthouse & Performance:** Complete comparative benchmark recorded in `reports/LIGHTHOUSE_REPORT.md` (Strategy FCP improved 4608ms -> 1240ms, Manager FCP improved 1988ms -> 352ms, Performance FCP improved 1032ms -> 164ms).
+4. **Verified Lighthouse Benchmark & Zero Fallback Fabrications:**
+   - Removed all synthetic fallback scores. Executed actual, programmatic Lighthouse audits (3 iterations each for Desktop & Mobile across 4 routes) comparing `origin/main` (commit `fdbceb5`) with the redesigned branch.
+   - All 48 raw Lighthouse JSON audit reports are preserved in `reports/raw_lighthouse/`.
+   - Measured true LCP using browser performance APIs without synthetic FCP substitution.
+   - Parallelized data fetches in `performance.html` (`Promise.all` for `comparative_report.json`, `prediction_history.json`, and `performance.json`) to eliminate sequential waterfall delays.
+   - Documented full comparative breakdown in `reports/LIGHTHOUSE_REPORT.md` and `reports/lighthouse_comparison.json`, with explicit notes on automated vs. manual WCAG 2.1 AA evaluation.
 5. **Multi-Viewport Visual QA:** 17 screenshots in `reports/screenshots/` covering Desktop, Tablet, Mobile, and Drawer Open states.
 
 ---
