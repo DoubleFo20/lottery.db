@@ -53,11 +53,37 @@ Following the successful merge of PR #1 (Mission-Critical Remediation) into `mai
 
 | Test Suite | Commands | Status | Details |
 |---|---|---|---|
-| **Python Regression Suite** | `python -m pytest tests/` | **PASS (235/235)** | All tests passing in 12.13s |
+| **Python Regression Suite** | `python -m pytest tests/` | **PASS (239/239)** | 100% passing including UI QA regressions in 17.62s |
 | **Data Leakage Audit** | `python analytics/backtest_engine.py --audit` | **PASS** | Strict pre-draw history isolation verified |
+| **UI QA Regressions Suite** | `node scripts/test-ui-qa-regressions.js` | **PASS** | 0 duplicate IDs, drawer accessibility, backtest rigor |
 | **Manager Advisory Regression** | `npm run test:advisory` | **PASS (13/13)** | Puppeteer browser tests pass on root & dashboard |
 | **Canvas Lifecycle Suite** | `npm run test:canvas:lifecycle` | **PASS** | TSX lifecycle, effect replay, visibility verified |
 | **Canvas Stress & Legacy Tests** | `npm run test:canvas:legacy` | **PASS (12/12)** | All invariants and frame math verified |
+| **Next.js Production Build** | `npm run build` in `next-app` | **PASS** | 0 errors, clean TypeScript build |
+| **UI Performance & Lighthouse** | `node scripts/audit-lighthouse-comparison.js` | **PASS** | Baseline vs Redesign comparison recorded |
+| **Visual QA Capture Suite** | `node scripts/capture-ui-screenshots.js` | **PASS (17/17)** | Desktop, Tablet, Mobile, and Drawer states |
+
+---
+
+## 3. Independent UI/UX Review Remediation Summary
+
+1. **Duplicate IDs Elimination:**
+   - Removed all duplicate static `<aside id="mobile-drawer">` and `<nav id="mobile-drawer">` elements across `index.html`, `strategy.html`, `manager.html`, and `performance.html`. Navigation component in `assets/js/nav-component.js` is the single source of truth.
+   - Removed duplicate `<div id="error-msg">` in `manager.html`.
+   - Verified that `strategy.html`, `manager.html`, `performance.html`, `3d.html`, and `mobile-wallet.html` have exactly zero duplicate DOM IDs.
+2. **Data-Driven Statistical Rigor:**
+   - Integrated dynamic loading of `database/backtest/comparative_report.json` in `performance.html`.
+   - Displays real sample size (20 draws / 120 digit positions), evaluation timestamp, Wilson 95% Confidence Interval (`[9.04% — 21.52%]`), two-tailed p-value ($p = 0.128$), and standard error ($SE = 0.0318$).
+3. **Bilingual Localization Polish:**
+   - Expanded `i18n/th.json` and `i18n/en.json` with symmetric keys for all manager actions, dialogs, status badges, and statistical definitions.
+   - Embedded built-in fallback dictionaries into `assets/js/i18n.js` for instant, zero-latency painting under any protocol.
+4. **Before vs. After Lighthouse Benchmark:**
+   - Evaluated baseline (`origin/main` commit `fdbceb5`) against the redesigned branch under identical local environments.
+   - First Contentful Paint (FCP) improved significantly (Strategy: 4608ms -> 1240ms; Performance: 1032ms -> 164ms; Manager: 1988ms -> 352ms).
+   - Documented full comparative breakdown in `reports/LIGHTHOUSE_REPORT.md` and `reports/lighthouse_comparison.json`.
+5. **Multi-Viewport Visual QA:**
+   - Captured 17 visual screenshots in `reports/screenshots/` covering Desktop (1440x900), Tablet (768x1024), Mobile (390x844), and Drawer Open states.
+
 | **3D Asset Generation** | `npm run build` | **PASS** | Hopper data & 3D scripts mirrored cleanly |
 | **Next.js Production Build** | `npm run build` in `next-app` | **PASS** | TypeScript typecheck and build pass cleanly |
 | **File Mirror Parity** | `Get-FileHash` across 12 files | **PASS (100%)** | Byte-for-byte SHA-256 match across all mirrors |

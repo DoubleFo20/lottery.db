@@ -1046,35 +1046,15 @@
 <!-- Unified Shared Navigation Header -->
 <div id="unified-app-header"></div>
 
-<!-- Mobile Drawer & Overlay -->
-<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
-<nav class="mobile-drawer" id="mobile-drawer">
-  <div class="drawer-header">
-    <div class="drawer-title">🎯 Lottery Nav</div>
-    <button class="drawer-close" onclick="closeDrawer()" aria-label="Close menu">✕</button>
-  </div>
-  <a class="nav-btn active" href="strategy.html" onclick="closeDrawer()">📊 Strategy</a>
-  <a class="nav-btn" href="3d.html" onclick="closeDrawer()">👑 3D Showcase</a>
-  <a class="nav-btn" href="manager.html" onclick="closeDrawer()">🖥 Manager</a>
-  <a class="nav-btn" href="performance.html" onclick="closeDrawer()">📈 Performance</a>
-  <hr style="border:0; border-top:1px solid rgba(255,255,255,0.08); margin:0.3rem 0;">
-  <button class="nav-btn" onclick="scrollToSection('sec-predictions'); closeDrawer();">🎯 คาดการณ์</button>
-  <button class="nav-btn" onclick="scrollToSection('sec-heatmap'); closeDrawer();">🌡 Heatmap</button>
-  <button class="nav-btn" onclick="scrollToSection('sec-charts'); closeDrawer();">📊 สถิติ</button>
-  <button class="nav-btn" onclick="scrollToSection('sec-history'); closeDrawer();">📜 คลังงวด</button>
-  <hr style="border:0; border-top:1px solid rgba(255,255,255,0.08); margin:0.3rem 0;">
-  <button class="nav-btn" id="lang-btn-drawer" onclick="toggleLanguage()">🌐 TH / EN</button>
-</nav>
-
 <div class="dashboard-container">
 
   <!-- ═════ SUB-NAV / QUICK JUMPER TOOLBAR ═════ -->
-  <header class="header" style="padding: 0.85rem 1.4rem; margin-bottom: 1.5rem; justify-content: space-between;">
+  <header class="header" role="region" aria-label="Strategy Quick Navigation" style="padding: 0.85rem 1.4rem; margin-bottom: 1.5rem; justify-content: space-between;">
     <div style="display:flex; align-items:center; gap:0.75rem;">
       <span style="font-weight:700; font-size:0.95rem; color:var(--text-main);" data-i18n="nav.strategy">📊 Strategy Analysis Suite</span>
       <span class="live-badge"><span class="pulse-dot"></span> <span data-i18n="meta.status_connected">Live Engine Active (473 Draws)</span></span>
     </div>
-    <nav class="header-nav" style="gap:0.4rem;">
+    <nav class="header-nav" style="gap:0.4rem; display:flex; flex-wrap:wrap; align-items:center;">
       <button class="nav-btn" onclick="scrollToSection('sec-predictions')">🎯 <span data-i18n="predictions.top_candidates">Top Candidates</span></button>
       <button class="nav-btn" onclick="scrollToSection('sec-full-spectrum')">👑 <span data-i18n="predictions.full_spectrum">Full Spectrum</span></button>
       <button class="nav-btn" onclick="scrollToSection('sec-heatmap')">🌡 <span data-i18n="analytics.heatmap_title">Heatmap</span></button>
@@ -1082,7 +1062,6 @@
       <button class="nav-btn" onclick="scrollToSection('sec-history')">📜 <span data-i18n="analytics.historical_draws">Archive</span></button>
       <button class="nav-btn" id="lang-btn" onclick="toggleLanguage()">🌐 TH / EN</button>
     </nav>
-    <button class="hamburger-btn" id="hamburger-toggle" onclick="toggleDrawer()" aria-label="Open Menu">☰</button>
   </header>
 
   <!-- ═════ 2. HERO: COUNTDOWN & LATEST DRAW ═════ -->
@@ -2977,29 +2956,22 @@ const fullDict = [
 ];
 
 function toggleDrawer() {
-  const drawer = el('mobile-drawer');
-  const overlay = el('drawer-overlay');
-  if (drawer && overlay) {
-    const isOpen = drawer.classList.contains('open');
-    if (isOpen) {
-      closeDrawer();
-    } else {
-      drawer.classList.add('open');
-      overlay.classList.add('show');
-      document.body.style.overflow = 'hidden';
-    }
+  if (window.LotteryNav && typeof window.LotteryNav.openDrawer === 'function') {
+    window.LotteryNav.openDrawer();
   }
 }
 
 function closeDrawer() {
-  const drawer = el('mobile-drawer');
-  const overlay = el('drawer-overlay');
-  if (drawer) drawer.classList.remove('open');
-  if (overlay) overlay.classList.remove('show');
-  document.body.style.overflow = '';
+  if (window.LotteryNav && typeof window.LotteryNav.closeDrawer === 'function') {
+    window.LotteryNav.closeDrawer();
+  }
 }
 
 function toggleLanguage() {
+  if (window.LotteryI18n && typeof window.LotteryI18n.toggleLang === 'function') {
+    window.LotteryI18n.toggleLang();
+    return;
+  }
   isEnglish = !isEnglish;
   
   // Update button labels on both navbar and mobile drawer

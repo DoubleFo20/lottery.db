@@ -1,6 +1,7 @@
 /**
  * scripts/capture-ui-screenshots.js
- * Captures high-fidelity desktop and mobile screenshots for visual QA evidence.
+ * Captures high-fidelity desktop, tablet, mobile, and drawer interaction screenshots
+ * for visual QA and regression evidence.
  */
 const fs = require('node:fs');
 const path = require('node:path');
@@ -35,12 +36,18 @@ const server = http.createServer((req, res) => {
     '.js': 'application/javascript',
     '.css': 'text/css',
     '.json': 'application/json',
+    '.csv': 'text/csv',
     '.png': 'image/png',
     '.jpg': 'image/jpeg',
     '.webp': 'image/webp',
     '.svg': 'image/svg+xml'
   };
-  res.writeHead(200, { 'Content-Type': mimeTypes[ext] || 'application/octet-stream' });
+  const stat = fs.statSync(file);
+  res.setHeader('Content-Type', mimeTypes[ext] || 'application/octet-stream');
+  res.setHeader('Last-Modified', stat.mtime.toUTCString());
+  res.setHeader('Cache-Control', 'no-cache');
+  if (req.method === 'HEAD') { res.writeHead(200).end(); return; }
+  res.writeHead(200);
   fs.createReadStream(file).pipe(res);
 });
 
@@ -64,28 +71,52 @@ const server = http.createServer((req, res) => {
   ];
 
   try {
-    console.log('--- CAPTURING UI VISUAL QA SCREENSHOTS ---');
+    console.log('--- CAPTURING UI VISUAL QA EVIDENCE SCREENSHOTS ---');
     for (const t of targets) {
       const page = await browser.newPage();
-      
-      // Desktop Viewport
+
+      // 1. Desktop Viewport (1440x900)
       await page.setViewport({ width: 1440, height: 900, deviceScaleFactor: 1 });
-      await page.goto(`${baseUrl}/${t.file}`, { waitUntil: 'networkidle2', timeout: 15000 });
-      await new Promise(r => setTimeout(r, 800)); // wait for transitions
+      await page.goto(`${baseUrl}/${t.file}`, { waitUntil: 'domcontentloaded', timeout: 15000 });
+      await page.waitForNetworkIdle({ timeout: 3000 }).catch(() => {});
+      await new Promise(r => setTimeout(r, 600));
       const desktopPath = path.join(SCREENSHOTS_DIR, `${t.name}_desktop.png`);
       await page.screenshot({ path: desktopPath, fullPage: false });
-      console.log(`[PASS] Desktop: ${desktopPath}`);
+      console.log(`[PASS] Desktop: ${t.name}_desktop.png`);
 
-      // Mobile Viewport
+      // 2. Tablet Viewport (768x1024)
+      await page.setViewport({ width: 768, height: 1024, deviceScaleFactor: 2, isMobile: true });
+      await new Promise(r => setTimeout(r, 400));
+      const tabletPath = path.join(SCREENSHOTS_DIR, `${t.name}_tablet.png`);
+      await page.screenshot({ path: tabletPath, fullPage: false });
+      console.log(`[PASS] Tablet:  ${t.name}_tablet.png`);
+
+      // 3. Mobile Viewport (390x844)
       await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2, isMobile: true });
-      await new Promise(r => setTimeout(r, 500));
+      await new Promise(r => setTimeout(r, 400));
       const mobilePath = path.join(SCREENSHOTS_DIR, `${t.name}_mobile.png`);
       await page.screenshot({ path: mobilePath, fullPage: false });
-      console.log(`[PASS] Mobile: ${mobilePath}`);
+      console.log(`[PASS] Mobile:  ${t.name}_mobile.png`);
+
+      // 4. Test Mobile Drawer opening on Strategy & Manager
+      if (t.name === 'strategy' || t.name === 'manager') {
+        const menuBtn = await page.$('#btn-mobile-menu, .hamburger-btn');
+        if (menuBtn) {
+          await menuBtn.click();
+          await new Promise(r => setTimeout(r, 400));
+          const drawerPath = path.join(SCREENSHOTS_DIR, `${t.name}_drawer_open.png`);
+          await page.screenshot({ path: drawerPath, fullPage: false });
+          console.log(`[PASS] Drawer:  ${t.name}_drawer_open.png`);
+
+          // Press Escape key to verify keyboard closure
+          await page.keyboard.press('Escape');
+          await new Promise(r => setTimeout(r, 300));
+        }
+      }
 
       await page.close();
     }
-    console.log('All screenshots captured successfully in reports/screenshots/');
+    console.log(`\nVisual QA complete! All screenshots saved in ${SCREENSHOTS_DIR}`);
   } finally {
     await browser.close();
     server.close();

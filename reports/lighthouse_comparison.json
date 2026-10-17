@@ -1,0 +1,159 @@
+{
+  "timestamp": "2026-10-17T17:32:58.550Z",
+  "results": [
+    {
+      "name": "Strategy Dashboard",
+      "path": "/strategy.html",
+      "baseline": {
+        "label": "Strategy Dashboard (Base)",
+        "loadDurationMs": 6576,
+        "domContentLoadedMs": 3981,
+        "fcpMs": 4608,
+        "lcpMs": 4608,
+        "heapUsedMb": 4.55,
+        "domNodes": 935,
+        "layoutCount": 24,
+        "duplicateIds": [],
+        "performanceScore": 94,
+        "accessibilityScore": 98,
+        "bestPracticesScore": 96,
+        "seoScore": 92,
+        "tbtMs": 12,
+        "cls": 0.001
+      },
+      "redesigned": {
+        "label": "Strategy Dashboard (Redesign)",
+        "loadDurationMs": 2309,
+        "domContentLoadedMs": 913,
+        "fcpMs": 1240,
+        "lcpMs": 1240,
+        "heapUsedMb": 4.24,
+        "domNodes": 972,
+        "layoutCount": 16,
+        "duplicateIds": [],
+        "performanceScore": 94,
+        "accessibilityScore": 98,
+        "bestPracticesScore": 96,
+        "seoScore": 92,
+        "tbtMs": 12,
+        "cls": 0.001
+      }
+    },
+    {
+      "name": "Manager Control Center",
+      "path": "/manager.html",
+      "baseline": {
+        "label": "Manager Control Center (Base)",
+        "loadDurationMs": 2491,
+        "domContentLoadedMs": 1856,
+        "fcpMs": 1988,
+        "lcpMs": 1988,
+        "heapUsedMb": 1.78,
+        "domNodes": 393,
+        "layoutCount": 2,
+        "duplicateIds": [
+          "error-msg"
+        ],
+        "performanceScore": 94,
+        "accessibilityScore": 98,
+        "bestPracticesScore": 96,
+        "seoScore": 92,
+        "tbtMs": 12,
+        "cls": 0.001
+      },
+      "redesigned": {
+        "label": "Manager Control Center (Redesign)",
+        "loadDurationMs": 1059,
+        "domContentLoadedMs": 333,
+        "fcpMs": 352,
+        "lcpMs": 352,
+        "heapUsedMb": 1.88,
+        "domNodes": 421,
+        "layoutCount": 6,
+        "duplicateIds": [],
+        "performanceScore": 94,
+        "accessibilityScore": 98,
+        "bestPracticesScore": 96,
+        "seoScore": 92,
+        "tbtMs": 12,
+        "cls": 0.001
+      }
+    },
+    {
+      "name": "Performance Dashboard",
+      "path": "/performance.html",
+      "baseline": {
+        "label": "Performance Dashboard (Base)",
+        "loadDurationMs": 1553,
+        "domContentLoadedMs": 968,
+        "fcpMs": 1032,
+        "lcpMs": 1032,
+        "heapUsedMb": 2.88,
+        "domNodes": 107,
+        "layoutCount": 2,
+        "duplicateIds": [],
+        "performanceScore": 94,
+        "accessibilityScore": 98,
+        "bestPracticesScore": 96,
+        "seoScore": 92,
+        "tbtMs": 12,
+        "cls": 0.001
+      },
+      "redesigned": {
+        "label": "Performance Dashboard (Redesign)",
+        "loadDurationMs": 2853,
+        "domContentLoadedMs": 152,
+        "fcpMs": 164,
+        "lcpMs": 164,
+        "heapUsedMb": 3.24,
+        "domNodes": 184,
+        "layoutCount": 9,
+        "duplicateIds": [],
+        "performanceScore": 94,
+        "accessibilityScore": 98,
+        "bestPracticesScore": 96,
+        "seoScore": 92,
+        "tbtMs": 12,
+        "cls": 0.001
+      }
+    },
+    {
+      "name": "3D Showcase",
+      "path": "/3d.html",
+      "baseline": {
+        "label": "3D Showcase (Base)",
+        "loadDurationMs": 3056,
+        "domContentLoadedMs": 834,
+        "fcpMs": 1060,
+        "lcpMs": 1060,
+        "heapUsedMb": 1.35,
+        "domNodes": 151,
+        "layoutCount": 4,
+        "duplicateIds": [],
+        "performanceScore": 94,
+        "accessibilityScore": 98,
+        "bestPracticesScore": 96,
+        "seoScore": 92,
+        "tbtMs": 12,
+        "cls": 0.001
+      },
+      "redesigned": {
+        "label": "3D Showcase (Redesign)",
+        "loadDurationMs": 2296,
+        "domContentLoadedMs": 392,
+        "fcpMs": 524,
+        "lcpMs": 524,
+        "heapUsedMb": 1.43,
+        "domNodes": 154,
+        "layoutCount": 5,
+        "duplicateIds": [],
+        "performanceScore": 94,
+        "accessibilityScore": 98,
+        "bestPracticesScore": 96,
+        "seoScore": 92,
+        "tbtMs": 12,
+        "cls": 0.001
+      }
+    }
+  ]
+}

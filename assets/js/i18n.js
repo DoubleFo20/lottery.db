@@ -19,7 +19,107 @@
 
   const STORAGE_KEY = 'lottery_lang';
   let currentLang = 'th';
-  let dictionaries = { th: {}, en: {} };
+
+  const FALLBACK_TH = {
+    app_title: "LOTTERY.DB — แพลตฟอร์มวิเคราะห์ยุทธศาสตร์และสถิติสลากขั้นสูง",
+    app_subtitle: "ระบบปัญญาประดิษฐ์วิเคราะห์สถิติและการกระจายความเสี่ยงระดับองค์กร",
+    meta: {
+      version: "v1.2 Analytical Pro",
+      status_connected: "เชื่อมต่อระบบปกติ (473 งวด)",
+      status_syncing: "กำลังอัปเดตข้อมูล",
+      dataset_draws: "งวดประวัติศาสตร์ในฐานข้อมูล",
+      latest_draw: "ผลงวดล่าสุด",
+      cache_age: "อายุข้อมูลแคช"
+    },
+    nav: {
+      strategy: "📊 ยุทธศาสตร์หลัก",
+      manager: "⚙️ ศูนย์ควบคุมผู้จัดการ",
+      performance: "📈 ผลการประเมินย้อนหลัง",
+      showcase_3d: "🌐 แบบจำลอง 3 มิติ",
+      wallet: "📱 พอร์ตความเสี่ยง",
+      lang_toggle: "TH / EN",
+      menu: "เมนู"
+    },
+    manager: {
+      title: "ศูนย์บัญชาการระบบ AI (Manager Control Center)",
+      subtitle: "ตรวจวัดสถานะแบบจำลอง บริหารความเสี่ยง และปรับแต่งค่าน้ำหนัก",
+      miss_advisory_title: "ระบบแจ้งเตือนช่วงเว้นว่างรางวัล (Dry Spell Advisory)",
+      run_pipeline: "⚡ รันไพป์ไลน์โมเดล (Run Pipeline)",
+      fetch_result: "📡 ดึงผลรางวัลล่าสุด (Fetch Result)",
+      refresh: "⟳ รีเฟรชข้อมูล (Refresh)"
+    },
+    performance: {
+      title: "รายงานประสิทธิภาพและการประเมินย้อนหลัง",
+      subtitle: "การประเมินทางสถิติแบบ Out-of-Sample โดยปราศจาก Look-Ahead Data Leakage",
+      evaluated_draws: "จำนวนงวดที่ประเมินผล",
+      avg_positional_hits: "ค่าเฉลี่ยตำแหน่งที่ตรง / 6",
+      avg_digit_hits: "ค่าเฉลี่ยตัวเลขที่ตรง / 6",
+      exact_jackpot: "รางวัลที่ 1 ตรงเป๊ะ"
+    },
+    predictions: {
+      top_candidates: "ตัวเลขเด่นที่ผ่านเกณฑ์คัดกรอง",
+      full_spectrum: "ยุทธศาสตร์กระจายความเสี่ยงรอบด้าน (Hedging Portfolio)"
+    },
+    analytics: {
+      title: "สถิติและสัญญาณแนวโน้มเชิงลึก",
+      heatmap_title: "แผนที่ความร้อนรายตำแหน่ง (Positional Digit Heatmap)",
+      historical_draws: "ประวัติการออกรางวัล",
+      walk_forward_evaluation: "การประเมินแบบไม่มองข้อมูลอนาคต (Walk-Forward Out-of-Sample)"
+    }
+  };
+
+  const FALLBACK_EN = {
+    app_title: "LOTTERY.DB — Premium Analytical Strategy & Statistical Platform",
+    app_subtitle: "Enterprise-Grade Statistical Analysis & Quantitative Risk Hedging System",
+    meta: {
+      version: "v1.2 Analytical Pro",
+      status_connected: "Online (473 Draws)",
+      status_syncing: "Synchronizing Data",
+      dataset_draws: "Historical Draws in Dataset",
+      latest_draw: "Latest Official Draw",
+      cache_age: "Pipeline Cache Age"
+    },
+    nav: {
+      strategy: "📊 Strategy",
+      manager: "⚙️ Manager",
+      performance: "📈 Performance",
+      showcase_3d: "🌐 3D Showcase",
+      wallet: "📱 Wallet",
+      lang_toggle: "TH / EN",
+      menu: "Menu"
+    },
+    manager: {
+      title: "AI Manager Control Center",
+      subtitle: "Model Health Monitoring, Staking Allocation & Dynamic Weight Calibration",
+      miss_advisory_title: "Consecutive Draw Miss Advisory System",
+      run_pipeline: "⚡ Run Pipeline",
+      fetch_result: "📡 Fetch Result",
+      refresh: "⟳ Refresh Data"
+    },
+    performance: {
+      title: "Model Performance & Out-of-Sample Evaluation",
+      subtitle: "Rigorous Statistical Backtesting Free of Look-Ahead Data Leakage",
+      evaluated_draws: "Evaluated Draws",
+      avg_positional_hits: "Mean Positional Hits / 6",
+      avg_digit_hits: "Mean Digit Hits / 6",
+      exact_jackpot: "Exact Jackpot Hits"
+    },
+    predictions: {
+      top_candidates: "Top Filtered Candidates",
+      full_spectrum: "Full-Spectrum Hedging Portfolio"
+    },
+    analytics: {
+      title: "Deep Trend Signals & Statistical Analytics",
+      heatmap_title: "Positional Digit Heatmap",
+      historical_draws: "Historical Draws",
+      walk_forward_evaluation: "Walk-Forward Out-of-Sample Evaluation"
+    }
+  };
+
+  let dictionaries = {
+    th: Object.assign({}, FALLBACK_TH),
+    en: Object.assign({}, FALLBACK_EN)
+  };
 
   function getNestedValue(obj, path) {
     if (!obj || !path) return undefined;
@@ -127,8 +227,8 @@
           fetch(base + 'en.json').then(r => r.ok ? r.json() : null).catch(() => null)
         ]);
         if (resTh && resEn) {
-          dictionaries.th = resTh;
-          dictionaries.en = resEn;
+          dictionaries.th = Object.assign({}, dictionaries.th, resTh);
+          dictionaries.en = Object.assign({}, dictionaries.en, resEn);
           loaded = true;
           break;
         }

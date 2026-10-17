@@ -92,7 +92,16 @@
     "prompt_copied": "Remediation prompt copied to clipboard!",
     "weights_tuning": "Ensemble Weights Recalibration",
     "save_weights": "Save Weights",
-    "reset_weights": "Reset to Equal Weights"
+    "reset_weights": "Reset to Equal Weights",
+    "run_pipeline": "⚡ Run Pipeline",
+    "fetch_result": "📡 Fetch Result",
+    "refresh": "⟳ Refresh Data",
+    "last_refresh": "Last refreshed",
+    "waiting_state": "Starting new tracking cycle",
+    "consecutive_miss_advisory": "Consecutive Draw Miss Advisory System",
+    "playbook_copy_success": "Remediation prompt copied to clipboard!",
+    "weights_saved": "Weights updated and saved successfully",
+    "weights_reset": "Weights reset to equal baseline successfully"
   },
   "performance": {
     "title": "Model Performance & Out-of-Sample Evaluation",
@@ -109,7 +118,14 @@
     "actual_number": "Actual Result",
     "best_candidate": "Top Candidate #1",
     "hits": "Matches",
-    "status": "Outcome"
+    "status": "Outcome",
+    "empirical_mode": "Empirical Baseline Mode",
+    "hypothesis_test": "Hypothesis vs Null (p-value)",
+    "draw_mean_hits": "Draw-Level Mean Hits",
+    "sample_size": "Sample Size",
+    "eval_timestamp": "Evaluation Timestamp",
+    "coverage_rate": "Coverage Rate",
+    "scientific_disclaimer": "Scientific Interpretation: Sample hit rate variations are consistent with random statistical fluctuations. Finite sample out-performance does NOT prove predictive superiority over chance. Lottery outcomes are designed to be independent and uniformly random."
   },
   "showcase_3d": {
     "title": "3D Cyber Gateway & Hedging Staking Station",

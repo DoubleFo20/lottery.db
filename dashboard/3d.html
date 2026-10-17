@@ -841,17 +841,17 @@
       </header>
 
       <!-- Mobile Drawer -->
-      <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
-      <aside class="mobile-drawer" id="mobile-drawer">
+      <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()" aria-hidden="true"></div>
+      <aside class="mobile-drawer" id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation" tabindex="-1">
         <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,0.1)">
           <span style="font-family:var(--font-display);font-weight:700;color:var(--cyan-neon);">⚡ LOTTERY.DB</span>
-          <button onclick="closeDrawer()" style="background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;">✕</button>
+          <button onclick="closeDrawer()" style="background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;" aria-label="Close menu">✕</button>
         </div>
-        <a href="index.html" class="nav-item" style="width:100%">🏠 กลับหน้าหลัก Dashboard</a>
-        <a href="index.html#sec-predictions" class="nav-item" style="width:100%">🎯 สรุปผลการพยากรณ์ AI</a>
-        <a href="3d.html" class="nav-item active" style="width:100%">⚡ 3D Gateway &amp; Staking</a>
-        <a href="manager.html" class="nav-item" style="width:100%">🖥 ระบบจัดการฐานข้อมูล</a>
-        <a href="performance.html" class="nav-item" style="width:100%">📈 ตรวจสอบผลงานย้อนหลัง</a>
+        <a href="index.html" class="nav-item" style="width:100%" onclick="closeDrawer()">🏠 กลับหน้าหลัก Dashboard</a>
+        <a href="index.html#sec-predictions" class="nav-item" style="width:100%" onclick="closeDrawer()">🎯 สรุปผลการพยากรณ์ AI</a>
+        <a href="3d.html" class="nav-item active" style="width:100%" onclick="closeDrawer()">⚡ 3D Gateway &amp; Staking</a>
+        <a href="manager.html" class="nav-item" style="width:100%" onclick="closeDrawer()">🖥 ระบบจัดการฐานข้อมูล</a>
+        <a href="performance.html" class="nav-item" style="width:100%" onclick="closeDrawer()">📈 ตรวจสอบผลงานย้อนหลัง</a>
       </aside>
 
       <!-- ═════════════════════════════════════════════════════
@@ -1540,13 +1540,37 @@
 
       // Drawer Navigation
       window.toggleDrawer = () => {
-        document.getElementById("mobile-drawer")?.classList.toggle("open");
-        document.getElementById("drawer-overlay")?.classList.toggle("show");
+        const d = document.getElementById("mobile-drawer");
+        const o = document.getElementById("drawer-overlay");
+        if (!d || !o) return;
+        const isOpen = d.classList.toggle("open");
+        o.classList.toggle("show");
+        o.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+        if (isOpen) {
+          document.body.style.overflow = 'hidden';
+          d.focus();
+        } else {
+          document.body.style.overflow = '';
+        }
       };
       window.closeDrawer = () => {
-        document.getElementById("mobile-drawer")?.classList.remove("open");
-        document.getElementById("drawer-overlay")?.classList.remove("show");
+        const d = document.getElementById("mobile-drawer");
+        const o = document.getElementById("drawer-overlay");
+        if (d) d.classList.remove("open");
+        if (o) {
+          o.classList.remove("show");
+          o.setAttribute('aria-hidden', 'true');
+        }
+        document.body.style.overflow = '';
       };
+      window.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+          const d = document.getElementById("mobile-drawer");
+          if (d && d.classList.contains("open")) {
+            window.closeDrawer();
+          }
+        }
+      });
 
       // Live Showcase Data Fetcher
       async function loadShowcaseData() {

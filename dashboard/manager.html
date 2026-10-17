@@ -553,47 +553,26 @@ footer {
 <body>
 <!-- Unified Shared Navigation Header -->
 <div id="unified-app-header"></div>
-<!-- Mobile Drawer & Overlay -->
-<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
-<nav class="mobile-drawer" id="mobile-drawer">
-  <div class="drawer-header">
-    <div class="drawer-title">🧠 Manager Nav</div>
-    <button class="drawer-close" onclick="closeDrawer()" aria-label="Close menu">✕</button>
-  </div>
-  <a class="nav-btn" href="strategy.html" onclick="closeDrawer()">📊 Strategy</a>
-  <a class="nav-btn" href="3d.html" onclick="closeDrawer()">👑 3D Showcase</a>
-  <a class="nav-btn active" href="manager.html" onclick="closeDrawer()">🖥 Manager</a>
-  <a class="nav-btn" href="performance.html" onclick="closeDrawer()">📈 Performance</a>
-  <hr style="border:0; border-top:1px solid rgba(255,255,255,0.08); margin:0.3rem 0;">
-  <button class="nav-btn btn-action" onclick="triggerAction('pipeline'); closeDrawer();">⚡ Run Pipeline</button>
-  <button class="nav-btn btn-action" onclick="triggerAction('fetch'); closeDrawer();">📡 Fetch Result</button>
-  <button class="nav-btn btn-action" onclick="loadAll(); closeDrawer();">⟳ Refresh</button>
-</nav>
 
-<!-- ══ HEADER ══ -->
-<header class="header">
+<!-- ══ MANAGER ACTION TOOLBAR ══ -->
+<header class="header" role="region" aria-label="Manager Controls" style="margin-top:1rem;">
   <div class="brand">
-    <div class="brand-logo">🧠</div>
+    <div class="brand-logo" aria-hidden="true">🧠</div>
     <div class="brand-text">
-      <h1>AI MANAGER CONTROL CENTER</h1>
+      <h1 data-i18n="manager.title">AI MANAGER CONTROL CENTER</h1>
       <p>
-        <span>Lottery Analysis Suite</span> •
-        <span>Monitoring &amp; Pipeline Control</span> •
+        <span data-i18n="app_title">Lottery Analysis Suite</span> •
+        <span data-i18n="manager.subtitle">Monitoring &amp; Pipeline Control</span> •
         <span class="live-badge"><span class="pulse-dot"></span> Live Engine</span>
       </p>
     </div>
   </div>
-  <nav class="header-nav">
-    <a class="nav-btn" href="strategy.html">📊 Strategy</a>
-    <a class="nav-btn" href="3d.html">👑 3D Showcase</a>
-    <a class="nav-btn active" href="manager.html">🖥 Manager</a>
-    <a class="nav-btn" href="performance.html">📈 Performance</a>
+  <div class="header-nav" style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
     <button class="nav-btn btn-action" onclick="triggerAction('pipeline')" id="btn-pipeline">⚡ Run Pipeline</button>
     <button class="nav-btn btn-action" onclick="triggerAction('fetch')" id="btn-fetch">📡 Fetch Result</button>
     <button class="nav-btn btn-action" onclick="loadAll()">⟳ Refresh</button>
     <span class="status-chip" id="last-refresh">Loading…</span>
-  </nav>
-  <button class="hamburger-btn" onclick="toggleDrawer()" aria-label="Open Menu">☰</button>
+  </div>
 </header>
 
 <!-- ══ LOADER ══ -->
@@ -842,11 +821,6 @@ footer {
   </div>
 
 </div><!-- /dashboard -->
-
-<div id="error-msg">
-  <span>⚠️ ไม่สามารถโหลดข้อมูลได้</span>
-  <small>Run: python api/run_pipeline.py</small>
-</div>
 
 <footer>
   Lottery AI Analysis Suite — Manager Control Center &nbsp;|&nbsp; Auto-refresh every 5 min
@@ -1589,26 +1563,15 @@ async function triggerAction(type) {
 })();
 
 function toggleDrawer() {
-  const drawer = document.getElementById('mobile-drawer');
-  const overlay = document.getElementById('drawer-overlay');
-  if (drawer && overlay) {
-    const isOpen = drawer.classList.contains('open');
-    if (isOpen) {
-      closeDrawer();
-    } else {
-      drawer.classList.add('open');
-      overlay.classList.add('show');
-      document.body.style.overflow = 'hidden';
-    }
+  if (window.LotteryNav && typeof window.LotteryNav.openDrawer === 'function') {
+    window.LotteryNav.openDrawer();
   }
 }
 
 function closeDrawer() {
-  const drawer = document.getElementById('mobile-drawer');
-  const overlay = document.getElementById('drawer-overlay');
-  if (drawer) drawer.classList.remove('open');
-  if (overlay) overlay.classList.remove('show');
-  document.body.style.overflow = '';
+  if (window.LotteryNav && typeof window.LotteryNav.closeDrawer === 'function') {
+    window.LotteryNav.closeDrawer();
+  }
 }
 
 if ('serviceWorker' in navigator) {

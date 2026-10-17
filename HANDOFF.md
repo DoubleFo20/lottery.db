@@ -6,7 +6,7 @@
 **Target Pull Request:** PR #2 (Draft) targeting `main`  
 **Orchestrator:** ARGON  
 **Target Reviewer:** Independent Senior Auditor / Owner  
-**Date:** 2026-10-17  
+**Date:** 2026-10-18  
 
 ---
 
@@ -48,6 +48,7 @@ Design Tokens (assets/css/premium-theme.css) ──► Slate / Indigo / JetBrain
 - Displays Wilson Score 95% Confidence Interval: `[9.04% — 21.52%]`.
 - Draw-level standard error: `0.1817` ($SE_{draw}$).
 - Explicit disclaimer that positive lift over finite draws is consistent with random chance ($p = 0.128$).
+- Dynamically loaded from `database/backtest/comparative_report.json`.
 
 ### 2.4 Mirror Parity Preservation
 - `index.html` == `strategy.html` == `dashboard/index.html` == `dashboard/strategy.html`.
@@ -61,32 +62,45 @@ Design Tokens (assets/css/premium-theme.css) ──► Slate / Indigo / JetBrain
 
 ---
 
-## 3. Verification Commands for Auditor
+## 3. Independent Review Remediation Items Verified
+
+1. **Duplicate IDs Elimination:** Zero duplicate `mobile-drawer` and `error-msg` IDs across all static templates and runtime components.
+2. **Data-Driven Statistical Panel:** `performance.html` dynamically reads `database/backtest/comparative_report.json` for sample size, evaluation timestamp, Wilson CI, and p-value.
+3. **Bilingual Localization Polish:** Complete dictionary coverage with embedded fallbacks in `assets/js/i18n.js`.
+4. **Before/After Lighthouse & Performance:** Complete comparative benchmark recorded in `reports/LIGHTHOUSE_REPORT.md` (Strategy FCP improved 4608ms -> 1240ms, Manager FCP improved 1988ms -> 352ms, Performance FCP improved 1032ms -> 164ms).
+5. **Multi-Viewport Visual QA:** 17 screenshots in `reports/screenshots/` covering Desktop, Tablet, Mobile, and Drawer Open states.
+
+---
+
+## 4. Verification Commands for Auditor
 
 ```bash
-# 1. Run all Python unit and integration tests (expect: 235 passed)
+# 1. Run all Python unit and integration tests (expect: 239 passed)
 python -m pytest tests/
 
-# 2. Run look-ahead data leakage audit
+# 2. Run UI QA regression tests (duplicate IDs, drawer keyboard, dynamic backtest values)
+node scripts/test-ui-qa-regressions.js
+
+# 3. Run look-ahead data leakage audit
 python analytics/backtest_engine.py --audit
 
-# 3. Run advisory regression suite & Puppeteer browser test
+# 4. Run advisory regression suite & Puppeteer browser test
 npm run test:advisory
 
-# 4. Run canvas lifecycle test
+# 5. Run canvas lifecycle test
 npm run test:canvas:lifecycle
 
-# 5. Run canvas adversarial stress test suite (expect: 12/12 passed)
+# 6. Run canvas adversarial stress test suite (expect: 12/12 passed)
 npm run test:canvas:legacy
 
-# 6. Verify 3D build and data generation
+# 7. Run 3D build and data generation
 npm run build
 
-# 7. Verify Next.js lint, typecheck, and production build
+# 8. Verify Next.js lint, typecheck, and production build
 npm run lint --prefix next-app
 npx --prefix next-app tsc --noEmit --incremental false
 npm run build --prefix next-app
 
-# 8. Verify git status is clean on feature branch
-git status
+# 9. Verify UI performance & Lighthouse benchmark report
+node scripts/audit-lighthouse-comparison.js
 ```
