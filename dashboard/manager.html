@@ -630,25 +630,25 @@ footer {
     <!-- Latest Result Card -->
     <div class="card" style="background:linear-gradient(135deg,rgba(15,23,42,0.9),rgba(2,6,23,0.95));border:1px solid rgba(16,185,129,0.35);">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-        <span class="card-label" style="color:#34d399;margin-bottom:0;">🏆 ผลรางวัลงวดล่าสุด (16 ก.ย. 2569)</span>
+        <span class="card-label" id="res-card-label" style="color:#34d399;margin-bottom:0;">🏆 ผลรางวัลงวดล่าสุด (16 ต.ค. 2569)</span>
         <span class="badge badge-good">ตรวจแล้ว</span>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;">
         <div>
           <div style="font-size:0.75rem;color:var(--text-dim);">รางวัลที่ 1 (First Prize):</div>
-          <div style="font-size:1.85rem;font-weight:800;letter-spacing:2px;color:#fff;" id="res-first-prize">730640</div>
+          <div style="font-size:1.85rem;font-weight:800;letter-spacing:2px;color:#fff;" id="res-first-prize">011781</div>
         </div>
         <div style="text-align:right;">
           <div style="font-size:0.75rem;color:var(--text-dim);">เลขท้าย 2 ตัว (Last 2):</div>
-          <div style="font-size:1.85rem;font-weight:800;color:#34d399;" id="res-last2">64</div>
+          <div style="font-size:1.85rem;font-weight:800;color:#34d399;" id="res-last2">48</div>
         </div>
       </div>
       <div class="card-sub" style="margin-top:8px;display:flex;gap:12px;font-size:0.75rem;flex-wrap:wrap;">
-        <span>หน้า 3: <strong style="color:#fff;" id="res-front3">060, 521</strong></span>
+        <span>หน้า 3: <strong style="color:#fff;" id="res-front3">402, 392</strong></span>
         <span>•</span>
-        <span>ท้าย 3: <strong style="color:#fff;" id="res-back3">266, 041</strong></span>
+        <span>ท้าย 3: <strong style="color:#fff;" id="res-back3">171, 255</strong></span>
         <span>•</span>
-        <span>ท้าย 2 บน: <strong style="color:#38bdf8;" id="res-top2">40</strong></span>
+        <span>ท้าย 2 บน: <strong style="color:#38bdf8;" id="res-top2">81</strong></span>
       </div>
     </div>
   </div>
@@ -1199,7 +1199,7 @@ function renderStreaks(analytics) {
 function renderCountdownAndLatestResults(predict) {
   const meta = predict?.meta || {};
   const ds = meta.dataset || {};
-  const lastNum = ds.latest_number || '730640';
+  const lastNum = ds.latest_number || '011781';
   const elFp = document.getElementById('res-first-prize');
   if (elFp) elFp.textContent = lastNum;
 
@@ -1207,11 +1207,39 @@ function renderCountdownAndLatestResults(predict) {
   if (elTop2 && lastNum.length === 6) elTop2.textContent = lastNum.slice(-2);
 
   const elFront3 = document.getElementById('res-front3');
-  if (elFront3) elFront3.textContent = '060, 521';
+  if (elFront3) {
+    if (Array.isArray(ds.front3) && ds.front3.length) {
+      elFront3.textContent = ds.front3.join(', ');
+    } else {
+      elFront3.textContent = '402, 392';
+    }
+  }
+
   const elBack3 = document.getElementById('res-back3');
-  if (elBack3) elBack3.textContent = '266, 041';
+  if (elBack3) {
+    if (Array.isArray(ds.back3) && ds.back3.length) {
+      elBack3.textContent = ds.back3.join(', ');
+    } else {
+      elBack3.textContent = '171, 255';
+    }
+  }
+
   const elLast2 = document.getElementById('res-last2');
-  if (elLast2) elLast2.textContent = '64';
+  if (elLast2) {
+    elLast2.textContent = ds.last2 || (lastNum.length >= 2 ? lastNum.slice(-2) : '48');
+  }
+
+  const elCardLabel = document.getElementById('res-card-label');
+  if (elCardLabel && ds.latest) {
+    const parts = ds.latest.split('-');
+    if (parts.length === 3) {
+      const yearTH = parseInt(parts[0], 10) + 543;
+      const monthNames = ['', 'ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+      const mIdx = parseInt(parts[1], 10);
+      const day = parseInt(parts[2], 10);
+      elCardLabel.textContent = `🏆 ผลรางวัลงวดล่าสุด (${day} ${monthNames[mIdx]} ${yearTH})`;
+    }
+  }
 }
 
 // ─── Full Spectrum Predictions & Hedging ──────────────

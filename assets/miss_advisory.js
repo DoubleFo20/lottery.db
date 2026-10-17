@@ -1,8 +1,8 @@
 /* Shared Manager advisory policy. Resetting monitoring never rewrites results. */
 (function (root) {
   'use strict';
-  const POLICY = '2026-10-05-v1';
-  const RESET_AFTER_DRAW = '2026-10-01';
+  const POLICY = '2026-10-16-v1';
+  const RESET_AFTER_DRAW = '2026-10-16';
   const STORAGE_KEY = 'lottery-miss-advisory';
   const datePattern = /^\d{4}-\d{2}-\d{2}$/;
   const numberPattern = /^\d{6}$/;

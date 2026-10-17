@@ -1,0 +1,247 @@
+{
+  "ensemble": {
+    "mode": "ENSEMBLE (UNTUNED EQUAL)",
+    "model_version": "EnsemblePredictor-v2.1",
+    "attempted_draws": 20,
+    "successful_draws": 20,
+    "prediction_failures": 0,
+    "failure_rate_pct": 0.0,
+    "failed_draws_details": [],
+    "total_draws": 20,
+    "sample_size_positions": 120,
+    "coverage": {
+      "attempted_draws": 20,
+      "successful_draws": 20,
+      "failed_draws": 0,
+      "coverage_rate_pct": 100.0,
+      "failure_rate_pct": 0.0
+    },
+    "statistical_uncertainty": {
+      "sample_size_draws": 20,
+      "sample_size_positions": 120,
+      "positional_accuracy_pct": 14.1667,
+      "wilson_ci_95": {
+        "lower_pct": 9.0369,
+        "upper_pct": 21.5195
+      },
+      "standard_error": 0.031833,
+      "position_standard_error": 0.031833,
+      "hypothesis_test_vs_random_10pct": {
+        "null_hypothesis": "Positional accuracy is <= 10.0% (random baseline)",
+        "z_score": 1.5215,
+        "p_value": 0.128147,
+        "statistically_significant_at_05": false
+      },
+      "draw_level_uncertainty": {
+        "sample_size_draws": 20,
+        "mean_position_hits_per_draw": 0.85,
+        "sample_std_dev": 0.8127,
+        "draw_standard_error": 0.1817,
+        "ci_95_draw_hits": {
+          "lower": 0.4938,
+          "upper": 1.2062
+        },
+        "hypothesis_test_vs_random_0_60": {
+          "null_hypothesis": "Mean position hits per draw is <= 0.60 (pure random expectation)",
+          "expected_mean": 0.6,
+          "z_score": 1.5215,
+          "p_value": 0.128147,
+          "statistically_significant_at_05": false
+        }
+      },
+      "interpretation": "Do not interpret a positive lift as proof of predictive advantage. Due to high variance and inherent randomness in lottery draws, sample hit rate variations are consistent with random statistical fluctuations. Lottery outcomes are designed to be independent and uniformly random."
+    },
+    "weights_provenance": {
+      "weights_mode": "equal",
+      "leakage_isolation": "STRICT_LEAKAGE_SAFE",
+      "historical_provenance": "Untuned a-priori equal weights (1/8 = 0.125 for all signals) guarantee zero look-ahead bias across all historical backtest draws."
+    },
+    "official_glo_prizes": {
+      "description": "Official prize categories drawn by separate, independent GLO lottery machines (First Prize, Front-3, Back-3, Last-2)",
+      "first_prize_jackpot": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 0.0001
+      },
+      "front3_prizes": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 0.2
+      },
+      "back3_prizes": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 0.2
+      },
+      "last2_prize": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 1.0
+      }
+    },
+    "independent_market_models": {
+      "description": "First Prize sub-combinations evaluated for independent prize / market analysis (Top-2, Top-3 Direct, Top-3 Box)",
+      "top2_market": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 1.0
+      },
+      "top3_direct_market": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 0.1
+      },
+      "top3_box_market": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 0.6
+      }
+    },
+    "metrics_official_prizes": {
+      "first_prize_jackpot": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 0.0001
+      },
+      "front3_prizes": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 0.2
+      },
+      "back3_prizes": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 0.2
+      },
+      "last2_prize": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 1.0
+      },
+      "top2_market": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 1.0
+      },
+      "top3_direct_market": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 0.1
+      },
+      "top3_box_market": {
+        "matches": 0,
+        "match_rate_pct": 0.0,
+        "expected_random_pct": 0.6
+      }
+    },
+    "metrics_6digit": {
+      "exact_matches": 0,
+      "exact_match_rate": 0.0,
+      "average_digit_hits": 2.85,
+      "average_position_hits": 0.85,
+      "positional_accuracy_pct": 14.1667,
+      "expected_random_accuracy_pct": 10.0,
+      "ci_95_lower_pct": 9.0369,
+      "ci_95_upper_pct": 21.5195
+    },
+    "metrics_2digit": {
+      "top2_matches": 0,
+      "top2_match_rate_pct": 0.0,
+      "expected_top2_random_pct": 1.0,
+      "last2_matches": 0,
+      "last2_match_rate_pct": 0.0
+    },
+    "metrics_3digit": {
+      "front3_matches": 0,
+      "front3_match_rate_pct": 0.0,
+      "expected_front3_random_pct": 0.2,
+      "back3_matches": 0,
+      "back3_match_rate_pct": 0.0,
+      "expected_back3_random_pct": 0.2,
+      "top3_direct_matches": 0,
+      "top3_direct_rate_pct": 0.0,
+      "expected_top3_direct_random_pct": 0.1,
+      "top3_box_matches": 0,
+      "top3_box_rate_pct": 0.0,
+      "expected_top3_box_random_pct": 0.6
+    },
+    "exact_matches": 0,
+    "exact_match_rate": 0.0,
+    "average_digit_hits": 2.85,
+    "average_position_hits": 0.85,
+    "positional_accuracy_pct": 14.1667,
+    "note": "Positional accuracy = total_position_hits / (successful_draws × 6). Random baseline expectation ≈ 10% (1/10 per digit position). Lottery outcomes are inherently unpredictable; past performance does not guarantee future hits.",
+    "run_time": "2026-10-17T22:56:48.758553"
+  },
+  "random_baseline": {
+    "mode": "RANDOM BASELINE (5 repeated trials, seed=42)",
+    "trials_count": 5,
+    "mean_positional_accuracy_pct": 11.0,
+    "std_positional_accuracy_pct": 0.6972,
+    "ci_95_pct": {
+      "lower_pct": 10.3888,
+      "upper_pct": 11.6112
+    },
+    "mean_digit_hits": 2.36,
+    "mean_pos_hits": 0.66,
+    "mean_top2_match_rate_pct": 2.0,
+    "mean_last2_match_rate_pct": 1.0,
+    "mean_front3_match_rate_pct": 0.0,
+    "mean_back3_match_rate_pct": 0.0,
+    "mean_top3_direct_rate_pct": 0.0,
+    "mean_top3_box_rate_pct": 0.0,
+    "expected_theoretical_accuracy_pct": 10.0
+  },
+  "comparison": {
+    "ensemble_avg_pos_hits": 0.85,
+    "random_avg_pos_hits": 0.66,
+    "ensemble_accuracy_pct": 14.1667,
+    "random_accuracy_pct": 11.0,
+    "ensemble_avg_dig_hits": 2.85,
+    "random_avg_dig_hits": 2.36,
+    "lift_over_random_pct": 3.1667,
+    "random_baseline_std": 0.6972,
+    "random_baseline_ci_95": {
+      "lower_pct": 10.3888,
+      "upper_pct": 11.6112
+    },
+    "random_trials_count": 5,
+    "hypothesis_test_vs_empirical_random": {
+      "null_hypothesis": "Ensemble positional accuracy equals empirical random baseline mean",
+      "z_score": 0.99,
+      "p_value": 0.322151,
+      "statistically_significant_at_05": false
+    },
+    "official_prize_rates": {
+      "front3_match_rate_pct": {
+        "ensemble": 0.0,
+        "random_empirical_mean": 0.0,
+        "theoretical_random": 0.2
+      },
+      "back3_match_rate_pct": {
+        "ensemble": 0.0,
+        "random_empirical_mean": 0.0,
+        "theoretical_random": 0.2
+      },
+      "last2_match_rate_pct": {
+        "ensemble": 0.0,
+        "random_empirical_mean": 1.0,
+        "theoretical_random": 1.0
+      }
+    },
+    "disclaimer": "Do not interpret a positive lift as proof of predictive advantage. Due to high variance and inherent randomness in lottery draws, sample hit rate variations are consistent with random statistical fluctuations. Lottery outcomes are designed to be independent and uniformly random."
+  },
+  "sample_size": {
+    "attempted_draws": 20,
+    "successful_draws": 20,
+    "coverage_rate_pct": 100.0,
+    "failures_count": 0,
+    "failure_rate_pct": 0.0
+  },
+  "weights_provenance": {
+    "weights_mode": "equal",
+    "leakage_isolation": "STRICT_LEAKAGE_SAFE",
+    "historical_provenance": "Untuned a-priori equal weights (1/8 = 0.125 for all signals) guarantee zero look-ahead bias across all historical backtest draws."
+  },
+  "timestamp": "2026-10-17T22:56:48.811736"
+}

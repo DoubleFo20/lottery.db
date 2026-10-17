@@ -268,9 +268,10 @@ def _temporal_trend(rows: list[dict], band_years: int = 5) -> dict[str, dict[int
 
 class EnsemblePredictor:
 
-    def __init__(self, csv_path: str | Path = CSV_PATH, window: int = 50):
+    def __init__(self, csv_path: str | Path = CSV_PATH, window: int = 50, weights: dict | None = None):
         self.csv_path = Path(csv_path)
         self.window = window
+        self.weights = weights
         self.rows: list[dict] = []
         self.signals: dict = {}
         self.position_scores: dict[str, dict[int, float]] = {}

@@ -461,17 +461,17 @@
     ],
     "surging_2digit": [
       {
-        "sequence": "17",
-        "recent_count": 4,
-        "recent_freq": 0.04,
-        "baseline_freq": 0.0106,
-        "surge_ratio": 3.77
-      },
-      {
         "sequence": "70",
         "recent_count": 3,
         "recent_freq": 0.03,
         "baseline_freq": 0.0079,
+        "surge_ratio": 3.77
+      },
+      {
+        "sequence": "17",
+        "recent_count": 4,
+        "recent_freq": 0.04,
+        "baseline_freq": 0.0106,
         "surge_ratio": 3.77
       },
       {
@@ -496,13 +496,6 @@
         "surge_ratio": 2.83
       },
       {
-        "sequence": "77",
-        "recent_count": 3,
-        "recent_freq": 0.03,
-        "baseline_freq": 0.011,
-        "surge_ratio": 2.72
-      },
-      {
         "sequence": "73",
         "recent_count": 3,
         "recent_freq": 0.03,
@@ -510,44 +503,37 @@
         "surge_ratio": 2.72
       },
       {
-        "sequence": "92",
-        "recent_count": 2,
-        "recent_freq": 0.02,
-        "baseline_freq": 0.0079,
+        "sequence": "77",
+        "recent_count": 3,
+        "recent_freq": 0.03,
+        "baseline_freq": 0.011,
+        "surge_ratio": 2.72
+      },
+      {
+        "sequence": "14",
+        "recent_count": 3,
+        "recent_freq": 0.03,
+        "baseline_freq": 0.0119,
         "surge_ratio": 2.52
       }
     ],
     "surging_3digit": [
       {
-        "sequence": "004",
+        "sequence": "173",
         "recent_count": 1,
         "recent_freq": 0.0125,
         "baseline_freq": 0.0006,
         "surge_ratio": 22.65
       },
       {
-        "sequence": "718",
+        "sequence": "270",
         "recent_count": 1,
         "recent_freq": 0.0125,
         "baseline_freq": 0.0006,
         "surge_ratio": 22.65
       },
       {
-        "sequence": "514",
-        "recent_count": 2,
-        "recent_freq": 0.025,
-        "baseline_freq": 0.0011,
-        "surge_ratio": 22.65
-      },
-      {
-        "sequence": "172",
-        "recent_count": 1,
-        "recent_freq": 0.0125,
-        "baseline_freq": 0.0006,
-        "surge_ratio": 22.65
-      },
-      {
-        "sequence": "208",
+        "sequence": "701",
         "recent_count": 1,
         "recent_freq": 0.0125,
         "baseline_freq": 0.0006,
@@ -561,7 +547,21 @@
         "surge_ratio": 22.65
       },
       {
-        "sequence": "173",
+        "sequence": "615",
+        "recent_count": 1,
+        "recent_freq": 0.0125,
+        "baseline_freq": 0.0006,
+        "surge_ratio": 22.65
+      },
+      {
+        "sequence": "897",
+        "recent_count": 1,
+        "recent_freq": 0.0125,
+        "baseline_freq": 0.0006,
+        "surge_ratio": 22.65
+      },
+      {
+        "sequence": "208",
         "recent_count": 1,
         "recent_freq": 0.0125,
         "baseline_freq": 0.0006,
@@ -1415,7 +1415,7 @@
         }
       }
     ],
-    "explained_at": "2026-10-16T12:35:30.164659",
+    "explained_at": "2026-10-17T22:42:35.604179",
     "ensemble_confidence": 100.0
   },
   "meta": {
@@ -1424,14 +1424,23 @@
     "dataset": {
       "total_draws": 473,
       "latest": "2026-10-16",
-      "latest_number": "011781"
+      "latest_number": "011781",
+      "last2": "48",
+      "front3": [
+        "402",
+        "392"
+      ],
+      "back3": [
+        "171",
+        "255"
+      ]
     },
     "params": {
       "top": 5,
       "beam": 5,
       "window": 50
     },
-    "processing_at": "2026-10-16T12:35:30.165789",
+    "processing_at": "2026-10-17T22:42:35.604179",
     "api_version": "1.0"
   }
 }

@@ -57,7 +57,7 @@ test('policy reset keeps history and awaits new evaluated draws', () => {
 test('refresh timestamps and candidate changes do not reset; weight/param changes do', () => {
   const checkpoint = advisory.checkpoint(null, predict, draws);
   const refresh = { ...predict, candidates: [{ number: '111111' }], generated_at: 'new' };
-  assert.equal(advisory.checkpoint(checkpoint, refresh, draws).afterDraw, '2026-10-01');
+  assert.equal(advisory.checkpoint(checkpoint, refresh, draws).afterDraw, '2026-10-16');
   const changed = { ...predict, ensemble_weights: { a: 0.5, b: 0.5 } };
   const updated = advisory.checkpoint(checkpoint, changed, draws);
   assert.equal(updated.afterDraw, '2027-01-01');

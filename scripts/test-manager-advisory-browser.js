@@ -8,11 +8,11 @@ const read = file => fs.readFileSync(path.join(ROOT, file), 'utf8');
 const realCsv = read('database/dataset/lottery_history.csv');
 const realHistory = JSON.parse(read('database/predictions/prediction_history.json'));
 const realCache = JSON.parse(read('database/predictions/pipeline_cache.json'));
-const dates = ['2026-10-16', '2026-11-01', '2026-11-16', '2026-12-01', '2026-12-16', '2027-01-01'];
-const sampleCsv = 'draw_date,first_prize\n2026-10-01,402701\n' +
+const dates = ['2026-11-01', '2026-11-16', '2026-12-01', '2026-12-16', '2027-01-01', '2027-01-16'];
+const sampleCsv = 'draw_date,first_prize\n2026-10-16,011781\n' +
   dates.map(date => date + ',123456').join('\n');
 const sampleHistory = dates.map(date => ({
-  target_date: date, draw_date_used: '2026-10-01',
+  target_date: date, draw_date_used: '2026-10-16',
   logged_at: date + 'T12:00:00', actual_result: '123456',
   candidates: [{ number: '000000' }],
 }));
@@ -83,9 +83,9 @@ const sampleHistory = dates.map(date => ({
       cache.ensemble_weights.rolling_heat += 0.01;
       await page.evaluate(() => loadAll());
       assert.equal(await page.evaluate(() => currentMissState.status), 'waiting');
-      assert.equal(await page.evaluate(() => currentMissState.afterDraw), '2027-01-01');
+      assert.equal(await page.evaluate(() => currentMissState.afterDraw), '2027-01-16');
       await page.reload();
-      await page.waitForFunction(() => currentMissState.afterDraw === '2027-01-01');
+      await page.waitForFunction(() => currentMissState.afterDraw === '2027-01-16');
       assert.equal(await page.evaluate(() => currentMissState.status), 'waiting');
       assert.equal(errors.length, 0, errors.join('\n'));
       console.log('PASS:', route, 'reset, real streak, win, model change, persistence');
