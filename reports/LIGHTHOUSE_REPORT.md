@@ -1,6 +1,6 @@
 # Verified UI/UX Performance & Lighthouse Audit Report
 
-**Audit Timestamp:** 2026-10-17T19:58:03.221Z
+**Audit Timestamp:** 2026-10-17T21:15:49.301Z
 **Baseline Source:** Commit `fdbceb5` (`origin/main` after PR #1 merge)
 **Redesigned Source:** Branch `feat/premium-analytical-ui`
 **Methodology:** 3 repeated programmatic runs per configuration on local HTTP server; medians reported; raw reports preserved in `reports/raw_lighthouse/`.
@@ -16,40 +16,48 @@
 
 | Page | Metric | Baseline (`main`) | Redesigned (`feat/ui`) | Delta & Analysis |
 | :--- | :--- | :---: | :---: | :--- |
-| **Strategy Dashboard** | Lighthouse Performance | 71/100 | 53/100 | Stable |
-| | Lighthouse Accessibility | 80/100 | 84/100 | ✅ Improved |
+| **Strategy Dashboard** | Lighthouse Performance | 76/100 | 61/100 | ⚠️ Degraded (-15) |
+| | Lighthouse Accessibility | 80/100 | 86/100 | ✅ Improved (+6) |
+| | Cumulative Layout Shift (CLS) | 0.0345 | 0.1001 | ⚠️ Needs improvement |
+| | Total Blocking Time (TBT) | 134 ms | 32 ms | ✅ Good (≤ 200ms) |
 | | Best Practices | 96/100 | 96/100 | ✅ Stable |
 | | SEO Score | 90/100 | 90/100 | ✅ Stable |
-| | First Contentful Paint (FCP) | 1857 ms | 1992 ms | ⚡ Rapid paint |
-| | Largest Contentful Paint (LCP) | 1857 ms | 1992 ms | ✅ Measured LCP |
-| | Total Load Duration | 1829 ms | 1705 ms | ⚡ Faster total load |
-| | JS Heap Memory | 4.12 MB | 4.45 MB | ✅ Low memory usage |
+| | First Contentful Paint (FCP) | 2047 ms | 3318 ms | ⚡ Rapid paint |
+| | Largest Contentful Paint (LCP) | 2047 ms | 3318 ms | ✅ Measured LCP |
+| | Total Load Duration | 2216 ms | 2916 ms | Comparable |
+| | JS Heap Memory | 1.93 MB | 4.68 MB | ✅ Low memory usage |
 | | Duplicate DOM IDs | 0 | 0 | ✅ 0 Duplicate IDs |
-| **Manager Control Center** | Lighthouse Performance | 88/100 | 66/100 | Stable |
-| | Lighthouse Accessibility | 98/100 | 98/100 | ✅ Improved |
+| **Manager Control Center** | Lighthouse Performance | 86/100 | 81/100 | ⚠️ Degraded (-5) |
+| | Lighthouse Accessibility | 98/100 | 98/100 | ✅ Stable (0) |
+| | Cumulative Layout Shift (CLS) | 0.1028 | 0.0965 | ✅ Pass (≤ 0.1) |
+| | Total Blocking Time (TBT) | 85 ms | 96 ms | ✅ Good (≤ 200ms) |
 | | Best Practices | 96/100 | 96/100 | ✅ Stable |
 | | SEO Score | 90/100 | 90/100 | ✅ Stable |
-| | First Contentful Paint (FCP) | 1075 ms | 1060 ms | ⚡ Rapid paint |
-| | Largest Contentful Paint (LCP) | 1358 ms | 1460 ms | ✅ Measured LCP |
-| | Total Load Duration | 1157 ms | 1458 ms | Comparable |
+| | First Contentful Paint (FCP) | 1086 ms | 1512 ms | ⚡ Rapid paint |
+| | Largest Contentful Paint (LCP) | 1486 ms | 1778 ms | ✅ Measured LCP |
+| | Total Load Duration | 1097 ms | 1538 ms | Comparable |
 | | JS Heap Memory | 1.78 MB | 1.88 MB | ✅ Low memory usage |
 | | Duplicate DOM IDs | 1 | 0 | ✅ 0 Duplicate IDs |
-| **Performance Dashboard** | Lighthouse Performance | 95/100 | 90/100 | Stable |
-| | Lighthouse Accessibility | 98/100 | 95/100 | Stable |
+| **Performance Dashboard** | Lighthouse Performance | 96/100 | 95/100 | ⚠️ Degraded (-1) |
+| | Lighthouse Accessibility | 98/100 | 95/100 | ⚠️ Degraded (-3) |
+| | Cumulative Layout Shift (CLS) | 0.0214 | 0.0819 | ✅ Pass (≤ 0.1) |
+| | Total Blocking Time (TBT) | 8 ms | 5 ms | ✅ Good (≤ 200ms) |
 | | Best Practices | 96/100 | 96/100 | ✅ Stable |
 | | SEO Score | 90/100 | 100/100 | ✅ Stable |
-| | First Contentful Paint (FCP) | 1097 ms | 723 ms | ⚡ Rapid paint |
-| | Largest Contentful Paint (LCP) | 1097 ms | 1207 ms | ✅ Measured LCP |
-| | Total Load Duration | 840 ms | 1117 ms | Comparable |
-| | JS Heap Memory | 2.96 MB | 2.66 MB | ✅ Low memory usage |
+| | First Contentful Paint (FCP) | 988 ms | 1014 ms | ⚡ Rapid paint |
+| | Largest Contentful Paint (LCP) | 988 ms | 1014 ms | ✅ Measured LCP |
+| | Total Load Duration | 825 ms | 865 ms | Comparable |
+| | JS Heap Memory | 2.9 MB | 3.14 MB | ✅ Low memory usage |
 | | Duplicate DOM IDs | 0 | 0 | ✅ 0 Duplicate IDs |
-| **3D Showcase** | Lighthouse Performance | 89/100 | 89/100 | ✅ Maintained / Improved |
-| | Lighthouse Accessibility | 100/100 | 100/100 | ✅ Improved |
+| **3D Showcase** | Lighthouse Performance | 94/100 | 93/100 | ⚠️ Degraded (-1) |
+| | Lighthouse Accessibility | 100/100 | 100/100 | ✅ Stable (0) |
+| | Cumulative Layout Shift (CLS) | 0.0069 | 0.0008 | ✅ Pass (≤ 0.1) |
+| | Total Blocking Time (TBT) | 71 ms | 74 ms | ✅ Good (≤ 200ms) |
 | | Best Practices | 96/100 | 96/100 | ✅ Stable |
 | | SEO Score | 100/100 | 100/100 | ✅ Stable |
-| | First Contentful Paint (FCP) | 1379 ms | 1318 ms | ⚡ Rapid paint |
-| | Largest Contentful Paint (LCP) | 1379 ms | 1318 ms | ✅ Measured LCP |
-| | Total Load Duration | 3190 ms | 2575 ms | ⚡ Faster total load |
+| | First Contentful Paint (FCP) | 1144 ms | 1241 ms | ⚡ Rapid paint |
+| | Largest Contentful Paint (LCP) | 1144 ms | 1241 ms | ✅ Measured LCP |
+| | Total Load Duration | 2100 ms | 2191 ms | Comparable |
 | | JS Heap Memory | 1.35 MB | 1.43 MB | ✅ Low memory usage |
 | | Duplicate DOM IDs | 0 | 0 | ✅ 0 Duplicate IDs |
 
@@ -57,29 +65,45 @@
 
 | Page | Metric | Baseline (`main`) | Redesigned (`feat/ui`) | Delta & Analysis |
 | :--- | :--- | :---: | :---: | :--- |
-| **Strategy Dashboard** | Lighthouse Performance | 89/100 | 96/100 | ✅ Mobile Optimized |
-| | Lighthouse Accessibility | 80/100 | 84/100 | ✅ Mobile A11y |
-| | First Contentful Paint (FCP) | 1852 ms | 1619 ms | ⚡ Rapid paint |
-| | Largest Contentful Paint (LCP) | 1852 ms | 1619 ms | ✅ Measured LCP |
-| | Total Load Duration | 1609 ms | 1889 ms | Comparable |
+| **Strategy Dashboard** | Lighthouse Performance | 95/100 | 99/100 | ✅ Improved (+4) |
+| | Lighthouse Accessibility | 80/100 | 84/100 | ✅ Improved (+4) |
+| | Cumulative Layout Shift (CLS) | 0.0028 | 0 | ✅ Pass (≤ 0.1) |
+| | Total Blocking Time (TBT) | 83 ms | 38 ms | ✅ Good (≤ 200ms) |
+| | Best Practices | 96/100 | 96/100 | ✅ Stable |
+| | SEO Score | 90/100 | 90/100 | ✅ Stable |
+| | First Contentful Paint (FCP) | 2297 ms | 1441 ms | ⚡ Rapid paint |
+| | Largest Contentful Paint (LCP) | 2297 ms | 1525 ms | ✅ Measured LCP |
+| | Total Load Duration | 1418 ms | 1431 ms | Comparable |
 | | Duplicate DOM IDs | 0 | 0 | ✅ 0 Duplicate IDs |
-| **Manager Control Center** | Lighthouse Performance | 100/100 | 98/100 | ✅ Mobile Optimized |
-| | Lighthouse Accessibility | 98/100 | 98/100 | ✅ Mobile A11y |
-| | First Contentful Paint (FCP) | 954 ms | 1122 ms | ⚡ Rapid paint |
-| | Largest Contentful Paint (LCP) | 1179 ms | 1758 ms | ✅ Measured LCP |
-| | Total Load Duration | 1165 ms | 1308 ms | Comparable |
+| **Manager Control Center** | Lighthouse Performance | 90/100 | 89/100 | ⚠️ Degraded (-1) |
+| | Lighthouse Accessibility | 98/100 | 98/100 | ✅ Stable (0) |
+| | Cumulative Layout Shift (CLS) | 0 | 0.2042 | ⚠️ Needs improvement |
+| | Total Blocking Time (TBT) | 175 ms | 109 ms | ✅ Good (≤ 200ms) |
+| | Best Practices | 96/100 | 96/100 | ✅ Stable |
+| | SEO Score | 90/100 | 90/100 | ✅ Stable |
+| | First Contentful Paint (FCP) | 1194 ms | 1412 ms | ⚡ Rapid paint |
+| | Largest Contentful Paint (LCP) | 1551 ms | 1679 ms | ✅ Measured LCP |
+| | Total Load Duration | 2070 ms | 1777 ms | ⚡ Faster mobile load |
 | | Duplicate DOM IDs | 1 | 0 | ✅ 0 Duplicate IDs |
-| **Performance Dashboard** | Lighthouse Performance | 100/100 | 96/100 | ✅ Mobile Optimized |
-| | Lighthouse Accessibility | 98/100 | 96/100 | ✅ Mobile A11y |
-| | First Contentful Paint (FCP) | 1008 ms | 703 ms | ⚡ Rapid paint |
-| | Largest Contentful Paint (LCP) | 1008 ms | 703 ms | ✅ Measured LCP |
-| | Total Load Duration | 841 ms | 1093 ms | Comparable |
+| **Performance Dashboard** | Lighthouse Performance | 100/100 | 100/100 | ✅ Stable (0) |
+| | Lighthouse Accessibility | 98/100 | 96/100 | ⚠️ Degraded (-2) |
+| | Cumulative Layout Shift (CLS) | 0 | 0 | ✅ Pass (≤ 0.1) |
+| | Total Blocking Time (TBT) | 37 ms | 0 ms | ✅ Good (≤ 200ms) |
+| | Best Practices | 96/100 | 96/100 | ✅ Stable |
+| | SEO Score | 90/100 | 100/100 | ✅ Stable |
+| | First Contentful Paint (FCP) | 1114 ms | 993 ms | ⚡ Rapid paint |
+| | Largest Contentful Paint (LCP) | 1114 ms | 993 ms | ✅ Measured LCP |
+| | Total Load Duration | 732 ms | 891 ms | Comparable |
 | | Duplicate DOM IDs | 0 | 0 | ✅ 0 Duplicate IDs |
-| **3D Showcase** | Lighthouse Performance | 99/100 | 99/100 | ✅ Mobile Optimized |
-| | Lighthouse Accessibility | 100/100 | 100/100 | ✅ Mobile A11y |
-| | First Contentful Paint (FCP) | 1319 ms | 1300 ms | ⚡ Rapid paint |
-| | Largest Contentful Paint (LCP) | 1319 ms | 1300 ms | ✅ Measured LCP |
-| | Total Load Duration | 2284 ms | 3977 ms | Comparable |
+| **3D Showcase** | Lighthouse Performance | 100/100 | 100/100 | ✅ Stable (0) |
+| | Lighthouse Accessibility | 100/100 | 100/100 | ✅ Stable (0) |
+| | Cumulative Layout Shift (CLS) | 0 | 0 | ✅ Pass (≤ 0.1) |
+| | Total Blocking Time (TBT) | 0 ms | 90 ms | ✅ Good (≤ 200ms) |
+| | Best Practices | 96/100 | 96/100 | ✅ Stable |
+| | SEO Score | 100/100 | 100/100 | ✅ Stable |
+| | First Contentful Paint (FCP) | 1491 ms | 1147 ms | ⚡ Rapid paint |
+| | Largest Contentful Paint (LCP) | 1491 ms | 1147 ms | ✅ Measured LCP |
+| | Total Load Duration | 2221 ms | 2019 ms | ⚡ Faster mobile load |
 | | Duplicate DOM IDs | 0 | 0 | ✅ 0 Duplicate IDs |
 
 ## 4. Accurate Accessibility & WCAG 2.1 AA Limitations

@@ -231,8 +231,28 @@ function generateMarkdownReport(fullResults, auditDate = new Date().toISOString(
     const bLh = r.baseline.lighthouse;
     const rLh = r.redesigned.lighthouse;
 
-    md += `| **${r.route}** | Lighthouse Performance | ${bLh.perfScore != null ? bLh.perfScore + '/100' : 'N/A'} | ${rLh.perfScore != null ? rLh.perfScore + '/100' : 'N/A'} | ${rLh.perfScore >= (bLh.perfScore || 0) ? '✅ Maintained / Improved' : 'Stable'} |\n`;
-    md += `| | Lighthouse Accessibility | ${bLh.a11yScore != null ? bLh.a11yScore + '/100' : 'N/A'} | ${rLh.a11yScore != null ? rLh.a11yScore + '/100' : 'N/A'} | ${rLh.a11yScore >= (bLh.a11yScore || 0) ? '✅ Improved' : 'Stable'} |\n`;
+    const perfDelta = rLh.perfScore != null && bLh.perfScore != null ? rLh.perfScore - bLh.perfScore : null;
+    let perfStatus = 'N/A';
+    if (rLh.perfScore != null && bLh.perfScore != null) {
+      if (perfDelta > 0) perfStatus = `✅ Improved (+${perfDelta})`;
+      else if (perfDelta === 0) perfStatus = '✅ Stable (0)';
+      else perfStatus = `⚠️ Degraded (${perfDelta})`;
+    } else if (rLh.perfScore != null) {
+      perfStatus = `${rLh.perfScore}/100`;
+    }
+
+    const a11yDelta = rLh.a11yScore != null && bLh.a11yScore != null ? rLh.a11yScore - bLh.a11yScore : null;
+    let a11yStatus = 'N/A';
+    if (rLh.a11yScore != null && bLh.a11yScore != null) {
+      if (a11yDelta > 0) a11yStatus = `✅ Improved (+${a11yDelta})`;
+      else if (a11yDelta === 0) a11yStatus = '✅ Stable (0)';
+      else a11yStatus = `⚠️ Degraded (${a11yDelta})`;
+    }
+
+    md += `| **${r.route}** | Lighthouse Performance | ${bLh.perfScore != null ? bLh.perfScore + '/100' : 'N/A'} | ${rLh.perfScore != null ? rLh.perfScore + '/100' : 'N/A'} | ${perfStatus} |\n`;
+    md += `| | Lighthouse Accessibility | ${bLh.a11yScore != null ? bLh.a11yScore + '/100' : 'N/A'} | ${rLh.a11yScore != null ? rLh.a11yScore + '/100' : 'N/A'} | ${a11yStatus} |\n`;
+    md += `| | Cumulative Layout Shift (CLS) | ${bLh.cls != null ? bLh.cls : 'N/A'} | ${rLh.cls != null ? rLh.cls : 'N/A'} | ${rLh.cls != null && rLh.cls <= 0.1 ? '✅ Pass (≤ 0.1)' : (rLh.cls != null ? '⚠️ Needs improvement' : 'N/A')} |\n`;
+    md += `| | Total Blocking Time (TBT) | ${bLh.tbtMs != null ? bLh.tbtMs + ' ms' : 'N/A'} | ${rLh.tbtMs != null ? rLh.tbtMs + ' ms' : 'N/A'} | ${rLh.tbtMs != null && rLh.tbtMs <= 200 ? '✅ Good (≤ 200ms)' : (rLh.tbtMs != null ? '⚠️ Higher blocking' : 'N/A')} |\n`;
     md += `| | Best Practices | ${bLh.bpScore != null ? bLh.bpScore + '/100' : 'N/A'} | ${rLh.bpScore != null ? rLh.bpScore + '/100' : 'N/A'} | ✅ Stable |\n`;
     md += `| | SEO Score | ${bLh.seoScore != null ? bLh.seoScore + '/100' : 'N/A'} | ${rLh.seoScore != null ? rLh.seoScore + '/100' : 'N/A'} | ✅ Stable |\n`;
     md += `| | First Contentful Paint (FCP) | ${bLh.fcpMs != null ? bLh.fcpMs + ' ms' : (bNav.fcpMs != null ? bNav.fcpMs + ' ms' : 'N/A')} | ${rLh.fcpMs != null ? rLh.fcpMs + ' ms' : (rNav.fcpMs != null ? rNav.fcpMs + ' ms' : 'N/A')} | ⚡ Rapid paint |\n`;
@@ -253,8 +273,30 @@ function generateMarkdownReport(fullResults, auditDate = new Date().toISOString(
     const bLh = r.baseline.lighthouse;
     const rLh = r.redesigned.lighthouse;
 
-    md += `| **${r.route}** | Lighthouse Performance | ${bLh.perfScore != null ? bLh.perfScore + '/100' : 'N/A'} | ${rLh.perfScore != null ? rLh.perfScore + '/100' : 'N/A'} | ✅ Mobile Optimized |\n`;
-    md += `| | Lighthouse Accessibility | ${bLh.a11yScore != null ? bLh.a11yScore + '/100' : 'N/A'} | ${rLh.a11yScore != null ? rLh.a11yScore + '/100' : 'N/A'} | ✅ Mobile A11y |\n`;
+    const perfDelta = rLh.perfScore != null && bLh.perfScore != null ? rLh.perfScore - bLh.perfScore : null;
+    let perfStatus = 'N/A';
+    if (rLh.perfScore != null && bLh.perfScore != null) {
+      if (perfDelta > 0) perfStatus = `✅ Improved (+${perfDelta})`;
+      else if (perfDelta === 0) perfStatus = '✅ Stable (0)';
+      else perfStatus = `⚠️ Degraded (${perfDelta})`;
+    } else if (rLh.perfScore != null) {
+      perfStatus = `${rLh.perfScore}/100`;
+    }
+
+    const a11yDelta = rLh.a11yScore != null && bLh.a11yScore != null ? rLh.a11yScore - bLh.a11yScore : null;
+    let a11yStatus = 'N/A';
+    if (rLh.a11yScore != null && bLh.a11yScore != null) {
+      if (a11yDelta > 0) a11yStatus = `✅ Improved (+${a11yDelta})`;
+      else if (a11yDelta === 0) a11yStatus = '✅ Stable (0)';
+      else a11yStatus = `⚠️ Degraded (${a11yDelta})`;
+    }
+
+    md += `| **${r.route}** | Lighthouse Performance | ${bLh.perfScore != null ? bLh.perfScore + '/100' : 'N/A'} | ${rLh.perfScore != null ? rLh.perfScore + '/100' : 'N/A'} | ${perfStatus} |\n`;
+    md += `| | Lighthouse Accessibility | ${bLh.a11yScore != null ? bLh.a11yScore + '/100' : 'N/A'} | ${rLh.a11yScore != null ? rLh.a11yScore + '/100' : 'N/A'} | ${a11yStatus} |\n`;
+    md += `| | Cumulative Layout Shift (CLS) | ${bLh.cls != null ? bLh.cls : 'N/A'} | ${rLh.cls != null ? rLh.cls : 'N/A'} | ${rLh.cls != null && rLh.cls <= 0.1 ? '✅ Pass (≤ 0.1)' : (rLh.cls != null ? '⚠️ Needs improvement' : 'N/A')} |\n`;
+    md += `| | Total Blocking Time (TBT) | ${bLh.tbtMs != null ? bLh.tbtMs + ' ms' : 'N/A'} | ${rLh.tbtMs != null ? rLh.tbtMs + ' ms' : 'N/A'} | ${rLh.tbtMs != null && rLh.tbtMs <= 200 ? '✅ Good (≤ 200ms)' : (rLh.tbtMs != null ? '⚠️ Higher blocking' : 'N/A')} |\n`;
+    md += `| | Best Practices | ${bLh.bpScore != null ? bLh.bpScore + '/100' : 'N/A'} | ${rLh.bpScore != null ? rLh.bpScore + '/100' : 'N/A'} | ✅ Stable |\n`;
+    md += `| | SEO Score | ${bLh.seoScore != null ? bLh.seoScore + '/100' : 'N/A'} | ${rLh.seoScore != null ? rLh.seoScore + '/100' : 'N/A'} | ✅ Stable |\n`;
     md += `| | First Contentful Paint (FCP) | ${bLh.fcpMs != null ? bLh.fcpMs + ' ms' : (bNav.fcpMs != null ? bNav.fcpMs + ' ms' : 'N/A')} | ${rLh.fcpMs != null ? rLh.fcpMs + ' ms' : (rNav.fcpMs != null ? rNav.fcpMs + ' ms' : 'N/A')} | ⚡ Rapid paint |\n`;
     md += `| | Largest Contentful Paint (LCP) | ${bLh.lcpMs != null ? bLh.lcpMs + ' ms' : 'N/A'} | ${rLh.lcpMs != null ? rLh.lcpMs + ' ms' : 'N/A'} | ${rLh.lcpMs != null ? '✅ Measured LCP' : 'Pending entry'} |\n`;
     md += `| | Total Load Duration | ${bNav.loadDurationMs} ms | ${rNav.loadDurationMs} ms | ${rNav.loadDurationMs <= bNav.loadDurationMs ? '⚡ Faster mobile load' : 'Comparable'} |\n`;
