@@ -13,13 +13,18 @@
     "updated_at": "อัปเดตเมื่อ"
   },
   "nav": {
-    "strategy": "ยุทธศาสตร์หลัก",
-    "manager": "ศูนย์ควบคุมผู้จัดการ",
-    "performance": "ผลการประเมินย้อนหลัง",
-    "showcase_3d": "แบบจำลอง 3 มิติ",
-    "wallet": "พอร์ตความเสี่ยง",
+    "strategy": "📊 ยุทธศาสตร์หลัก",
+    "manager": "⚙️ ศูนย์ควบคุมผู้จัดการ",
+    "performance": "📈 ผลการประเมินย้อนหลัง",
+    "showcase_3d": "🌐 แบบจำลอง 3 มิติ",
+    "wallet": "📱 พอร์ตความเสี่ยง",
     "lang_toggle": "TH / EN",
-    "menu": "เมนู"
+    "menu": "เมนู",
+    "jumper_candidates": "🎯 เลขเด่น",
+    "jumper_hedging": "👑 พอร์ตความเสี่ยง",
+    "jumper_heatmap": "🌡 แผนผังความร้อน",
+    "jumper_stats": "📊 สถิติวิเคราะห์",
+    "jumper_archive": "📜 ประวัติย้อนหลัง"
   },
   "results": {
     "latest_title": "ผลรางวัลสลากกินแบ่งรัฐบาลทางการ",

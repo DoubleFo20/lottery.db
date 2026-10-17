@@ -38,7 +38,12 @@
       showcase_3d: "🌐 แบบจำลอง 3 มิติ",
       wallet: "📱 พอร์ตความเสี่ยง",
       lang_toggle: "TH / EN",
-      menu: "เมนู"
+      menu: "เมนู",
+      jumper_candidates: "🎯 เลขเด่น",
+      jumper_hedging: "👑 พอร์ตความเสี่ยง",
+      jumper_heatmap: "🌡 แผนผังความร้อน",
+      jumper_stats: "📊 สถิติวิเคราะห์",
+      jumper_archive: "📜 ประวัติย้อนหลัง"
     },
     manager: {
       title: "ศูนย์บัญชาการระบบ AI (Manager Control Center)",
@@ -86,7 +91,12 @@
       showcase_3d: "🌐 3D Showcase",
       wallet: "📱 Wallet",
       lang_toggle: "TH / EN",
-      menu: "Menu"
+      menu: "Menu",
+      jumper_candidates: "🎯 Candidates",
+      jumper_hedging: "👑 Hedging",
+      jumper_heatmap: "🌡 Heatmap",
+      jumper_stats: "📊 Statistics",
+      jumper_archive: "📜 Archive"
     },
     manager: {
       title: "AI Manager Control Center",
@@ -154,7 +164,7 @@
       const key = el.getAttribute('data-i18n');
       if (!key) return;
       const text = t(key);
-      if (text && text !== key) {
+      if (text && text !== key && el.textContent.trim() !== text.trim()) {
         el.textContent = text;
       }
     });
@@ -168,7 +178,7 @@
         const [attr, key] = pair.split(':').map(s => s.trim());
         if (attr && key) {
           const val = t(key);
-          if (val && val !== key) {
+          if (val && val !== key && el.getAttribute(attr) !== val) {
             el.setAttribute(attr, val);
           }
         }
@@ -184,9 +194,9 @@
       btn.setAttribute('title', fullLabel);
       const span = btn.querySelector('.lang-label') || btn;
       if (span === btn) {
-        btn.textContent = label;
+        if (btn.textContent !== label) btn.textContent = label;
       } else {
-        span.textContent = label;
+        if (span.textContent !== label) span.textContent = label;
       }
     });
 
@@ -244,20 +254,24 @@
       if (stored === 'en' || stored === 'th') {
         currentLang = stored;
       } else {
-        currentLang = (navigator.language && navigator.language.startsWith('en')) ? 'en' : 'th';
+        currentLang = 'th';
       }
     } catch (_) {
       currentLang = 'th';
     }
 
     loadDictionaries().then(() => {
-      applyToDOM(document);
+      if (currentLang !== 'th') {
+        applyToDOM(document);
+      }
     });
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => applyToDOM(document));
-    } else {
-      applyToDOM(document);
+    if (currentLang !== 'th') {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => applyToDOM(document));
+      } else {
+        applyToDOM(document);
+      }
     }
   }
 

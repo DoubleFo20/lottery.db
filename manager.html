@@ -4,14 +4,15 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>AI Manager Control Center — LOTTERY.DB</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
 <link rel="stylesheet" href="assets/css/premium-theme.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=optional" rel="stylesheet"/>
-<script src="assets/live_countdown.js"></script>
-<script src="assets/miss_advisory.js"></script>
-<script src="assets/js/i18n.js"></script>
-<script src="assets/js/nav-component.js"></script>
+<script defer src="assets/live_countdown.js"></script>
+<script defer src="assets/miss_advisory.js"></script>
+<script defer src="assets/js/i18n.js"></script>
+<script defer src="assets/js/nav-component.js"></script>
 <style>
 /* ═══════════════════════════════════════════════
    ROOT / TOKENS
@@ -655,19 +656,19 @@ footer {
 </div>
 
 <!-- ══ MANAGER ACTION TOOLBAR ══ -->
-<header class="header" role="region" aria-label="Manager Controls" style="margin-top:1rem;">
+<header class="header" role="region" aria-label="Manager Controls" style="margin-top:1rem; min-height:86px; flex-wrap:nowrap; contain:layout style;">
   <div class="brand">
     <div class="brand-logo" aria-hidden="true">🧠</div>
     <div class="brand-text">
-      <h1 data-i18n="manager.title">AI MANAGER CONTROL CENTER</h1>
+      <h1 data-i18n="manager.title">ศูนย์บัญชาการระบบ AI (Manager Control Center)</h1>
       <p>
         <span data-i18n="app_title">Lottery Analysis Suite</span> •
-        <span data-i18n="manager.subtitle">Monitoring &amp; Pipeline Control</span> •
+        <span data-i18n="manager.subtitle">ตรวจวัดสถานะแบบจำลอง บริหารความเสี่ยง และปรับแต่งค่าน้ำหนัก</span> •
         <span class="live-badge"><span class="pulse-dot"></span> Live Engine</span>
       </p>
     </div>
   </div>
-  <div class="header-nav" style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+  <div class="header-nav" style="display:flex; align-items:center; gap:0.5rem; flex-wrap:nowrap;">
     <button class="nav-btn btn-action" onclick="triggerAction('pipeline')" id="btn-pipeline">⚡ Run Pipeline</button>
     <button class="nav-btn btn-action" onclick="triggerAction('fetch')" id="btn-fetch">📡 Fetch Result</button>
     <button class="nav-btn btn-action" onclick="loadAll()">⟳ Refresh</button>
@@ -1493,7 +1494,6 @@ function copyAgentActionPrompt(streak) {
 // ─── MAIN ─────────────────────────────────────────────
 async function loadAll() {
   document.getElementById('loader').style.display = 'flex';
-  document.getElementById('dashboard').style.display = 'none';
   document.getElementById('error-msg').style.display = 'none';
 
   try {
@@ -1523,6 +1523,7 @@ async function loadAll() {
     document.getElementById('dashboard').style.display = 'block';
   } catch (e) {
     document.getElementById('loader').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'none';
     document.getElementById('error-msg').style.display = 'flex';
     console.error(e);
   }

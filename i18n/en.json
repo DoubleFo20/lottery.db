@@ -13,13 +13,18 @@
     "updated_at": "Updated at"
   },
   "nav": {
-    "strategy": "Strategy Dashboard",
-    "manager": "AI Manager Control",
-    "performance": "Backtest & Performance",
-    "showcase_3d": "3D Visualizer",
-    "wallet": "Hedging Wallet",
+    "strategy": "📊 Strategy",
+    "manager": "⚙️ Manager",
+    "performance": "📈 Performance",
+    "showcase_3d": "🌐 3D Showcase",
+    "wallet": "📱 Wallet",
     "lang_toggle": "TH / EN",
-    "menu": "Menu"
+    "menu": "Menu",
+    "jumper_candidates": "🎯 Candidates",
+    "jumper_hedging": "👑 Hedging",
+    "jumper_heatmap": "🌡 Heatmap",
+    "jumper_stats": "📊 Statistics",
+    "jumper_archive": "📜 Archive"
   },
   "results": {
     "latest_title": "Official Government Lottery Result",
