@@ -1,0 +1,1018 @@
+{
+  "auditDate": "2026-10-17T22:52:52.463Z",
+  "methodology": "3 repeated programmatic runs per configuration, median aggregation, unthrottled local host, pure measured metrics without fallbacks",
+  "results": [
+    {
+      "route": "Strategy Dashboard",
+      "path": "/strategy.html",
+      "formFactor": "desktop",
+      "runsCount": 3,
+      "baseline": {
+        "navigation": {
+          "loadDurationMs": 2560,
+          "domContentLoadedMs": 806,
+          "fcpMs": 1196,
+          "lcpMs": null,
+          "heapUsedMb": 4.54,
+          "domNodes": 935,
+          "duplicateIds": []
+        },
+        "lighthouse": {
+          "status": "measured",
+          "perfScore": 74,
+          "a11yScore": 80,
+          "bpScore": 96,
+          "seoScore": 90,
+          "fcpMs": 1662,
+          "lcpMs": 1662,
+          "tbtMs": 278,
+          "cls": 0.0445,
+          "runs": [
+            {
+              "status": "measured",
+              "perfScore": 55,
+              "a11yScore": 80,
+              "bpScore": 96,
+              "seoScore": 90,
+              "fcpMs": 1895,
+              "lcpMs": 1895,
+              "tbtMs": 730,
+              "cls": 0.0445,
+              "rawReport": "base_strategy_desktop_run1.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 74,
+              "a11yScore": 80,
+              "bpScore": 96,
+              "seoScore": 90,
+              "fcpMs": 1662,
+              "lcpMs": 1662,
+              "tbtMs": 278,
+              "cls": 0.0339,
+              "rawReport": "base_strategy_desktop_run2.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 91,
+              "a11yScore": 80,
+              "bpScore": 96,
+              "seoScore": 90,
+              "fcpMs": 1341,
+              "lcpMs": 1341,
+              "tbtMs": 5,
+              "cls": 0.0457,
+              "rawReport": "base_strategy_desktop_run3.json"
+            }
+          ]
+        }
+      },
+      "redesigned": {
+        "navigation": {
+          "loadDurationMs": 2677,
+          "domContentLoadedMs": 1550,
+          "fcpMs": 1508,
+          "lcpMs": null,
+          "heapUsedMb": 4.48,
+          "domNodes": 968,
+          "duplicateIds": []
+        },
+        "lighthouse": {
+          "status": "measured",
+          "perfScore": 77,
+          "a11yScore": 86,
+          "bpScore": 100,
+          "seoScore": 90,
+          "fcpMs": 2130,
+          "lcpMs": 2130,
+          "tbtMs": 47,
+          "cls": 0.0136,
+          "runs": [
+            {
+              "status": "measured",
+              "perfScore": 55,
+              "a11yScore": 86,
+              "bpScore": 100,
+              "seoScore": 90,
+              "fcpMs": 6990,
+              "lcpMs": 6990,
+              "tbtMs": 86,
+              "cls": 0.0136,
+              "rawReport": "redesign_strategy_desktop_run1.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 84,
+              "a11yScore": 86,
+              "bpScore": 100,
+              "seoScore": 90,
+              "fcpMs": 1755,
+              "lcpMs": 1755,
+              "tbtMs": 47,
+              "cls": 0.0136,
+              "rawReport": "redesign_strategy_desktop_run2.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 77,
+              "a11yScore": 86,
+              "bpScore": 100,
+              "seoScore": 90,
+              "fcpMs": 2130,
+              "lcpMs": 2130,
+              "tbtMs": 0,
+              "cls": 0.0136,
+              "rawReport": "redesign_strategy_desktop_run3.json"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "route": "Strategy Dashboard",
+      "path": "/strategy.html",
+      "formFactor": "mobile",
+      "runsCount": 3,
+      "baseline": {
+        "navigation": {
+          "loadDurationMs": 1737,
+          "domContentLoadedMs": 370,
+          "fcpMs": 492,
+          "lcpMs": null,
+          "heapUsedMb": 4.7,
+          "domNodes": 935,
+          "duplicateIds": []
+        },
+        "lighthouse": {
+          "status": "measured",
+          "perfScore": 99,
+          "a11yScore": 80,
+          "bpScore": 96,
+          "seoScore": 90,
+          "fcpMs": 1694,
+          "lcpMs": 1694,
+          "tbtMs": 5,
+          "cls": 0.0001,
+          "runs": [
+            {
+              "status": "measured",
+              "perfScore": 99,
+              "a11yScore": 80,
+              "bpScore": 96,
+              "seoScore": 90,
+              "fcpMs": 1643,
+              "lcpMs": 1643,
+              "tbtMs": 44,
+              "cls": 0,
+              "rawReport": "base_strategy_mobile_run1.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 62,
+              "a11yScore": 80,
+              "bpScore": 96,
+              "seoScore": 90,
+              "fcpMs": 6305,
+              "lcpMs": 6305,
+              "tbtMs": 5,
+              "cls": 0.0002,
+              "rawReport": "base_strategy_mobile_run2.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 99,
+              "a11yScore": 80,
+              "bpScore": 96,
+              "seoScore": 90,
+              "fcpMs": 1694,
+              "lcpMs": 1694,
+              "tbtMs": 0,
+              "cls": 0.0001,
+              "rawReport": "base_strategy_mobile_run3.json"
+            }
+          ]
+        }
+      },
+      "redesigned": {
+        "navigation": {
+          "loadDurationMs": 1550,
+          "domContentLoadedMs": 465,
+          "fcpMs": 604,
+          "lcpMs": null,
+          "heapUsedMb": 5.45,
+          "domNodes": 968,
+          "duplicateIds": []
+        },
+        "lighthouse": {
+          "status": "measured",
+          "perfScore": 100,
+          "a11yScore": 84,
+          "bpScore": 100,
+          "seoScore": 90,
+          "fcpMs": 1412,
+          "lcpMs": 1412,
+          "tbtMs": 0,
+          "cls": 0,
+          "runs": [
+            {
+              "status": "measured",
+              "perfScore": 100,
+              "a11yScore": 84,
+              "bpScore": 100,
+              "seoScore": 90,
+              "fcpMs": 1380,
+              "lcpMs": 1380,
+              "tbtMs": 0,
+              "cls": 0,
+              "rawReport": "redesign_strategy_mobile_run1.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 99,
+              "a11yScore": 84,
+              "bpScore": 100,
+              "seoScore": 90,
+              "fcpMs": 1707,
+              "lcpMs": 1707,
+              "tbtMs": 0,
+              "cls": 0,
+              "rawReport": "redesign_strategy_mobile_run2.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 100,
+              "a11yScore": 84,
+              "bpScore": 100,
+              "seoScore": 90,
+              "fcpMs": 1412,
+              "lcpMs": 1412,
+              "tbtMs": 12,
+              "cls": 0,
+              "rawReport": "redesign_strategy_mobile_run3.json"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "route": "Manager Control Center",
+      "path": "/manager.html",
+      "formFactor": "desktop",
+      "runsCount": 3,
+      "baseline": {
+        "navigation": {
+          "loadDurationMs": 2486,
+          "domContentLoadedMs": 218,
+          "fcpMs": 280,
+          "lcpMs": null,
+          "heapUsedMb": 1.78,
+          "domNodes": 393,
+          "duplicateIds": [
+            "error-msg"
+          ]
+        },
+        "lighthouse": {
+          "status": "measured",
+          "perfScore": 89,
+          "a11yScore": 98,
+          "bpScore": 96,
+          "seoScore": 90,
+          "fcpMs": 1221,
+          "lcpMs": 1404,
+          "tbtMs": 122,
+          "cls": 0.1028,
+          "runs": [
+            {
+              "status": "measured",
+              "perfScore": 47,
+              "a11yScore": 98,
+              "bpScore": 96,
+              "seoScore": 90,
+              "fcpMs": 1327,
+              "lcpMs": 2776,
+              "tbtMs": 849,
+              "cls": 0.1036,
+              "rawReport": "base_manager_desktop_run1.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 91,
+              "a11yScore": 98,
+              "bpScore": 96,
+              "seoScore": 90,
+              "fcpMs": 813,
+              "lcpMs": 1280,
+              "tbtMs": 122,
+              "cls": 0.1025,
+              "rawReport": "base_manager_desktop_run2.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 89,
+              "a11yScore": 98,
+              "bpScore": 96,
+              "seoScore": 90,
+              "fcpMs": 1221,
+              "lcpMs": 1404,
+              "tbtMs": 0,
+              "cls": 0.1028,
+              "rawReport": "base_manager_desktop_run3.json"
+            }
+          ]
+        }
+      },
+      "redesigned": {
+        "navigation": {
+          "loadDurationMs": 1763,
+          "domContentLoadedMs": 707,
+          "fcpMs": 732,
+          "lcpMs": null,
+          "heapUsedMb": 1.84,
+          "domNodes": 423,
+          "duplicateIds": []
+        },
+        "lighthouse": {
+          "status": "measured",
+          "perfScore": 89,
+          "a11yScore": 98,
+          "bpScore": 100,
+          "seoScore": 90,
+          "fcpMs": 1295,
+          "lcpMs": 1462,
+          "tbtMs": 0,
+          "cls": 0.0924,
+          "runs": [
+            {
+              "status": "measured",
+              "perfScore": 89,
+              "a11yScore": 98,
+              "bpScore": 100,
+              "seoScore": 90,
+              "fcpMs": 1295,
+              "lcpMs": 1462,
+              "tbtMs": 0,
+              "cls": 0.0924,
+              "rawReport": "redesign_manager_desktop_run1.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 84,
+              "a11yScore": 98,
+              "bpScore": 100,
+              "seoScore": 90,
+              "fcpMs": 1461,
+              "lcpMs": 1761,
+              "tbtMs": 0,
+              "cls": 0.0924,
+              "rawReport": "redesign_manager_desktop_run2.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 91,
+              "a11yScore": 98,
+              "bpScore": 100,
+              "seoScore": 90,
+              "fcpMs": 1129,
+              "lcpMs": 1312,
+              "tbtMs": 0,
+              "cls": 0.0945,
+              "rawReport": "redesign_manager_desktop_run3.json"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "route": "Manager Control Center",
+      "path": "/manager.html",
+      "formFactor": "mobile",
+      "runsCount": 3,
+      "baseline": {
+        "navigation": {
+          "loadDurationMs": 1864,
+          "domContentLoadedMs": 203,
+          "fcpMs": 232,
+          "lcpMs": null,
+          "heapUsedMb": 2.13,
+          "domNodes": 393,
+          "duplicateIds": [
+            "error-msg"
+          ]
+        },
+        "lighthouse": {
+          "status": "measured",
+          "perfScore": 98,
+          "a11yScore": 98,
+          "bpScore": 96,
+          "seoScore": 90,
+          "fcpMs": 1191,
+          "lcpMs": 1535,
+          "tbtMs": 125,
+          "cls": 0.0648,
+          "runs": [
+            {
+              "status": "measured",
+              "perfScore": 94,
+              "a11yScore": 98,
+              "bpScore": 96,
+              "seoScore": 90,
+              "fcpMs": 1191,
+              "lcpMs": 2008,
+              "tbtMs": 125,
+              "cls": 0.1168,
+              "rawReport": "base_manager_mobile_run1.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 98,
+              "a11yScore": 98,
+              "bpScore": 96,
+              "seoScore": 90,
+              "fcpMs": 1152,
+              "lcpMs": 1535,
+              "tbtMs": 130,
+              "cls": 0.0648,
+              "rawReport": "base_manager_mobile_run2.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 99,
+              "a11yScore": 98,
+              "bpScore": 96,
+              "seoScore": 90,
+              "fcpMs": 1200,
+              "lcpMs": 1517,
+              "tbtMs": 121,
+              "cls": 0,
+              "rawReport": "base_manager_mobile_run3.json"
+            }
+          ]
+        }
+      },
+      "redesigned": {
+        "navigation": {
+          "loadDurationMs": 2029,
+          "domContentLoadedMs": 497,
+          "fcpMs": 600,
+          "lcpMs": null,
+          "heapUsedMb": 2.18,
+          "domNodes": 423,
+          "duplicateIds": []
+        },
+        "lighthouse": {
+          "status": "measured",
+          "perfScore": 99,
+          "a11yScore": 98,
+          "bpScore": 100,
+          "seoScore": 90,
+          "fcpMs": 1567,
+          "lcpMs": 1800,
+          "tbtMs": 0,
+          "cls": 0,
+          "runs": [
+            {
+              "status": "measured",
+              "perfScore": 100,
+              "a11yScore": 98,
+              "bpScore": 100,
+              "seoScore": 90,
+              "fcpMs": 1072,
+              "lcpMs": 1205,
+              "tbtMs": 31,
+              "cls": 0,
+              "rawReport": "redesign_manager_mobile_run1.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 94,
+              "a11yScore": 98,
+              "bpScore": 100,
+              "seoScore": 90,
+              "fcpMs": 1567,
+              "lcpMs": 1800,
+              "tbtMs": 0,
+              "cls": 0.1423,
+              "rawReport": "redesign_manager_mobile_run2.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 99,
+              "a11yScore": 98,
+              "bpScore": 100,
+              "seoScore": 90,
+              "fcpMs": 1704,
+              "lcpMs": 1854,
+              "tbtMs": 0,
+              "cls": 0,
+              "rawReport": "redesign_manager_mobile_run3.json"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "route": "Performance Dashboard",
+      "path": "/performance.html",
+      "formFactor": "desktop",
+      "runsCount": 3,
+      "baseline": {
+        "navigation": {
+          "loadDurationMs": 814,
+          "domContentLoadedMs": 203,
+          "fcpMs": 268,
+          "lcpMs": null,
+          "heapUsedMb": 2.98,
+          "domNodes": 107,
+          "duplicateIds": []
+        },
+        "lighthouse": {
+          "status": "measured",
+          "perfScore": 95,
+          "a11yScore": 98,
+          "bpScore": 96,
+          "seoScore": 90,
+          "fcpMs": 1094,
+          "lcpMs": 1094,
+          "tbtMs": 0,
+          "cls": 0.0212,
+          "runs": [
+            {
+              "status": "measured",
+              "perfScore": 94,
+              "a11yScore": 98,
+              "bpScore": 96,
+              "seoScore": 90,
+              "fcpMs": 1178,
+              "lcpMs": 1178,
+              "tbtMs": 0,
+              "cls": 0.0212,
+              "rawReport": "base_performance_desktop_run1.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 95,
+              "a11yScore": 98,
+              "bpScore": 96,
+              "seoScore": 90,
+              "fcpMs": 1094,
+              "lcpMs": 1094,
+              "tbtMs": 0,
+              "cls": 0.0034,
+              "rawReport": "base_performance_desktop_run2.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 97,
+              "a11yScore": 98,
+              "bpScore": 96,
+              "seoScore": 90,
+              "fcpMs": 948,
+              "lcpMs": 948,
+              "tbtMs": 76,
+              "cls": 0.0212,
+              "rawReport": "base_performance_desktop_run3.json"
+            }
+          ]
+        }
+      },
+      "redesigned": {
+        "navigation": {
+          "loadDurationMs": 915,
+          "domContentLoadedMs": 290,
+          "fcpMs": 424,
+          "lcpMs": null,
+          "heapUsedMb": 3.14,
+          "domNodes": 188,
+          "duplicateIds": []
+        },
+        "lighthouse": {
+          "status": "measured",
+          "perfScore": 75,
+          "a11yScore": 95,
+          "bpScore": 100,
+          "seoScore": 100,
+          "fcpMs": 2199,
+          "lcpMs": 2199,
+          "tbtMs": 73,
+          "cls": 0.0074,
+          "runs": [
+            {
+              "status": "measured",
+              "perfScore": 76,
+              "a11yScore": 95,
+              "bpScore": 100,
+              "seoScore": 100,
+              "fcpMs": 1147,
+              "lcpMs": 1147,
+              "tbtMs": 381,
+              "cls": 0.0074,
+              "rawReport": "redesign_performance_desktop_run1.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 69,
+              "a11yScore": 95,
+              "bpScore": 100,
+              "seoScore": 100,
+              "fcpMs": 2644,
+              "lcpMs": 2644,
+              "tbtMs": 73,
+              "cls": 0.0074,
+              "rawReport": "redesign_performance_desktop_run2.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 75,
+              "a11yScore": 95,
+              "bpScore": 100,
+              "seoScore": 100,
+              "fcpMs": 2199,
+              "lcpMs": 2199,
+              "tbtMs": 42,
+              "cls": 0.0073,
+              "rawReport": "redesign_performance_desktop_run3.json"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "route": "Performance Dashboard",
+      "path": "/performance.html",
+      "formFactor": "mobile",
+      "runsCount": 3,
+      "baseline": {
+        "navigation": {
+          "loadDurationMs": 924,
+          "domContentLoadedMs": 331,
+          "fcpMs": 400,
+          "lcpMs": null,
+          "heapUsedMb": 3.29,
+          "domNodes": 107,
+          "duplicateIds": []
+        },
+        "lighthouse": {
+          "status": "measured",
+          "perfScore": 100,
+          "a11yScore": 98,
+          "bpScore": 96,
+          "seoScore": 90,
+          "fcpMs": 821,
+          "lcpMs": 821,
+          "tbtMs": 9,
+          "cls": 0,
+          "runs": [
+            {
+              "status": "measured",
+              "perfScore": 100,
+              "a11yScore": 98,
+              "bpScore": 96,
+              "seoScore": 90,
+              "fcpMs": 1009,
+              "lcpMs": 1009,
+              "tbtMs": 23,
+              "cls": 0,
+              "rawReport": "base_performance_mobile_run1.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 100,
+              "a11yScore": 98,
+              "bpScore": 96,
+              "seoScore": 90,
+              "fcpMs": 735,
+              "lcpMs": 735,
+              "tbtMs": 0,
+              "cls": 0,
+              "rawReport": "base_performance_mobile_run2.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 100,
+              "a11yScore": 98,
+              "bpScore": 96,
+              "seoScore": 90,
+              "fcpMs": 821,
+              "lcpMs": 821,
+              "tbtMs": 9,
+              "cls": 0,
+              "rawReport": "base_performance_mobile_run3.json"
+            }
+          ]
+        }
+      },
+      "redesigned": {
+        "navigation": {
+          "loadDurationMs": 1455,
+          "domContentLoadedMs": 674,
+          "fcpMs": 696,
+          "lcpMs": null,
+          "heapUsedMb": 3.29,
+          "domNodes": 188,
+          "duplicateIds": []
+        },
+        "lighthouse": {
+          "status": "measured",
+          "perfScore": 100,
+          "a11yScore": 96,
+          "bpScore": 100,
+          "seoScore": 100,
+          "fcpMs": 1008,
+          "lcpMs": 1008,
+          "tbtMs": 1,
+          "cls": 0,
+          "runs": [
+            {
+              "status": "measured",
+              "perfScore": 100,
+              "a11yScore": 96,
+              "bpScore": 100,
+              "seoScore": 100,
+              "fcpMs": 1008,
+              "lcpMs": 1008,
+              "tbtMs": 55,
+              "cls": 0,
+              "rawReport": "redesign_performance_mobile_run1.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 100,
+              "a11yScore": 96,
+              "bpScore": 100,
+              "seoScore": 100,
+              "fcpMs": 1188,
+              "lcpMs": 1188,
+              "tbtMs": 1,
+              "cls": 0.0312,
+              "rawReport": "redesign_performance_mobile_run2.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 100,
+              "a11yScore": 96,
+              "bpScore": 100,
+              "seoScore": 100,
+              "fcpMs": 944,
+              "lcpMs": 944,
+              "tbtMs": 0,
+              "cls": 0,
+              "rawReport": "redesign_performance_mobile_run3.json"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "route": "3D Showcase",
+      "path": "/3d.html",
+      "formFactor": "desktop",
+      "runsCount": 3,
+      "baseline": {
+        "navigation": {
+          "loadDurationMs": 2120,
+          "domContentLoadedMs": 377,
+          "fcpMs": 536,
+          "lcpMs": null,
+          "heapUsedMb": 1.35,
+          "domNodes": 151,
+          "duplicateIds": []
+        },
+        "lighthouse": {
+          "status": "measured",
+          "perfScore": 94,
+          "a11yScore": 100,
+          "bpScore": 96,
+          "seoScore": 100,
+          "fcpMs": 1156,
+          "lcpMs": 1156,
+          "tbtMs": 65,
+          "cls": 0.0057,
+          "runs": [
+            {
+              "status": "measured",
+              "perfScore": 94,
+              "a11yScore": 100,
+              "bpScore": 96,
+              "seoScore": 100,
+              "fcpMs": 1127,
+              "lcpMs": 1127,
+              "tbtMs": 76,
+              "cls": 0.0069,
+              "rawReport": "base_3d_showcase_desktop_run1.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 94,
+              "a11yScore": 100,
+              "bpScore": 96,
+              "seoScore": 100,
+              "fcpMs": 1156,
+              "lcpMs": 1156,
+              "tbtMs": 65,
+              "cls": 0.0057,
+              "rawReport": "base_3d_showcase_desktop_run2.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 92,
+              "a11yScore": 100,
+              "bpScore": 96,
+              "seoScore": 100,
+              "fcpMs": 1308,
+              "lcpMs": 1308,
+              "tbtMs": 40,
+              "cls": 0.0034,
+              "rawReport": "base_3d_showcase_desktop_run3.json"
+            }
+          ]
+        }
+      },
+      "redesigned": {
+        "navigation": {
+          "loadDurationMs": 2129,
+          "domContentLoadedMs": 362,
+          "fcpMs": 528,
+          "lcpMs": null,
+          "heapUsedMb": 1.41,
+          "domNodes": 155,
+          "duplicateIds": []
+        },
+        "lighthouse": {
+          "status": "measured",
+          "perfScore": 92,
+          "a11yScore": 100,
+          "bpScore": 96,
+          "seoScore": 100,
+          "fcpMs": 1206,
+          "lcpMs": 1206,
+          "tbtMs": 93,
+          "cls": 0.0003,
+          "runs": [
+            {
+              "status": "measured",
+              "perfScore": 92,
+              "a11yScore": 100,
+              "bpScore": 96,
+              "seoScore": 100,
+              "fcpMs": 1260,
+              "lcpMs": 1260,
+              "tbtMs": 75,
+              "cls": 0.0003,
+              "rawReport": "redesign_3d_showcase_desktop_run1.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 92,
+              "a11yScore": 100,
+              "bpScore": 96,
+              "seoScore": 100,
+              "fcpMs": 1206,
+              "lcpMs": 1206,
+              "tbtMs": 95,
+              "cls": 0.0003,
+              "rawReport": "redesign_3d_showcase_desktop_run2.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 94,
+              "a11yScore": 100,
+              "bpScore": 96,
+              "seoScore": 100,
+              "fcpMs": 1147,
+              "lcpMs": 1147,
+              "tbtMs": 93,
+              "cls": 0.0003,
+              "rawReport": "redesign_3d_showcase_desktop_run3.json"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "route": "3D Showcase",
+      "path": "/3d.html",
+      "formFactor": "mobile",
+      "runsCount": 3,
+      "baseline": {
+        "navigation": {
+          "loadDurationMs": 2249,
+          "domContentLoadedMs": 347,
+          "fcpMs": 452,
+          "lcpMs": null,
+          "heapUsedMb": 1.7,
+          "domNodes": 151,
+          "duplicateIds": []
+        },
+        "lighthouse": {
+          "status": "measured",
+          "perfScore": 99,
+          "a11yScore": 100,
+          "bpScore": 96,
+          "seoScore": 100,
+          "fcpMs": 1103,
+          "lcpMs": 1103,
+          "tbtMs": 119,
+          "cls": 0.0243,
+          "runs": [
+            {
+              "status": "measured",
+              "perfScore": 99,
+              "a11yScore": 100,
+              "bpScore": 96,
+              "seoScore": 100,
+              "fcpMs": 1177,
+              "lcpMs": 1177,
+              "tbtMs": 122,
+              "cls": 0.0243,
+              "rawReport": "base_3d_showcase_mobile_run1.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 99,
+              "a11yScore": 100,
+              "bpScore": 96,
+              "seoScore": 100,
+              "fcpMs": 1103,
+              "lcpMs": 1103,
+              "tbtMs": 119,
+              "cls": 0,
+              "rawReport": "base_3d_showcase_mobile_run2.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 100,
+              "a11yScore": 100,
+              "bpScore": 96,
+              "seoScore": 100,
+              "fcpMs": 1086,
+              "lcpMs": 1086,
+              "tbtMs": 55,
+              "cls": 0.0243,
+              "rawReport": "base_3d_showcase_mobile_run3.json"
+            }
+          ]
+        }
+      },
+      "redesigned": {
+        "navigation": {
+          "loadDurationMs": 2044,
+          "domContentLoadedMs": 353,
+          "fcpMs": 488,
+          "lcpMs": null,
+          "heapUsedMb": 1.76,
+          "domNodes": 155,
+          "duplicateIds": []
+        },
+        "lighthouse": {
+          "status": "measured",
+          "perfScore": 99,
+          "a11yScore": 100,
+          "bpScore": 96,
+          "seoScore": 100,
+          "fcpMs": 1077,
+          "lcpMs": 1077,
+          "tbtMs": 104,
+          "cls": 0,
+          "runs": [
+            {
+              "status": "measured",
+              "perfScore": 99,
+              "a11yScore": 100,
+              "bpScore": 96,
+              "seoScore": 100,
+              "fcpMs": 1242,
+              "lcpMs": 1242,
+              "tbtMs": 131,
+              "cls": 0,
+              "rawReport": "redesign_3d_showcase_mobile_run1.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 99,
+              "a11yScore": 100,
+              "bpScore": 96,
+              "seoScore": 100,
+              "fcpMs": 1077,
+              "lcpMs": 1077,
+              "tbtMs": 103,
+              "cls": 0,
+              "rawReport": "redesign_3d_showcase_mobile_run2.json"
+            },
+            {
+              "status": "measured",
+              "perfScore": 99,
+              "a11yScore": 100,
+              "bpScore": 96,
+              "seoScore": 100,
+              "fcpMs": 1013,
+              "lcpMs": 1013,
+              "tbtMs": 104,
+              "cls": 0,
+              "rawReport": "redesign_3d_showcase_mobile_run3.json"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

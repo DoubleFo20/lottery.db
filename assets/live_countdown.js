@@ -143,6 +143,7 @@
       this.currentTarget = getNextDrawDate();
       this.isPolling = false;
       this.lastFetchedHash = null;
+      this.lastRenderedTarget = null;
     }
 
     init() {
@@ -150,7 +151,11 @@
       this.updateTarget();
       this.startCountdownLoop();
       this.startAdaptivePolling();
-      this.checkLatestResults(true); // Initial fetch with cache-busting
+      if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+        window.requestIdleCallback(() => this.checkLatestResults(true), { timeout: 3000 });
+      } else {
+        setTimeout(() => this.checkLatestResults(true), 1500);
+      }
       return this;
     }
 
@@ -220,10 +225,11 @@
         if (elMins) elMins.textContent = pad(m);
         if (elSecs) elSecs.textContent = pad(s);
 
-        // Update Target Date Display
+        // Update Target Date Display (only on change to prevent layout recalculation)
         const elTarget = document.getElementById('target-date-display');
-        if (elTarget && !inWindow) {
+        if (elTarget && !inWindow && this.lastRenderedTarget !== this.currentTarget.thaiFormatted) {
           elTarget.innerHTML = `${this.currentTarget.thaiFormatted} <span style="font-size:1.1rem;color:var(--text-muted);">(14:30 น.)</span> <span class="target-date-tag">งวดเป้าหมายหลัก</span>`;
+          this.lastRenderedTarget = this.currentTarget.thaiFormatted;
         }
 
         // Update 3D Hero Countdown pill if exists

@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-10-17T16:56:19.772Z",
+  "results": [
+    {
+      "page": "Strategy Dashboard",
+      "loadDurationMs": 2876,
+      "domContentLoadedMs": 1236,
+      "firstContentfulPaintMs": 1956,
+      "heapUsedMb": 3.94,
+      "domNodes": 975,
+      "layoutCount": 16
+    },
+    {
+      "page": "Manager Control Center",
+      "loadDurationMs": 2022,
+      "domContentLoadedMs": 395,
+      "firstContentfulPaintMs": 592,
+      "heapUsedMb": 0.91,
+      "domNodes": 434,
+      "layoutCount": 5
+    },
+    {
+      "page": "Performance Dashboard",
+      "loadDurationMs": 1394,
+      "domContentLoadedMs": 438,
+      "firstContentfulPaintMs": 468,
+      "heapUsedMb": 2.95,
+      "domNodes": 174,
+      "layoutCount": 7
+    },
+    {
+      "page": "3D Showcase",
+      "loadDurationMs": 3759,
+      "domContentLoadedMs": 808,
+      "firstContentfulPaintMs": 1280,
+      "heapUsedMb": 0.85,
+      "domNodes": 154,
+      "layoutCount": 7
+    }
+  ]
+}

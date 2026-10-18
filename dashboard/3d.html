@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <title>⚡ LOTTERY.DB — 3D Cyber Gateway &amp; Hedging Staking Station (Kinetic Scroll Canvas)</title>
   <meta name="description" content="สัมผัสประสบการณ์ 3 มิติ Cinematic Continuous Shot: เดินทางผ่าน Cyber Gateway สู่ 3D Hedging Staking Station ด้วย Full-screen Sticky HTML5 2D Canvas Kinetic Image Sequence">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&family=Prompt:wght@300;400;500;600;700&display=optional" rel="stylesheet">
   
   <!-- Preload Hint for Frame 1 Instant Paint -->
   <link rel="preload" as="image" href="public/frames/frame-001.webp" type="image/webp">
@@ -821,14 +822,17 @@
         </a>
 
         <nav class="nav-links-capsule">
-          <a href="index.html" class="nav-item">🎯 หน้าหลัก</a>
-          <a href="index.html#sec-predictions" class="nav-item">🔮 พยากรณ์</a>
-          <a href="3d.html" class="nav-item active">⚡ 3D Gateway</a>
-          <a href="manager.html" class="nav-item">🖥 จัดการข้อมูล</a>
-          <a href="performance.html" class="nav-item">📈 ความแม่นยำ</a>
+          <a href="strategy.html" class="nav-item" data-i18n="nav.strategy">📊 Strategy</a>
+          <a href="manager.html" class="nav-item" data-i18n="nav.manager">⚙️ Manager</a>
+          <a href="performance.html" class="nav-item" data-i18n="nav.performance">📈 Performance</a>
+          <a href="3d.html" class="nav-item active" data-i18n="nav.showcase_3d">⚡ 3D Gateway</a>
+          <a href="mobile-wallet.html" class="nav-item" data-i18n="nav.wallet">📱 Wallet</a>
         </nav>
 
         <div style="display:flex;align-items:center;gap:10px;">
+          <button type="button" class="lang-toggle-btn" data-action="toggle-lang" aria-label="Toggle Language" style="padding:0.25rem 0.65rem; border-radius:9999px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); color:#fff; font-size:0.75rem; font-weight:700; cursor:pointer; font-family:var(--font-mono);">
+            🌐 <span class="lang-label">TH / EN</span>
+          </button>
           <div class="status-chip">
             <span class="status-dot"></span>
             <span id="fps-label">60 FPS</span>
@@ -838,17 +842,17 @@
       </header>
 
       <!-- Mobile Drawer -->
-      <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
-      <aside class="mobile-drawer" id="mobile-drawer">
+      <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()" aria-hidden="true"></div>
+      <aside class="mobile-drawer" id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation" tabindex="-1">
         <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,0.1)">
           <span style="font-family:var(--font-display);font-weight:700;color:var(--cyan-neon);">⚡ LOTTERY.DB</span>
-          <button onclick="closeDrawer()" style="background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;">✕</button>
+          <button onclick="closeDrawer()" style="background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;" aria-label="Close menu">✕</button>
         </div>
-        <a href="index.html" class="nav-item" style="width:100%">🏠 กลับหน้าหลัก Dashboard</a>
-        <a href="index.html#sec-predictions" class="nav-item" style="width:100%">🎯 สรุปผลการพยากรณ์ AI</a>
-        <a href="3d.html" class="nav-item active" style="width:100%">⚡ 3D Gateway &amp; Staking</a>
-        <a href="manager.html" class="nav-item" style="width:100%">🖥 ระบบจัดการฐานข้อมูล</a>
-        <a href="performance.html" class="nav-item" style="width:100%">📈 ตรวจสอบผลงานย้อนหลัง</a>
+        <a href="index.html" class="nav-item" style="width:100%" onclick="closeDrawer()">🏠 กลับหน้าหลัก Dashboard</a>
+        <a href="index.html#sec-predictions" class="nav-item" style="width:100%" onclick="closeDrawer()">🎯 สรุปผลการพยากรณ์ AI</a>
+        <a href="3d.html" class="nav-item active" style="width:100%" onclick="closeDrawer()">⚡ 3D Gateway &amp; Staking</a>
+        <a href="manager.html" class="nav-item" style="width:100%" onclick="closeDrawer()">🖥 ระบบจัดการฐานข้อมูล</a>
+        <a href="performance.html" class="nav-item" style="width:100%" onclick="closeDrawer()">📈 ตรวจสอบผลงานย้อนหลัง</a>
       </aside>
 
       <!-- ═════════════════════════════════════════════════════
@@ -1049,8 +1053,9 @@
     </div>
   </div>
 
-  <!-- Central Live Engine Script -->
+  <!-- Central Live Engine & Localization Scripts -->
   <script src="assets/live_countdown.js"></script>
+  <script src="assets/js/i18n.js"></script>
 
   <!-- ═════════════════════════════════════════════════════
        ULTRA-OPTIMIZED KINETIC 2D CANVAS ENGINE (R1, R2, R3)
@@ -1536,13 +1541,37 @@
 
       // Drawer Navigation
       window.toggleDrawer = () => {
-        document.getElementById("mobile-drawer")?.classList.toggle("open");
-        document.getElementById("drawer-overlay")?.classList.toggle("show");
+        const d = document.getElementById("mobile-drawer");
+        const o = document.getElementById("drawer-overlay");
+        if (!d || !o) return;
+        const isOpen = d.classList.toggle("open");
+        o.classList.toggle("show");
+        o.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+        if (isOpen) {
+          document.body.style.overflow = 'hidden';
+          d.focus();
+        } else {
+          document.body.style.overflow = '';
+        }
       };
       window.closeDrawer = () => {
-        document.getElementById("mobile-drawer")?.classList.remove("open");
-        document.getElementById("drawer-overlay")?.classList.remove("show");
+        const d = document.getElementById("mobile-drawer");
+        const o = document.getElementById("drawer-overlay");
+        if (d) d.classList.remove("open");
+        if (o) {
+          o.classList.remove("show");
+          o.setAttribute('aria-hidden', 'true');
+        }
+        document.body.style.overflow = '';
       };
+      window.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+          const d = document.getElementById("mobile-drawer");
+          if (d && d.classList.contains("open")) {
+            window.closeDrawer();
+          }
+        }
+      });
 
       // Live Showcase Data Fetcher
       async function loadShowcaseData() {
@@ -1606,6 +1635,15 @@
         animate(performance.now());
         runPreloadPipeline();
         loadShowcaseData();
+
+        // Initialize Language Switcher (guarded for headless VM mock compatibility)
+        if (typeof document.querySelectorAll === 'function') {
+          document.querySelectorAll('[data-action="toggle-lang"]').forEach(btn => {
+            btn.addEventListener('click', () => {
+              if (window.LotteryI18n) window.LotteryI18n.toggleLang();
+            });
+          });
+        }
 
         // Initialize Central Live Engine
         if (typeof LotteryLiveEngine !== "undefined") {

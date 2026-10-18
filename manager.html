@@ -3,10 +3,16 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AI Manager Control Center — Lottery Suite</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet"/>
-<script src="assets/live_countdown.js"></script>
-<script src="assets/miss_advisory.js"></script>
+<title>AI Manager Control Center — LOTTERY.DB</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+<link rel="stylesheet" href="assets/css/premium-theme.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=optional" rel="stylesheet"/>
+<script defer src="assets/live_countdown.js"></script>
+<script defer src="assets/miss_advisory.js"></script>
+<script defer src="assets/js/i18n.js"></script>
+<script defer src="assets/js/nav-component.js"></script>
 <style>
 /* ═══════════════════════════════════════════════
    ROOT / TOKENS
@@ -127,7 +133,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .nav-btn {
@@ -186,11 +192,33 @@ body {
   white-space: nowrap;
 }
 
-/* ═══════════════ LOADER ═══════════════ */
+/* ═══════════════ UNIFIED HEADER CONTAINER ═══════════════ */
+#unified-app-header {
+  min-height: 90px;
+  contain: layout;
+}
+@media (max-width: 900px) {
+  #unified-app-header {
+    min-height: 122px;
+  }
+}
+
+/* ═══════════════ LOADER OVERLAY ═══════════════ */
 #loader {
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  flex: 1; gap: 16px; color: var(--text-dim); font-size: .85rem;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(6, 11, 20, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: var(--text-dim);
+  font-size: .85rem;
+  pointer-events: none;
 }
 .spinner {
   width: 40px; height: 40px;
@@ -203,7 +231,8 @@ body {
 
 /* ═══════════════ GRID ═══════════════ */
 #dashboard {
-  display: none;
+  display: block;
+  min-height: 800px;
   flex: 1;
   padding: 24px 32px 40px;
   max-width: 1400px;
@@ -547,47 +576,104 @@ footer {
 }
 </style>
 </head>
-<!-- Mobile Drawer & Overlay -->
-<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
-<nav class="mobile-drawer" id="mobile-drawer">
-  <div class="drawer-header">
-    <div class="drawer-title">🧠 Manager Nav</div>
-    <button class="drawer-close" onclick="closeDrawer()" aria-label="Close menu">✕</button>
-  </div>
-  <a class="nav-btn" href="strategy.html" onclick="closeDrawer()">📊 Strategy</a>
-  <a class="nav-btn" href="3d.html" onclick="closeDrawer()">👑 3D Showcase</a>
-  <a class="nav-btn active" href="manager.html" onclick="closeDrawer()">🖥 Manager</a>
-  <a class="nav-btn" href="performance.html" onclick="closeDrawer()">📈 Performance</a>
-  <hr style="border:0; border-top:1px solid rgba(255,255,255,0.08); margin:0.3rem 0;">
-  <button class="nav-btn btn-action" onclick="triggerAction('pipeline'); closeDrawer();">⚡ Run Pipeline</button>
-  <button class="nav-btn btn-action" onclick="triggerAction('fetch'); closeDrawer();">📡 Fetch Result</button>
-  <button class="nav-btn btn-action" onclick="loadAll(); closeDrawer();">⟳ Refresh</button>
-</nav>
+<body>
+<!-- Unified Shared Navigation Header -->
+<div id="unified-app-header">
+  <header class="app-header" role="banner">
+    <div class="header-inner">
+      <a href="strategy.html" class="brand-group" aria-label="LOTTERY.DB Home">
+        <div class="brand-badge" aria-hidden="true">⚡</div>
+        <div class="brand-meta">
+          <div class="brand-title">
+            LOTTERY.DB
+            <span class="brand-version-pill" data-i18n="meta.version">v1.2 Analytical Pro</span>
+          </div>
+          <div class="brand-subtitle" data-i18n="app_subtitle">Enterprise Statistical Analysis &amp; Quantitative Risk Hedging</div>
+        </div>
+      </a>
 
-<!-- ══ HEADER ══ -->
-<header class="header">
+      <nav class="nav-links" role="navigation" aria-label="Main Navigation">
+        <a href="strategy.html" class="nav-link" data-i18n="nav.strategy">📊 Strategy</a>
+        <a href="manager.html" class="nav-link active" data-i18n="nav.manager">⚙️ Manager</a>
+        <a href="performance.html" class="nav-link" data-i18n="nav.performance">📈 Performance</a>
+        <a href="3d.html" class="nav-link" data-i18n="nav.showcase_3d">🌐 3D Showcase</a>
+        <a href="mobile-wallet.html" class="nav-link" data-i18n="nav.wallet">📱 Wallet</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="status-indicator" title="473 draws indexed">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span data-i18n="meta.status_connected">Online (473 Draws)</span>
+        </div>
+
+        <button type="button" class="lang-toggle-btn" data-action="toggle-lang" aria-label="Toggle Language" title="Toggle Language">
+          🌐 <span class="lang-label">TH / EN</span>
+        </button>
+
+        <button type="button" class="mobile-menu-btn" id="btn-mobile-menu" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-drawer">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-drawer-overlay" id="mobile-overlay" aria-hidden="true"></div>
+  <aside class="mobile-drawer" id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation" tabindex="-1">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; padding-bottom:0.75rem; border-bottom:1px solid var(--border-subtle);">
+      <div style="font-weight:700; font-size:1.05rem; color:var(--text-primary); display:flex; align-items:center; gap:0.4rem;">
+        <span>⚡</span> LOTTERY.DB
+      </div>
+      <button type="button" id="btn-close-drawer" style="background:none; border:none; color:var(--text-secondary); cursor:pointer; font-size:1.3rem; padding:4px 8px; border-radius:4px;" aria-label="Close navigation menu">✕</button>
+    </div>
+
+    <nav style="display:flex; flex-direction:column; gap:0.45rem;" aria-label="Mobile Main Navigation">
+      <a href="strategy.html" class="nav-link" data-i18n="nav.strategy">📊 Strategy</a>
+      <a href="manager.html" class="nav-link active" data-i18n="nav.manager">⚙️ Manager</a>
+      <a href="performance.html" class="nav-link" data-i18n="nav.performance">📈 Performance</a>
+      <a href="3d.html" class="nav-link" data-i18n="nav.showcase_3d">🌐 3D Showcase</a>
+      <a href="mobile-wallet.html" class="nav-link" data-i18n="nav.wallet">📱 Wallet</a>
+    </nav>
+
+    <div style="margin-top:0.75rem; padding-top:0.75rem; border-top:1px solid var(--border-subtle);">
+      <div style="font-size:0.7rem; font-weight:700; text-transform:uppercase; color:var(--text-muted); margin-bottom:0.4rem; letter-spacing:0.05em;" data-i18n="manager.title">Manager Quick Actions</div>
+      <div style="display:flex; flex-direction:column; gap:0.35rem;">
+        <button type="button" class="btn-analytical btn-primary drawer-link-action" data-action="run-pipeline" style="text-align:left; font-size:0.8rem; padding:0.45rem 0.75rem;">⚡ Run Pipeline</button>
+        <button type="button" class="btn-analytical btn-secondary drawer-link-action" data-action="fetch-result" style="text-align:left; font-size:0.8rem; padding:0.45rem 0.75rem;">📡 Fetch Result</button>
+        <button type="button" class="btn-analytical btn-secondary drawer-link-action" data-action="refresh-manager" style="text-align:left; font-size:0.8rem; padding:0.45rem 0.75rem;">⟳ Refresh Data</button>
+      </div>
+    </div>
+
+    <div style="margin-top:auto; padding-top:1.25rem; border-top:1px solid var(--border-subtle); display:flex; flex-direction:column; gap:0.75rem;">
+      <button type="button" class="btn-analytical btn-secondary lang-toggle-btn" data-action="toggle-lang" style="width:100%; justify-content:center;">
+        🌐 <span data-i18n="nav.lang_toggle">Switch Language (TH / EN)</span>
+      </button>
+    </div>
+  </aside>
+</div>
+
+<!-- ══ MANAGER ACTION TOOLBAR ══ -->
+<header class="header" role="region" aria-label="Manager Controls" style="margin-top:1rem; min-height:86px; flex-wrap:nowrap; contain:layout style;">
   <div class="brand">
-    <div class="brand-logo">🧠</div>
+    <div class="brand-logo" aria-hidden="true">🧠</div>
     <div class="brand-text">
-      <h1>AI MANAGER CONTROL CENTER</h1>
+      <h1 data-i18n="manager.title">ศูนย์บัญชาการระบบ AI (Manager Control Center)</h1>
       <p>
-        <span>Lottery Analysis Suite</span> •
-        <span>Monitoring &amp; Pipeline Control</span> •
+        <span data-i18n="app_title">Lottery Analysis Suite</span> •
+        <span data-i18n="manager.subtitle">ตรวจวัดสถานะแบบจำลอง บริหารความเสี่ยง และปรับแต่งค่าน้ำหนัก</span> •
         <span class="live-badge"><span class="pulse-dot"></span> Live Engine</span>
       </p>
     </div>
   </div>
-  <nav class="header-nav">
-    <a class="nav-btn" href="strategy.html">📊 Strategy</a>
-    <a class="nav-btn" href="3d.html">👑 3D Showcase</a>
-    <a class="nav-btn active" href="manager.html">🖥 Manager</a>
-    <a class="nav-btn" href="performance.html">📈 Performance</a>
+  <div class="header-nav" style="display:flex; align-items:center; gap:0.5rem; flex-wrap:nowrap;">
     <button class="nav-btn btn-action" onclick="triggerAction('pipeline')" id="btn-pipeline">⚡ Run Pipeline</button>
     <button class="nav-btn btn-action" onclick="triggerAction('fetch')" id="btn-fetch">📡 Fetch Result</button>
     <button class="nav-btn btn-action" onclick="loadAll()">⟳ Refresh</button>
     <span class="status-chip" id="last-refresh">Loading…</span>
-  </nav>
-  <button class="hamburger-btn" onclick="toggleDrawer()" aria-label="Open Menu">☰</button>
+  </div>
 </header>
 
 <!-- ══ LOADER ══ -->
@@ -836,11 +922,6 @@ footer {
   </div>
 
 </div><!-- /dashboard -->
-
-<div id="error-msg">
-  <span>⚠️ ไม่สามารถโหลดข้อมูลได้</span>
-  <small>Run: python api/run_pipeline.py</small>
-</div>
 
 <footer>
   Lottery AI Analysis Suite — Manager Control Center &nbsp;|&nbsp; Auto-refresh every 5 min
@@ -1413,7 +1494,6 @@ function copyAgentActionPrompt(streak) {
 // ─── MAIN ─────────────────────────────────────────────
 async function loadAll() {
   document.getElementById('loader').style.display = 'flex';
-  document.getElementById('dashboard').style.display = 'none';
   document.getElementById('error-msg').style.display = 'none';
 
   try {
@@ -1443,6 +1523,7 @@ async function loadAll() {
     document.getElementById('dashboard').style.display = 'block';
   } catch (e) {
     document.getElementById('loader').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'none';
     document.getElementById('error-msg').style.display = 'flex';
     console.error(e);
   }
@@ -1583,26 +1664,15 @@ async function triggerAction(type) {
 })();
 
 function toggleDrawer() {
-  const drawer = document.getElementById('mobile-drawer');
-  const overlay = document.getElementById('drawer-overlay');
-  if (drawer && overlay) {
-    const isOpen = drawer.classList.contains('open');
-    if (isOpen) {
-      closeDrawer();
-    } else {
-      drawer.classList.add('open');
-      overlay.classList.add('show');
-      document.body.style.overflow = 'hidden';
-    }
+  if (window.LotteryNav && typeof window.LotteryNav.openDrawer === 'function') {
+    window.LotteryNav.openDrawer();
   }
 }
 
 function closeDrawer() {
-  const drawer = document.getElementById('mobile-drawer');
-  const overlay = document.getElementById('drawer-overlay');
-  if (drawer) drawer.classList.remove('open');
-  if (overlay) overlay.classList.remove('show');
-  document.body.style.overflow = '';
+  if (window.LotteryNav && typeof window.LotteryNav.closeDrawer === 'function') {
+    window.LotteryNav.closeDrawer();
+  }
 }
 
 if ('serviceWorker' in navigator) {
