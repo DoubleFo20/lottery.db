@@ -17,30 +17,31 @@
   <script defer src="assets/js/nav-component.js"></script>
   <style>
     :root {
-      --bg-dark: #070b14;
-      --bg-panel: rgba(15, 23, 42, 0.82);
-      --bg-card: rgba(30, 41, 59, 0.65);
-      --bg-hover: rgba(59, 130, 246, 0.12);
-      --border: rgba(59, 130, 246, 0.2);
-      --border-light: rgba(255, 255, 255, 0.08);
+      --bg-dark: #080c14;
+      --bg-panel: rgba(15, 23, 42, 0.65);
+      --bg-card: rgba(30, 41, 59, 0.55);
+      --bg-hover: rgba(99, 102, 241, 0.12);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-light: rgba(255, 255, 255, 0.05);
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --blue: #3b82f6;
+      --blue: #6366f1;
       --cyan: #06b6d4;
       --green: #10b981;
       --amber: #f59e0b;
-      --red: #ef4444;
+      --red: #f43f5e;
       --purple: #8b5cf6;
       --gold: #fbbf24;
-      --hot-bg: rgba(239, 68, 68, 0.25);
+      --hot-bg: rgba(244, 63, 94, 0.16);
       --hot-text: #fca5a5;
-      --hot-border: rgba(239, 68, 68, 0.5);
-      --cold-bg: rgba(6, 182, 212, 0.15);
+      --hot-border: rgba(244, 63, 94, 0.35);
+      --cold-bg: rgba(6, 182, 212, 0.12);
       --cold-text: #67e8f9;
-      --cold-border: rgba(6, 182, 212, 0.35);
-      --shadow-panel: 0 10px 35px -5px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.05);
-      --font-display: 'Chakra Petch', sans-serif;
-      --font-body: 'Sarabun', 'Inter', sans-serif;
+      --cold-border: rgba(6, 182, 212, 0.25);
+      --shadow-panel: 0 10px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+      --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -49,14 +50,13 @@
       font-family: var(--font-body);
       background-color: var(--bg-dark);
       background-image: 
-        radial-gradient(circle at 15% 10%, rgba(59, 130, 246, 0.15) 0, transparent 40%),
-        radial-gradient(circle at 85% 20%, rgba(139, 92, 246, 0.12) 0, transparent 45%),
-        radial-gradient(circle at 50% 90%, rgba(6, 182, 212, 0.08) 0, transparent 50%);
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.15), transparent 70%),
+        radial-gradient(ellipse 60% 40% at 85% 15%, rgba(6, 182, 212, 0.08), transparent 60%);
       background-attachment: fixed;
       color: var(--text-main);
       min-height: 100vh;
-      padding: 1.25rem 2rem 4rem;
-      line-height: 1.6;
+      padding: 0 1.5rem 4rem;
+      line-height: 1.55;
     }
 
     /* Scrollbar */
@@ -1133,20 +1133,20 @@
 
 <div class="dashboard-container">
 
-  <header class="header" role="region" aria-label="Strategy Quick Navigation" style="padding: 0.75rem 1.4rem; margin-bottom: 1.5rem; justify-content: space-between; min-height: 56px; flex-wrap: nowrap; contain: layout style;">
-    <div style="display:flex; align-items:center; gap:0.75rem; flex-shrink:0;">
-      <span style="font-weight:700; font-size:0.95rem; color:var(--text-main); white-space:nowrap;" data-i18n="nav.strategy">📊 ยุทธศาสตร์หลัก</span>
-      <span class="live-badge" style="white-space:nowrap;"><span class="pulse-dot"></span> <span data-i18n="meta.status_connected">Live Engine Active (473 Draws)</span></span>
+  <div class="strategy-subnav-strip" role="region" aria-label="Strategy Quick Navigation">
+    <div class="subnav-indicator-pill">
+      <span class="pulse-dot"></span>
+      <span data-i18n="meta.status_connected">Live Engine Active (473 Draws)</span>
     </div>
-    <nav class="header-nav" style="gap:0.35rem; display:flex; flex-wrap:nowrap; align-items:center; overflow-x:auto;">
-      <button class="nav-btn" style="white-space:nowrap; flex-shrink:0;" onclick="scrollToSection('sec-predictions')" data-i18n="nav.jumper_candidates">🎯 เลขเด่น</button>
-      <button class="nav-btn" style="white-space:nowrap; flex-shrink:0;" onclick="scrollToSection('sec-full-spectrum')" data-i18n="nav.jumper_hedging">👑 พอร์ตความเสี่ยง</button>
-      <button class="nav-btn" style="white-space:nowrap; flex-shrink:0;" onclick="scrollToSection('sec-heatmap')" data-i18n="nav.jumper_heatmap">🌡 แผนผังความร้อน</button>
-      <button class="nav-btn" style="white-space:nowrap; flex-shrink:0;" onclick="scrollToSection('sec-charts')" data-i18n="nav.jumper_stats">📊 สถิติวิเคราะห์</button>
-      <button class="nav-btn" style="white-space:nowrap; flex-shrink:0;" onclick="scrollToSection('sec-history')" data-i18n="nav.jumper_archive">📜 ประวัติย้อนหลัง</button>
-      <button class="nav-btn" style="white-space:nowrap; flex-shrink:0;" id="lang-btn" onclick="toggleLanguage()">🌐 TH / EN</button>
+    <nav class="subnav-pill-group" aria-label="Strategy Section Jumpers">
+      <button class="subnav-pill active" onclick="scrollToSection('sec-predictions')" data-i18n="nav.jumper_candidates">🎯 เลขเด่น</button>
+      <button class="subnav-pill" onclick="scrollToSection('sec-full-spectrum')" data-i18n="nav.jumper_hedging">👑 พอร์ตความเสี่ยง</button>
+      <button class="subnav-pill" onclick="scrollToSection('sec-heatmap')" data-i18n="nav.jumper_heatmap">🌡 แผนผังความร้อน</button>
+      <button class="subnav-pill" onclick="scrollToSection('sec-charts')" data-i18n="nav.jumper_stats">📊 สถิติวิเคราะห์</button>
+      <button class="subnav-pill" onclick="scrollToSection('sec-history')" data-i18n="nav.jumper_archive">📜 ประวัติย้อนหลัง</button>
+      <button class="subnav-pill" id="lang-btn" onclick="toggleLanguage()">🌐 TH / EN</button>
     </nav>
-  </header>
+  </div>
 
   <!-- ═════ 2. HERO: COUNTDOWN & LATEST DRAW ═════ -->
   <section class="hero-grid">
@@ -1156,11 +1156,11 @@
         <div>
           <div class="panel-header">
             <div class="panel-title">⏳ นับถอยหลังสู่งวดถัดไป</div>
-            <div class="panel-badge" id="countdown-status-badge">วิเคราะห์เจาะจงต่อเนื่อง (1 ต.ค. 2569)</div>
+            <div class="panel-badge" id="countdown-status-badge">วิเคราะห์เจาะจงต่อเนื่อง (1 พ.ย. 2569)</div>
           </div>
           <div class="target-date-title">วันและเวลาที่คาดการณ์ออกผล:</div>
           <div class="target-date-display" id="target-date-display">
-            1 ตุลาคม 2569 <span style="font-size:1.1rem;color:var(--text-muted);">(14:30 น.)</span>
+            1 พฤศจิกายน 2569 <span style="font-size:1.1rem;color:var(--text-muted);">(14:30 น.)</span>
             <span class="target-date-tag">งวดเป้าหมายหลัก</span>
           </div>
 
@@ -1185,7 +1185,7 @@
         </div>
 
         <div class="target-subtext">
-          <span>💡 <strong>AI Context:</strong> โมเดลวิเคราะห์ข้อมูลเจาะลึกสถิติ 20 ปี (472 งวด) ร่วมกับการถ่วงน้ำหนักความใหม่ (Recency Weighting) และ Markov Chains สู่งวด 1 ต.ค. 2569</span>
+          <span>💡 <strong>AI Context:</strong> โมเดลวิเคราะห์ข้อมูลเจาะลึกสถิติ 20 ปี (473 งวด) ร่วมกับการถ่วงน้ำหนักความใหม่ (Recency Weighting) และ Markov Chains สู่งวด 1 พ.ย. 2569</span>
         </div>
       </div>
     </div>
@@ -1197,12 +1197,12 @@
         <div class="panel-badge" id="latest-draw-date">อ้างอิงงวดล่าสุด</div>
       </div>
       <div class="latest-result-grid">
-        <div class="result-card">
+        <div class="result-card first-prize">
           <div class="result-label">รางวัลที่ 1 (First Prize)</div>
           <div class="result-value-big" id="res-first-prize">011781</div>
           <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">ท้าย 2 ตัวบน: <span id="res-top2" style="color:#fff;font-weight:700">81</span></div>
         </div>
-        <div class="result-card">
+        <div class="result-card last2">
           <div class="result-label">เลขท้าย 2 ตัวล่าง (Last 2)</div>
           <div class="result-value-sub" id="res-last2">48</div>
           <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">สภาพคู่/คี่: <span id="res-odd-even" style="color:#fff;font-weight:700">คี่ (Odd)</span></div>
@@ -1255,20 +1255,20 @@
           </div>
         </div>
         <div class="ensemble-numbers" id="ensemble-container">
-          <div class="ensemble-chip" onclick="copyNum('830386')" title="คลิกเพื่อคัดลอก / Click to copy">
+          <div class="ensemble-chip" onclick="copyNum('811767')" title="คลิกเพื่อคัดลอก / Click to copy">
             <span style="font-size:0.75rem;color:var(--text-muted)">#1</span>
-            <span class="ensemble-digit">830386</span>
-            <span class="ensemble-conf">76.5%</span>
+            <span class="ensemble-digit">811767</span>
+            <span class="ensemble-conf">100.0%</span>
           </div>
-          <div class="ensemble-chip" onclick="copyNum('364509')" title="คลิกเพื่อคัดลอก / Click to copy">
+          <div class="ensemble-chip" onclick="copyNum('831767')" title="คลิกเพื่อคัดลอก / Click to copy">
             <span style="font-size:0.75rem;color:var(--text-muted)">#2</span>
-            <span class="ensemble-digit">364509</span>
-            <span class="ensemble-conf">72.8%</span>
+            <span class="ensemble-digit">831767</span>
+            <span class="ensemble-conf">63.6%</span>
           </div>
-          <div class="ensemble-chip" onclick="copyNum('912386')" title="คลิกเพื่อคัดลอก / Click to copy">
+          <div class="ensemble-chip" onclick="copyNum('211767')" title="คลิกเพื่อคัดลอก / Click to copy">
             <span style="font-size:0.75rem;color:var(--text-muted)">#3</span>
-            <span class="ensemble-digit">912386</span>
-            <span class="ensemble-conf">70.2%</span>
+            <span class="ensemble-digit">211767</span>
+            <span class="ensemble-conf">63.2%</span>
           </div>
         </div>
       </div>
@@ -1278,63 +1278,63 @@
         <div class="panel" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.1rem;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
             <span style="font-size:0.82rem;font-weight:700;color:var(--accent);">ชุดกลยุทธ์ #1</span>
-            <span class="tier-badge hot">76.5%</span>
+            <span class="tier-badge hot">100.0%</span>
           </div>
-          <div style="font-family:var(--font-mono);font-size:1.65rem;font-weight:800;letter-spacing:2px;color:#38bdf8;cursor:pointer;margin-bottom:6px;" onclick="copyNum('830386')" title="คลิกเพื่อคัดลอก / Click to copy">
-            830386
+          <div style="font-family:var(--font-mono);font-size:1.65rem;font-weight:800;letter-spacing:2px;color:#38bdf8;cursor:pointer;margin-bottom:6px;" onclick="copyNum('811767')" title="คลิกเพื่อคัดลอก / Click to copy">
+            811767
           </div>
           <div style="display:flex;gap:8px;font-size:0.75rem;color:var(--text-muted);align-items:center;">
-            <span>ผลรวม: <strong style="color:#fff;">28</strong></span>
+            <span>ผลรวม: <strong style="color:#fff;">30</strong></span>
             <span>•</span>
-            <span>สมดุล: <strong style="color:#fff;">3คู่ / 3คี่</strong></span>
+            <span>สมดุล: <strong style="color:#fff;">2คู่ / 4คี่</strong></span>
           </div>
           <div style="margin-top:10px;padding-top:8px;border-top:1px dashed rgba(255,255,255,0.1);">
             <div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:5px;">🎯 เลขเคียงดักรางวัล (±1 Neighbor Hedging):</div>
             <div style="display:flex;gap:6px;flex-wrap:wrap;">
-              <span class="num-pill" style="cursor:pointer;font-size:0.8rem;padding:3px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:6px;" onclick="copyNum('830385')" title="คลิกเพื่อคัดลอก / Click to copy">830385</span>
-              <span class="num-pill" style="cursor:pointer;font-size:0.8rem;padding:3px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:6px;" onclick="copyNum('830387')" title="คลิกเพื่อคัดลอก / Click to copy">830387</span>
+              <span class="num-pill" style="cursor:pointer;font-size:0.8rem;padding:3px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:6px;" onclick="copyNum('811766')" title="คลิกเพื่อคัดลอก / Click to copy">811766</span>
+              <span class="num-pill" style="cursor:pointer;font-size:0.8rem;padding:3px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:6px;" onclick="copyNum('811768')" title="คลิกเพื่อคัดลอก / Click to copy">811768</span>
             </div>
           </div>
         </div>
         <div class="panel" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.1rem;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
             <span style="font-size:0.82rem;font-weight:700;color:var(--accent);">ชุดกลยุทธ์ #2</span>
-            <span class="tier-badge hot">72.8%</span>
+            <span class="tier-badge hot">63.6%</span>
           </div>
-          <div style="font-family:var(--font-mono);font-size:1.65rem;font-weight:800;letter-spacing:2px;color:#38bdf8;cursor:pointer;margin-bottom:6px;" onclick="copyNum('364509')" title="คลิกเพื่อคัดลอก / Click to copy">
-            364509
+          <div style="font-family:var(--font-mono);font-size:1.65rem;font-weight:800;letter-spacing:2px;color:#38bdf8;cursor:pointer;margin-bottom:6px;" onclick="copyNum('831767')" title="คลิกเพื่อคัดลอก / Click to copy">
+            831767
           </div>
           <div style="display:flex;gap:8px;font-size:0.75rem;color:var(--text-muted);align-items:center;">
-            <span>ผลรวม: <strong style="color:#fff;">27</strong></span>
+            <span>ผลรวม: <strong style="color:#fff;">32</strong></span>
             <span>•</span>
-            <span>สมดุล: <strong style="color:#fff;">3คู่ / 3คี่</strong></span>
+            <span>สมดุล: <strong style="color:#fff;">2คู่ / 4คี่</strong></span>
           </div>
           <div style="margin-top:10px;padding-top:8px;border-top:1px dashed rgba(255,255,255,0.1);">
             <div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:5px;">🎯 เลขเคียงดักรางวัล (±1 Neighbor Hedging):</div>
             <div style="display:flex;gap:6px;flex-wrap:wrap;">
-              <span class="num-pill" style="cursor:pointer;font-size:0.8rem;padding:3px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:6px;" onclick="copyNum('364508')" title="คลิกเพื่อคัดลอก / Click to copy">364508</span>
-              <span class="num-pill" style="cursor:pointer;font-size:0.8rem;padding:3px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:6px;" onclick="copyNum('364510')" title="คลิกเพื่อคัดลอก / Click to copy">364510</span>
+              <span class="num-pill" style="cursor:pointer;font-size:0.8rem;padding:3px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:6px;" onclick="copyNum('831766')" title="คลิกเพื่อคัดลอก / Click to copy">831766</span>
+              <span class="num-pill" style="cursor:pointer;font-size:0.8rem;padding:3px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:6px;" onclick="copyNum('831768')" title="คลิกเพื่อคัดลอก / Click to copy">831768</span>
             </div>
           </div>
         </div>
         <div class="panel" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.1rem;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
             <span style="font-size:0.82rem;font-weight:700;color:var(--accent);">ชุดกลยุทธ์ #3</span>
-            <span class="tier-badge hot">70.2%</span>
+            <span class="tier-badge hot">63.2%</span>
           </div>
-          <div style="font-family:var(--font-mono);font-size:1.65rem;font-weight:800;letter-spacing:2px;color:#38bdf8;cursor:pointer;margin-bottom:6px;" onclick="copyNum('912386')" title="คลิกเพื่อคัดลอก / Click to copy">
-            912386
+          <div style="font-family:var(--font-mono);font-size:1.65rem;font-weight:800;letter-spacing:2px;color:#38bdf8;cursor:pointer;margin-bottom:6px;" onclick="copyNum('211767')" title="คลิกเพื่อคัดลอก / Click to copy">
+            211767
           </div>
           <div style="display:flex;gap:8px;font-size:0.75rem;color:var(--text-muted);align-items:center;">
-            <span>ผลรวม: <strong style="color:#fff;">29</strong></span>
+            <span>ผลรวม: <strong style="color:#fff;">24</strong></span>
             <span>•</span>
-            <span>สมดุล: <strong style="color:#fff;">3คู่ / 3คี่</strong></span>
+            <span>สมดุล: <strong style="color:#fff;">2คู่ / 4คี่</strong></span>
           </div>
           <div style="margin-top:10px;padding-top:8px;border-top:1px dashed rgba(255,255,255,0.1);">
             <div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:5px;">🎯 เลขเคียงดักรางวัล (±1 Neighbor Hedging):</div>
             <div style="display:flex;gap:6px;flex-wrap:wrap;">
-              <span class="num-pill" style="cursor:pointer;font-size:0.8rem;padding:3px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:6px;" onclick="copyNum('912385')" title="คลิกเพื่อคัดลอก / Click to copy">912385</span>
-              <span class="num-pill" style="cursor:pointer;font-size:0.8rem;padding:3px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:6px;" onclick="copyNum('912387')" title="คลิกเพื่อคัดลอก / Click to copy">912387</span>
+              <span class="num-pill" style="cursor:pointer;font-size:0.8rem;padding:3px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:6px;" onclick="copyNum('211766')" title="คลิกเพื่อคัดลอก / Click to copy">211766</span>
+              <span class="num-pill" style="cursor:pointer;font-size:0.8rem;padding:3px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:6px;" onclick="copyNum('211768')" title="คลิกเพื่อคัดลอก / Click to copy">211768</span>
             </div>
           </div>
         </div>

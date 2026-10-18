@@ -100,9 +100,9 @@ const server = http.createServer((req, res) => {
 
       // 4. Test Mobile Drawer opening on Strategy & Manager
       if (t.name === 'strategy' || t.name === 'manager') {
-        const menuBtn = await page.$('#btn-mobile-menu, .hamburger-btn');
-        if (menuBtn) {
-          await menuBtn.click();
+        try {
+          await page.waitForSelector('#btn-mobile-menu', { visible: true, timeout: 2000 });
+          await page.click('#btn-mobile-menu');
           await new Promise(r => setTimeout(r, 400));
           const drawerPath = path.join(SCREENSHOTS_DIR, `${t.name}_drawer_open.png`);
           await page.screenshot({ path: drawerPath, fullPage: false });
@@ -111,6 +111,8 @@ const server = http.createServer((req, res) => {
           // Press Escape key to verify keyboard closure
           await page.keyboard.press('Escape');
           await new Promise(r => setTimeout(r, 300));
+        } catch (e) {
+          console.log(`[SKIP] Drawer open test skipped: ${e.message}`);
         }
       }
 
