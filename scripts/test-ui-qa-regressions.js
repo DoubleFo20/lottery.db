@@ -43,7 +43,8 @@ function getSha256(filePath) {
     ['mobile-wallet.html', 'dashboard/mobile-wallet.html'],
     ['assets/css/premium-theme.css', 'dashboard/assets/css/premium-theme.css'],
     ['assets/js/nav-component.js', 'dashboard/assets/js/nav-component.js'],
-    ['assets/js/i18n.js', 'dashboard/assets/js/i18n.js']
+    ['assets/js/i18n.js', 'dashboard/assets/js/i18n.js'],
+    ['assets/js/ai-copilot.js', 'dashboard/assets/js/ai-copilot.js']
   ];
 
   for (const [f1, f2] of mirrorPairs) {
@@ -51,7 +52,7 @@ function getSha256(filePath) {
     const h2 = getSha256(f2);
     assert.equal(h1, h2, `Mirror mismatch: ${f1} (${h1.slice(0,8)}) !== ${f2} (${h2.slice(0,8)})`);
   }
-  console.log('  PASS: All 10 mirror pairs are 100% byte-for-byte identical.');
+  console.log('  PASS: All 11 mirror pairs are 100% byte-for-byte identical.');
 
   // TEST 2: Static Duplicate ID Check
   console.log('\n[TEST 2] Checking for Duplicate IDs in all HTML files...');
@@ -163,6 +164,7 @@ function getSha256(filePath) {
       assert.equal(drawerCount, 1, `Expected exactly 1 #mobile-drawer in DOM, found ${drawerCount}`);
 
       // Open drawer
+      await sPage.waitForFunction(() => window.LotteryNav !== undefined, { timeout: 5000 });
       await sPage.click('#btn-mobile-menu');
       await sPage.waitForFunction(() => {
         const d = document.getElementById('mobile-drawer');

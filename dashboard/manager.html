@@ -28,9 +28,9 @@
   --good:      #22d987;
   --warn:      #f5a623;
   --bad:       #ff4d6d;
-  --muted:     #5a7099;
+  --muted:     #8ea3bf;
   --text:      #e2eaf8;
-  --text-dim:  #7a91b8;
+  --text-dim:  #94a3b8;
   --glow:      0 0 24px rgba(56,139,255,.18);
   --radius:    14px;
   font-family: 'Sora', sans-serif;
@@ -577,6 +577,8 @@ footer {
 </style>
 </head>
 <body>
+<a href="#main-content" class="skip-link" data-i18n="a11y.skip_to_content">Skip to main content / ข้ามไปยังเนื้อหาหลัก</a>
+
 <!-- Unified Shared Navigation Header -->
 <div id="unified-app-header">
   <header class="app-header" role="banner">
@@ -656,7 +658,7 @@ footer {
 </div>
 
 <!-- ══ MANAGER ACTION TOOLBAR ══ -->
-<header class="header" role="region" aria-label="Manager Controls" style="margin-top:1rem; min-height:86px; flex-wrap:nowrap; contain:layout style;">
+<section class="manager-toolbar header" role="toolbar" aria-label="Manager Controls" style="margin-top:1rem; min-height:86px; flex-wrap:nowrap; contain:layout style;">
   <div class="brand">
     <div class="brand-logo" aria-hidden="true">🧠</div>
     <div class="brand-text">
@@ -674,7 +676,7 @@ footer {
     <button class="nav-btn btn-action" onclick="loadAll()">⟳ Refresh</button>
     <span class="status-chip" id="last-refresh">Loading…</span>
   </div>
-</header>
+</section>
 
 <!-- ══ LOADER ══ -->
 <div id="loader">
@@ -689,6 +691,7 @@ footer {
 </div>
 
 <!-- ══ DASHBOARD ══ -->
+<main id="main-content" role="main">
 <div id="dashboard">
 
   <!-- ① Unified Live Countdown & Latest Results Bar (Synchronized with Main Dashboard) -->
@@ -922,6 +925,7 @@ footer {
   </div>
 
 </div><!-- /dashboard -->
+</main>
 
 <footer>
   Lottery AI Analysis Suite — Manager Control Center &nbsp;|&nbsp; Auto-refresh every 5 min

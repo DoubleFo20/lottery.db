@@ -23,6 +23,11 @@
   const FALLBACK_TH = {
     app_title: "LOTTERY.DB — แพลตฟอร์มวิเคราะห์ยุทธศาสตร์และสถิติสลากขั้นสูง",
     app_subtitle: "ระบบปัญญาประดิษฐ์วิเคราะห์สถิติและการกระจายความเสี่ยงระดับองค์กร",
+    a11y: {
+      skip_to_content: "ข้ามไปยังเนื้อหาหลัก",
+      open_menu: "เปิดเมนูนำทาง",
+      close_menu: "ปิดเมนูนำทาง"
+    },
     meta: {
       version: "v1.2 Analytical Pro",
       status_connected: "เชื่อมต่อระบบปกติ (473 งวด)",
@@ -123,6 +128,21 @@
       heatmap_title: "Positional Digit Heatmap",
       historical_draws: "Historical Draws",
       walk_forward_evaluation: "Walk-Forward Out-of-Sample Evaluation"
+    },
+    ai_copilot: {
+      title: "AI Command Copilot",
+      badge_live: "AI Core Active (v1.2)",
+      placeholder: "Ask AI or run prompt: e.g. Top candidates, Hedging allocation, Signal drift...",
+      btn_ask: "⚡ Analyze",
+      prompt_candidates: "⚡ Top Candidates (2D/3D)",
+      prompt_hedging: "🛡️ Capital Protection (Banker 70%)",
+      prompt_heatmap: "🌡️ 10-Draw Heatmap",
+      prompt_drift: "📉 Check Signal Drift",
+      resp_candidates: "⚡ AI Copilot: Filtered top candidate clusters using Beam Search (width=4) combined with dynamic signal weighting — highest confidence detected in direct 2-digit & reverse pairs.",
+      resp_hedging: "🛡️ AI Copilot: Activated Hedging Portfolio Reallocation (Banker 19-Door 70% / Direct 2D 20% / Box 3D 10%) for consistent capital protection.",
+      resp_heatmap: "🌡️ AI Copilot: Dominant digit heat concentration observed in tens and units places with confirmed Warm-to-Hot transition across the last 10 draws.",
+      resp_drift: "📉 AI Copilot: Statistical signal drift evaluation (Rolling Heat vs Base Rate) is within normal variance thresholds (Variance < 0.12).",
+      resp_custom: "🔍 AI Copilot: Custom analytical query processed successfully. Navigating to the most relevant data cluster."
     }
   };
 

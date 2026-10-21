@@ -15,6 +15,7 @@
   <script defer src="assets/live_countdown.js"></script>
   <script defer src="assets/js/i18n.js"></script>
   <script defer src="assets/js/nav-component.js"></script>
+  <script defer src="assets/js/ai-copilot.js"></script>
   <style>
     :root {
       --bg-dark: #080c14;
@@ -68,124 +69,6 @@
     .dashboard-container {
       max-width: 1560px;
       margin: 0 auto;
-    }
-
-    /* Header Bar */
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.2rem 1.8rem;
-      background: var(--bg-panel);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      backdrop-filter: blur(16px);
-      box-shadow: var(--shadow-panel);
-      margin-bottom: 1.5rem;
-      position: sticky;
-      top: 1rem;
-      z-index: 100;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .brand-logo {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--blue), var(--purple));
-      display: grid;
-      place-items: center;
-      font-size: 1.6rem;
-      box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
-    }
-
-    .brand-text h1 {
-      font-family: var(--font-display);
-      font-size: 1.35rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      background: linear-gradient(90deg, #ffffff, #93c5fd);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .brand-text p {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-    }
-
-    .header-nav {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: nowrap;
-    }
-
-    .nav-btn {
-      padding: 0.5rem 1rem;
-      border-radius: 10px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      cursor: pointer;
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      flex-shrink: 0;
-      white-space: nowrap;
-    }
-
-    .nav-btn:hover {
-      background: rgba(59, 130, 246, 0.18);
-      color: #fff;
-      border-color: rgba(59, 130, 246, 0.5);
-      transform: translateY(-1px);
-    }
-
-    .nav-btn.active {
-      background: linear-gradient(135deg, var(--blue), #2563eb);
-      color: #fff;
-      border-color: var(--blue);
-      box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
-    }
-
-    .live-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 0.4rem 0.8rem;
-      border-radius: 99px;
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      color: var(--green);
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-
-    .pulse-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--green);
-      border-radius: 50%;
-      box-shadow: 0 0 10px var(--green);
-      animation: pulse 1.8s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
     }
 
     /* Hero Grid */
@@ -924,94 +807,6 @@
       opacity: 1;
     }
 
-    /* Hamburger & Mobile Drawer Navigation */
-    .hamburger-btn {
-      display: none;
-      background: rgba(30, 41, 59, 0.7);
-      border: 1px solid var(--border);
-      color: #fff;
-      font-size: 1.35rem;
-      border-radius: 10px;
-      padding: 0.45rem 0.75rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .hamburger-btn:hover {
-      background: var(--bg-hover);
-      border-color: var(--blue);
-    }
-    .drawer-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(4px);
-      z-index: 9998;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-    .drawer-overlay.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .mobile-drawer {
-      position: fixed;
-      top: 0;
-      left: -290px;
-      width: 270px;
-      height: 100vh;
-      background: rgba(10, 15, 29, 0.96);
-      backdrop-filter: blur(20px);
-      border-right: 1px solid rgba(59, 130, 246, 0.3);
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      padding: 1.5rem 1.2rem;
-      gap: 0.65rem;
-      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
-    }
-    .mobile-drawer.open {
-      left: 0;
-    }
-    .drawer-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .drawer-title {
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--blue);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .drawer-close {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      font-size: 1.3rem;
-      cursor: pointer;
-      line-height: 1;
-      padding: 4px 8px;
-      border-radius: 6px;
-    }
-    .drawer-close:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.1);
-    }
-    .mobile-drawer .nav-btn {
-      width: 100%;
-      text-align: left;
-      padding: 0.65rem 0.9rem;
-      border-radius: 8px;
-      font-size: 0.88rem;
-    }
-
     @media (max-width: 1200px) {
       .prediction-columns { grid-template-columns: 1fr 1fr; }
       .hero-grid { grid-template-columns: 1fr; }
@@ -1023,23 +818,6 @@
     }
 
     @media (max-width: 768px) {
-      .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-direction: row;
-        gap: 0.5rem;
-        padding: 0.9rem 1rem;
-      }
-      .header-nav {
-        display: none ! textured;
-        display: none;
-      }
-      .hamburger-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-      }
       .panel {
         padding: 1.1rem;
       }
@@ -1051,6 +829,8 @@
   </style>
 </head>
 <body>
+<a href="#main-content" class="skip-link" data-i18n="a11y.skip_to_content">Skip to main content / ข้ามไปยังเนื้อหาหลัก</a>
+
 <!-- Unified Shared Navigation Header -->
 <div id="unified-app-header">
   <header class="app-header" role="banner">
@@ -1131,7 +911,7 @@
   </aside>
 </div>
 
-<div class="dashboard-container">
+<main id="main-content" class="dashboard-container" role="main">
 
   <div class="strategy-subnav-strip" role="region" aria-label="Strategy Quick Navigation">
     <div class="subnav-indicator-pill">
@@ -1147,6 +927,37 @@
       <button class="subnav-pill" id="lang-btn" onclick="toggleLanguage()">🌐 TH / EN</button>
     </nav>
   </div>
+
+  <!-- ═════ 1.5 MODERN SAAS AI COPILOT & PROMPT BAR ═════ -->
+  <section class="ai-copilot-container content-auto-optimize" id="ai-copilot-section" aria-label="AI Command Copilot">
+    <div class="ai-copilot-header">
+      <div class="ai-copilot-title-group">
+        <div class="ai-copilot-icon" aria-hidden="true">⚡</div>
+        <div class="ai-copilot-title" data-i18n="ai_copilot.title">AI Command Copilot</div>
+      </div>
+      <div class="ai-copilot-badge">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        <span data-i18n="ai_copilot.badge_live">AI Core พร้อมทำงาน (v1.2)</span>
+      </div>
+    </div>
+
+    <div class="ai-copilot-input-wrap">
+      <span class="ai-copilot-input-icon" aria-hidden="true">💬</span>
+      <input type="text" id="ai-copilot-input" class="ai-copilot-input" placeholder="ถาม AI หรือสั่งการวิเคราะห์ด่วน: เช่น เลขเด่นงวดนี้, คำนวณพอร์ตเซฟทุน, ค่าความแปรปรวน..." data-i18n-placeholder="ai_copilot.placeholder" aria-label="AI Prompt Input">
+      <button type="button" id="ai-copilot-submit" class="ai-copilot-btn" data-i18n="ai_copilot.btn_ask">⚡ วิเคราะห์</button>
+    </div>
+
+    <div class="ai-copilot-chips" role="group" aria-label="Quick AI Prompts">
+      <span class="ai-copilot-chips-label">Quick Prompts:</span>
+      <button type="button" class="ai-chip" data-copilot-prompt="candidates" data-i18n="ai_copilot.prompt_candidates">⚡ เลขเด่น 2 ตัว / 3 ตัว</button>
+      <button type="button" class="ai-chip" data-copilot-prompt="hedging" data-i18n="ai_copilot.prompt_hedging">🛡️ พอร์ตเซฟทุน (Banker 70%)</button>
+      <button type="button" class="ai-chip" data-copilot-prompt="heatmap" data-i18n="ai_copilot.prompt_heatmap">🌡️ แผนภูมิความร้อน 10 งวด</button>
+      <button type="button" class="ai-chip" data-copilot-prompt="drift" data-i18n="ai_copilot.prompt_drift">📉 ตรวจจับ Signal Drift</button>
+    </div>
+
+    <div id="ai-copilot-response" class="ai-copilot-response" role="status" aria-live="polite"></div>
+  </section>
+
 
   <!-- ═════ 2. HERO: COUNTDOWN & LATEST DRAW ═════ -->
   <section class="hero-grid">
@@ -1229,7 +1040,7 @@
   </section>
 
   <!-- ═════ 3. TOP PREDICTIONS SECTION (DUAL-MODE) ═════ -->
-  <section id="sec-predictions" style="margin-bottom:1.8rem;">
+  <section id="sec-predictions" class="content-auto-optimize" style="margin-bottom:1.8rem;">
     <!-- Dual-Mode Switcher Header -->
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:nowrap;gap:0.8rem;">
       <div style="font-family:var(--font-display);font-size:1.15rem;font-weight:700;display:flex;align-items:center;gap:8px;white-space:nowrap;flex-shrink:0;">
@@ -1401,7 +1212,7 @@
   </section>
 
   <!-- ═════ 3.5 SMART HEDGING PORTFOLIO & ANTI-PATTERN EVALUATOR ═════ -->
-  <section id="sec-hedging-portfolio" style="margin-bottom:1.8rem;">
+  <section id="sec-full-spectrum" class="content-auto-optimize" style="margin-bottom:1.8rem;">
     <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(340px, 1fr));gap:1.25rem;">
       
       <!-- Box 1: Smart Staking Calculator (Hedging Pyramid) -->
@@ -1546,7 +1357,7 @@
   </section>
 
   <!-- ═════ 4. HEATMAP MATRIX SECTION ═════ -->
-  <section id="sec-heatmap" class="heatmap-section">
+  <section id="sec-heatmap" class="heatmap-section content-auto-optimize">
     <div class="panel">
       <div class="panel-header">
         <div class="panel-title">
@@ -1600,7 +1411,7 @@
   </section>
 
   <!-- ═════ 5. CHARTS SECTION ═════ -->
-  <section id="sec-charts" style="margin-bottom:1.8rem;">
+  <section id="sec-charts" class="content-auto-optimize" style="margin-bottom:1.8rem;">
     <div class="charts-grid">
       
       <!-- Chart 1: Monthly Distribution -->
@@ -1693,7 +1504,7 @@
   </section>
 
   <!-- ═════ 7. HISTORICAL 20-YEAR DRAW EXPLORER ═════ -->
-  <section id="sec-history">
+  <section id="sec-history" class="content-auto-optimize">
     <div class="panel">
       <div class="panel-header">
         <div class="panel-title">
@@ -1754,7 +1565,7 @@
     </div>
   </section>
 
-</div>
+</main>
 
 <!-- Toast for Clipboard -->
 <div class="toast-msg" id="toast">คัดลอกหมายเลขแล้ว!</div>
