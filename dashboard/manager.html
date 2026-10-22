@@ -700,10 +700,10 @@ footer {
     <div class="card" style="background:linear-gradient(135deg,rgba(15,23,42,0.9),rgba(2,6,23,0.95));border:1px solid rgba(59,130,246,0.35);">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
         <span class="card-label" style="color:#38bdf8;margin-bottom:0;">⏳ นับถอยหลังสู่งวดถัดไป</span>
-        <span class="badge badge-blue" id="countdown-status-badge">1 ต.ค. 2569</span>
+        <span class="badge badge-blue" id="countdown-status-badge">กำลังโหลด...</span>
       </div>
       <div style="font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:8px;" id="target-date-display">
-        1 ตุลาคม 2569 <span style="font-size:0.85rem;color:var(--text-dim)">(14:30 น.)</span>
+        กำลังคำนวณงวดถัดไป... <span style="font-size:0.85rem;color:var(--text-dim)">(14:30 น.)</span>
       </div>
       <div style="display:flex;gap:10px;font-family:var(--font-mono);font-size:1.35rem;font-weight:800;color:var(--accent2);" id="manager-countdown-timer">
         <span><strong id="cd-days" style="color:#fff;">--</strong>d</span> :
@@ -1538,15 +1538,26 @@ loadAll();
 setInterval(loadAll, 60 * 1000);
 
 // Initialize Real-time Live Engine on Manager
-if (typeof LotteryLiveEngine !== 'undefined') {
-  const liveEngine = LotteryLiveEngine.createEngine({
-    onNewResult: (event) => {
-      console.log('🎉 [Manager] New draw detected:', event);
-      loadAll();
-      showToast(`🎉 ตรวจพบผลรางวัลงวดใหม่ (${event.latestDraw})!`, true);
+function initManagerLiveEngine() {
+  if (typeof LotteryLiveEngine !== 'undefined') {
+    if (window.lotteryLiveEngine) {
+      window.lotteryLiveEngine.destroy();
     }
-  });
-  window.lotteryLiveEngine = liveEngine.init();
+    const liveEngine = LotteryLiveEngine.createEngine({
+      onNewResult: (event) => {
+        console.log('🎉 [Manager] New draw detected:', event);
+        loadAll();
+        showToast(`🎉 ตรวจพบผลรางวัลงวดใหม่ (${event.latestDraw})!`, true);
+      }
+    });
+    window.lotteryLiveEngine = liveEngine.init();
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initManagerLiveEngine);
+} else {
+  initManagerLiveEngine();
 }
 
 // ─── Action Buttons ──────────────────────────────────
@@ -1579,11 +1590,16 @@ async function triggerAction(type) {
   if (btn) { btn.disabled = true; btn.textContent = '…'; }
   try {
     const r = await fetch(apiMap[type]);
+    const contentType = r.headers.get('content-type') || '';
+    if (!r.ok || !contentType.includes('application/json')) {
+      showToast('ℹ️ โหมด Static Hosting (GitHub Pages): ไม่พบ Local Backend PHP/Python สำหรับประมวลผลคำสั่งสด', false);
+      return;
+    }
     const d = await r.json();
-    showToast(d.message ?? 'Done ✔', r.ok && !d.error);
-    if (r.ok) loadAll();
+    showToast(d.message ?? 'ดำเนินการสำเร็จ ✔', !d.error);
+    if (!d.error) loadAll();
   } catch(e) {
-    showToast('⚠ Live API execution requires local backend server (PHP/Python)', false);
+    showToast('ℹ️ Live API execution requires local backend server (PHP/Python)', false);
   } finally {
     if (btn) { btn.disabled = false; btn.textContent = type === 'pipeline' ? '⚡ Run Pipeline' : '📡 Fetch Result'; }
   }

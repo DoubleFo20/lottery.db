@@ -13,6 +13,50 @@ const PIPELINE_CACHE_PATH = path.join(ROOT_DIR, 'database', 'predictions', 'pipe
 const OUTPUT_DATA_PATH = path.join(ROOT_DIR, 'database', 'predictions', 'hopper_3d_data.json');
 const DASHBOARD_OUTPUT_PATH = path.join(ROOT_DIR, 'dashboard', 'hopper_3d_data.json');
 
+function getNextDrawDate(latestDrawStr) {
+  if (!latestDrawStr) {
+    return {
+      draw_date: '2026-11-01',
+      iso_target: '2026-11-01T14:30:00+07:00',
+      thai_formatted: '1 พฤศจิกายน 2569'
+    };
+  }
+  const [y, m, d] = latestDrawStr.split('-').map(Number);
+  let nextY = y;
+  let nextM = m;
+  let nextD = 1;
+  if (d < 16) {
+    nextD = 16;
+  } else {
+    nextM += 1;
+    if (nextM > 12) {
+      nextM = 1;
+      nextY += 1;
+    }
+    nextD = 1;
+  }
+  if (nextM === 1 && nextD === 1) {
+    nextD = 17;
+  } else if (nextM === 1 && nextD === 16) {
+    nextD = 17;
+  } else if (nextM === 5 && nextD === 1) {
+    nextD = 2;
+  } else if (nextM === 12 && nextD === 16) {
+    nextD = 30;
+  }
+  const isoDate = `${nextY}-${String(nextM).padStart(2, '0')}-${String(nextD).padStart(2, '0')}`;
+  const thaiMonths = [
+    '', 'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
+    'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
+  ];
+  const thaiBeYear = nextY + 543;
+  return {
+    draw_date: isoDate,
+    iso_target: `${isoDate}T14:30:00+07:00`,
+    thai_formatted: `${nextD} ${thaiMonths[nextM]} ${thaiBeYear}`
+  };
+}
+
 function main() {
   console.log('[1/3] Reading pipeline cache...');
   let pipelineData = {};
@@ -104,15 +148,11 @@ function main() {
       generated_at: new Date().toISOString(),
       version: '2.0-showcase',
       theme: 'golden-emerald-luxury',
-      latest_draw: meta.latest_draw || '2026-09-16',
-      total_draws: meta.total_draws || 471,
+      latest_draw: meta.latest_draw || '2026-10-16',
+      total_draws: meta.total_draws || 473,
       total_balls: balls.length,
       chamber_radius: 12.0,
-      next_draw: {
-        draw_date: '2026-10-01',
-        iso_target: '2026-10-01T14:30:00+07:00',
-        thai_formatted: '1 ตุลาคม 2569'
-      }
+      next_draw: getNextDrawDate(meta.latest_draw || '2026-10-16')
     },
     zones: {
       zone1_jackpot: {

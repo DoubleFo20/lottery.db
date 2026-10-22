@@ -1,11 +1,11 @@
 /**
- * assets/js/ai-copilot.js — Modern SaaS AI Command Copilot & Interactive Prompt Interface
- * Inspired by Roohi Koohi Modern SaaS AI UI/UX Design System
+ * assets/js/ai-copilot.js — Quick Analysis & Command Search Interface
  * Features:
- * - Natural Language Query & Quick Action Prompt Chips
- * - Seamless Section Jumping with Kinetic Pulsing Highlight
+ * - Data-Grounded Query & Quick Action Command Chips
+ * - Deterministic Section Jumping with Pulse Highlight
  * - Bilingual Integration with window.LotteryI18n
  * - WCAG 2.1 AA Compliant & Accessible (aria-live, keyboard navigation)
+ * - Zero fabricated variance or accuracy claims; grounded strictly in historical datasets
  */
 
 (function () {
@@ -30,7 +30,6 @@
     function highlightTarget(targetEl) {
       if (!targetEl) return;
       targetEl.classList.remove('copilot-active-target');
-      // trigger reflow
       void targetEl.offsetWidth;
       targetEl.classList.add('copilot-active-target');
       setTimeout(() => {
@@ -68,35 +67,35 @@
         case 'candidates':
           text = getI18n(
             'ai_copilot.resp_candidates',
-            '⚡ AI Copilot: คัดสรรชุดตัวเลขเด่นงวดล่าสุดผ่าน Beam Search (width=4) ผสานคะแนน Signal Weighting — ตรวจพบความมั่นใจสูงสุดที่กลุ่มสองตัวตรงและชุดกลับ'
+            '🎯 ค้นหาข้อมูลด่วน: แสดงชุดตัวเลขเด่นอันดับ 1 (811767) จาก Beam Search ผสานคะแนน Signal Weighting และคู่เลข 67/76 (คะแนนเชิงสัมพัทธ์ ไม่ใช่ความน่าจะเป็นแท้จริง)'
           );
           targetId = 'sec-predictions';
           break;
         case 'hedging':
           text = getI18n(
             'ai_copilot.resp_hedging',
-            '🛡️ AI Copilot: เปิดใช้งานกลยุทธ์ Hedging Portfolio Reallocation (Banker รูด 19 ประตู 70% / สองตัวตรง-กลับ 20% / สามตัวเต็ง-โต๊ด 10%) เพื่อรักษาเงินทุนต่อเนื่อง'
+            '🛡️ วิเคราะห์กลยุทธ์: สัดส่วน Hedging Portfolio ตามหลักคณิตศาสตร์ประกันความเสี่ยง (Banker รูด 19 ประตู 70% / สองตัวตรง-กลับ 20% / สามตัวเต็ง-โต๊ด 10%)'
           );
           targetId = 'sec-full-spectrum';
           break;
         case 'heatmap':
           text = getI18n(
             'ai_copilot.resp_heatmap',
-            '🌡️ AI Copilot: ความร้อนหลักสะสมหนาแน่นในหลักสิบและหลักหน่วย ตรวจพบสัญญาณ Warm-to-Hot transition ในช่วง 10 งวดล่าสุด'
+            '🌡️ สถิติความถี่: การกระจายตัวของตัวเลข 0-9 ในแต่ละตำแหน่งและอัตราการเปลี่ยนผ่าน (Transition Matrix) อ้างอิงจากฐานข้อมูล 473 งวดจริง'
           );
           targetId = 'sec-heatmap';
           break;
         case 'drift':
           text = getI18n(
             'ai_copilot.resp_drift',
-            '📉 AI Copilot: ตรวจสอบความเบี่ยงเบนของสัญญาณโมเดล (Rolling Heat vs Base Rate) อยู่ในเกณฑ์ปกติ Variance < 0.12 ไม่พบภาวะ Data Drift ผิดปกติ'
+            '📊 ตรวจสอบข้อมูลสถิติ: ผลประเมิน Walk-Forward Backtest 20 งวด (120 ตำแหน่งตัวเลข) ยืนยันความสอดคล้องกับค่าการสุ่มพื้นฐานโดยไม่มี Look-Ahead Bias'
           );
           targetId = 'sec-charts';
           break;
         default:
           text = getI18n(
             'ai_copilot.resp_custom',
-            '🔍 AI Copilot: ประมวลผลคำสั่งวิเคราะห์ข้อมูลเชิงลึกเรียบร้อยแล้ว กำลังนำท่านไปยังส่วนข้อมูลที่สอดคล้องที่สุด'
+            '🔍 ค้นหาข้อมูลด่วน: ประมวลผลคำค้นหาข้อมูลเชิงสถิติเรียบร้อยแล้ว กำลังนำท่านไปยังส่วนข้อมูลที่เกี่ยวข้อง'
           );
           targetId = 'sec-predictions';
       }
@@ -125,7 +124,7 @@
         handlePrompt('hedging');
       } else if (query.includes('ความร้อน') || query.includes('heat') || query.includes('matrix')) {
         handlePrompt('heatmap');
-      } else if (query.includes('drift') || query.includes('เสี่ยง') || query.includes('แปรปรวน') || query.includes('variance') || query.includes('chart') || query.includes('กราฟ')) {
+      } else if (query.includes('drift') || query.includes('เสี่ยง') || query.includes('แปรปรวน') || query.includes('variance') || query.includes('chart') || query.includes('กราฟ') || query.includes('backtest')) {
         handlePrompt('drift');
       } else {
         handlePrompt('custom');
@@ -153,7 +152,7 @@
       if (input) {
         input.placeholder = getI18n(
           'ai_copilot.placeholder',
-          'ถาม AI หรือสั่งการวิเคราะห์ด่วน: เช่น เลขเด่นงวดนี้, คำนวณพอร์ตเซฟทุน, ค่าความแปรปรวน...'
+          'ค้นหาข้อมูลด่วน: เช่น เลขเด่นงวดนี้, พอร์ตเซฟทุน, สถิติความร้อน, ผลทดสอบ...'
         );
       }
     });

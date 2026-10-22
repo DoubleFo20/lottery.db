@@ -248,7 +248,11 @@ async function main() {
       '/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser',
     ].find(file => fs.existsSync(file));
     assert(executablePath, 'Set CHROME_PATH to your installed Chrome/Chromium');
-    browser = await puppeteer.launch({ executablePath, headless: true });
+    browser = await puppeteer.launch({
+      executablePath,
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+    });
     let passed = 0;
     for (const target of discover(base)) {
       for (const mode of ['healthy', 'target-missing', 'all-missing', 'delayed']) {

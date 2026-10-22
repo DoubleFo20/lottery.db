@@ -52,7 +52,11 @@ const sampleHistory = dates.map(date => ({
       '/usr/bin/google-chrome', '/usr/bin/chromium',
     ].find(file => fs.existsSync(file));
     assert(executablePath, 'Set CHROME_PATH');
-    browser = await puppeteer.launch({ executablePath, headless: true });
+    browser = await puppeteer.launch({
+      executablePath,
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+    });
     for (const route of ['manager.html', 'dashboard/manager.html']) {
       csv = realCsv; history = realHistory; cache = structuredClone(realCache);
       const context = await browser.createBrowserContext();

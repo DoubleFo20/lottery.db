@@ -1,71 +1,69 @@
-# TASKS.md — Premium UI/UX Analytical Platform Workplan & Progress
+# TASKS.md — LOTTERY.DB Product Recovery & Premium UX V3
 
-**Feature Branch:** `feat/premium-analytical-ui`  
-**Base Commit:** `fdbceb5` (`origin/main`)  
+**Feature Branch:** `fix/lottery-product-readiness-v3`  
+**Base Commit:** `e391fdb` (`origin/main`)  
 **Status:** All Phases Completed & Fully Verified  
 **Lead Engineering Orchestrator:** ARGON
 
 ---
 
-## Phase 1: Git Initialization & Baseline Establishment
-- [x] Fetch `origin/main` and verify merged PR #1 (`fdbceb5`).
-- [x] Create dedicated feature branch `feat/premium-analytical-ui`.
-- [x] Run baseline test suites (Python 235 passed, Node advisory passed, Canvas lifecycle passed).
-- [x] Record initial UI performance metrics via `scripts/audit-ui-performance.js`.
+## Phase 0: Repository Safety & Baseline Establishment
+- [x] Fetch `origin/main` (commit `e391fdb`).
+- [x] Create feature branch `fix/lottery-product-readiness-v3`.
+- [x] Run baseline test suites (Python 239 passed, UI QA regression passed, Node advisory passed, Canvas stress passed).
 
-## Phase 2: Design Tokens & Shared Component Architecture
-- [x] Create unified Slate / Indigo design system in `assets/css/premium-theme.css` (mirrored in `dashboard/assets/css/premium-theme.css`).
-- [x] Define color tokens, Inter/JetBrains Mono typography, WCAG 2.1 AA focus rings, and reduced motion queries.
-- [x] Build enterprise localization engine `assets/js/i18n.js` (mirrored in `dashboard/assets/js/i18n.js`) with deep key resolution and localStorage persistence.
-- [x] Enrich bilingual dictionaries `i18n/th.json` and `i18n/en.json` with comprehensive UI keys.
-- [x] Build shared responsive navigation component `assets/js/nav-component.js` (mirrored in `dashboard/assets/js/nav-component.js`) with active routing and mobile drawer.
+## Phase 1: Critical Functional Repairs (P0 & P1)
+- [x] **P0 — Manager Countdown & Shared Calendar Service:**
+  - Removed all hardcoded draw dates (`1 ต.ค. 2569`, etc.) from HTML markups.
+  - Normalized date parsing to `Asia/Bangkok` (UTC+7) in `assets/live_countdown.js`.
+  - Fixed frozen `--d --h --m --s` countdown caused by synchronous script check before deferred script load.
+  - Added self-healing auto-initialization across Strategy, Manager, and 3D.
+  - Added unit tests in `tests/test_live_countdown.py` covering draw transitions, expired dates, and Bangkok timezone.
+- [x] **P0 — 3D Showcase (`3d.html`):**
+  - Softened radial vignette (expanded clear zone to 48%, reduced dark edge opacity) to eliminate pitch-black voids on wide screens.
+  - Removed stale October 1 strategy content and hardcoded prediction samples (`830386`).
+  - Removed misleading "100% Confidence" claim; replaced with honest heuristic rank ("Top Beam Search Candidate").
+  - Dynamically bound actual AI candidate (`811767`), sum 30, 2-digit pairs, and Banker digits.
+  - Added visible canvas loading spinner and fallback simulation indicator.
+- [x] **P0 — Mobile Wallet -> Lottery Companion Hub (`mobile-wallet.html`):**
+  - Completely purged fictional banking UI (Spotify, Alice, NovaTech salary, Euro currency, bank transfers).
+  - Built Lottery Companion Hub: Saved Number Sets, Prediction Portfolio, Historical Draw Verification, and Optional Expense/Budget Logger.
+  - Implemented local-first persistence via `localStorage` with XSS entity sanitization (`escapeHtml`).
+  - Rewrote `tests/test_mobile_wallet.py` to assert zero fictional banking entities and verify companion features.
+- [x] **P0 — AI Command Copilot (`assets/js/ai-copilot.js`):**
+  - Relabeled UI as "Quick Analysis / Command Search" (ค้นหาและวิเคราะห์ข้อมูลด่วน).
+  - Grounded all responses in verified dataset values (Beam Search candidates, 70/20/10 hedging allocation, 473 historical draws).
+  - Eliminated fabricated variance claims ("Variance < 0.12") and fake drift assertions.
+  - Zero paid AI APIs / no exposed secrets.
+- [x] **P1 — Manager API Actions (`manager.html`):**
+  - Added static hosting (GitHub Pages) detection for backend action triggers.
+  - Handled non-JSON / 404 responses gracefully with informative guidance.
+  - Never displays false success unless real backend operation succeeds.
 
-## Phase 3: Dashboard Upgrades & Module Implementation
-- [x] **Performance Dashboard (`performance.html`):**
-  - Implement analytical KPI cards and model stability gauge.
-  - Add Walk-Forward Out-of-Sample Statistical Rigor section (Wilson Score 95% CI, hypothesis testing $p = 0.128$, random expectation $0.60$ hits/draw).
-  - Modernize Chart.js theme to high-contrast slate.
-  - Mirror to `dashboard/performance.html` with 100% SHA-256 parity.
-- [x] **Manager Control Center (`manager.html`):**
-  - Link premium design tokens, i18n engine, and unified header.
-  - Preserve all element contracts (`#consecutive-miss-alert-box`, `currentMissState`, `loadAll()`, `#fs-jackpot-num`, etc.).
-  - Mirror to `dashboard/manager.html` with 100% SHA-256 parity.
-- [x] **Strategy Dashboard (`strategy.html` / `index.html`):**
-  - Add unified header and section quick-jumper toolbar.
-  - Synchronize language toggle with `LotteryI18n`.
-  - Maintain 100% SHA-256 parity across `index.html`, `strategy.html`, `dashboard/index.html`, `dashboard/strategy.html`.
-- [x] **3D Showcase (`3d.html`):**
-  - Modernize capsule navbar with language switcher.
-  - Guard headless VM test compatibility (`document.querySelectorAll`).
-  - Maintain 100% SHA-256 parity with `dashboard/3d.html`.
-- [x] **Mobile Wallet (`mobile-wallet.html`):**
-  - Add navigation links to Strategy, Performance, and 3D Showcase.
-  - Maintain 100% SHA-256 parity with `dashboard/mobile-wallet.html`.
+## Phase 2: Complete Visual Redesign (Modern Premium Analytics)
+- [x] **Design Tokens & System (`assets/css/premium-theme.css`):**
+  - Implemented **Default Light Theme**: Background `#F5F6F4`, card surface `#FFFFFF`, text `#17212B`, primary accent `#0F766E` (Deep Teal), warm secondary `#AD8558`.
+  - Implemented **Clean Dark Theme**: Charcoal slate `#12161A` / `#182026`, readable contrast, zero cyber neon glow.
+  - Added persistent theme switcher (☀️ / 🌙) in top navigation bar and mobile drawer via `assets/js/nav-component.js`.
+  - Applied clean typography with Thai font fallbacks and JetBrains Mono for numbers.
+
+## Phase 3: Mirror Parity Invariant
+- [x] Maintained 100% SHA-256 byte-for-byte parity across all 11 root/dashboard mirror pairs:
+  - `strategy.html` <-> `index.html` <-> `dashboard/strategy.html` <-> `dashboard/index.html`
+  - `manager.html` <-> `dashboard/manager.html`
+  - `performance.html` <-> `dashboard/performance.html`
+  - `3d.html` <-> `dashboard/3d.html`
+  - `mobile-wallet.html` <-> `dashboard/mobile-wallet.html`
+  - `assets/css/premium-theme.css` <-> `dashboard/assets/css/premium-theme.css`
+  - `assets/live_countdown.js` <-> `dashboard/assets/live_countdown.js`
+  - `assets/js/nav-component.js` <-> `dashboard/assets/js/nav-component.js`
+  - `assets/js/ai-copilot.js` <-> `dashboard/assets/js/ai-copilot.js`
+  - `database/predictions/hopper_3d_data.json` <-> `dashboard/hopper_3d_data.json`
 
 ## Phase 4: Full Verification & Integration
-- [x] Run full Python pytest suite: **235 / 235 passed**.
-- [x] Run data leakage audit: **PASSED (Zero look-ahead leakage)**.
-- [x] Run Puppeteer advisory regression suite: **PASS (13/13 + browser test on both mirrors)**.
-- [x] Run Canvas lifecycle suite: **PASS**.
-- [x] Run Canvas legacy adversarial stress tests: **PASS (12/12)**.
-- [x] Run 3D data prep and build: **Clean**.
-- [x] Run Next.js lint, typecheck, production build: **Clean (0 errors)**.
-- [x] Capture visual QA screenshots (10 files in `reports/screenshots/`).
-- [x] Verify 100% byte-for-byte SHA-256 parity across all 6 mirror pairs.
-
-## Phase 5: Git Commit, Push & Draft PR Preparation
-- [x] Stage and commit verified changes.
-- [x] Push `feat/premium-analytical-ui` to GitHub.
-- [x] Create Draft Pull Request targeting `main` (PR #2).
-- [x] Verify GitHub CI on PR #2 (`Manager Advisory Regression` & `Canvas Browser Regression` PASS).
-
-## Phase 6: Independent UI/UX Review Remediation
-- [x] Remove duplicate `mobile-drawer` and `error-msg` DOM IDs across all static templates and components.
-- [x] Implement accessible keyboard controls (`Escape` to close, `Tab` focus trapping) and ARIA dialog semantics on mobile drawers.
-- [x] Replace hardcoded statistical figures in `performance.html` with data-driven values loaded from `database/backtest/comparative_report.json`.
-- [x] Expand and audit bilingual TH/EN strings in `i18n/th.json` and `i18n/en.json`, embedding built-in fallback dictionaries in `assets/js/i18n.js`.
-- [x] Benchmark before vs. after performance and Core Web Vitals between `origin/main` (`fdbceb5`) and redesigned branch (`reports/LIGHTHOUSE_REPORT.md` and `reports/lighthouse_comparison.json`).
-- [x] Perform visual QA across Desktop, Tablet, Mobile, and Drawer states (17 screenshots in `reports/screenshots/`).
-- [x] Add automated regression tests (`scripts/test-ui-qa-regressions.js` and `tests/test_ui_qa_regressions.py`).
-- [x] Verify full test suites: Python (239/239 passed), Node Advisory (13/13 passed), Canvas Lifecycle & Legacy (12/12 passed), Next.js Build (0 errors), 100% SHA-256 mirror parity.
-
+- [x] Run Python pytest suite: **240 / 240 passed (100%)**.
+- [x] Run UI QA regressions test: **PASS (100% mirror parity, 0 duplicate IDs, drawer a11y)**.
+- [x] Run Node advisory test: **PASS (13 / 13 passed + manager advisory browser test)**.
+- [x] Run Canvas legacy stress test: **PASS (12 / 12 passed)**.
+- [x] Run Next.js production build: **Clean (0 errors)**.
+- [x] Capture visual QA screenshots across Desktop, Tablet, and Mobile (15 files in `reports/screenshots/`).
