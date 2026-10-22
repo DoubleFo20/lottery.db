@@ -5,10 +5,13 @@
  * 
  * Features:
  * 1. Thai Official Lottery Calendar Engine (Auto-calculates next draw with holiday shifts: Dec 30, Jan 17, May 2).
- * 2. Smart Adaptive Poller (Normal: 5 mins, Draw Window 14:30-16:30 ICT: 30 secs).
- * 3. Live Broadcasting Mode (Replaces frozen countdown with pulsating live status badge during draw time).
- * 4. Real-time Ingestion & Auto-Rollover (Updates latest results in DOM and resets countdown immediately).
- * 5. Timestamp Cache-Busting (?_t=Date.now()) & Network Retry resilience.
+ * 2. Timezone resilience: Forced Asia/Bangkok (UTC+7) calendar resolution.
+ * 3. Smart Adaptive Poller (Normal: 5 mins, Draw Window 14:30-16:30 ICT: 30 secs).
+ * 4. Live Broadcasting Mode (Replaces frozen countdown with pulsating live status badge during draw time).
+ * 5. Real-time Ingestion & Auto-Rollover (Updates latest results in DOM and resets countdown immediately).
+ * 6. Timestamp Cache-Busting (?_t=Date.now()) & Network Retry resilience.
+ * 7. Self-healing DOM binding: Updates cd-days, cd-hours, cd-mins, cd-secs, target-date-display,
+ *    hero-countdown, scene1-countdown, and countdown-status-badge across Strategy, Manager, and 3D.
  */
 
 (function (root, factory) {
@@ -26,6 +29,30 @@
     '', 'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
     'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
   ];
+
+  /**
+   * Helper to resolve Date in Asia/Bangkok timezone (UTC+7)
+   */
+  function getBangkokDate(referenceDate) {
+    if (referenceDate) {
+      return new Date(referenceDate);
+    }
+    try {
+      const parts = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Asia/Bangkok',
+        hour12: false,
+        year: 'numeric', month: 'numeric', day: 'numeric',
+        hour: 'numeric', minute: 'numeric', second: 'numeric'
+      }).formatToParts(new Date());
+      const map = {};
+      for (const p of parts) {
+        if (p.type !== 'literal') map[p.type] = parseInt(p.value, 10);
+      }
+      return new Date(map.year, map.month - 1, map.day, map.hour, map.minute, map.second);
+    } catch (e) {
+      return new Date();
+    }
+  }
 
   /**
    * Check if a given date is an official Thai Government lottery draw day.
@@ -62,11 +89,14 @@
    * @returns {{ targetDate: Date, isoString: string, thaiFormatted: string, drawDayStr: string }}
    */
   function getNextDrawDate(referenceDate) {
-    const now = referenceDate ? new Date(referenceDate) : new Date();
+    const now = getBangkokDate(referenceDate);
     
     // Look up to 45 days into future
     for (let dayOffset = 0; dayOffset <= 45; dayOffset++) {
-      const candidate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + dayOffset, 14, 30, 0, 0);
+      const candidateYear = now.getFullYear();
+      const candidateMonth = now.getMonth();
+      const candidateDay = now.getDate() + dayOffset;
+      const candidate = new Date(candidateYear, candidateMonth, candidateDay, 14, 30, 0, 0);
       
       if (isOfficialDrawDay(candidate)) {
         // If candidate is today, check if 14:30 ICT has passed
@@ -83,9 +113,10 @@
         const drawDayStr = `${y}-${pad(m)}-${pad(d)}`;
         const isoString = `${drawDayStr}T14:30:00+07:00`;
         const thaiFormatted = `${d} ${THAI_MONTH_NAMES[m]} ${yTH}`;
+        const targetDate = new Date(isoString);
 
         return {
-          targetDate: candidate,
+          targetDate: targetDate,
           isoString: isoString,
           thaiFormatted: thaiFormatted,
           drawDayStr: drawDayStr
@@ -98,7 +129,7 @@
       targetDate: new Date(now.getTime() + 15 * 86400000),
       isoString: new Date(now.getTime() + 15 * 86400000).toISOString(),
       thaiFormatted: 'งวดถัดไป',
-      drawDayStr: '2026-10-01'
+      drawDayStr: '2026-11-01'
     };
   }
 
@@ -106,7 +137,7 @@
    * Check if current time is within the active draw broadcasting window (14:30 - 16:30 ICT on draw days).
    */
   function isDrawWindow(referenceDate) {
-    const now = referenceDate ? new Date(referenceDate) : new Date();
+    const now = referenceDate ? new Date(referenceDate) : getBangkokDate();
     if (!isOfficialDrawDay(now)) return false;
 
     const hours = now.getHours();
@@ -147,7 +178,6 @@
     }
 
     init() {
-      console.log('⚡ [LiveEngine] Initializing Real-time Lottery Engine...');
       this.updateTarget();
       this.startCountdownLoop();
       this.startAdaptivePolling();
@@ -199,7 +229,9 @@
         let d = 0, h = 0, m = 0, s = 0;
         let isExpired = false;
 
-        if (diffMs > 0) {
+        if (inWindow) {
+          d = 0; h = 0; m = 0; s = 0;
+        } else if (diffMs > 0) {
           d = Math.floor(diffMs / (1000 * 60 * 60 * 24));
           h = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
           m = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
@@ -208,7 +240,6 @@
           isExpired = true;
           // If expired and not in draw window, auto-roll over immediately
           if (!inWindow && diffMs < -1000) {
-            console.log('⚡ [LiveEngine] Target expired outside draw window. Auto-rolling over to next draw...');
             this.updateTarget();
           }
         }
@@ -227,9 +258,23 @@
 
         // Update Target Date Display (only on change to prevent layout recalculation)
         const elTarget = document.getElementById('target-date-display');
-        if (elTarget && !inWindow && this.lastRenderedTarget !== this.currentTarget.thaiFormatted) {
-          elTarget.innerHTML = `${this.currentTarget.thaiFormatted} <span style="font-size:1.1rem;color:var(--text-muted);">(14:30 น.)</span> <span class="target-date-tag">งวดเป้าหมายหลัก</span>`;
+        if (elTarget && this.lastRenderedTarget !== this.currentTarget.thaiFormatted) {
+          if (inWindow) {
+            elTarget.innerHTML = `${this.currentTarget.thaiFormatted} <span style="font-size:1.05rem;color:#ef4444;font-weight:700;">(🔴 กำลังออกรางวัลสด 14:30-16:30 น.)</span>`;
+          } else {
+            elTarget.innerHTML = `${this.currentTarget.thaiFormatted} <span style="font-size:1.05rem;color:var(--text-muted);">(14:30 น.)</span> <span class="target-date-tag">งวดเป้าหมายหลัก</span>`;
+          }
           this.lastRenderedTarget = this.currentTarget.thaiFormatted;
+        }
+
+        // Update Countdown Status Badge if present
+        const elBadge = document.getElementById('countdown-status-badge');
+        if (elBadge) {
+          if (inWindow) {
+            elBadge.innerHTML = '<span style="color:#ef4444;font-weight:700;">🔴 สด</span>';
+          } else {
+            elBadge.textContent = this.currentTarget.thaiFormatted;
+          }
         }
 
         // Update 3D Hero Countdown pill if exists
@@ -239,6 +284,16 @@
             elHeroCountdown.innerHTML = `<span style="color:#ef4444;animation:pulse 1.5s infinite">🔴 กำลังถ่ายทอดสด</span> (${pad(h)}:${pad(m)}:${pad(s)})`;
           } else {
             elHeroCountdown.innerHTML = `⏳ งวดถัดไป: ${this.currentTarget.thaiFormatted} (${d}วัน ${pad(h)}:${pad(m)}:${pad(s)})`;
+          }
+        }
+
+        // Update 3D Scene 1 Countdown pill if exists
+        const elScene1 = document.getElementById('scene1-countdown');
+        if (elScene1) {
+          if (inWindow) {
+            elScene1.innerHTML = `<span style="color:#ef4444;">🔴 ถ่ายทอดสด</span> (14:30-16:30 น.)`;
+          } else {
+            elScene1.textContent = `⏳ งวดถัดไป: ${this.currentTarget.thaiFormatted}`;
           }
         }
 
@@ -315,8 +370,6 @@
 
       // Check if this is a newly published draw result
       if (!isInitial && latestDraw && this.currentDrawDate && latestDraw !== this.currentDrawDate) {
-        console.log(`🎉 [LiveEngine] NEW LOTTERY DRAW DETECTED: ${latestDraw} -> Number: ${latestNum}!`);
-        
         // Trigger Toast and Callbacks
         if (typeof window.showToast === 'function') {
           window.showToast(`🎉 ผลรางวัลงวดใหม่ (${latestDraw}) เข้าสู่ระบบแล้ว!`);
@@ -350,10 +403,29 @@
   }
 
   // Factory function
-  return {
+  const factoryExport = {
     isOfficialDrawDay,
     getNextDrawDate,
     isDrawWindow,
     createEngine: (options) => new LiveEngine(options)
   };
+
+  // Resilient Auto-initialization across Strategy, Manager, and 3D
+  if (typeof window !== 'undefined') {
+    function autoInitEngine() {
+      if (window.lotteryLiveEngine) return;
+      if (document.getElementById('cd-days') || document.getElementById('hero-countdown') || document.getElementById('scene1-countdown')) {
+        const engine = new LiveEngine();
+        window.lotteryLiveEngine = engine.init();
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', autoInitEngine);
+    } else {
+      autoInitEngine();
+    }
+  }
+
+  return factoryExport;
 }));

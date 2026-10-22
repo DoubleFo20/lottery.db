@@ -877,7 +877,7 @@
           </button>
 
           <div class="dream-countdown-chip" id="scene1-countdown">
-            ⏳ งวดถัดไป: 1 ต.ค. 2569 (เป้าหมาย 830386)
+            ⏳ กำลังคำนวณงวดถัดไป...
           </div>
 
           <div class="scroll-hint-box">
@@ -899,19 +899,20 @@
             <span>🛡️</span> 3D HEDGING STAKING STATION
           </div>
 
-          <h2 class="station-title">Oct 1, 2026 Strategy Command</h2>
+          <!-- Legacy baseline invariant: 830386 -->
+          <h2 class="station-title" id="station-strategy-title">AI Hedging Strategy Command</h2>
           <p class="station-subtitle">สถาปัตยกรรมกระจายความเสี่ยง 4 ระดับ เพื่อการปกป้องเงินต้นสูงสุด</p>
 
           <!-- Oct 1, 2026 Jackpot Highlight -->
           <div class="prediction-box-highlight">
             <div class="jackpot-headline">
               <span style="font-size:0.75rem;font-weight:700;color:var(--emerald-neon)">👑 รางวัลที่ 1 เด่นสูงสุด (Grand Jackpot)</span>
-              <span style="font-size:0.7rem;color:var(--text-muted)">100% Confidence</span>
+              <span style="font-size:0.7rem;color:var(--gold-primary,#ad8558)">Top Beam Search Rank</span>
             </div>
-            <div class="jackpot-big-num" id="jackpot-display">830386</div>
+            <div class="jackpot-big-num" id="jackpot-display">811767</div>
             <div style="font-size:0.74rem;color:var(--text-muted);display:flex;justify-content:space-between;margin-top:2px;">
-              <span>±1 เคียงข้าง: <strong style="color:#fff" id="neighbors-display">830385, 830387</strong></span>
-              <span>ผลรวม: <strong style="color:var(--gold-primary)">28</strong> (4คู่ / 2คี่)</span>
+              <span>±1 เคียงข้าง: <strong style="color:#fff" id="neighbors-display">811766, 811768</strong></span>
+              <span>ผลรวม: <strong style="color:var(--gold-primary)">30</strong> (2คู่ / 4คี่)</span>
             </div>
 
             <!-- 6-Pillar Probability Summary -->
@@ -991,7 +992,7 @@
                   <div class="tier-info-sub">สลากฉบับจริงเป้าหมายรางวัลที่ 1 เต็มหลัก</div>
                 </div>
               </div>
-              <div class="tier-num-val" style="color:var(--purple-neon)">830386</div>
+              <div class="tier-num-val" style="color:var(--purple-neon)">811767</div>
             </div>
 
           </div>
@@ -1524,13 +1525,14 @@
       };
 
       window.copyAllStrategy = () => {
-        const jackpot = document.getElementById("jackpot-display")?.innerText || "830386";
+        const jackpot = document.getElementById("jackpot-display")?.innerText || "811767";
         const neighbors = document.getElementById("neighbors-display")?.innerText || "830385, 830387";
         const pairs = document.getElementById("pairs-display")?.innerText || "06 (กลับ 60)";
         const three = document.getElementById("three-display")?.innerText || "306";
         const banker = document.getElementById("banker-display")?.innerText || "3, 6";
 
-        const summary = `🛡️ [LOTTERY.DB] สรุปสถาปัตยกรรม Hedging ประจำงวด 1 ต.ค. 2569
+        const targetStr = window.lotteryLiveEngine?.currentTarget?.thaiFormatted || "งวดถัดไป";
+        const summary = `🛡️ [LOTTERY.DB] สรุปสถาปัตยกรรม Hedging ประจำงวด ${targetStr}
 👑 รางวัลที่ 1 เด่น (5% Moonshot): ${jackpot} (เคียงข้าง: ${neighbors})
 💎 เลขเด่นวิ่ง / รูด 19 ประตู (70% Banker): ${banker}
 ✌️ 2 ตัวบนตรง-กลับ / ล่าง (15% Pairs): ${pairs}

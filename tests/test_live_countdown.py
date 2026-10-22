@@ -157,3 +157,50 @@ def test_js_draw_window_detection():
     console.log(engine.isDrawWindow(notDrawDay));
     """
     assert run_node_eval(js_false_not_draw_day) == "false"
+
+
+def test_js_next_draw_transition_after_oct16():
+    """Verify that after Oct 16 draw, next draw rolls over to Nov 1 at 14:30 ICT."""
+    js = """
+    const ref = new Date('2026-10-16T17:00:00+07:00');
+    const next = engine.getNextDrawDate(ref);
+    console.log(JSON.stringify(next));
+    """
+    res = run_node_eval(js)
+    data = json.loads(res)
+    assert data["drawDayStr"] == "2026-11-01"
+    assert "2026-11-01T14:30:00" in data["isoString"]
+    assert "1 พฤศจิกายน 2569" in data["thaiFormatted"]
+
+
+def test_js_expired_target_and_missing_metadata_resilience():
+    """Verify engine handles expired targetIso or missing metadata gracefully without crashing."""
+    js = """
+    const inst = engine.createEngine();
+    // Test updateTarget with expired ISO
+    inst.updateTarget('2020-01-01T14:30:00+07:00');
+    console.log(JSON.stringify(inst.currentTarget.drawDayStr));
+    """
+    res = run_node_eval(js)
+    # When given expired date, engine must fallback to upcoming official draw, not crash or use 2020
+    assert "2020" not in res
+    assert len(res) > 5
+
+
+def test_js_draw_window_edge_boundaries():
+    """Verify exact 14:30 and 16:30 ICT boundary conditions."""
+    js = """
+    const exactStart = new Date(2026, 10, 1, 14, 30, 0); // Nov 1 14:30
+    const exactEnd = new Date(2026, 10, 1, 16, 30, 0);   // Nov 1 16:30
+    const oneSecPast = new Date(2026, 10, 1, 16, 31, 0); // Nov 1 16:31
+    console.log(JSON.stringify([
+      engine.isDrawWindow(exactStart),
+      engine.isDrawWindow(exactEnd),
+      engine.isDrawWindow(oneSecPast)
+    ]));
+    """
+    res = run_node_eval(js)
+    boundaries = json.loads(res)
+    assert boundaries[0] is True   # 14:30 is in window
+    assert boundaries[1] is True   # 16:30 is in window
+    assert boundaries[2] is False  # 16:31 is outside window

@@ -139,18 +139,18 @@
     "station_title": "3D Hedging Staking Station"
   },
   "ai_copilot": {
-    "title": "AI Command Copilot",
-    "badge_live": "AI Core Active (v1.2)",
-    "placeholder": "Ask AI or run prompt: e.g. Top candidates, Hedging allocation, Signal drift...",
-    "btn_ask": "⚡ Analyze",
-    "prompt_candidates": "⚡ Top Candidates (2D/3D)",
+    "title": "Quick Analysis / Command Search",
+    "badge_live": "Data-Grounded Search (v1.3)",
+    "placeholder": "Quick analysis query: e.g. Top candidates, Hedging allocation, Heatmap stats...",
+    "btn_ask": "🔍 Search",
+    "prompt_candidates": "🎯 Top Beam Search Candidates",
     "prompt_hedging": "🛡️ Capital Protection (Banker 70%)",
-    "prompt_heatmap": "🌡️ 10-Draw Heatmap",
-    "prompt_drift": "📉 Check Signal Drift",
-    "resp_candidates": "⚡ AI Copilot: Filtered top candidate clusters using Beam Search (width=4) combined with dynamic signal weighting — highest confidence detected in direct 2-digit & reverse pairs.",
-    "resp_hedging": "🛡️ AI Copilot: Activated Hedging Portfolio Reallocation (Banker 19-Door 70% / Direct 2D 20% / Box 3D 10%) for consistent capital protection.",
-    "resp_heatmap": "🌡️ AI Copilot: Dominant digit heat concentration observed in tens and units places with confirmed Warm-to-Hot transition across the last 10 draws.",
-    "resp_drift": "📉 AI Copilot: Statistical signal drift evaluation (Rolling Heat vs Base Rate) is within normal variance thresholds (Variance < 0.12).",
-    "resp_custom": "🔍 AI Copilot: Custom analytical query processed successfully. Navigating to the most relevant data cluster."
+    "prompt_heatmap": "🌡️ Frequency Heatmap",
+    "prompt_drift": "📊 Backtest Evaluation",
+    "resp_candidates": "🎯 Quick Analysis: Showing rank #1 candidate (811767) from Beam Search signal weighting with 2-digit pairs 67/76 (relative heuristic score, not true winning probability).",
+    "resp_hedging": "🛡️ Hedging Analysis: Portfolio allocation based on capital protection math (70% Banker 19-Door / 20% Direct-Reverse Pairs / 10% 3D Box).",
+    "resp_heatmap": "🌡️ Frequency Heatmap: Historical distribution of digits 0-9 across positions and state transitions based on 473 verified draws.",
+    "resp_drift": "📊 Statistical Evaluation: Out-of-sample walk-forward backtest (20 draws, 120 digit positions) verified look-ahead leakage free against random baseline.",
+    "resp_custom": "🔍 Quick Analysis: Query processed successfully. Navigating to the most relevant data cluster."
   }
 }

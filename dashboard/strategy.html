@@ -929,30 +929,30 @@
   </div>
 
   <!-- ═════ 1.5 MODERN SAAS AI COPILOT & PROMPT BAR ═════ -->
-  <section class="ai-copilot-container content-auto-optimize" id="ai-copilot-section" aria-label="AI Command Copilot">
+  <section class="ai-copilot-container content-auto-optimize" id="ai-copilot-section" aria-label="Quick Analysis & Command Search">
     <div class="ai-copilot-header">
       <div class="ai-copilot-title-group">
         <div class="ai-copilot-icon" aria-hidden="true">⚡</div>
-        <div class="ai-copilot-title" data-i18n="ai_copilot.title">AI Command Copilot</div>
+        <div class="ai-copilot-title" data-i18n="ai_copilot.title">Quick Analysis / Command Search</div>
       </div>
       <div class="ai-copilot-badge">
         <span class="pulse-dot" aria-hidden="true"></span>
-        <span data-i18n="ai_copilot.badge_live">AI Core พร้อมทำงาน (v1.2)</span>
+        <span data-i18n="ai_copilot.badge_live">ระบบสืบค้นข้อมูลจริง (v1.3)</span>
       </div>
     </div>
 
     <div class="ai-copilot-input-wrap">
       <span class="ai-copilot-input-icon" aria-hidden="true">💬</span>
-      <input type="text" id="ai-copilot-input" class="ai-copilot-input" placeholder="ถาม AI หรือสั่งการวิเคราะห์ด่วน: เช่น เลขเด่นงวดนี้, คำนวณพอร์ตเซฟทุน, ค่าความแปรปรวน..." data-i18n-placeholder="ai_copilot.placeholder" aria-label="AI Prompt Input">
-      <button type="button" id="ai-copilot-submit" class="ai-copilot-btn" data-i18n="ai_copilot.btn_ask">⚡ วิเคราะห์</button>
+      <input type="text" id="ai-copilot-input" class="ai-copilot-input" placeholder="ค้นหาข้อมูลด่วน: เช่น เลขเด่นงวดนี้, พอร์ตเซฟทุน, สถิติความร้อน, ผลทดสอบ..." data-i18n-placeholder="ai_copilot.placeholder" aria-label="AI Prompt Input">
+      <button type="button" id="ai-copilot-submit" class="ai-copilot-btn" data-i18n="ai_copilot.btn_ask">🔍 ค้นหา</button>
     </div>
 
     <div class="ai-copilot-chips" role="group" aria-label="Quick AI Prompts">
       <span class="ai-copilot-chips-label">Quick Prompts:</span>
-      <button type="button" class="ai-chip" data-copilot-prompt="candidates" data-i18n="ai_copilot.prompt_candidates">⚡ เลขเด่น 2 ตัว / 3 ตัว</button>
+      <button type="button" class="ai-chip" data-copilot-prompt="candidates" data-i18n="ai_copilot.prompt_candidates">🎯 เลขเด่น Beam Search</button>
       <button type="button" class="ai-chip" data-copilot-prompt="hedging" data-i18n="ai_copilot.prompt_hedging">🛡️ พอร์ตเซฟทุน (Banker 70%)</button>
       <button type="button" class="ai-chip" data-copilot-prompt="heatmap" data-i18n="ai_copilot.prompt_heatmap">🌡️ แผนภูมิความร้อน 10 งวด</button>
-      <button type="button" class="ai-chip" data-copilot-prompt="drift" data-i18n="ai_copilot.prompt_drift">📉 ตรวจจับ Signal Drift</button>
+      <button type="button" class="ai-chip" data-copilot-prompt="drift" data-i18n="ai_copilot.prompt_drift">📊 ตรวจสอบ Backtest</button>
     </div>
 
     <div id="ai-copilot-response" class="ai-copilot-response" role="status" aria-live="polite"></div>

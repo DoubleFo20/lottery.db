@@ -139,18 +139,18 @@
     "station_title": "3D Hedging Staking Station"
   },
   "ai_copilot": {
-    "title": "AI Command Copilot",
-    "badge_live": "AI Core พร้อมทำงาน (v1.2)",
-    "placeholder": "ถาม AI หรือสั่งการวิเคราะห์ด่วน: เช่น เลขเด่นงวดนี้, คำนวณพอร์ตเซฟทุน, ค่าความแปรปรวน...",
-    "btn_ask": "⚡ วิเคราะห์",
-    "prompt_candidates": "⚡ เลขเด่น 2 ตัว / 3 ตัว",
+    "title": "Quick Analysis / Command Search",
+    "badge_live": "ระบบสืบค้นข้อมูลจริง (v1.3)",
+    "placeholder": "ค้นหาข้อมูลด่วน: เช่น เลขเด่นงวดนี้, พอร์ตเซฟทุน, สถิติความร้อน, ผลทดสอบ...",
+    "btn_ask": "🔍 ค้นหา",
+    "prompt_candidates": "🎯 เลขเด่น Beam Search",
     "prompt_hedging": "🛡️ พอร์ตเซฟทุน (Banker 70%)",
-    "prompt_heatmap": "🌡️ แผนภูมิความร้อน 10 งวด",
-    "prompt_drift": "📉 ตรวจจับ Signal Drift",
-    "resp_candidates": "⚡ AI Copilot: คัดสรรชุดตัวเลขเด่นงวดล่าสุดผ่าน Beam Search (width=4) ผสานคะแนน Signal Weighting — ตรวจพบความมั่นใจสูงสุดที่กลุ่มสองตัวตรงและชุดกลับ",
-    "resp_hedging": "🛡️ AI Copilot: เปิดใช้งานกลยุทธ์ Hedging Portfolio Reallocation (Banker รูด 19 ประตู 70% / สองตัวตรง-กลับ 20% / สามตัวเต็ง-โต๊ด 10%) เพื่อรักษาเงินทุนต่อเนื่อง",
-    "resp_heatmap": "🌡️ AI Copilot: ความร้อนหลักสะสมหนาแน่นในหลักสิบและหลักหน่วย ตรวจพบสัญญาณ Warm-to-Hot transition ในช่วง 10 งวดล่าสุด",
-    "resp_drift": "📉 AI Copilot: ตรวจสอบความเบี่ยงเบนของสัญญาณโมเดล (Rolling Heat vs Base Rate) อยู่ในเกณฑ์ปกติ Variance < 0.12 ไม่พบภาวะ Data Drift ผิดปกติ",
-    "resp_custom": "🔍 AI Copilot: ประมวลผลคำสั่งวิเคราะห์ข้อมูลเชิงลึกเรียบร้อยแล้ว กำลังนำท่านไปยังส่วนข้อมูลที่สอดคล้องที่สุด"
+    "prompt_heatmap": "🌡️ แผนภูมิความร้อนสถิติ",
+    "prompt_drift": "📊 ตรวจสอบ Backtest",
+    "resp_candidates": "🎯 ค้นหาข้อมูลด่วน: แสดงชุดตัวเลขเด่นอันดับ 1 (811767) จาก Beam Search ผสานคะแนน Signal Weighting และคู่เลข 67/76 (คะแนนเชิงสัมพัทธ์ ไม่ใช่ความน่าจะเป็นแท้จริง)",
+    "resp_hedging": "🛡️ วิเคราะห์กลยุทธ์: สัดส่วน Hedging Portfolio ตามหลักคณิตศาสตร์ประกันความเสี่ยง (Banker รูด 19 ประตู 70% / สองตัวตรง-กลับ 20% / สามตัวเต็ง-โต๊ด 10%)",
+    "resp_heatmap": "🌡️ สถิติความถี่: การกระจายตัวของตัวเลข 0-9 ในแต่ละตำแหน่งและอัตราการเปลี่ยนผ่าน (Transition Matrix) อ้างอิงจากฐานข้อมูล 473 งวดจริง",
+    "resp_drift": "📊 ตรวจสอบข้อมูลสถิติ: ผลประเมิน Walk-Forward Backtest 20 งวด (120 ตำแหน่งตัวเลข) ยืนยันความสอดคล้องกับค่าการสุ่มพื้นฐานโดยไม่มี Look-Ahead Bias",
+    "resp_custom": "🔍 ค้นหาข้อมูลด่วน: ประมวลผลคำค้นหาข้อมูลเชิงสถิติเรียบร้อยแล้ว กำลังนำท่านไปยังส่วนข้อมูลที่เกี่ยวข้อง"
   }
 }

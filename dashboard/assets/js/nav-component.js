@@ -123,7 +123,10 @@
           ${contextualSectionHtml}
 
           <div style="margin-top:auto; padding-top:1.25rem; border-top:1px solid var(--border-subtle); display:flex; flex-direction:column; gap:0.75rem;">
-            <button type="button" class="btn-analytical btn-secondary lang-toggle-btn" data-action="toggle-lang" style="width:100%; justify-content:center;">
+            <button type="button" class="btn-analytical btn-secondary theme-toggle-btn" data-action="toggle-theme" style="width:100%; justify-content:center; margin-bottom:0.5rem;">
+          <span class="theme-icon">☀️</span> <span style="margin-left:6px;">สลับโหมดสี (Theme)</span>
+        </button>
+        <button type="button" class="btn-analytical btn-secondary lang-toggle-btn" data-action="toggle-lang" style="width:100%; justify-content:center;">
               🌐 <span data-i18n="nav.lang_toggle">Switch Language (TH / EN)</span>
             </button>
           </div>
@@ -244,6 +247,27 @@
         if (window.LotteryI18n) {
           window.LotteryI18n.toggleLang();
         }
+      });
+    });
+
+    
+    function applyCurrentTheme() {
+      const current = localStorage.getItem('lottery_theme') || 'light';
+      document.documentElement.setAttribute('data-theme', current);
+      document.querySelectorAll('.theme-icon').forEach(el => {
+        el.textContent = current === 'dark' ? '🌙' : '☀️';
+      });
+    }
+
+    applyCurrentTheme();
+
+    document.querySelectorAll('[data-action="toggle-theme"]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cur = document.documentElement.getAttribute('data-theme') || 'light';
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('lottery_theme', next);
+        applyCurrentTheme();
       });
     });
 
