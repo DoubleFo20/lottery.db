@@ -2,261 +2,258 @@
   "status": "ok",
   "candidates": [
     {
-      "number": "739224",
-      "score": 8.069e-05,
+      "number": "243863",
+      "score": 4.063e-05,
       "digits": [
-        "7",
+        "2",
+        "4",
         "3",
-        "9",
-        "2",
-        "2",
-        "4"
-      ],
-      "sum": 27,
-      "even_odd": "3คู่ / 3คี่",
-      "confidence": 100.0
-    },
-    {
-      "number": "839224",
-      "score": 7.201e-05,
-      "digits": [
         "8",
-        "3",
-        "9",
-        "2",
-        "2",
-        "4"
-      ],
-      "sum": 28,
-      "even_odd": "4คู่ / 2คี่",
-      "confidence": 89.24
-    },
-    {
-      "number": "569224",
-      "score": 6.361e-05,
-      "digits": [
-        "5",
         "6",
-        "9",
-        "2",
-        "2",
-        "4"
-      ],
-      "sum": 28,
-      "even_odd": "4คู่ / 2คี่",
-      "confidence": 78.83
-    },
-    {
-      "number": "369224",
-      "score": 6.204e-05,
-      "digits": [
-        "3",
-        "6",
-        "9",
-        "2",
-        "2",
-        "4"
+        "3"
       ],
       "sum": 26,
       "even_odd": "4คู่ / 2คี่",
-      "confidence": 76.88
+      "confidence": 100.0
     },
     {
-      "number": "539224",
-      "score": 5.577e-05,
+      "number": "843863",
+      "score": 3.244e-05,
       "digits": [
-        "5",
+        "8",
+        "4",
         "3",
-        "9",
+        "8",
+        "6",
+        "3"
+      ],
+      "sum": 32,
+      "even_odd": "4คู่ / 2คี่",
+      "confidence": 79.84
+    },
+    {
+      "number": "203863",
+      "score": 3.15e-05,
+      "digits": [
         "2",
-        "2",
-        "4"
+        "0",
+        "3",
+        "8",
+        "6",
+        "3"
+      ],
+      "sum": 22,
+      "even_odd": "4คู่ / 2คี่",
+      "confidence": 77.52
+    },
+    {
+      "number": "143863",
+      "score": 3.046e-05,
+      "digits": [
+        "1",
+        "4",
+        "3",
+        "8",
+        "6",
+        "3"
       ],
       "sum": 25,
       "even_odd": "3คู่ / 3คี่",
-      "confidence": 69.11
+      "confidence": 74.98
+    },
+    {
+      "number": "743863",
+      "score": 2.903e-05,
+      "digits": [
+        "7",
+        "4",
+        "3",
+        "8",
+        "6",
+        "3"
+      ],
+      "sum": 31,
+      "even_odd": "3คู่ / 3คี่",
+      "confidence": 71.46
     }
   ],
   "full_spectrum": {
     "jackpot_6": [
       {
-        "number": "739224",
+        "number": "243863",
         "confidence": 100.0,
-        "sum": 27,
-        "even_odd": "3คู่ / 3คี่",
+        "sum": 26,
+        "even_odd": "4คู่ / 2คี่",
         "neighbors": [
-          "739223",
-          "739225"
+          "243862",
+          "243864"
         ]
       },
       {
-        "number": "839224",
-        "confidence": 89.24,
-        "sum": 28,
+        "number": "843863",
+        "confidence": 79.84,
+        "sum": 32,
         "even_odd": "4คู่ / 2คี่",
         "neighbors": [
-          "839223",
-          "839225"
+          "843862",
+          "843864"
         ]
       },
       {
-        "number": "569224",
-        "confidence": 78.83,
-        "sum": 28,
+        "number": "203863",
+        "confidence": 77.52,
+        "sum": 22,
         "even_odd": "4คู่ / 2คี่",
         "neighbors": [
-          "569223",
-          "569225"
+          "203862",
+          "203864"
         ]
       }
     ],
     "box_3": [
       {
-        "direct": "824",
-        "score": 0.002654,
+        "direct": "886",
+        "score": 0.002408,
         "permutations": [
-          "248",
-          "284",
-          "428",
-          "482",
-          "824",
-          "842"
-        ],
-        "perm_count": 6
-      },
-      {
-        "direct": "224",
-        "score": 0.002537,
-        "permutations": [
-          "224",
-          "242",
-          "422"
+          "688",
+          "868",
+          "886"
         ],
         "perm_count": 3
       },
       {
-        "direct": "825",
-        "score": 0.002498,
+        "direct": "806",
+        "score": 0.002377,
         "permutations": [
-          "258",
-          "285",
-          "528",
-          "582",
-          "825",
-          "852"
+          "068",
+          "086",
+          "608",
+          "680",
+          "806",
+          "860"
         ],
         "perm_count": 6
+      },
+      {
+        "direct": "882",
+        "score": 0.002363,
+        "permutations": [
+          "288",
+          "828",
+          "882"
+        ],
+        "perm_count": 3
       }
     ],
     "top2_pairs": [
       {
-        "direct": "24",
-        "reverse": "42",
+        "direct": "86",
+        "reverse": "68",
         "pair_set": [
-          "24",
-          "42"
+          "86",
+          "68"
         ]
       },
       {
-        "direct": "25",
-        "reverse": "52",
+        "direct": "06",
+        "reverse": "60",
         "pair_set": [
-          "25",
-          "52"
+          "06",
+          "60"
         ]
       },
       {
-        "direct": "54",
-        "reverse": "45",
+        "direct": "82",
+        "reverse": "28",
         "pair_set": [
-          "54",
-          "45"
+          "82",
+          "28"
         ]
       }
     ],
     "banker_digits": [
       {
-        "digit": "5",
-        "strength": 0.689
+        "digit": "8",
+        "strength": 0.715
       },
       {
-        "digit": "2",
-        "strength": 0.637
+        "digit": "5",
+        "strength": 0.63
       }
     ]
   },
   "position_scores": {
     "digit1": {
-      "8": 0.13239,
-      "5": 0.11961,
-      "2": 0.11461,
-      "3": 0.10207,
-      "7": 0.10005,
-      "4": 0.09664,
-      "0": 0.09655,
-      "1": 0.08538,
-      "6": 0.07776,
-      "9": 0.07494
+      "8": 0.14103,
+      "2": 0.12758,
+      "5": 0.11089,
+      "1": 0.10155,
+      "7": 0.0973,
+      "9": 0.09729,
+      "0": 0.09139,
+      "4": 0.08851,
+      "3": 0.08763,
+      "6": 0.05684
     },
     "digit2": {
-      "3": 0.14297,
-      "5": 0.1403,
-      "0": 0.11892,
-      "8": 0.10611,
-      "6": 0.10313,
-      "7": 0.09555,
-      "1": 0.09139,
-      "4": 0.0812,
-      "9": 0.06484,
-      "2": 0.05558
+      "0": 0.12628,
+      "3": 0.11761,
+      "5": 0.11214,
+      "4": 0.10637,
+      "2": 0.10198,
+      "6": 0.10144,
+      "8": 0.1004,
+      "9": 0.09357,
+      "1": 0.07267,
+      "7": 0.06755
     },
     "digit3": {
-      "9": 0.1672,
-      "7": 0.11999,
-      "1": 0.11875,
-      "0": 0.11133,
-      "4": 0.10343,
-      "2": 0.09428,
-      "5": 0.08637,
-      "6": 0.07305,
-      "3": 0.06825,
-      "8": 0.05735
+      "3": 0.16093,
+      "5": 0.11278,
+      "8": 0.11127,
+      "9": 0.11001,
+      "7": 0.10658,
+      "4": 0.10577,
+      "0": 0.10157,
+      "6": 0.0719,
+      "1": 0.07072,
+      "2": 0.04847
     },
     "digit4": {
-      "8": 0.12874,
-      "2": 0.12308,
-      "4": 0.11085,
-      "6": 0.11029,
-      "3": 0.09866,
-      "1": 0.09749,
-      "5": 0.09436,
-      "7": 0.08864,
-      "0": 0.08247,
-      "9": 0.06541
+      "8": 0.13962,
+      "5": 0.11968,
+      "9": 0.11815,
+      "6": 0.10716,
+      "4": 0.10612,
+      "2": 0.10018,
+      "1": 0.0856,
+      "3": 0.08238,
+      "0": 0.07268,
+      "7": 0.06842
     },
     "digit5": {
-      "2": 0.14446,
-      "5": 0.11422,
-      "7": 0.11261,
-      "1": 0.10748,
-      "3": 0.10153,
-      "8": 0.09126,
-      "6": 0.09007,
-      "0": 0.08418,
-      "4": 0.08387,
-      "9": 0.07032
+      "8": 0.1268,
+      "0": 0.12515,
+      "5": 0.1056,
+      "6": 0.10499,
+      "4": 0.10402,
+      "2": 0.09689,
+      "1": 0.0952,
+      "7": 0.09489,
+      "9": 0.08892,
+      "3": 0.05753
     },
     "digit6": {
-      "4": 0.14268,
-      "5": 0.13434,
-      "9": 0.10901,
-      "7": 0.10714,
-      "2": 0.10479,
-      "3": 0.09943,
-      "8": 0.09533,
-      "6": 0.09307,
-      "0": 0.05836,
-      "1": 0.05584
+      "6": 0.13602,
+      "2": 0.13347,
+      "9": 0.10983,
+      "3": 0.09994,
+      "8": 0.09592,
+      "0": 0.09542,
+      "1": 0.09013,
+      "4": 0.08949,
+      "7": 0.08105,
+      "5": 0.06872
     }
   },
   "ensemble_weights": {
@@ -270,28 +267,57 @@
     "gap_overdue": 0.05
   },
   "last_draw": {
-    "date": "2026-11-01",
-    "number": "423224"
+    "date": "2026-11-16",
+    "number": "645654"
   },
   "analytics": {
-    "active_streaks": [],
+    "active_streaks": [
+      {
+        "position": "digit6",
+        "digit": "4",
+        "length": 2,
+        "start_date": "2026-11-16",
+        "end_date": "2026-11-01",
+        "active": true
+      }
+    ],
     "frequency_spikes": [
       {
         "position": "digit2",
         "digit": "3",
         "type": "🔺 SPIKE",
         "recent_freq": 0.25,
-        "baseline_freq": 0.1013,
+        "baseline_freq": 0.1011,
         "ratio": 2.47,
         "recent_count": 5,
         "baseline_count": 46
+      },
+      {
+        "position": "digit4",
+        "digit": "6",
+        "type": "🔺 SPIKE",
+        "recent_freq": 0.25,
+        "baseline_freq": 0.1077,
+        "ratio": 2.32,
+        "recent_count": 5,
+        "baseline_count": 49
       },
       {
         "position": "digit5",
         "digit": "1",
         "type": "🔺 SPIKE",
         "recent_freq": 0.25,
-        "baseline_freq": 0.1101,
+        "baseline_freq": 0.1099,
+        "ratio": 2.27,
+        "recent_count": 5,
+        "baseline_count": 50
+      },
+      {
+        "position": "digit6",
+        "digit": "4",
+        "type": "🔺 SPIKE",
+        "recent_freq": 0.25,
+        "baseline_freq": 0.1099,
         "ratio": 2.27,
         "recent_count": 5,
         "baseline_count": 50
@@ -301,7 +327,7 @@
         "digit": "9",
         "type": "🔺 SPIKE",
         "recent_freq": 0.15,
-        "baseline_freq": 0.0683,
+        "baseline_freq": 0.0681,
         "ratio": 2.2,
         "recent_count": 3,
         "baseline_count": 31
@@ -311,48 +337,28 @@
         "digit": "0",
         "type": "🔺 SPIKE",
         "recent_freq": 0.2,
-        "baseline_freq": 0.0991,
+        "baseline_freq": 0.0989,
         "ratio": 2.02,
         "recent_count": 4,
         "baseline_count": 45
-      },
-      {
-        "position": "digit5",
-        "digit": "7",
-        "type": "🔺 SPIKE",
-        "recent_freq": 0.2,
-        "baseline_freq": 0.1013,
-        "ratio": 1.97,
-        "recent_count": 4,
-        "baseline_count": 46
-      },
-      {
-        "position": "digit4",
-        "digit": "6",
-        "type": "🔺 SPIKE",
-        "recent_freq": 0.2,
-        "baseline_freq": 0.1079,
-        "ratio": 1.85,
-        "recent_count": 4,
-        "baseline_count": 49
-      },
-      {
-        "position": "digit6",
-        "digit": "4",
-        "type": "🔺 SPIKE",
-        "recent_freq": 0.2,
-        "baseline_freq": 0.1101,
-        "ratio": 1.82,
-        "recent_count": 4,
-        "baseline_count": 50
       },
       {
         "position": "digit3",
         "digit": "2",
         "type": "🔺 SPIKE",
         "recent_freq": 0.15,
-        "baseline_freq": 0.0881,
-        "ratio": 1.7,
+        "baseline_freq": 0.0879,
+        "ratio": 1.71,
+        "recent_count": 3,
+        "baseline_count": 40
+      },
+      {
+        "position": "digit4",
+        "digit": "2",
+        "type": "🔺 SPIKE",
+        "recent_freq": 0.15,
+        "baseline_freq": 0.0879,
+        "ratio": 1.71,
         "recent_count": 3,
         "baseline_count": 40
       }
@@ -363,7 +369,7 @@
         "digit": "5",
         "type": "🔻 DROP",
         "recent_freq": 0.05,
-        "baseline_freq": 0.1211,
+        "baseline_freq": 0.1209,
         "ratio": 0.41,
         "recent_count": 1,
         "baseline_count": 55
@@ -373,7 +379,7 @@
         "digit": "3",
         "type": "🔻 DROP",
         "recent_freq": 0.05,
-        "baseline_freq": 0.1211,
+        "baseline_freq": 0.1209,
         "ratio": 0.41,
         "recent_count": 1,
         "baseline_count": 55
@@ -383,7 +389,7 @@
         "digit": "9",
         "type": "🔻 DROP",
         "recent_freq": 0.05,
-        "baseline_freq": 0.1189,
+        "baseline_freq": 0.1187,
         "ratio": 0.42,
         "recent_count": 1,
         "baseline_count": 54
@@ -393,7 +399,7 @@
         "digit": "8",
         "type": "🔻 DROP",
         "recent_freq": 0.05,
-        "baseline_freq": 0.1145,
+        "baseline_freq": 0.1143,
         "ratio": 0.44,
         "recent_count": 1,
         "baseline_count": 52
@@ -403,7 +409,7 @@
         "digit": "5",
         "type": "🔻 DROP",
         "recent_freq": 0.05,
-        "baseline_freq": 0.1123,
+        "baseline_freq": 0.1121,
         "ratio": 0.45,
         "recent_count": 1,
         "baseline_count": 51
@@ -413,8 +419,8 @@
         "digit": "3",
         "type": "🔻 DROP",
         "recent_freq": 0.05,
-        "baseline_freq": 0.1101,
-        "ratio": 0.45,
+        "baseline_freq": 0.1099,
+        "ratio": 0.46,
         "recent_count": 1,
         "baseline_count": 50
       },
@@ -423,17 +429,17 @@
         "digit": "6",
         "type": "🔻 DROP",
         "recent_freq": 0.05,
-        "baseline_freq": 0.1057,
+        "baseline_freq": 0.1055,
         "ratio": 0.47,
         "recent_count": 1,
         "baseline_count": 48
       },
       {
-        "position": "digit4",
-        "digit": "8",
+        "position": "digit3",
+        "digit": "5",
         "type": "🔻 DROP",
         "recent_freq": 0.05,
-        "baseline_freq": 0.1035,
+        "baseline_freq": 0.1033,
         "ratio": 0.48,
         "recent_count": 1,
         "baseline_count": 47
@@ -444,8 +450,8 @@
         "sequence": "17",
         "recent_count": 4,
         "recent_freq": 0.04,
-        "baseline_freq": 0.0106,
-        "surge_ratio": 3.78
+        "baseline_freq": 0.0105,
+        "surge_ratio": 3.79
       },
       {
         "sequence": "30",
@@ -458,7 +464,7 @@
         "sequence": "40",
         "recent_count": 3,
         "recent_freq": 0.03,
-        "baseline_freq": 0.0106,
+        "baseline_freq": 0.0105,
         "surge_ratio": 2.84
       },
       {
@@ -466,35 +472,35 @@
         "recent_count": 3,
         "recent_freq": 0.03,
         "baseline_freq": 0.011,
-        "surge_ratio": 2.72
-      },
-      {
-        "sequence": "14",
-        "recent_count": 3,
-        "recent_freq": 0.03,
-        "baseline_freq": 0.0119,
-        "surge_ratio": 2.52
+        "surge_ratio": 2.73
       },
       {
         "sequence": "09",
         "recent_count": 2,
         "recent_freq": 0.02,
         "baseline_freq": 0.0079,
-        "surge_ratio": 2.52
+        "surge_ratio": 2.53
+      },
+      {
+        "sequence": "14",
+        "recent_count": 3,
+        "recent_freq": 0.03,
+        "baseline_freq": 0.0119,
+        "surge_ratio": 2.53
       },
       {
         "sequence": "92",
         "recent_count": 2,
         "recent_freq": 0.02,
         "baseline_freq": 0.0079,
-        "surge_ratio": 2.52
+        "surge_ratio": 2.53
       },
       {
-        "sequence": "87",
-        "recent_count": 3,
-        "recent_freq": 0.03,
-        "baseline_freq": 0.0123,
-        "surge_ratio": 2.43
+        "sequence": "70",
+        "recent_count": 2,
+        "recent_freq": 0.02,
+        "baseline_freq": 0.0084,
+        "surge_ratio": 2.39
       }
     ],
     "surging_3digit": [
@@ -502,57 +508,57 @@
         "sequence": "270",
         "recent_count": 1,
         "recent_freq": 0.0125,
-        "baseline_freq": 0.0006,
-        "surge_ratio": 22.7
+        "baseline_freq": 0.0005,
+        "surge_ratio": 22.75
+      },
+      {
+        "sequence": "107",
+        "recent_count": 1,
+        "recent_freq": 0.0125,
+        "baseline_freq": 0.0005,
+        "surge_ratio": 22.75
+      },
+      {
+        "sequence": "173",
+        "recent_count": 1,
+        "recent_freq": 0.0125,
+        "baseline_freq": 0.0005,
+        "surge_ratio": 22.75
       },
       {
         "sequence": "701",
         "recent_count": 1,
         "recent_freq": 0.0125,
-        "baseline_freq": 0.0006,
-        "surge_ratio": 22.7
+        "baseline_freq": 0.0005,
+        "surge_ratio": 22.75
+      },
+      {
+        "sequence": "004",
+        "recent_count": 1,
+        "recent_freq": 0.0125,
+        "baseline_freq": 0.0005,
+        "surge_ratio": 22.75
+      },
+      {
+        "sequence": "184",
+        "recent_count": 1,
+        "recent_freq": 0.0125,
+        "baseline_freq": 0.0005,
+        "surge_ratio": 22.75
       },
       {
         "sequence": "514",
         "recent_count": 2,
         "recent_freq": 0.025,
         "baseline_freq": 0.0011,
-        "surge_ratio": 22.7
+        "surge_ratio": 22.75
       },
       {
-        "sequence": "615",
+        "sequence": "046",
         "recent_count": 1,
         "recent_freq": 0.0125,
-        "baseline_freq": 0.0006,
-        "surge_ratio": 22.7
-      },
-      {
-        "sequence": "056",
-        "recent_count": 1,
-        "recent_freq": 0.0125,
-        "baseline_freq": 0.0006,
-        "surge_ratio": 22.7
-      },
-      {
-        "sequence": "232",
-        "recent_count": 1,
-        "recent_freq": 0.0125,
-        "baseline_freq": 0.0006,
-        "surge_ratio": 22.7
-      },
-      {
-        "sequence": "184",
-        "recent_count": 1,
-        "recent_freq": 0.0125,
-        "baseline_freq": 0.0006,
-        "surge_ratio": 22.7
-      },
-      {
-        "sequence": "322",
-        "recent_count": 1,
-        "recent_freq": 0.0125,
-        "baseline_freq": 0.0006,
-        "surge_ratio": 22.7
+        "baseline_freq": 0.0005,
+        "surge_ratio": 22.75
       }
     ],
     "digit_trends": {
@@ -594,7 +600,6 @@
           "digit1"
         ],
         "positions_dropping": [
-          "digit2",
           "digit5"
         ]
       },
@@ -602,7 +607,9 @@
         "positions_spiking": [],
         "positions_dropping": [
           "digit1",
-          "digit2"
+          "digit2",
+          "digit3",
+          "digit5"
         ]
       },
       "6": {
@@ -616,8 +623,6 @@
       },
       "7": {
         "positions_spiking": [
-          "digit5",
-          "digit2",
           "digit3",
           "digit4"
         ],
@@ -625,13 +630,11 @@
       },
       "8": {
         "positions_spiking": [
-          "digit5",
-          "digit1"
+          "digit5"
         ],
         "positions_dropping": [
           "digit2",
-          "digit4",
-          "digit3"
+          "digit4"
         ]
       },
       "9": {
@@ -640,7 +643,6 @@
         ],
         "positions_dropping": [
           "digit1",
-          "digit4",
           "digit5"
         ]
       }
@@ -658,7 +660,7 @@
           "status": "🔥 HOT"
         },
         {
-          "digit": "2",
+          "digit": "6",
           "count": 33,
           "frequency": 0.11,
           "pct": 11.0,
@@ -666,27 +668,35 @@
           "status": "OK"
         },
         {
-          "digit": "6",
-          "count": 32,
-          "frequency": 0.10667,
-          "pct": 10.67,
-          "z_score": 0.385,
-          "status": "OK"
-        },
-        {
-          "digit": "8",
-          "count": 32,
-          "frequency": 0.10667,
-          "pct": 10.67,
-          "z_score": 0.385,
+          "digit": "2",
+          "count": 31,
+          "frequency": 0.10333,
+          "pct": 10.33,
+          "z_score": 0.192,
           "status": "OK"
         },
         {
           "digit": "4",
-          "count": 30,
-          "frequency": 0.1,
-          "pct": 10.0,
-          "z_score": 0.0,
+          "count": 31,
+          "frequency": 0.10333,
+          "pct": 10.33,
+          "z_score": 0.192,
+          "status": "OK"
+        },
+        {
+          "digit": "8",
+          "count": 31,
+          "frequency": 0.10333,
+          "pct": 10.33,
+          "z_score": 0.192,
+          "status": "OK"
+        },
+        {
+          "digit": "5",
+          "count": 29,
+          "frequency": 0.09667,
+          "pct": 9.67,
+          "z_score": -0.192,
           "status": "OK"
         },
         {
@@ -707,14 +717,6 @@
         },
         {
           "digit": "9",
-          "count": 28,
-          "frequency": 0.09333,
-          "pct": 9.33,
-          "z_score": -0.385,
-          "status": "OK"
-        },
-        {
-          "digit": "5",
           "count": 27,
           "frequency": 0.09,
           "pct": 9.0,
@@ -744,19 +746,19 @@
               "pct": 12.0
             },
             {
-              "digit": "4",
+              "digit": "5",
               "count": 6,
               "pct": 12.0
             }
           ],
           "top3_cold": [
             {
-              "digit": "3",
-              "count": 3,
-              "pct": 6.0
+              "digit": "6",
+              "count": 4,
+              "pct": 8.0
             },
             {
-              "digit": "6",
+              "digit": "3",
               "count": 3,
               "pct": 6.0
             },
@@ -787,17 +789,17 @@
           ],
           "top3_cold": [
             {
-              "digit": "8",
-              "count": 3,
-              "pct": 6.0
-            },
-            {
               "digit": "9",
               "count": 3,
               "pct": 6.0
             },
             {
               "digit": "2",
+              "count": 2,
+              "pct": 4.0
+            },
+            {
+              "digit": "8",
               "count": 2,
               "pct": 4.0
             }
@@ -823,19 +825,19 @@
           ],
           "top3_cold": [
             {
-              "digit": "4",
-              "count": 4,
-              "pct": 8.0
-            },
-            {
               "digit": "8",
               "count": 4,
               "pct": 8.0
             },
             {
+              "digit": "2",
+              "count": 3,
+              "pct": 6.0
+            },
+            {
               "digit": "5",
-              "count": 2,
-              "pct": 4.0
+              "count": 3,
+              "pct": 6.0
             }
           ]
         },
@@ -852,17 +854,12 @@
               "pct": 16.0
             },
             {
-              "digit": "8",
+              "digit": "6",
               "count": 8,
               "pct": 16.0
             }
           ],
           "top3_cold": [
-            {
-              "digit": "9",
-              "count": 3,
-              "pct": 6.0
-            },
             {
               "digit": "1",
               "count": 2,
@@ -870,6 +867,11 @@
             },
             {
               "digit": "4",
+              "count": 2,
+              "pct": 4.0
+            },
+            {
+              "digit": "9",
               "count": 2,
               "pct": 4.0
             }
@@ -895,14 +897,14 @@
           ],
           "top3_cold": [
             {
-              "digit": "8",
+              "digit": "6",
               "count": 5,
               "pct": 10.0
             },
             {
-              "digit": "5",
-              "count": 4,
-              "pct": 8.0
+              "digit": "8",
+              "count": 5,
+              "pct": 10.0
             },
             {
               "digit": "3",
@@ -914,12 +916,12 @@
         "digit6": {
           "top3_hot": [
             {
-              "digit": "2",
+              "digit": "4",
               "count": 8,
               "pct": 16.0
             },
             {
-              "digit": "4",
+              "digit": "2",
               "count": 7,
               "pct": 14.0
             },
@@ -956,60 +958,60 @@
           "digit": "1",
           "recent_count": 24,
           "recent_pct": 8.0,
-          "gap_draws": 1,
+          "gap_draws": 2,
           "status": "OK"
         },
         {
-          "digit": "5",
+          "digit": "9",
           "recent_count": 27,
           "recent_pct": 9.0,
-          "gap_draws": 5,
-          "status": "OK"
+          "gap_draws": 7,
+          "status": "OVERDUE"
         },
         {
           "digit": "0",
           "recent_count": 28,
           "recent_pct": 9.33,
-          "gap_draws": 1,
+          "gap_draws": 2,
           "status": "OK"
         },
         {
           "digit": "3",
           "recent_count": 28,
           "recent_pct": 9.33,
-          "gap_draws": 0,
-          "status": "OK"
-        },
-        {
-          "digit": "9",
-          "recent_count": 28,
-          "recent_pct": 9.33,
-          "gap_draws": 6,
-          "status": "OVERDUE"
-        },
-        {
-          "digit": "4",
-          "recent_count": 30,
-          "recent_pct": 10.0,
-          "gap_draws": 0,
-          "status": "OK"
-        },
-        {
-          "digit": "6",
-          "recent_count": 32,
-          "recent_pct": 10.67,
-          "gap_draws": 3,
-          "status": "OK"
-        },
-        {
-          "digit": "8",
-          "recent_count": 32,
-          "recent_pct": 10.67,
           "gap_draws": 1,
           "status": "OK"
         },
         {
+          "digit": "5",
+          "recent_count": 29,
+          "recent_pct": 9.67,
+          "gap_draws": 0,
+          "status": "OK"
+        },
+        {
           "digit": "2",
+          "recent_count": 31,
+          "recent_pct": 10.33,
+          "gap_draws": 1,
+          "status": "OK"
+        },
+        {
+          "digit": "4",
+          "recent_count": 31,
+          "recent_pct": 10.33,
+          "gap_draws": 0,
+          "status": "OK"
+        },
+        {
+          "digit": "8",
+          "recent_count": 31,
+          "recent_pct": 10.33,
+          "gap_draws": 2,
+          "status": "OK"
+        },
+        {
+          "digit": "6",
           "recent_count": 33,
           "recent_pct": 11.0,
           "gap_draws": 0,
@@ -1019,7 +1021,7 @@
           "digit": "7",
           "recent_count": 38,
           "recent_pct": 12.67,
-          "gap_draws": 1,
+          "gap_draws": 2,
           "status": "OK"
         }
       ],
@@ -1027,389 +1029,385 @@
         "digit1": [
           {
             "digit": "8",
-            "gap": 15
+            "gap": 16
           },
           {
             "digit": "3",
-            "gap": 13
+            "gap": 14
           },
           {
             "digit": "5",
-            "gap": 12
+            "gap": 13
           },
           {
             "digit": "1",
-            "gap": 10
+            "gap": 11
           },
           {
             "digit": "2",
-            "gap": 9
+            "gap": 10
           }
         ],
         "digit2": [
           {
             "digit": "6",
-            "gap": 21
-          },
-          {
-            "digit": "4",
-            "gap": 17
+            "gap": 22
           },
           {
             "digit": "9",
-            "gap": 14
+            "gap": 15
           },
           {
             "digit": "7",
-            "gap": 10
+            "gap": 11
           },
           {
             "digit": "8",
+            "gap": 10
+          },
+          {
+            "digit": "5",
             "gap": 9
           }
         ],
         "digit3": [
           {
-            "digit": "5",
-            "gap": 24
-          },
-          {
             "digit": "8",
-            "gap": 19
+            "gap": 20
           },
           {
             "digit": "6",
-            "gap": 12
-          },
-          {
-            "digit": "9",
-            "gap": 7
-          },
-          {
-            "digit": "4",
-            "gap": 5
-          }
-        ],
-        "digit4": [
-          {
-            "digit": "9",
-            "gap": 19
-          },
-          {
-            "digit": "8",
-            "gap": 16
-          },
-          {
-            "digit": "5",
-            "gap": 14
-          },
-          {
-            "digit": "0",
-            "gap": 12
-          },
-          {
-            "digit": "3",
-            "gap": 11
-          }
-        ],
-        "digit5": [
-          {
-            "digit": "3",
-            "gap": 55
-          },
-          {
-            "digit": "5",
-            "gap": 22
-          },
-          {
-            "digit": "6",
-            "gap": 16
+            "gap": 13
           },
           {
             "digit": "9",
             "gap": 8
           },
           {
-            "digit": "7",
+            "digit": "4",
             "gap": 6
+          },
+          {
+            "digit": "7",
+            "gap": 5
+          }
+        ],
+        "digit4": [
+          {
+            "digit": "9",
+            "gap": 20
+          },
+          {
+            "digit": "8",
+            "gap": 17
+          },
+          {
+            "digit": "5",
+            "gap": 15
+          },
+          {
+            "digit": "0",
+            "gap": 13
+          },
+          {
+            "digit": "3",
+            "gap": 12
+          }
+        ],
+        "digit5": [
+          {
+            "digit": "3",
+            "gap": 56
+          },
+          {
+            "digit": "6",
+            "gap": 17
+          },
+          {
+            "digit": "9",
+            "gap": 9
+          },
+          {
+            "digit": "7",
+            "gap": 7
+          },
+          {
+            "digit": "1",
+            "gap": 5
           }
         ],
         "digit6": [
           {
             "digit": "8",
-            "gap": 24
+            "gap": 25
           },
           {
             "digit": "3",
-            "gap": 17
+            "gap": 18
           },
           {
             "digit": "6",
-            "gap": 16
+            "gap": 17
           },
           {
             "digit": "7",
-            "gap": 11
+            "gap": 12
           },
           {
             "digit": "9",
-            "gap": 6
+            "gap": 7
           }
         ]
       }
     }
   },
   "explanation": {
-    "number": "739224",
+    "number": "243863",
     "overall_factor_scores": {
-      "pattern_score": 0.12244,
-      "probability_score": 0.74866,
-      "heatmap_score": 0.21444,
-      "grand_total": 1.08554
+      "pattern_score": 0.21317,
+      "probability_score": 0.76392,
+      "heatmap_score": 0.18013,
+      "grand_total": 1.15722
     },
     "overall_factor_pct": {
-      "pattern_pct": 11.3,
-      "probability_pct": 69.0,
-      "heatmap_pct": 19.8
+      "pattern_pct": 18.4,
+      "probability_pct": 66.0,
+      "heatmap_pct": 15.6
     },
     "positions": [
       {
         "position": "digit1",
-        "digit": 7,
+        "digit": 2,
         "raw_signals": {
-          "positional_freq": 0.07806,
-          "rolling_heat": 0.1,
-          "gap_overdue": 0.22493,
-          "pattern_hot": 0.10162,
+          "positional_freq": 0.10947,
+          "rolling_heat": 0.12,
+          "gap_overdue": 0.38893,
+          "pattern_hot": 0.09789,
           "conditional": 0.1,
           "pair_lift": 0.0,
-          "transition": 0.04348,
-          "temporal_trend": 0.11111
+          "transition": 0.16667,
+          "temporal_trend": 0.13043
         },
         "factor_scores": {
-          "pattern_score": 0.02816,
-          "probability_score": 0.03496,
-          "heatmap_score": 0.02778,
-          "total": 0.09089
+          "pattern_score": 0.0409,
+          "probability_score": 0.05356,
+          "heatmap_score": 0.03313,
+          "total": 0.1276
         },
         "factor_contribution": {
-          "pattern_pct": 31.0,
-          "probability_pct": 38.5,
-          "heatmap_pct": 30.6
+          "pattern_pct": 32.1,
+          "probability_pct": 42.0,
+          "heatmap_pct": 26.0
         },
         "reasons": {
           "th": [
-            "ตัวเลข 7 ออกน้อยกว่าค่าเฉลี่ยที่ตำแหน่งนี้ (7.8%)"
+            "จากงวดก่อน ตำแหน่งนี้มักจะเปลี่ยนมาเป็น 2 (16.7%)"
           ],
           "en": [
-            "Digit 7 appears less frequently than average here (7.8%)"
+            "From last draw, this position frequently transitions to 2 (16.7%)"
           ]
         }
       },
       {
         "position": "digit2",
-        "digit": 3,
+        "digit": 4,
         "raw_signals": {
-          "positional_freq": 0.10759,
-          "rolling_heat": 0.16,
-          "gap_overdue": 0.22493,
-          "pattern_hot": 0.10338,
-          "conditional": 0.21622,
-          "pair_lift": 1.00477,
-          "transition": 0.13953,
-          "temporal_trend": 0.15556
+          "positional_freq": 0.10105,
+          "rolling_heat": 0.12,
+          "gap_overdue": 0.0,
+          "pattern_hot": 0.1014,
+          "conditional": 0.11538,
+          "pair_lift": 0.57091,
+          "transition": 0.04167,
+          "temporal_trend": 0.13043
         },
         "factor_scores": {
-          "pattern_score": 0.02833,
-          "probability_score": 0.16838,
-          "heatmap_score": 0.04289,
-          "total": 0.2396
+          "pattern_score": 0.01014,
+          "probability_score": 0.09878,
+          "heatmap_score": 0.03313,
+          "total": 0.14205
         },
         "factor_contribution": {
-          "pattern_pct": 11.8,
-          "probability_pct": 70.3,
-          "heatmap_pct": 17.9
+          "pattern_pct": 7.1,
+          "probability_pct": 69.5,
+          "heatmap_pct": 23.3
         },
         "reasons": {
           "th": [
-            "เมื่อตำแหน่งก่อนออก 7 มีโอกาส 21.6% ที่ตำแหน่งนี้จะออก 3",
-            "คู่ 73 มี lift สูง — ออกร่วมกันบ่อยกว่าที่ควรจะเป็น",
-            "🔥 HOT: ออก 16.0% ใน 50 งวดล่าสุด (เหนือค่าเฉลี่ย)"
+            "ตัวเลข 4 มีคะแนนสมดุลระหว่างทุก signal"
           ],
           "en": [
-            "When previous digit is 7, there's a 21.6% chance this digit is 3",
-            "Pair 73 has high lift — appears together more often than expected",
-            "🔥 HOT: Appeared 16.0% in last 50 draws (above average)"
+            "Digit 4 has a balanced score across all signals"
           ]
         }
       },
       {
         "position": "digit3",
-        "digit": 9,
+        "digit": 3,
         "raw_signals": {
-          "positional_freq": 0.09705,
-          "rolling_heat": 0.14,
-          "gap_overdue": 0.33739,
-          "pattern_hot": 0.09248,
-          "conditional": 0.11765,
-          "pair_lift": 0.60614,
-          "transition": 0.03922,
-          "temporal_trend": 0.13333
+          "positional_freq": 0.10737,
+          "rolling_heat": 0.1,
+          "gap_overdue": 0.11243,
+          "pattern_hot": 0.10316,
+          "conditional": 0.25,
+          "pair_lift": 1.16422,
+          "transition": 0.08333,
+          "temporal_trend": 0.1087
         },
         "factor_scores": {
-          "pattern_score": 0.03624,
-          "probability_score": 0.10159,
-          "heatmap_score": 0.03733,
-          "total": 0.17516
+          "pattern_score": 0.01931,
+          "probability_score": 0.18373,
+          "heatmap_score": 0.02761,
+          "total": 0.23065
         },
         "factor_contribution": {
-          "pattern_pct": 20.7,
-          "probability_pct": 58.0,
-          "heatmap_pct": 21.3
+          "pattern_pct": 8.4,
+          "probability_pct": 79.7,
+          "heatmap_pct": 12.0
         },
         "reasons": {
           "th": [
-            "คู่ 39 มี lift สูง — ออกร่วมกันบ่อยกว่าที่ควรจะเป็น",
-            "🔥 HOT: ออก 14.0% ใน 50 งวดล่าสุด (เหนือค่าเฉลี่ย)"
+            "เมื่อตำแหน่งก่อนออก 4 มีโอกาส 25.0% ที่ตำแหน่งนี้จะออก 3",
+            "คู่ 43 มี lift สูง — ออกร่วมกันบ่อยกว่าที่ควรจะเป็น"
           ],
           "en": [
-            "Pair 39 has high lift — appears together more often than expected",
-            "🔥 HOT: Appeared 14.0% in last 50 draws (above average)"
+            "When previous digit is 4, there's a 25.0% chance this digit is 3",
+            "Pair 43 has high lift — appears together more often than expected"
           ]
         }
       },
       {
         "position": "digit4",
-        "digit": 2,
+        "digit": 8,
         "raw_signals": {
-          "positional_freq": 0.09072,
+          "positional_freq": 0.10105,
           "rolling_heat": 0.16,
-          "gap_overdue": 0.0,
-          "pattern_hot": 0.0981,
-          "conditional": 0.13043,
-          "pair_lift": 0.71891,
-          "transition": 0.13953,
-          "temporal_trend": 0.15556
+          "gap_overdue": 0.4688,
+          "pattern_hot": 0.09509,
+          "conditional": 0.11765,
+          "pair_lift": 0.58211,
+          "transition": 0.11111,
+          "temporal_trend": 0.13043
         },
         "factor_scores": {
-          "pattern_score": 0.00981,
-          "probability_score": 0.12355,
-          "heatmap_score": 0.04289,
-          "total": 0.17625
+          "pattern_score": 0.04701,
+          "probability_score": 0.10718,
+          "heatmap_score": 0.04113,
+          "total": 0.19532
         },
         "factor_contribution": {
-          "pattern_pct": 5.6,
-          "probability_pct": 70.1,
-          "heatmap_pct": 24.3
+          "pattern_pct": 24.1,
+          "probability_pct": 54.9,
+          "heatmap_pct": 21.1
         },
         "reasons": {
           "th": [
-            "เมื่อตำแหน่งก่อนออก 9 มีโอกาส 13.0% ที่ตำแหน่งนี้จะออก 2",
-            "คู่ 92 มี lift สูง — ออกร่วมกันบ่อยกว่าที่ควรจะเป็น",
-            "🔥 HOT: ออก 16.0% ใน 50 งวดล่าสุด (เหนือค่าเฉลี่ย)"
+            "🔥 HOT: ออก 16.0% ใน 50 งวดล่าสุด (เหนือค่าเฉลี่ย)",
+            "ตัวเลข 8 ไม่ได้ออกมาสักพักที่ตำแหน่งนี้ (gap score=0.47)"
           ],
           "en": [
-            "When previous digit is 9, there's a 13.0% chance this digit is 2",
-            "Pair 92 has high lift — appears together more often than expected",
-            "🔥 HOT: Appeared 16.0% in last 50 draws (above average)"
+            "🔥 HOT: Appeared 16.0% in last 50 draws (above average)",
+            "Digit 8 hasn't appeared recently in this position (gap score=0.47)"
           ]
         }
       },
       {
         "position": "digit5",
-        "digit": 2,
+        "digit": 6,
         "raw_signals": {
-          "positional_freq": 0.09916,
+          "positional_freq": 0.10316,
           "rolling_heat": 0.1,
-          "gap_overdue": 0.0,
-          "pattern_hot": 0.0981,
-          "conditional": 0.2093,
-          "pair_lift": 1.05542,
-          "transition": 0.12766,
-          "temporal_trend": 0.08889
+          "gap_overdue": 0.4688,
+          "pattern_hot": 0.09789,
+          "conditional": 0.22917,
+          "pair_lift": 1.11076,
+          "transition": 0.17778,
+          "temporal_trend": 0.08696
         },
         "factor_scores": {
-          "pattern_score": 0.00981,
-          "probability_score": 0.16953,
-          "heatmap_score": 0.02622,
-          "total": 0.20557
+          "pattern_score": 0.04729,
+          "probability_score": 0.18386,
+          "heatmap_score": 0.02609,
+          "total": 0.25724
         },
         "factor_contribution": {
-          "pattern_pct": 4.8,
-          "probability_pct": 82.5,
-          "heatmap_pct": 12.8
+          "pattern_pct": 18.4,
+          "probability_pct": 71.5,
+          "heatmap_pct": 10.1
         },
         "reasons": {
           "th": [
-            "เมื่อตำแหน่งก่อนออก 2 มีโอกาส 20.9% ที่ตำแหน่งนี้จะออก 2",
-            "คู่ 22 มี lift สูง — ออกร่วมกันบ่อยกว่าที่ควรจะเป็น"
+            "เมื่อตำแหน่งก่อนออก 8 มีโอกาส 22.9% ที่ตำแหน่งนี้จะออก 6",
+            "จากงวดก่อน ตำแหน่งนี้มักจะเปลี่ยนมาเป็น 6 (17.8%)",
+            "คู่ 86 มี lift สูง — ออกร่วมกันบ่อยกว่าที่ควรจะเป็น",
+            "ตัวเลข 6 ไม่ได้ออกมาสักพักที่ตำแหน่งนี้ (gap score=0.47)"
           ],
           "en": [
-            "When previous digit is 2, there's a 20.9% chance this digit is 2",
-            "Pair 22 has high lift — appears together more often than expected"
+            "When previous digit is 8, there's a 22.9% chance this digit is 6",
+            "From last draw, this position frequently transitions to 6 (17.8%)",
+            "Pair 86 has high lift — appears together more often than expected",
+            "Digit 6 hasn't appeared recently in this position (gap score=0.47)"
           ]
         }
       },
       {
         "position": "digit6",
-        "digit": 4,
+        "digit": 3,
         "raw_signals": {
-          "positional_freq": 0.11392,
-          "rolling_heat": 0.14,
-          "gap_overdue": 0.0,
-          "pattern_hot": 0.10091,
-          "conditional": 0.19149,
-          "pair_lift": 0.84043,
-          "transition": 0.15094,
-          "temporal_trend": 0.13333
+          "positional_freq": 0.10737,
+          "rolling_heat": 0.08,
+          "gap_overdue": 0.47757,
+          "pattern_hot": 0.10316,
+          "conditional": 0.16327,
+          "pair_lift": 0.7603,
+          "transition": 0.14815,
+          "temporal_trend": 0.04348
         },
         "factor_scores": {
-          "pattern_score": 0.01009,
-          "probability_score": 0.15065,
-          "heatmap_score": 0.03733,
-          "total": 0.19807
+          "pattern_score": 0.04852,
+          "probability_score": 0.13681,
+          "heatmap_score": 0.01904,
+          "total": 0.20437
         },
         "factor_contribution": {
-          "pattern_pct": 5.1,
-          "probability_pct": 76.1,
-          "heatmap_pct": 18.8
+          "pattern_pct": 23.7,
+          "probability_pct": 66.9,
+          "heatmap_pct": 9.3
         },
         "reasons": {
           "th": [
-            "ตัวเลข 4 ออกบ่อยกว่าค่าเฉลี่ยที่ตำแหน่งนี้ (11.4% vs 10%)",
-            "เมื่อตำแหน่งก่อนออก 2 มีโอกาส 19.1% ที่ตำแหน่งนี้จะออก 4",
-            "จากงวดก่อน ตำแหน่งนี้มักจะเปลี่ยนมาเป็น 4 (15.1%)",
-            "คู่ 24 มี lift สูง — ออกร่วมกันบ่อยกว่าที่ควรจะเป็น",
-            "🔥 HOT: ออก 14.0% ใน 50 งวดล่าสุด (เหนือค่าเฉลี่ย)"
+            "เมื่อตำแหน่งก่อนออก 6 มีโอกาส 16.3% ที่ตำแหน่งนี้จะออก 3",
+            "จากงวดก่อน ตำแหน่งนี้มักจะเปลี่ยนมาเป็น 3 (14.8%)",
+            "คู่ 63 มี lift สูง — ออกร่วมกันบ่อยกว่าที่ควรจะเป็น",
+            "ตัวเลข 3 ไม่ได้ออกมาสักพักที่ตำแหน่งนี้ (gap score=0.48)"
           ],
           "en": [
-            "Digit 4 appears more frequently than average here (11.4% vs 10%)",
-            "When previous digit is 2, there's a 19.1% chance this digit is 4",
-            "From last draw, this position frequently transitions to 4 (15.1%)",
-            "Pair 24 has high lift — appears together more often than expected",
-            "🔥 HOT: Appeared 14.0% in last 50 draws (above average)"
+            "When previous digit is 6, there's a 16.3% chance this digit is 3",
+            "From last draw, this position frequently transitions to 3 (14.8%)",
+            "Pair 63 has high lift — appears together more often than expected",
+            "Digit 3 hasn't appeared recently in this position (gap score=0.48)"
           ]
         }
       }
     ],
-    "explained_at": "2026-11-01T14:23:30.134690",
+    "explained_at": "2026-11-16T17:12:57.136129",
     "ensemble_confidence": 100.0
   },
   "meta": {
-    "total_draws": 474,
-    "latest_draw": "2026-11-01",
+    "total_draws": 475,
+    "latest_draw": "2026-11-16",
     "dataset": {
-      "total_draws": 474,
-      "latest": "2026-11-01",
-      "latest_number": "423224",
-      "last2": "85",
+      "total_draws": 475,
+      "latest": "2026-11-16",
+      "latest_number": "645654",
+      "last2": "06",
       "front3": [
-        "300",
-        "950"
+        "938",
+        "101"
       ],
       "back3": [
-        "393",
-        "804"
+        "106",
+        "782"
       ]
     },
     "params": {
@@ -1417,7 +1415,7 @@
       "beam": 5,
       "window": 50
     },
-    "processing_at": "2026-11-01T14:23:30.135870",
+    "processing_at": "2026-11-16T17:12:57.137122",
     "api_version": "1.0"
   }
 }

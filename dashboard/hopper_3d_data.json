@@ -1,10 +1,10 @@
 {
   "meta": {
-    "generated_at": "2026-11-01T15:50:51.298Z",
+    "generated_at": "2026-11-16T17:12:57.384Z",
     "version": "2.0-showcase",
     "theme": "golden-emerald-luxury",
-    "latest_draw": "2026-11-01",
-    "total_draws": 474,
+    "latest_draw": "2026-11-16",
+    "total_draws": 475,
     "total_balls": 40,
     "chamber_radius": 12,
     "next_draw": {
@@ -18,50 +18,50 @@
       "title": "รางวัลที่ 1 (Grand Jackpot)",
       "subtitle": "ชุดตัวเลข 6 ตัวเด่นสูงสุด พร้อมเลขเคียงข้างดักรางวัล ±1",
       "primary": {
-        "number": "739224",
+        "number": "243863",
         "confidence": 100,
-        "sum": 27,
-        "even_odd": "3คู่ / 3คี่",
+        "sum": 26,
+        "even_odd": "4คู่ / 2คี่",
         "neighbors": [
-          "739223",
-          "739225"
+          "243862",
+          "243864"
         ]
       },
       "portfolio": [
         {
-          "number": "739224",
+          "number": "243863",
           "confidence": 100,
-          "sum": 27,
-          "even_odd": "3คู่ / 3คี่",
+          "sum": 26,
+          "even_odd": "4คู่ / 2คี่",
           "neighbors": [
-            "739223",
-            "739225"
+            "243862",
+            "243864"
           ]
         },
         {
-          "number": "839224",
-          "confidence": 89.24,
-          "sum": 28,
+          "number": "843863",
+          "confidence": 79.84,
+          "sum": 32,
           "even_odd": "4คู่ / 2คี่",
           "neighbors": [
-            "839223",
-            "839225"
+            "843862",
+            "843864"
           ]
         },
         {
-          "number": "569224",
-          "confidence": 78.83,
-          "sum": 28,
+          "number": "203863",
+          "confidence": 77.52,
+          "sum": 22,
           "even_odd": "4คู่ / 2คี่",
           "neighbors": [
-            "569223",
-            "569225"
+            "203862",
+            "203864"
           ]
         }
       ],
       "neighbors": [
-        "739223",
-        "739225"
+        "243862",
+        "243864"
       ]
     },
     "zone2_two_digit": {
@@ -69,36 +69,36 @@
       "subtitle": "คู่ 2 ตัวบนตรง-กลับ และ 2 ตัวล่าง สถิติความแม่นยำสูง",
       "pairs": [
         {
-          "direct": "24",
-          "reverse": "42",
+          "direct": "86",
+          "reverse": "68",
           "pair_set": [
-            "24",
-            "42"
+            "86",
+            "68"
           ]
         },
         {
-          "direct": "25",
-          "reverse": "52",
+          "direct": "06",
+          "reverse": "60",
           "pair_set": [
-            "25",
-            "52"
+            "06",
+            "60"
           ]
         },
         {
-          "direct": "54",
-          "reverse": "45",
+          "direct": "82",
+          "reverse": "28",
           "pair_set": [
-            "54",
-            "45"
+            "82",
+            "28"
           ]
         }
       ],
       "best_pair": {
-        "direct": "24",
-        "reverse": "42",
+        "direct": "86",
+        "reverse": "68",
         "pair_set": [
-          "24",
-          "42"
+          "86",
+          "68"
         ]
       }
     },
@@ -107,40 +107,37 @@
       "subtitle": "คลัสเตอร์ 3 ตัวท้าย พร้อมสูตรกระจายสลับตำแหน่ง 6 ทิศทาง",
       "box_list": [
         {
-          "direct": "824",
-          "score": 0.002654,
+          "direct": "886",
+          "score": 0.002408,
           "permutations": [
-            "248",
-            "284",
-            "428",
-            "482",
-            "824",
-            "842"
-          ],
-          "perm_count": 6
-        },
-        {
-          "direct": "224",
-          "score": 0.002537,
-          "permutations": [
-            "224",
-            "242",
-            "422"
+            "688",
+            "868",
+            "886"
           ],
           "perm_count": 3
         },
         {
-          "direct": "825",
-          "score": 0.002498,
+          "direct": "806",
+          "score": 0.002377,
           "permutations": [
-            "258",
-            "285",
-            "528",
-            "582",
-            "825",
-            "852"
+            "068",
+            "086",
+            "608",
+            "680",
+            "806",
+            "860"
           ],
           "perm_count": 6
+        },
+        {
+          "direct": "882",
+          "score": 0.002363,
+          "permutations": [
+            "288",
+            "828",
+            "882"
+          ],
+          "perm_count": 3
         }
       ]
     },
@@ -149,12 +146,12 @@
       "subtitle": "เลขเด่นวิ่ง/รูด 19 ประตู ความน่าจะเป็นสะสมสูงสุด",
       "bankers": [
         {
-          "digit": "5",
-          "strength": 0.689
+          "digit": "8",
+          "strength": 0.715
         },
         {
-          "digit": "2",
-          "strength": 0.637
+          "digit": "5",
+          "strength": 0.63
         }
       ]
     },
@@ -163,124 +160,121 @@
       "subtitle": "การรวมน้ำหนัก Ensemble และประวัติ 20 ปีย้อนหลัง",
       "confidence": 96.8,
       "backtest_score": 15.25,
-      "draws_analyzed": 474,
-      "latest_result": "423224"
+      "draws_analyzed": 475,
+      "latest_result": "645654"
     }
   },
   "clusters": {
     "jackpot_6": [
       {
-        "number": "739224",
-        "score": 0.00008069,
+        "number": "243863",
+        "score": 0.00004063,
         "digits": [
-          "7",
+          "2",
+          "4",
           "3",
-          "9",
-          "2",
-          "2",
-          "4"
+          "8",
+          "6",
+          "3"
         ],
-        "sum": 27,
-        "even_odd": "3คู่ / 3คี่",
+        "sum": 26,
+        "even_odd": "4คู่ / 2คี่",
         "confidence": 100
       },
       {
-        "number": "839224",
-        "score": 0.00007201,
+        "number": "843863",
+        "score": 0.00003244,
         "digits": [
           "8",
+          "4",
           "3",
-          "9",
-          "2",
-          "2",
-          "4"
+          "8",
+          "6",
+          "3"
         ],
-        "sum": 28,
+        "sum": 32,
         "even_odd": "4คู่ / 2คี่",
-        "confidence": 89.24
+        "confidence": 79.84
       },
       {
-        "number": "569224",
-        "score": 0.00006361,
+        "number": "203863",
+        "score": 0.0000315,
         "digits": [
-          "5",
+          "2",
+          "0",
+          "3",
+          "8",
           "6",
-          "9",
-          "2",
-          "2",
-          "4"
+          "3"
         ],
-        "sum": 28,
+        "sum": 22,
         "even_odd": "4คู่ / 2คี่",
-        "confidence": 78.83
+        "confidence": 77.52
       }
     ],
     "banker_digits": [
-      "5",
-      "2"
+      "8",
+      "5"
     ],
     "top2_pairs": [
       {
-        "direct": "24",
-        "reverse": "42",
+        "direct": "86",
+        "reverse": "68",
         "pair_set": [
-          "24",
-          "42"
+          "86",
+          "68"
         ]
       },
       {
-        "direct": "25",
-        "reverse": "52",
+        "direct": "06",
+        "reverse": "60",
         "pair_set": [
-          "25",
-          "52"
+          "06",
+          "60"
         ]
       },
       {
-        "direct": "54",
-        "reverse": "45",
+        "direct": "82",
+        "reverse": "28",
         "pair_set": [
-          "54",
-          "45"
+          "82",
+          "28"
         ]
       }
     ],
     "box_3": [
       {
-        "direct": "824",
-        "score": 0.002654,
+        "direct": "886",
+        "score": 0.002408,
         "permutations": [
-          "248",
-          "284",
-          "428",
-          "482",
-          "824",
-          "842"
-        ],
-        "perm_count": 6
-      },
-      {
-        "direct": "224",
-        "score": 0.002537,
-        "permutations": [
-          "224",
-          "242",
-          "422"
+          "688",
+          "868",
+          "886"
         ],
         "perm_count": 3
       },
       {
-        "direct": "825",
-        "score": 0.002498,
+        "direct": "806",
+        "score": 0.002377,
         "permutations": [
-          "258",
-          "285",
-          "528",
-          "582",
-          "825",
-          "852"
+          "068",
+          "086",
+          "608",
+          "680",
+          "806",
+          "860"
         ],
         "perm_count": 6
+      },
+      {
+        "direct": "882",
+        "score": 0.002363,
+        "permutations": [
+          "288",
+          "828",
+          "882"
+        ],
+        "perm_count": 3
       }
     ]
   },
@@ -352,34 +346,34 @@
     {
       "id": "ball-2-0",
       "digit": 2,
-      "tier": "banker",
-      "color": "#10b981",
+      "tier": "jackpot",
+      "color": "#fde047",
       "glow": true,
-      "weight": 1.5
+      "weight": 1.3
     },
     {
       "id": "ball-2-1",
       "digit": 2,
-      "tier": "banker",
-      "color": "#10b981",
+      "tier": "jackpot",
+      "color": "#fde047",
       "glow": true,
-      "weight": 1.5
+      "weight": 1.3
     },
     {
       "id": "ball-2-2",
       "digit": 2,
-      "tier": "banker",
-      "color": "#10b981",
+      "tier": "jackpot",
+      "color": "#fde047",
       "glow": true,
-      "weight": 1.5
+      "weight": 1.3
     },
     {
       "id": "ball-2-3",
       "digit": 2,
-      "tier": "banker",
-      "color": "#10b981",
+      "tier": "jackpot",
+      "color": "#fde047",
       "glow": true,
-      "weight": 1.5
+      "weight": 1.3
     },
     {
       "id": "ball-3-0",
@@ -480,130 +474,130 @@
     {
       "id": "ball-6-0",
       "digit": 6,
-      "tier": "standard",
-      "color": "#d4af37",
-      "glow": false,
-      "weight": 1
+      "tier": "jackpot",
+      "color": "#fde047",
+      "glow": true,
+      "weight": 1.3
     },
     {
       "id": "ball-6-1",
       "digit": 6,
-      "tier": "standard",
-      "color": "#d4af37",
-      "glow": false,
-      "weight": 1
+      "tier": "jackpot",
+      "color": "#fde047",
+      "glow": true,
+      "weight": 1.3
     },
     {
       "id": "ball-6-2",
       "digit": 6,
-      "tier": "standard",
-      "color": "#d4af37",
-      "glow": false,
-      "weight": 1
+      "tier": "jackpot",
+      "color": "#fde047",
+      "glow": true,
+      "weight": 1.3
     },
     {
       "id": "ball-6-3",
       "digit": 6,
-      "tier": "standard",
-      "color": "#d4af37",
-      "glow": false,
-      "weight": 1
+      "tier": "jackpot",
+      "color": "#fde047",
+      "glow": true,
+      "weight": 1.3
     },
     {
       "id": "ball-7-0",
       "digit": 7,
-      "tier": "jackpot",
-      "color": "#fde047",
-      "glow": true,
-      "weight": 1.3
+      "tier": "standard",
+      "color": "#d4af37",
+      "glow": false,
+      "weight": 1
     },
     {
       "id": "ball-7-1",
       "digit": 7,
-      "tier": "jackpot",
-      "color": "#fde047",
-      "glow": true,
-      "weight": 1.3
+      "tier": "standard",
+      "color": "#d4af37",
+      "glow": false,
+      "weight": 1
     },
     {
       "id": "ball-7-2",
       "digit": 7,
-      "tier": "jackpot",
-      "color": "#fde047",
-      "glow": true,
-      "weight": 1.3
+      "tier": "standard",
+      "color": "#d4af37",
+      "glow": false,
+      "weight": 1
     },
     {
       "id": "ball-7-3",
       "digit": 7,
-      "tier": "jackpot",
-      "color": "#fde047",
-      "glow": true,
-      "weight": 1.3
+      "tier": "standard",
+      "color": "#d4af37",
+      "glow": false,
+      "weight": 1
     },
     {
       "id": "ball-8-0",
       "digit": 8,
-      "tier": "standard",
-      "color": "#d4af37",
-      "glow": false,
-      "weight": 1
+      "tier": "banker",
+      "color": "#10b981",
+      "glow": true,
+      "weight": 1.5
     },
     {
       "id": "ball-8-1",
       "digit": 8,
-      "tier": "standard",
-      "color": "#d4af37",
-      "glow": false,
-      "weight": 1
+      "tier": "banker",
+      "color": "#10b981",
+      "glow": true,
+      "weight": 1.5
     },
     {
       "id": "ball-8-2",
       "digit": 8,
-      "tier": "standard",
-      "color": "#d4af37",
-      "glow": false,
-      "weight": 1
+      "tier": "banker",
+      "color": "#10b981",
+      "glow": true,
+      "weight": 1.5
     },
     {
       "id": "ball-8-3",
       "digit": 8,
+      "tier": "banker",
+      "color": "#10b981",
+      "glow": true,
+      "weight": 1.5
+    },
+    {
+      "id": "ball-9-0",
+      "digit": 9,
       "tier": "standard",
       "color": "#d4af37",
       "glow": false,
       "weight": 1
     },
     {
-      "id": "ball-9-0",
-      "digit": 9,
-      "tier": "jackpot",
-      "color": "#fde047",
-      "glow": true,
-      "weight": 1.3
-    },
-    {
       "id": "ball-9-1",
       "digit": 9,
-      "tier": "jackpot",
-      "color": "#fde047",
-      "glow": true,
-      "weight": 1.3
+      "tier": "standard",
+      "color": "#d4af37",
+      "glow": false,
+      "weight": 1
     },
     {
       "id": "ball-9-2",
       "digit": 9,
-      "tier": "jackpot",
-      "color": "#fde047",
-      "glow": true,
-      "weight": 1.3
+      "tier": "standard",
+      "color": "#d4af37",
+      "glow": false,
+      "weight": 1
     },
     {
       "id": "ball-9-3",
       "digit": 9,
-      "tier": "jackpot",
-      "color": "#fde047",
-      "glow": true,
-      "weight": 1.3
+      "tier": "standard",
+      "color": "#d4af37",
+      "glow": false,
+      "weight": 1
     }
   ]
 }
